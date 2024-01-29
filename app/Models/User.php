@@ -27,9 +27,18 @@ class User extends Authenticatable
         'password',
         'role',
     ];
+    public static $gender = [
+        '0' => 'Мужчина',
+        '1' => 'Женщина',
+    ];
 
+    public static $role = [
+        '0' => 'Администратор',
+        '1' => 'Пользователь',
+    ];
     protected $table = 'users';
     protected $guarded = false;
+
 
     /**
      * The attributes that should be hidden for serialization.
