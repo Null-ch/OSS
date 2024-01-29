@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
         <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">OSS</span>
     </a>
     
     <!-- Sidebar -->
@@ -25,7 +25,6 @@
                 <li class="nav-header">Основное</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Магазин
                             <i class="right fas fa-angle-left"></i>
@@ -34,39 +33,38 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Корзины</p>
+                                <i class="fa fa-shopping-cart m-r-20"></i>
+                                <p class="p-2">Корзины</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Категории</p>
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Цвета</p>
-                            </a>
-                        </li> --}}
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Заказы</p>
+                                <i class="fa fa-tasks"></i>
+                                <p class="p-2">Категории</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Товары</p>
+                                <i class="fa fa-paint-brush"></i>
+                                <p class="p-2">Цвета</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-rub"><b>$</b></i>
+                                <p class="p-2">Заказы</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-cubes"></i>
+                                <p class="p-2">Товары</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
                             Пользователи
                             <i class="right fas fa-angle-left"></i>
