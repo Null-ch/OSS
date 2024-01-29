@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('admin.main.index');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/', IndexController::class)->name('admin_index');
+    });
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

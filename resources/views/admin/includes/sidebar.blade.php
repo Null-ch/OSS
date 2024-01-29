@@ -13,7 +13,7 @@
                 <img src="{{ asset('adminlte/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Пользователь</a>
+                <p class="d-block text-white">Пользователь</p>
             </div>
         </div>
 
