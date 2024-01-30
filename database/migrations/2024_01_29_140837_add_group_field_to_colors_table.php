@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddHtmlCodeToColorsTable extends Migration
+class AddGroupFieldToColorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddHtmlCodeToColorsTable extends Migration
     {
         if (Schema::hasTable('colors')) {
             Schema::table('colors', function (Blueprint $table) {
-                $table->string('html_code');
+                $table->string('group')->after('hex_code');
             });
         }
     }
@@ -28,7 +28,7 @@ class AddHtmlCodeToColorsTable extends Migration
     public function down()
     {
         Schema::table('colors', function (Blueprint $table) {
-            $table->dropColumn('html_code');
+            $table->string('group');
         });
     }
 }
