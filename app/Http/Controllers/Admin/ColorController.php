@@ -15,7 +15,6 @@ class ColorController extends Controller
      */
     public function index()
     {
-        // $colors = Color::all();
         $colors = collect();
 
         Color::chunk(100, function ($results) use ($colors) {

@@ -9,9 +9,23 @@
                         <form action="{{ route('admin.user.store') }}" method="POST" class="w-25">
                             @csrf
                             <div class="form-group">
+                                <label>Фамилия пользователя</label>
+                                <input type="text" class="form-control" name="first_name" placeholder="Олегов">
+                                @error('first_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label>Имя пользователя</label>
                                 <input type="text" class="form-control" name="name" placeholder="Олег">
                                 @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label>Отчество пользователя</label>
+                                <input type="text" class="form-control" name="last_name" placeholder="Олегович">
+                                @error('last_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -23,13 +37,25 @@
                                 @enderror
                             </div>
                             <div class="form-group">
+                                <label>Пол</label>
+                                <select name="gender" class="form-control">
+                                    @foreach ($genders as $id => $gender)
+                                        <option value="{{ $id }}"{{ $id == old('gender') ? 'selected' : '' }}>
+                                            {{ $gender }}</option>
+                                    @endforeach
+                                </select>
+                                @error('gender')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
                                 <label>Пароль</label>
                                 <input type="text" class="form-control" name="password" placeholder="****">
                                 @error('password')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group w-50">
+                            <div class="form-group">
                                 <label>Выберите роль</label>
                                 <select name="role" class="form-control">
                                     @foreach ($roles as $id => $role)

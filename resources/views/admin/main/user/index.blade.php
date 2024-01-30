@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-1 mb-3 mt-3 ml-2">
+                    <div class="col-2 mb-3 mt-3 ml-2">
                         <a href="{{ route('admin.user.create') }}" class="btn btn-block btn-primary mb 3">Добавить</a>
                     </div>
                 </div>
@@ -18,33 +18,31 @@
         <section class="content">
             <div>
                 <div class="row">
-                    <div class="col-9 ml-4">
+                    <div class="col-10">
                         <div class="card">
                             <div class="card-body p-3">
-                                <table id="table" class="table-responsive fixed-table-body table-bordered">
+                                <table id="table" class="table-responsive">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Имя</th>
                                             <th>Email</th>
                                             <th>Роль</th>
                                             <th>Дата создания</th>
                                             <th>Дата изменения</th>
-                                            <th>Активность</th>
+                                            {{-- <th>Активность</th>
                                             <th>Просмотр</th>
-                                            <th>Редактировать</th>
+                                            <th>Редактировать</th> --}}
                                         </tr>
                                     </thead>
-                                    <tbody id="tablecontents">
+                                    <tbody>
                                         @foreach ($users as $user)
-                                            <tr class="row1" data-id="{{ $user->id }}">
-                                                <td>{{ $user->id }}</td>
+                                            <tr data-id="{{ $user->id }}">
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
                                                 <td>{{ $user->created_at }}</td>
                                                 <td>{{ $user->updated_at }}</td>
-                                                <td>
+                                                {{-- <td>
                                                     <div class="md-form">
                                                         <div class="material-switch">
                                                             <input id="switch-primary-{{ $user->id }}" value="{{ $user->id }}"
@@ -58,7 +56,7 @@
                                                 <td class="text-center"><a href="{{ route('admin.user.show', $user->id) }}"><i
                                                             class="far fa-eye"></i></a></td>
                                                 <td class="text-center"><a href="{{ route('admin.user.edit', $user->id) }}"
-                                                        class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
+                                                        class="text-success"><i class="fas fa-pencil-alt"></i></a></td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
