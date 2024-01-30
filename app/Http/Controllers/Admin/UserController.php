@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
@@ -14,17 +16,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = collect();
+
+        User::chunk(100, function ($results) use ($users) {
+            foreach ($results as $user) {
+                $users->push($user);
+            }
+        });
+        
+        return view('admin.main.user.index', compact('users')); 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $roles = User::$role;
+        $genders = User::$gender;
+        return view('admin.main.user.create', compact('roles', 'genders'));
     }
 
     /**
@@ -33,9 +41,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
-        //
+        $data = $request;
+        dd($request);
     }
 
     /**
