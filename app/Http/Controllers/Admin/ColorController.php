@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Color;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class CategoryController extends Controller
+class ColorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $colors = collect();
+
+        Color::chunk(100, function ($results) use ($colors) {
+            foreach ($results as $color) {
+                $colors->push($color);
+            }
+        });
+        
+        return view('admin.main.color.index', compact('colors'));
     }
 
     /**
@@ -24,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        dd(123);
+        //
     }
 
     /**

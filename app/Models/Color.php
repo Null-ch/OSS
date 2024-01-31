@@ -15,10 +15,22 @@ class Color extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'title', 'html_code'
+        'title', 'html_code', 'group', 'rgb_code',
     ];
     
     protected $table = 'colors';
     protected $guarded = false;
-
+    public static $group = [
+        'Red',
+        'Pink',
+        'Orange',
+        'Yellow',
+        'Purple',
+        'Brown',
+        'Main',
+        'Green',
+        'Blue',
+        'White',
+        'Grey',
+    ];
 }
