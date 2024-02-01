@@ -79,6 +79,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
 });
 
+/*
+|--------------------------------------------------------------------------
+| React routes
+|--------------------------------------------------------------------------
+|
+| React routes are located here
+|
+*/
+Route::view('/cart', 'react')->name('cart');
 
 /*
 |--------------------------------------------------------------------------
@@ -88,5 +97,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 | Authentication routes are located here
 |
 */
+
+
 Auth::routes(['home' => '/home']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
