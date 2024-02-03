@@ -1,11 +1,7 @@
 import React from 'react';
 import { Routes, Route, Redirect } from 'react-router-dom'
 import { publicRoutes } from '../routes';
-import Home from '../pages/Home'
 import { Layout } from './Layout';
-
-console.log(publicRoutes)
-console.log(<Home></Home>)
 
 const AppRouter = () => {
     return (

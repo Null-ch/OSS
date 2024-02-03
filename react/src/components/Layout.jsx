@@ -9,9 +9,7 @@ const Layout = () => {
                 <Link to = "/about">About</Link>
             </header>
     
-            <Outlet/>
-
-            <footer>Footer</footer>
+            {/* <Outlet/> */}
         </>
     );
 };
