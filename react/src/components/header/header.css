@@ -1,0 +1,24 @@
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+.header-bkg {
+  background-color: #333333;
+}
+.header {
+  background-color: #333333;
+}
+.nav {
+  background-color: yellow;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.tab {
+  margin-inline: 32px;
+  height: 32px;
+  cursor: pointer;
+  background-color: red;
+}

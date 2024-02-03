@@ -1,17 +1,16 @@
-import {Link, Outlet} from 'react-router-dom'
+import React from 'react';
+import Header from "./header/Header";
+import {Outlet} from 'react-router-dom'
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./AppRouter";
 
 const Layout = () => {
     return (
-        <>
-            <header>
-                <Link to = "/">Home</Link>
-                <Link to = "/shop">Shop</Link>
-                <Link to = "/about">About</Link>
-            </header>
-    
-            {/* <Outlet/> */}
-        </>
+        <BrowserRouter>
+            <AppRouter />
+        </BrowserRouter>
+
     );
 };
 
-export {Layout}
+export default Layout;

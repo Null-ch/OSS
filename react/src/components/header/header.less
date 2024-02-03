@@ -1,6 +1,27 @@
-@import (less) '/src/styles/common.less';
+@import (less) './../../styles/common.less';
 
 .header-bkg {
     background-color: @black;
 }
 
+.header {
+    .header-bkg();
+
+
+
+}
+
+.nav {
+    background-color: yellow;
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.tab {
+    margin-inline: 32px;
+    height: 32px;
+    .pointer();
+    // margin: 16px;
+    background-color: red;
+}

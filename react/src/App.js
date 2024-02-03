@@ -1,13 +1,11 @@
 import React from "react";
-
-import Header from "./components/header/Header";
+import './styles/reset.css'
+import Layout from "./components/Layout";
 
 function App() {
   return (
     <>
-      <Header/>
-
-      footer
+      <Layout/>
     </>
   );
 }
