@@ -2,12 +2,12 @@ import React from 'react';
 import Header from "./header/Header";
 import {Outlet} from 'react-router-dom'
 import { BrowserRouter } from "react-router-dom";
-import AppRouter from "./AppRouter";
+import Router from "./Router";
 
 const Layout = () => {
     return (
         <BrowserRouter>
-            <AppRouter />
+            <Router />
         </BrowserRouter>
 
     );

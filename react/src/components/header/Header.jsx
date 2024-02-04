@@ -1,20 +1,14 @@
 import React from 'react';
-import {Link, Outlet} from 'react-router-dom'
-import "./header.css"
-import Tab from './Tab';
-
-let pages = [
-    {to: '/', text: 'Home'},
-    {to: '/shop', text: 'Shop'},
-    {to: '/about', text: 'About'},
-]
+import { Nav } from './Nav';
+import logo from './../../icons/logo.svg'
+import './header.less'
+import Logo from '../Logo';
 
 const Header = () => {
     return (
-        <div className = 'nav'>
-            {pages.map(({to, text}) => {
-                return <Tab to = {to} text = {text}/>
-            })}
+        <div className = 'header'>
+            <Logo src = { logo } title = 'PrettyShopName' className = 'header-logo'/>
+            <Nav/>
         </div>
     );
 };

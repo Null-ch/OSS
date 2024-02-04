@@ -4,9 +4,11 @@ import "./header.css"
 
 const Tab = ({to, text}) => {
     return (
-        <div className = 'tab'>
-            <Link className='' to = {to}>{text}</Link>
-        </div>
+        <Link className='tab' to = {to}>
+            <span>
+                {text}
+            </span>
+        </Link>
     );
 };
 

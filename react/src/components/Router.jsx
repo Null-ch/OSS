@@ -4,14 +4,17 @@ import { publicRoutes } from '../routes';
 import { Nav } from './header/Nav';
 import "./header/header.css"
 import Header from './header/Header';
+import Footer from './footer/Footer';
 
 const AppRouter = () => {
     return (
         <>
             <Header/>
+
+            {/* 
             <Routes>
                 <Route path = "/" element = {<Nav/>}>
-                    {/* всё ниже пойдёт в <Outlet> Tab'a*/}
+                    {/* ниже в <Outlet> пойдёт содержимое страниц*/}
                     {/* {publicRoutes.map(({path, component}) =>
                     {
                         if (path === "/") {
@@ -20,9 +23,11 @@ const AppRouter = () => {
                             return <Route key = {path} path = {path} element = {component} exact/>
                         }
                     }    
-                    )} */}
+                    )} 
                 </Route>
-            </Routes>
+            </Routes>*/}
+            <Footer/>
+            
         </>
         
     );

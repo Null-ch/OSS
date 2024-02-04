@@ -1,27 +1,62 @@
 @import (less) './../../styles/common.less';
 
-.header-bkg {
-    background-color: @black;
-}
-
 .header {
-    .header-bkg();
-
-
-
+    margin-left: 24px;
+    margin-right: 24px;
+    background-color: @white;
+    display: flex;
+    flex-direction: row;
+    height: 72px;
 }
 
 .nav {
-    background-color: yellow;
+    background-color: @white;
     width:100%;
     display: flex;
     justify-content: center;
 }
 
 .tab {
-    margin-inline: 32px;
-    height: 32px;
-    .pointer();
-    // margin: 16px;
-    background-color: red;
+    display: flex;
+    align-items: center;
+    // height: 100%;
+    padding: 24px;
+    transition: 0.3s;
+    text-decoration: unset;
+    // align-self: center;
+    span {
+        color: @dark-green;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+.tab:hover {
+    background-color: @light-green;
+}
+
+.logo {
+    align-self: center;
+    height: 48px;
+    width: 48px
+}
+
+.brand {
+    cursor: default;
+    color: @dark-green;
+    font-weight: 600;
+    align-self: center;
+    font-size: 24px;
+}
+
+.header-logo {
+    display: flex;
+    flex-direction: row;
+
+    img {
+        .logo();
+    }
+    span {
+        .brand();
+    }
 }

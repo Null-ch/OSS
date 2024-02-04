@@ -5,14 +5,11 @@ import Shop from './pages/Shop'
 import Item from './pages/Item'
 import About from './pages/About'
 
-export const authRoutes = [
-
-]
-
-export const publicRoutes = [
+export const routes = [
     {
         path: HOME,
         component: <Home/>,
+        title: 'Главная'
     },
     {
         path: CART,
@@ -21,6 +18,7 @@ export const publicRoutes = [
     {
         path: SHOP,
         component: <Shop/>,
+        title: 'Магазин'
     },
     {
         path: ITEM + '/:id',
@@ -29,5 +27,6 @@ export const publicRoutes = [
     {
         path: ABOUT,
         component: <About/>,
+        title: 'О нас'
     },
 ]
