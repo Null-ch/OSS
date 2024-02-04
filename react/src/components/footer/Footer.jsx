@@ -3,6 +3,7 @@ import logo from './../../icons/logo-white.svg'
 import Logo from '../Logo';
 import FooterSection from './FooterSection';
 import './footer.css'
+import { shopName } from '../../util/constants';
 
 const Footer = () => {
     return (
@@ -11,10 +12,9 @@ const Footer = () => {
                 <FooterSection title = 'Customers'/>
                 <FooterSection title = 'About'/>
                 <FooterSection title = 'Contacts'/>
-                {/* todo nav */}
             </div>
 
-            <Logo className = 'footer-logo' src = {logo} title = 'PrettyShopName'/>
+            <Logo className = 'footer-logo' src = {logo} title = {shopName}/>
 
         </div>
     );

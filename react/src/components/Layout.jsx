@@ -1,14 +1,17 @@
 import React from 'react';
-import Header from "./header/Header";
-import {Outlet} from 'react-router-dom'
-import { BrowserRouter } from "react-router-dom";
-import Router from "./Router";
+import {  Outlet } from 'react-router-dom'
+import Header from './header/Header';
+import Footer from './footer/Footer';
 
 const Layout = () => {
     return (
-        <BrowserRouter>
-            <Router />
-        </BrowserRouter>
+        <>
+            <Header/>
+            
+            <Outlet/>
+
+            <Footer/>
+        </>
 
     );
 };

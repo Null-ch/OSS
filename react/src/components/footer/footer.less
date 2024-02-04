@@ -5,7 +5,7 @@
     background-color: @black;
     display: flex;
     flex-direction: column;
-    row-gap: 32px;
+    row-gap: 64px;
     padding: 24px;
 
     span {
@@ -13,17 +13,17 @@
     }
 }
 
+.logo {
+    align-self: flex-start;
+    height: 64px;
+    width: 64px;
+}
+
 .footer-sections {
     justify-content: center;
     display: flex;
     flex-direction: row;
     column-gap: 48px;
-}
-
-.logo {
-    align-self: flex-start;
-    height: 64px;
-    width: 64px;
 }
 
 .brand {
@@ -54,6 +54,7 @@
 }
 
 .footer-section-title {
+    padding-bottom: 8px;
     font-weight: 600;
     font-size: 20px;
     cursor: default;

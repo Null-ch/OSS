@@ -5,28 +5,44 @@ import Shop from './pages/Shop'
 import Item from './pages/Item'
 import About from './pages/About'
 
-export const routes = [
-    {
-        path: HOME,
-        component: <Home/>,
-        title: 'Главная'
-    },
-    {
-        path: CART,
-        component: <Cart/>,
-    },
-    {
-        path: SHOP,
-        component: <Shop/>,
-        title: 'Магазин'
-    },
-    {
-        path: ITEM + '/:id',
-        component: <Item/>,
-    },
-    {
-        path: ABOUT,
-        component: <About/>,
-        title: 'О нас'
-    },
+const home = {
+    path: HOME,
+    component: <Home/>,
+    title: 'Главная'
+}
+
+const cart = {
+    path: CART,
+    component: <Cart/>,
+}
+
+const shop = {
+    path: SHOP,
+    component: <Shop/>,
+    title: 'Магазин'
+}
+
+const item = {
+    path: ITEM + '/:id',
+    component: <Item/>,
+}
+
+const about = {
+    path: ABOUT,
+    component: <About/>,
+    title: 'О нас'
+}
+
+export const publicRoutes = [
+    home,
+    cart,
+    shop,
+    item,
+    about,
+]
+
+export const nav = [
+    home,
+    shop,
+    about,
 ]

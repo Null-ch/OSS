@@ -1,5 +1,7 @@
 import Tab from './Tab';
 import "./header.css"
+import { nav } from '../../routes';
+
 
 let pages = [
     {to: '/', text: 'Home'},
@@ -10,8 +12,8 @@ let pages = [
 const Nav = () => {
     return (
         <div className = 'nav'>
-            {pages.map(({to, text}, key) => {
-                return <Tab key = {key} to = {to} text = {text}/>
+            {nav.map(({path, title}, key) => {
+                return <Tab key = {key} path = {path} title = {title}/>
             })}
         </div>
     );

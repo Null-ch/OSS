@@ -2,11 +2,11 @@ import React from 'react';
 import {Link, Outlet} from 'react-router-dom'
 import "./header.css"
 
-const Tab = ({to, text}) => {
+const Tab = ({path, title}) => {
     return (
-        <Link className='tab' to = {to}>
+        <Link className='tab' to = {path}>
             <span>
-                {text}
+                {title}
             </span>
         </Link>
     );
