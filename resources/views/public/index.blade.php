@@ -1,31 +1,25 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="/" class="nav-link">Главная</a>
-        </li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="#" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
 
-    <ul class="navbar-nav ml-auto">
-        @if (auth()->check())
-            <li class="nav-item dropdown ml-auto">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <span>{{ Auth::user()->name }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
-                        {{ __('Выйти') }}
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </li>
-            </li>
-        @endif
-    </ul>
-</nav>
-Здесь будет главная страница
+
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="{{ mix('js/index.js') }}"></script>
+    <!--
+      This HTML file is a template.
+
+    -->
+  </body>
+</html>

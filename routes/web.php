@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\IndexController;
 
 /*
@@ -87,7 +86,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 | React routes are located here
 |
 */
-Route::view('/cart', 'react')->name('cart');
+Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
+Route::get('/cart', [App\Http\Controllers\IndexController::class, 'showCart'])->name('public.cart');
+Route::get('/shop', [App\Http\Controllers\IndexController::class, 'showShop'])->name('public.shop');
+Route::get('/item/{id}', [App\Http\Controllers\IndexController::class, 'showItem'])->name('public.item');
 
 /*
 |--------------------------------------------------------------------------
@@ -98,6 +100,4 @@ Route::view('/cart', 'react')->name('cart');
 |
 */
 
-
-Auth::routes(['home' => '/home']);
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Auth::routes();
