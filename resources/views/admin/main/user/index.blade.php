@@ -1,62 +1,63 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="content-wrapper">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2 ml-2">
-                    <div>
-                        <h3>Пользователи</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-2 mb-3 mt-3 ml-2">
-                        <a href="{{ route('admin.user.create') }}" class="btn btn-block btn-primary mb 3">Добавить</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <section class="content">
-            <div>
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Список пользователей</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item"><a href="/admin">Административная панель</a></li>
+                                <li class="breadcrumb-item active">Список пользователей</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <a href="{{ route('admin.user.create') }}" class="btn btn-block btn-primary mb 3">Добавить</a>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </div>
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-10">
                         <div class="card">
-                            <div class="card-body p-3">
-                                <table id="table" class="table-responsive">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Имя</th>
-                                            <th>Email</th>
-                                            <th>Роль</th>
-                                            <th>Дата создания</th>
-                                            <th>Дата изменения</th>
-                                            {{-- <th>Активность</th>
-                                            <th>Просмотр</th>
-                                            <th>Редактировать</th> --}}
+                                            <th class="p-2 text-center">Имя</th>
+                                            <th class="p-2 text-center">Email</th>
+                                            <th class="p-2 text-center">Роль</th>
+                                            <th class="p-2 text-center">Дата создания</th>
+                                            <th class="p-2 text-center">Дата изменения</th>
+                                            <th class="p-2 text-center">Активность</th>
+                                            <th class="p-2 text-center">Просмотр</th>
+                                            <th class="p-2 text-center">Редактировать</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr data-id="{{ $user->id }}">
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                                <td>{{ $user->created_at }}</td>
-                                                <td>{{ $user->updated_at }}</td>
-                                                {{-- <td>
-                                                    <div class="md-form">
-                                                        <div class="material-switch">
-                                                            <input id="switch-primary-{{ $user->id }}" value="{{ $user->id }}"
-                                                                name="toggle" type="checkbox"
-                                                                {{ $user->isActive === 1 ? 'checked' : '' }}>
-                                                            <label for="switch-primary-{{ $user->id }}"
-                                                                class="btn-success"></label>
+                                                <td class="p-2 text-center">{{ $user->name }}</td>
+                                                <td class="p-2 text-center">{{ $user->email }}</td>
+                                                <td class="p-2 text-center">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                                <td class="p-2 text-center">{{ $user->created_at }}</td>
+                                                <td class="p-2 text-center">{{ $user->updated_at }}</td>
+                                                <td class="p-2 text-center" class="text-center">
+                                                    <div class="form-group">
+                                                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                            <input type="checkbox" class="custom-control-input" id="customSwitch3" name="toggle" value="{{ $user->id }}" {{ $user->isActive === 1 ? 'checked' : '' }}>
+                                                            <label class="custom-control-label" for="customSwitch3"></label>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="text-center"><a href="{{ route('admin.user.show', $user->id) }}"><i
-                                                            class="far fa-eye"></i></a></td>
-                                                <td class="text-center"><a href="{{ route('admin.user.edit', $user->id) }}"
-                                                        class="text-success"><i class="fas fa-pencil-alt"></i></a></td> --}}
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><i class="far fa-eye"></i></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -68,103 +69,27 @@
             </div>
         </section>
     </div>
+@endsection
+@section('scripts')
     <script>
-        $('input[name=toggle]').change(function() {
-            var mode = $(this).prop('checked');
-            var id = $(this).val();
-            var productObj = {};
-            productObj.mode = $(this).prop('checked');
-            productObj.user_id = $(this).val();
-            productObj._token = '{{ csrf_token() }}';
-            console.log(productObj)
-            $.ajax({
-                type: "POST",
-                dataType: "JSON",
-                url: "{{ url('admin/users/activity') }}",
-                data: productObj,
-                success: function() {
-                    location.reload();
-                }
-            });
-        });
-    </script>
-    <script>
-        $('input[name=toggle]').change(function() {
-            var mode = $(this).prop('checked');
-            var id = $(this).val();
-            var productObj = {};
-            productObj.mode = $(this).prop('checked');
-            productObj.postId = $(this).val();
-            productObj._token = '{{ csrf_token() }}';
-            console.log(productObj)
-            $.ajax({
-                type: "POST",
-                dataType: "JSON",
-                url: "{{ url('admin/posts/activity') }}",
-                data: productObj,
-                success: function() {
-                    location.reload();
-                }
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        function resizeImg(img, height, width) {
-            img.height = height;
-            img.width = width;
-        }
-    </script>
-    <script type="text/javascript">
-        $(function() {
-            $("#table").DataTable({
-                "columnDefs": [{
-                    "targets": [6, 7, 8],
-                    "orderable": false
-                }],
-                "order": [
-                    [0, 'asc']
-                ],
-                "paging": true,
-                "searching": true,
-                "info": true
-            });
-
-            $("#tablecontents").sortable({
-                items: "tr",
-                cursor: 'move',
-                opacity: 0.6,
-                update: function() {
-                    sendOrderToServer();
-                }
-            });
-
-            function sendOrderToServer() {
-                var order = [];
-                var token = $('meta[name="csrf-token"]').attr('content');
-                $('tr.row1').each(function(index, element) {
-                    order.push({
-                        id: $(this).attr('data-id'),
-                        position: index + 1
-                    });
-                });
-
+        $(document).ready(function() {
+            $('#customSwitch3').click(function() {
+                var isActive = $(this).prop('checked');
                 $.ajax({
-                    type: "POST",
-                    dataType: "json",
-                    url: "{{ url('updateOrder') }}",
+                    url: '/admin/users/activity',
+                    method: 'POST',
                     data: {
-                        order: order,
-                        _token: token
+                        user_id: $(this).val(),
+                        is_active: isActive ? 1 : 0
                     },
                     success: function(response) {
-                        if (response.status == "success") {
-                            console.log(response);
-                        } else {
-                            console.log(response);
-                        }
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // Обработка ошибки
                     }
                 });
-            }
+            });
         });
     </script>
 @endsection
