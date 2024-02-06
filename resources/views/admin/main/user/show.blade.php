@@ -4,6 +4,22 @@
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Редактирование данных о пользователе</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="/admin">Административная панель</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/users">Список пользователей</a></li>
+                            <li class="breadcrumb-item active">Редактирование данных о пользователе</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
                     <div class="col-sm-6 d-flex align-items-center">
                         <h3 class="m-0 mr-2">{{ $user->name }}</h3>
                         <a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i
@@ -52,7 +68,11 @@
                                 </table>
                             </div>
                         </div>
-
+                        <div class="row p-1">
+                            <div class="col-2 p-1">
+                                <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary mt-2">Назад</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,68 @@
+@import (less) './../../styles/common.less';
+
+.footer {
+    // height: 100px;
+    background-color: @black;
+    display: flex;
+    flex-direction: column;
+    row-gap: 64px;
+    padding: 24px;
+
+    span {
+        color: @white;
+    }
+}
+
+.logo {
+    align-self: flex-start;
+    height: 64px;
+    width: 64px;
+}
+
+.footer-sections {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 48px;
+}
+
+.brand {
+    cursor: default;
+    color: @white;
+    font-weight: 600;
+    align-self: center;
+    font-size: 32px;
+}
+
+.footer-logo {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+
+    img {
+        .logo();
+    }
+    span {
+        .brand();
+    }
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+}
+
+.footer-section-title {
+    padding-bottom: 8px;
+    font-weight: 600;
+    font-size: 20px;
+    cursor: default;
+}
+
+.footer-section-item {
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+}

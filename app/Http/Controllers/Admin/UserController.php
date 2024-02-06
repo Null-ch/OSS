@@ -30,8 +30,8 @@ class UserController extends Controller
 
     public function create()
     {
-        $roles = User::$role;
-        $genders = User::$gender;
+        (array) $roles = User::$role;
+        (array) $genders = User::$gender;
         return view('admin.main.user.create', compact('roles', 'genders'));
     }
 
@@ -55,7 +55,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        (object) $user = User::find($id);
+        return view('admin.main.user.show', compact('user'));
     }
 
     /**
@@ -66,7 +67,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        (object) $user = User::find($id);
+        (array) $roles = $user::$role;
+        return view('admin.main.user.edit', compact('user', 'roles'));
     }
 
     /**

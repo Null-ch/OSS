@@ -1,0 +1,63 @@
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+.header {
+  margin-left: 24px;
+  margin-right: 24px;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: row;
+  height: 72px;
+}
+.nav {
+  background-color: #f7f7f7;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  transition: 0.3s;
+  text-decoration: unset;
+}
+.tab span {
+  color: #173f28;
+  font-size: 18px;
+  font-weight: 600;
+}
+.tab:hover {
+  background-color: #D6DCD9;
+}
+.logo {
+  align-self: center;
+  height: 48px;
+  width: 48px;
+}
+.brand {
+  cursor: default;
+  color: #173f28;
+  font-weight: 600;
+  align-self: center;
+  font-size: 24px;
+}
+.header-logo {
+  display: flex;
+  flex-direction: row;
+}
+.header-logo img {
+  align-self: center;
+  height: 48px;
+  width: 48px;
+}
+.header-logo span {
+  cursor: default;
+  color: #173f28;
+  font-weight: 600;
+  align-self: center;
+  font-size: 24px;
+}

@@ -5,29 +5,44 @@ import Shop from './pages/Shop'
 import Item from './pages/Item'
 import About from './pages/About'
 
-export const authRoutes = [
+const home = {
+    path: HOME,
+    component: <Home/>,
+    title: 'Главная'
+}
 
-]
+const cart = {
+    path: CART,
+    component: <Cart/>,
+}
+
+const shop = {
+    path: SHOP,
+    component: <Shop/>,
+    title: 'Магазин'
+}
+
+const item = {
+    path: ITEM + '/:id',
+    component: <Item/>,
+}
+
+const about = {
+    path: ABOUT,
+    component: <About/>,
+    title: 'О нас'
+}
 
 export const publicRoutes = [
-    {
-        path: HOME,
-        component: <Home/>,
-    },
-    {
-        path: CART,
-        component: <Cart/>,
-    },
-    {
-        path: SHOP,
-        component: <Shop/>,
-    },
-    {
-        path: ITEM + '/:id',
-        component: <Item/>,
-    },
-    {
-        path: ABOUT,
-        component: <About/>,
-    },
+    home,
+    cart,
+    shop,
+    item,
+    about,
+]
+
+export const nav = [
+    home,
+    shop,
+    about,
 ]
