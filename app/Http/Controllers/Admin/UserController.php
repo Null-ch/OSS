@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Admin\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -25,8 +26,8 @@ class UserController extends Controller
     public function index()
     {
         (object) $users = $this->userService->getUsers();
-        
-        return view('admin.main.user.index', compact('users')); 
+
+        return view('admin.main.user.index', compact('users'));
     }
 
 
@@ -45,8 +46,9 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $data = $request;
-        dd($request);
+        $data = $request->validated();
+        $this->userService->createUser($data);
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -81,9 +83,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $this->userService->updateUser($data, $id);
+        return redirect()->route('admin.user.edit', $id);
     }
 
     /**
@@ -94,6 +98,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect()->back();
     }
 }

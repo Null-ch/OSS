@@ -3,6 +3,8 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
+use App\Jobs\SendRegistrationEmail;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -15,19 +17,33 @@ class UserService
                 $users->push($user);
             }
         });
-        return $users;
+        return (object) $users;
     }
     public function getRoles()
     {
-        return User::$role;
+        return (array) User::$role;
     }
     public function getGenders()
     {
-        return User::$gender;
+        return (array) User::$gender;
     }
     public function getUser(int $id)
     {
-        return User::find($id);
+        return (object) User::find($id);
     }
-    
+    public function createUser(array $data)
+    {
+        (string) $password = $data['password'];
+        $data['password'] = Hash::make($password);
+        (object) $user = User::create($data);
+        
+        dispatch(new SendRegistrationEmail($user, $password));
+        return (object) $user;
+    }
+    public function updateUser(array $data, int $id)
+    {
+        (object) $user = User::find($id);
+        (object) $user->update($data);
+        return (object) $user;
+    }
 }

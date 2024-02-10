@@ -37,18 +37,6 @@
                                 <p class="p-2 {{Request::is('admin/carts*') ? 'active' : '' }}">Корзины</p>
                             </a>
                         </li> --}}
-                        <li class="nav-item {{Request::is('admin/categories*') ? 'menu-open' : '' }}">
-                            <a href="{{route('admin.categories.index')}}" class="nav-link {{Request::is('admin/categories*') ? 'active' : '' }}">
-                                <i class="fa fa-tasks"></i>
-                                <p class="p-2">Категории</p>
-                            </a>
-                        </li>
-                        <li class="nav-item {{Request::is('admin/colors*') ? 'menu-open' : '' }}">
-                            <a href="{{route('admin.colors.index')}}" class="nav-link {{Request::is('admin/color*') ? 'active' : ''}}">
-                                <i class="fa fa-paint-brush"></i>
-                                <p class="p-2">Цвета</p>
-                            </a>
-                        </li>
                         <li class="nav-item {{Request::is('admin/orders*') ? 'menu-open' : '' }}">
                             <a href="{{route('admin.orders.index')}}" class="nav-link {{Request::is('admin/orders*') ? 'active' : ''}}">
                                 <i class="fa fa-rub"><b>$</b></i>
@@ -59,6 +47,18 @@
                             <a href="{{route('admin.products.index')}}" class="nav-link {{Request::is('admin/products*') ? 'active' : ''}}">
                                 <i class="fa fa-cubes"></i>
                                 <p class="p-2">Товары</p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{Request::is('admin/categories*') ? 'menu-open' : '' }}">
+                            <a href="{{route('admin.categories.index')}}" class="nav-link {{Request::is('admin/categories*') ? 'active' : '' }}">
+                                <i class="fa fa-tasks"></i>
+                                <p class="p-2">Категории</p>
+                            </a>
+                        </li>
+                        <li class="nav-item {{Request::is('admin/colors*') ? 'menu-open' : '' }}">
+                            <a href="{{route('admin.colors.index')}}" class="nav-link {{Request::is('admin/color*') ? 'active' : ''}}">
+                                <i class="fa fa-paint-brush"></i>
+                                <p class="p-2">Цвета</p>
                             </a>
                         </li>
                     </ul>

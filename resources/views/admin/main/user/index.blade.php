@@ -14,12 +14,12 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Административная панель</a></li>
                             <li class="breadcrumb-item active">Список пользователей</li>
                         </ol>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <section class="content">
@@ -51,7 +51,13 @@
                                                 <td class="p-2 text-center">{{ $user->updated_at }}</td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href=""><i class="far fa-trash"></i></a></td>
+                                                <td class="text-center p-2">
+                                                    <form action="{{ route('admin.user.destroy', $user->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

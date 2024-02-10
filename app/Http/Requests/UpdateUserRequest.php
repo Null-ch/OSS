@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +24,19 @@ class CreateUserRequest extends FormRequest
      */
     public function rules()
     {
+        (int) $userId = request('user_id');
+
         return [
             'first_name' => 'string|max:255',
             'name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
-            'email' => 'required|string|email|unique:users|max:255',
-            'password' => 'required|string|min:8|max:15',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($userId),
+            ],
             'gender' => '',
             'role' => '',
         ];
@@ -44,8 +52,6 @@ class CreateUserRequest extends FormRequest
             'email.required' => 'Это поле должно быть заполнено',
             'email.email' => 'Почта должна быть в формате example@mail.ru',
             'email.unique' => 'Email уже занят',
-            'password.min' => 'Минимальная длина пароля 8 символов',
-            'password.max' => 'Максимальная длина пароля 15 символов',
         ];
     }
 }
