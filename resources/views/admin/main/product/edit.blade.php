@@ -30,7 +30,64 @@
                         <form action="{{ route('admin.product.update', $product->id) }}" method="POST" class="col-10">
                             @csrf
                             @method('PATCH')
-                            
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Название</label>
+                                    <input type="text" class="form-control text-center" name="title" placeholder="Олег" value="{{ $product->title }}">
+                                    @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Описание</label>
+                                    <input type="text" class="form-control text-center" name="description" placeholder="Олег" value="{{ $product->description }}">
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Цена</label>
+                                    <input type="text" class="form-control text-center" name="price" placeholder="Олег" value="{{ $product->price }}">
+                                    @error('price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Текущее количество</label>
+                                    <input type="text" class="form-control text-center" name="count" placeholder="Олег" value="{{ $product->count }}">
+                                    @error('count')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Категория</label>
+                                    <select name="category_id" class="form-control text-center">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" {{ $product->category_id ? 'selected' : '' }}>
+                                                {{ $category->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Цвет</label>
+                                    <select name="color_id" class="form-control text-center">
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->id }}" {{ $product->color_id ? 'selected' : '' }}>
+                                                {{ $color->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('color_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-2 p-1">
                                     <input type="submit" class="btn btn-block bg-gradient-secondary mt-2" value="Обновить">

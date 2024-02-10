@@ -26,10 +26,68 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 ml-2 p-2">
-                        <h3>Добавление товара</h3>
                         <form action="{{ route('admin.product.store') }}" method="POST" class="w-25">
                             @csrf
-                            
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-12">
+                                    <label>Название</label>
+                                    <input type="text" class="form-control text-center" name="title" placeholder="Введите название" >
+                                    @error('title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-12">
+                                    <label>Описание</label>
+                                    <textarea class="form-control" rows="3" name="description" placeholder="Введите описание ..." style="height: 89px;"></textarea>
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                  </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Цена</label>
+                                    <input type="text" class="form-control text-center" name="price" placeholder="Установите цену за шт.">
+                                    @error('price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Текущее количество</label>
+                                    <input type="text" class="form-control text-center" name="count" placeholder="Установите количество товара на складе">
+                                    @error('count')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Категория</label>
+                                    <select name="category_id" class="form-control text-center">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Цвет</label>
+                                    <select name="color_id" class="form-control text-center">
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->id }}">
+                                                {{ $color->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('color_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             <input type="submit" class="btn btn-block bg-gradient-secondary" value="Добавить">
                         </form>
                     </div>

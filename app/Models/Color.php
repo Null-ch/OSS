@@ -33,4 +33,15 @@ class Color extends Model
         'White',
         'Grey',
     ];
+
+    public static function getAllColors()
+    {
+        $colors = collect();
+        Color::chunk(100, function ($results) use ($colors) {
+            foreach ($results as $color) {
+                $colors->push($color);
+            }
+        });
+        return $colors;
+    }
 }

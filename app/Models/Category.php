@@ -21,4 +21,14 @@ class Category extends Model
     protected $table = 'categories';
     protected $guarded = false;
 
+    public static function getAllCategories()
+    {
+        $categories = collect();
+        Category::chunk(100, function ($results) use ($categories) {
+            foreach ($results as $category) {
+                $categories->push($category);
+            }
+        });
+        return $categories;
+    }
 }

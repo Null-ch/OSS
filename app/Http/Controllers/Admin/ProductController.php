@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Color;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\ProductService;
@@ -24,7 +26,7 @@ class ProductController extends Controller
     {
         (object) $products = $this->productService->getProducts();
 
-        return view('admin.main.products.index', compact('products'));
+        return view('admin.main.product.index', compact('products'));
     }
 
     /**
@@ -34,7 +36,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::getAllCategories();
+        $colors = Color::getAllColors();
+        return view('admin.main.product.create', compact('categories', 'colors'));
     }
 
     /**

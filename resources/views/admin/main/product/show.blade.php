@@ -32,20 +32,18 @@
                                 <table class="table table-hover text-nowrap">
                                     <tbody>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Имя</th>
-                                            <th>Почта</th>
-                                            <th>Роль</th>
-                                            <th>Дата создания</th>
-                                            <th>Дата обновления</th>
+                                            <th>Название</th>
+                                            <th>Цена</th>
+                                            <th>Остаток</th>
+                                            <th>Категория</th>
+                                            <th>Цвет</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $product->id }}</td>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->email }}</td>
-                                            <td>{{ $product->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                            <td>{{ $product->created_at }}</td>
-                                            <td>{{ $product->updated_at }}</td>
+                                            <td>{{ $product->title }}</td>
+                                            <td>{{ $product->price }}</td>
+                                            <td>{{ $product->count }}</td>
+                                            <td>{{ $product->category }}</td>
+                                            <td>{{ $product->color }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

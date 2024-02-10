@@ -31,11 +31,10 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th class="p-2 text-center">Имя</th>
-                                            <th class="p-2 text-center">Email</th>
-                                            <th class="p-2 text-center">Роль</th>
-                                            <th class="p-2 text-center">Дата создания</th>
-                                            <th class="p-2 text-center">Дата изменения</th>
+                                            <th class="p-2 text-center">Название</th>
+                                            <th class="p-2 text-center">Цена</th>
+                                            <th class="p-2 text-center">Количество</th>
+                                            <th class="p-2 text-center">Категория</th>
                                             <th class="p-2 text-center">Просмотр</th>
                                             <th class="p-2 text-center">Редактировать</th>
                                             <th class="p-2 text-center">Удалить</th>
