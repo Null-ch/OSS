@@ -88,6 +88,32 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row p-1">
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Категория</label>
+                                    <select name="category_id" class="form-control text-center">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}">
+                                                {{ $category->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Цвет</label>
+                                    <select name="color_id" class="form-control text-center">
+                                        @foreach ($colors as $color)
+                                            <option value="{{ $color->id }}">
+                                                {{ $color->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('color_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                             <input type="submit" class="btn btn-block bg-gradient-secondary" value="Добавить">
                         </form>
                     </div>
