@@ -8,42 +8,84 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+    /**
+     * Getting users
+     *
+     * @return object
+     * 
+     */
     public function getUsers()
     {
         $users = collect();
-
         User::chunk(100, function ($results) use ($users) {
             foreach ($results as $user) {
                 $users->push($user);
             }
         });
-        return (object) $users;
+        return $users;
     }
+    /**
+     * Getting roles
+     *
+     * @return array
+     * 
+     */
     public function getRoles()
     {
-        return (array) User::$role;
+        return User::$role;
     }
+    /**
+     * Getting genders
+     *
+     * @return array
+     * 
+     */
     public function getGenders()
     {
-        return (array) User::$gender;
+        return User::$gender;
     }
+    /**
+     * Get current user
+     *
+     * @param int $id
+     * 
+     * @return object
+     * 
+     */
     public function getUser(int $id)
     {
-        return (object) User::find($id);
+        return User::find($id);
     }
+    /**
+     * Create new user
+     *
+     * @param array $data
+     * 
+     * @return object
+     * 
+     */
     public function createUser(array $data)
     {
-        (string) $password = $data['password'];
+        $password = $data['password'];
         $data['password'] = Hash::make($password);
-        (object) $user = User::create($data);
+        $user = User::create($data);
         
         dispatch(new SendRegistrationEmail($user, $password));
-        return (object) $user;
+        return $user;
     }
+    /**
+     * Update current user
+     *
+     * @param array $data
+     * @param int $id
+     * 
+     * @return object
+     * 
+     */
     public function updateUser(array $data, int $id)
     {
-        (object) $user = User::find($id);
-        (object) $user->update($data);
-        return (object) $user;
+        $user = User::find($id);
+        $user->update($data);
+        return $user;
     }
 }

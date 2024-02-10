@@ -22,7 +22,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        (object) $products = $this->productService->getProducts();
+
+        return view('admin.main.products.index', compact('products'));
     }
 
     /**
