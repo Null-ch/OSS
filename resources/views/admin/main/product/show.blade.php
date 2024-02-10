@@ -8,14 +8,14 @@
                         <div class="row">
                             <h2>Просмотр данных о пользователе</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
-                            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Список пользователей</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/products">Список пользователей</a></li>
                             <li class="breadcrumb-item active">Просмотр данных о пользователе</li>
                         </ol>
                     </div>
@@ -40,12 +40,12 @@
                                             <th>Дата обновления</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>{{ $user->updated_at }}</td>
+                                            <td>{{ $product->id }}</td>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->email }}</td>
+                                            <td>{{ $product->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                            <td>{{ $product->created_at }}</td>
+                                            <td>{{ $product->updated_at }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

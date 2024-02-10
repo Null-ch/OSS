@@ -22,7 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/item/{id}', [App\Http\Controllers\IndexController::class, 'showItem'])->name('public.item');
     
     Route::middleware('admin')->prefix('admin')->group(function () {
-        Route::get('/', IndexController::class)->name('admin_index');
+        Route::get('/', IndexController::class)->name('admin.index');
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');

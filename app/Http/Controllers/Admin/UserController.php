@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Services\Admin\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,13 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = collect();
-
-        User::chunk(100, function ($results) use ($users) {
-            foreach ($results as $user) {
-                $users->push($user);
-            }
-        });
+        (object) $users = $this->userService->getUsers();
         
         return view('admin.main.user.index', compact('users')); 
     }
@@ -30,8 +32,8 @@ class UserController extends Controller
 
     public function create()
     {
-        (array) $roles = User::$role;
-        (array) $genders = User::$gender;
+        (array) $roles = $this->userService->getRoles();
+        (array) $genders = $this->userService->getGenders();
         return view('admin.main.user.create', compact('roles', 'genders'));
     }
 
@@ -55,7 +57,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        (object) $user = User::find($id);
+        (object) $user =  $this->userService->getUser($id);
         return view('admin.main.user.show', compact('user'));
     }
 
@@ -67,8 +69,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        (object) $user = User::find($id);
-        (array) $roles = $user::$role;
+        (object) $user = $this->userService->getUser($id);
+        (array) $roles = $this->userService->getRoles();
         return view('admin.main.user.edit', compact('user', 'roles'));
     }
 

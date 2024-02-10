@@ -6,16 +6,16 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="row">
-                            <h2>Список пользователей </h2>
+                            <h2>Товары</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
+                                <a href="{{ route('admin.product.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
-                            <li class="breadcrumb-item active">Список пользователей</li>
+                            <li class="breadcrumb-item active">Список товаров</li>
                         </ol>
                     </div>
                 </div>
@@ -42,18 +42,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
-                                            <tr data-id="{{ $user->id }}">
-                                                <td class="p-2 text-center">{{ $user->name }}</td>
-                                                <td class="p-2 text-center">{{ $user->email }}</td>
-                                                <td class="p-2 text-center">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                                <td class="p-2 text-center">{{ $user->created_at }}</td>
-                                                <td class="p-2 text-center">{{ $user->updated_at }}</td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><i class="far fa-eye"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
+                                        {{-- @foreach ($products as $product)
+                                            <tr data-id="{{ $product->id }}">
+                                                <td class="p-2 text-center">{{ $product->name }}</td>
+                                                <td class="p-2 text-center">{{ $product->email }}</td>
+                                                <td class="p-2 text-center">{{ $product->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                                <td class="p-2 text-center">{{ $product->created_at }}</td>
+                                                <td class="p-2 text-center">{{ $product->updated_at }}</td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><i class="far fa-eye"></i></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href=""><i class="far fa-trash"></i></a></td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>

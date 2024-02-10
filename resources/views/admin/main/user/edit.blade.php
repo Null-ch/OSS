@@ -1,23 +1,29 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="content-wrapper">
-        <section class="content">
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1>Редактирование данных о пользователе</h1>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="/admin">Административная панель</a></li>
-                                <li class="breadcrumb-item"><a href="/admin/users">Список пользователей</a></li>
-                                <li class="breadcrumb-item active">Редактирование данных о пользователе</li>
-                            </ol>
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <h2>Редактирование данных о пользователе</h2>
+                            <div class="col-2">
+                                <a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Список пользователей</a></li>
+                            <li class="breadcrumb-item active">Редактирование данных о пользователе</li>
+                        </ol>
+                    </div>
                 </div>
+
             </div>
+        </div>
+        <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 ml-2 p-2">
@@ -80,15 +86,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="md-form p-1">
-                                <label>Активность</label>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch3" name="toggle" value="{{ $user->id }}" {{ $user->isActive === 1 ? 'checked' : '' }}>
-                                        <label class="custom-control-label" for="customSwitch3"></label>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="form-group w-50">
                                 <input type="hidden" name="user_id" value="{{ $user->id }}">
                             </div>
@@ -104,30 +101,8 @@
                     </div>
                 </div>
             </div>
-    </div>
-    </section>
+        </section>
     </div>
 @endsection
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#customSwitch3').click(function() {
-                var isActive = $(this).prop('checked');
-                $.ajax({
-                    url: '/admin/users/activity',
-                    method: 'POST',
-                    data: {
-                        user_id: $(this).val(),
-                        is_active: isActive ? 1 : 0
-                    },
-                    success: function(response) {
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        // Обработка ошибки
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

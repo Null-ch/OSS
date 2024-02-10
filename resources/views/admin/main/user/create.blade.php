@@ -1,6 +1,27 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <h2>Добавление пользователя</h2>
+                            <div class="col-2">
+                                <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary">Назад</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
+                            <li class="breadcrumb-item active">Добавление пользователя</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -67,11 +88,13 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <input type="submit" class="btn btn-primary mt-2" value="Добавить">
+                            <input type="submit" class="btn btn-block bg-gradient-secondary" value="Добавить">
                         </form>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+@endsection
+@section('scripts')
 @endsection
