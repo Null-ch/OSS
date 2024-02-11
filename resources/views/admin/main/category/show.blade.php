@@ -6,17 +6,17 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="row">
-                            <h2>Просмотр данных о товаре</h2>
+                            <h2>Просмотр данных о пользователе</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Административная панель</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.products.index') }}">Список товаров</a></li>
-                            <li class="breadcrumb-item active">Просмотр данных о товаре</li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Список пользователей</a></li>
+                            <li class="breadcrumb-item active">Просмотр данных о пользователе</li>
                         </ol>
                     </div>
                 </div>
@@ -32,18 +32,20 @@
                                 <table class="table table-hover text-nowrap">
                                     <tbody>
                                         <tr>
-                                            <th>Название</th>
-                                            <th>Описание</th>
-                                            <th>Остаток</th>
-                                            <th>Категория</th>
-                                            <th>Цвет</th>
+                                            <th>ID</th>
+                                            <th>Имя</th>
+                                            <th>Почта</th>
+                                            <th>Роль</th>
+                                            <th>Дата создания</th>
+                                            <th>Дата обновления</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $product->title }}</td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->count }}</td>
-                                            <td>{{ $product->category->title }}</td>
-                                            <td>{{ $product->color }}</td>
+                                            <td>{{ $user->id }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                            <td>{{ $user->created_at }}</td>
+                                            <td>{{ $user->updated_at }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -34,23 +34,23 @@
                         {{-- <li class="nav-item {{Request::is('admin/cart*') ? 'menu-open' : '' }}">
                             <a href="{{route('admin.carts.index')}}" class="nav-link">
                                 <i class="fa fa-shopping-cart m-r-20"></i>
-                                <p class="p-2 {{Request::is('admin/carts*') ? 'active' : '' }}">Корзины</p>
+                                <p class="p-2 {{Request::is('admin/cart*') ? 'active' : '' }}">Корзины</p>
                             </a>
                         </li> --}}
-                        <li class="nav-item {{Request::is('admin/orders*') ? 'menu-open' : '' }}">
-                            <a href="{{route('admin.orders.index')}}" class="nav-link {{Request::is('admin/orders*') ? 'active' : ''}}">
+                        <li class="nav-item {{Request::is('admin/order*') ? 'menu-open' : '' }}">
+                            <a href="{{route('admin.orders.index')}}" class="nav-link {{Request::is('admin/order*') ? 'active' : ''}}">
                                 <i class="fa fa-rub"><b>$</b></i>
                                 <p class="p-2">Заказы</p>
                             </a>
                         </li>
-                        <li class="nav-item {{Request::is('admin/products*') ? 'menu-open' : '' }}">
-                            <a href="{{route('admin.products.index')}}" class="nav-link {{Request::is('admin/products*') ? 'active' : ''}}">
+                        <li class="nav-item {{Request::is('admin/product*') ? 'menu-open' : '' }}">
+                            <a href="{{route('admin.products.index')}}" class="nav-link {{Request::is('admin/product*') ? 'active' : ''}}">
                                 <i class="fa fa-cubes"></i>
                                 <p class="p-2">Товары</p>
                             </a>
                         </li>
                         <li class="nav-item {{Request::is('admin/categories*') ? 'menu-open' : '' }}">
-                            <a href="{{route('admin.categories.index')}}" class="nav-link {{Request::is('admin/categories*') ? 'active' : '' }}">
+                            <a href="{{route('admin.categories.index')}}" class="nav-link {{Request::is('admin/category*') ? 'active' : '' }}">
                                 <i class="fa fa-tasks"></i>
                                 <p class="p-2">Категории</p>
                             </a>

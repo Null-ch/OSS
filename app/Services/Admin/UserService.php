@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class UserService
 {
     /**
-     * Getting users
+     * Getting all users
      *
      * @return object
      * 
