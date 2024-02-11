@@ -66,9 +66,9 @@ class UserService
      */
     public function createUser(array $data)
     {
-        $password = $data['password'];
+        (string) $password = $data['password'];
         $data['password'] = Hash::make($password);
-        $user = User::create($data);
+        (object) $user = User::create($data);
         
         dispatch(new SendRegistrationEmail($user, $password));
         return $user;
@@ -84,7 +84,7 @@ class UserService
      */
     public function updateUser(array $data, int $id)
     {
-        $user = User::find($id);
+        (object) $user = User::find($id);
         $user->update($data);
         return $user;
     }

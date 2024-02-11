@@ -50,9 +50,9 @@ class ProductController extends Controller
      */
     public function store(ProductStoreRequest $request)
     {
-        $data = $request->validated();
-        $images = $request->allFiles();
-        $product = $this->productService->createProduct($data, $images);
+        (array) $data = $request->validated();
+        (array) $images = $request->allFiles();
+        (object) $product = $this->productService->createProduct($data, $images);
         return redirect()->route('admin.products.index');
     }
 
