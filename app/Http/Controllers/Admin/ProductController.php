@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Color;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\ProductService;
@@ -19,7 +17,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the products.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -31,19 +29,18 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new product.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $categories = Category::getAllCategories();
-        $colors = Color::getAllColors();
-        return view('admin.main.product.create', compact('categories', 'colors'));
+        $categories = $this->productService->getAllCategories();
+        return view('admin.main.product.create', compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created product.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,12 +49,12 @@ class ProductController extends Controller
     {
         (array) $data = $request->validated();
         (array) $images = $request->allFiles();
-        (object) $product = $this->productService->createProduct($data, $images);
+        (object) $this->productService->createProduct($data, $images);
         return redirect()->route('admin.products.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the current product.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -65,23 +62,24 @@ class ProductController extends Controller
     public function show($id)
     {
         (object) $product = $this->productService->getProduct($id);
-
         return view('admin.main.product.show', compact('product'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Edit the current product.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        (object) $product = $this->productService->getProduct($id);
+        (array) $categories = $this->productService->getAllCategories();
+        return view('admin.main.product.edit', compact('product', 'categories'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update current product.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -89,17 +87,20 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // (array) $data = $request->validated();
+        // $this->userService->updateUser($data, $id);
+        // return redirect()->route('admin.user.edit', $id);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove current product.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $this->productService->destroy($id);
+        return redirect()->route('admin.products.index');
     }
 }

@@ -43,7 +43,9 @@
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->count }}</td>
                                             <td>{{ $product->category->title }}</td>
-                                            <td>{{ $product->color }}</td>
+                                            <td style="justify-content: center; align-items: center;">
+                                                <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

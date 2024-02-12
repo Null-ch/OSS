@@ -54,15 +54,15 @@ Route::middleware('auth')->group(function () {
             Route::delete('/delete/{product}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.product.destroy');
         });
 
-        Route::group(['prefix' => 'color'], function () {
-            Route::get('/', [App\Http\Controllers\Admin\ColorController::class, 'index'])->name('admin.colors.index');
-            Route::get('/{color}', [App\Http\Controllers\Admin\ColorController::class, 'show'])->name('admin.color.show');
-            Route::get('/create/color', [App\Http\Controllers\Admin\ColorController::class, 'create'])->name('admin.color.create');
-            Route::post('/', [App\Http\Controllers\Admin\ColorController::class, 'store'])->name('admin.color.store');
-            Route::get('/{color}/edit', [App\Http\Controllers\Admin\ColorController::class, 'edit'])->name('admin.color.edit');
-            Route::patch('/update/{color}', [App\Http\Controllers\Admin\ColorController::class, 'update'])->name('admin.color.update');
-            Route::delete('/delete/{color}', [App\Http\Controllers\Admin\ColorController::class, 'destroy'])->name('admin.color.destroy');
-        });
+        // Route::group(['prefix' => 'color'], function () {
+        //     Route::get('/', [App\Http\Controllers\Admin\ColorController::class, 'index'])->name('admin.colors.index');
+        //     Route::get('/{color}', [App\Http\Controllers\Admin\ColorController::class, 'show'])->name('admin.color.show');
+        //     Route::get('/create/color', [App\Http\Controllers\Admin\ColorController::class, 'create'])->name('admin.color.create');
+        //     Route::post('/', [App\Http\Controllers\Admin\ColorController::class, 'store'])->name('admin.color.store');
+        //     Route::get('/{color}/edit', [App\Http\Controllers\Admin\ColorController::class, 'edit'])->name('admin.color.edit');
+        //     Route::patch('/update/{color}', [App\Http\Controllers\Admin\ColorController::class, 'update'])->name('admin.color.update');
+        //     Route::delete('/delete/{color}', [App\Http\Controllers\Admin\ColorController::class, 'destroy'])->name('admin.color.destroy');
+        // });
 
         Route::group(['prefix' => 'order'], function () {
             Route::get('/', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');

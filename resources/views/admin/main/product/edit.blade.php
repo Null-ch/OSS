@@ -75,18 +75,6 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="form-group text-center p-1 col-md-6">
-                                    <label>Цвет</label>
-                                    <select name="color_id" class="form-control text-center">
-                                        @foreach ($colors as $color)
-                                            <option value="{{ $color->id }}" {{ $product->color_id ? 'selected' : '' }}>
-                                                {{ $color->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('color_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-2 p-1">

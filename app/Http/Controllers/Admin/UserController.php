@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Services\Admin\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
@@ -19,7 +17,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the users.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -39,7 +37,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,7 +50,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -64,7 +62,7 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the user.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -77,7 +75,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * User update.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -91,14 +89,14 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        User::destroy($id);
-        return redirect()->back();
+        $this->userService->destroy($id);
+        return redirect()->route('admin.users.index');
     }
 }

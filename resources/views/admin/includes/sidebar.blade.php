@@ -37,12 +37,12 @@
                                 <p class="p-2 {{Request::is('admin/cart*') ? 'active' : '' }}">Корзины</p>
                             </a>
                         </li> --}}
-                        <li class="nav-item {{Request::is('admin/order*') ? 'menu-open' : '' }}">
+                        {{-- <li class="nav-item {{Request::is('admin/order*') ? 'menu-open' : '' }}">
                             <a href="{{route('admin.orders.index')}}" class="nav-link {{Request::is('admin/order*') ? 'active' : ''}}">
                                 <i class="fa fa-rub"><b>$</b></i>
                                 <p class="p-2">Заказы</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item {{Request::is('admin/product*') ? 'menu-open' : '' }}">
                             <a href="{{route('admin.products.index')}}" class="nav-link {{Request::is('admin/product*') ? 'active' : ''}}">
                                 <i class="fa fa-cubes"></i>
@@ -55,12 +55,12 @@
                                 <p class="p-2">Категории</p>
                             </a>
                         </li>
-                        <li class="nav-item {{Request::is('admin/colors*') ? 'menu-open' : '' }}">
+                        {{-- <li class="nav-item {{Request::is('admin/colors*') ? 'menu-open' : '' }}">
                             <a href="{{route('admin.colors.index')}}" class="nav-link {{Request::is('admin/color*') ? 'active' : ''}}">
                                 <i class="fa fa-paint-brush"></i>
                                 <p class="p-2">Цвета</p>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
                 <li class="nav-item {{ Request::is('admin/user*') || Request::is('admin/review*') ? 'menu-is-opening menu-open' : '' }}">
@@ -71,12 +71,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{route('admin.reviews.index')}}" class="nav-link {{Request::is('admin/review*') ? 'active' : ''}}">
                                 <i class="fa fa-comments"></i>
                                 <p class="p-2">Отзывы</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{route('admin.users.index')}}" class="nav-link {{Request::is('admin/user*') ? 'active' : ''}}">
                                 <i class="fa fa-user-circle"></i>

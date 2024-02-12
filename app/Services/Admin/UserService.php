@@ -14,7 +14,7 @@ class UserService
      * @return object
      * 
      */
-    public function getUsers()
+    public function getUsers(): object
     {
         $users = collect();
         User::chunk(100, function ($results) use ($users) {
@@ -22,7 +22,7 @@ class UserService
                 $users->push($user);
             }
         });
-        return $users;
+        return (object) $users;
     }
     /**
      * Getting roles
@@ -30,7 +30,7 @@ class UserService
      * @return array
      * 
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         return User::$role;
     }
@@ -40,7 +40,7 @@ class UserService
      * @return array
      * 
      */
-    public function getGenders()
+    public function getGenders(): array
     {
         return User::$gender;
     }
@@ -52,7 +52,7 @@ class UserService
      * @return object
      * 
      */
-    public function getUser(int $id)
+    public function getUser(int $id): object
     {
         return User::find($id);
     }
@@ -64,14 +64,14 @@ class UserService
      * @return object
      * 
      */
-    public function createUser(array $data)
+    public function createUser(array $data): object
     {
         (string) $password = $data['password'];
         $data['password'] = Hash::make($password);
         (object) $user = User::create($data);
         
         dispatch(new SendRegistrationEmail($user, $password));
-        return $user;
+        return (object) $user;
     }
     /**
      * Update current user
@@ -82,10 +82,23 @@ class UserService
      * @return object
      * 
      */
-    public function updateUser(array $data, int $id)
+    public function updateUser(array $data, int $id): object
     {
         (object) $user = User::find($id);
         $user->update($data);
-        return $user;
+        return (object) $user;
+    }
+
+    /**
+     * Delete current user
+     *
+     * @param int $id
+     * 
+     * @return [type]
+     * 
+     */
+    public function destroy(int $id)
+    {
+        User::destroy($id);
     }
 }

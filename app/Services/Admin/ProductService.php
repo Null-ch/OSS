@@ -4,16 +4,39 @@ namespace App\Services\Admin;
 
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Repositories\Category\CategoryRepository;
 
 class ProductService
 {
+    /**
+     * CategoryRepository
+     *
+     * @var object
+     */
+    private $categoryRepository;
+
+    /**
+     *
+     * @param CategoryRepository $categoryRepository
+     * 
+     */
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+    /**
+     * All categories
+     *
+     * @var array
+     */
+    protected $allCategories;
     /**
      * Getting products
      *
      * @return object
      * 
      */
-    public function getProducts()
+    public function getProducts(): object
     {
         $products = collect();
 
@@ -22,7 +45,7 @@ class ProductService
                 $products->push($product);
             }
         });
-        return $products;
+        return (object) $products;
     }
 
     /**
@@ -33,7 +56,7 @@ class ProductService
      * @return object
      * 
      */
-    public function getProduct(int $id)
+    public function getProduct(int $id): object
     {
         return Product::find($id);
     }
@@ -45,9 +68,9 @@ class ProductService
      * @return object
      * 
      */
-    public function createProduct(array $data, array $images)
+    public function createProduct(array $data, array $images): object
     {
-        $product = Product::create($data);
+        (object) $product = Product::create($data);
         if (isset($images['preview_image'])) {
             $file = $images['preview_image'];
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -66,6 +89,28 @@ class ProductService
                 ProductImage::create(['image_path' => $path, 'product_id' => $productId]);
             }
         }
-        return $product;
+        return (object) $product;
+    }
+    /**
+     * Getting product categories
+     *
+     * @return array
+     * 
+     */
+    public function getAllCategories(): object
+    {
+        return $this->categoryRepository->getAllCategories();
+    }
+    /**
+     * Delete current product
+     *
+     * @param int $id
+     * 
+     * @return [type]
+     * 
+     */
+    public function destroy(int $id)
+    {
+        Product::destroy($id);
     }
 }
