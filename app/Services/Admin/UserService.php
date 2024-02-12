@@ -9,6 +9,22 @@ use Illuminate\Support\Facades\Hash;
 class UserService
 {
     /**
+     * User class
+     *
+     * @var object
+     */
+    private $user;
+    /**
+     * Construct user service
+     *
+     * @param User $user
+     * 
+     */
+    public function __construct(User $user)
+    {
+        (object) $this->user = $user;
+    }
+    /**
      * Getting all users
      *
      * @return object
@@ -17,7 +33,7 @@ class UserService
     public function getUsers(): object
     {
         $users = collect();
-        User::chunk(100, function ($results) use ($users) {
+        $this->user::chunk(100, function ($results) use ($users) {
             foreach ($results as $user) {
                 $users->push($user);
             }
@@ -32,7 +48,7 @@ class UserService
      */
     public function getRoles(): array
     {
-        return User::$role;
+        return $this->user::$role;
     }
     /**
      * Getting genders
@@ -42,7 +58,7 @@ class UserService
      */
     public function getGenders(): array
     {
-        return User::$gender;
+        return $this->user::$gender;
     }
     /**
      * Get current user
@@ -54,7 +70,7 @@ class UserService
      */
     public function getUser(int $id): object
     {
-        return User::find($id);
+        return $this->user::find($id);
     }
     /**
      * Create new user
@@ -68,7 +84,7 @@ class UserService
     {
         (string) $password = $data['password'];
         $data['password'] = Hash::make($password);
-        (object) $user = User::create($data);
+        (object) $user = $this->user::create($data);
         
         dispatch(new SendRegistrationEmail($user, $password));
         return (object) $user;
@@ -84,7 +100,7 @@ class UserService
      */
     public function updateUser(array $data, int $id): object
     {
-        (object) $user = User::find($id);
+        (object) $user = $this->user::find($id);
         $user->update($data);
         return (object) $user;
     }
@@ -99,6 +115,6 @@ class UserService
      */
     public function destroy(int $id)
     {
-        User::destroy($id);
+        $this->user::destroy($id);
     }
 }

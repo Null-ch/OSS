@@ -3,26 +3,43 @@
 namespace App\Services\Admin;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\ProductImage;
-use App\Repositories\Category\CategoryRepository;
 
 class ProductService
 {
     /**
-     * CategoryRepository
+     * Product class
      *
      * @var object
      */
-    private $categoryRepository;
+    private $product;
+    /**
+     * Category class
+     *
+     * @var object
+     */
+    private $category;
+    /**
+     * ProductImage class
+     *
+     * @var object
+     */
+    private $productImage;
 
     /**
+     * Construct product service
      *
-     * @param CategoryRepository $categoryRepository
+     * @param Product $product
+     * @param Category $category
+     * @param ProductImage $productImage
      * 
      */
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(Product $product, Category $category, ProductImage $productImage)
     {
-        $this->categoryRepository = $categoryRepository;
+        (object) $this->product = $product;
+        (object) $this->category = $category;
+        (object) $this->productImage = $productImage;
     }
     /**
      * All categories
@@ -40,7 +57,7 @@ class ProductService
     {
         $products = collect();
 
-        Product::chunk(100, function ($results) use ($products) {
+        $this->product::chunk(100, function ($results) use ($products) {
             foreach ($results as $product) {
                 $products->push($product);
             }
@@ -58,7 +75,7 @@ class ProductService
      */
     public function getProduct(int $id): object
     {
-        return Product::find($id);
+        return $this->product::find($id);
     }
     /**
      * Create new product
@@ -70,12 +87,12 @@ class ProductService
      */
     public function createProduct(array $data, array $images): object
     {
-        (object) $product = Product::create($data);
+        (object) $product = $this->product::create($data);
         if (isset($images['preview_image'])) {
             $file = $images['preview_image'];
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img', $filename);
-            $path = 'storage/img/' . $filename;
+            $file->storeAs('public/img/products', $filename);
+            $path = '/img/products' . $filename;
             $product->preview_image = $path;
             $product->save();
         }
@@ -84,9 +101,9 @@ class ProductService
             $files = $images['product_images'];
             foreach ($files as $file) {
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/img', $filename);
-                $path = 'storage/img/' . $filename;
-                ProductImage::create(['image_path' => $path, 'product_id' => $productId]);
+                $file->storeAs('public/img/products', $filename);
+                $path = '/img/products' . $filename;
+                $this->productImage::create(['image_path' => $path, 'product_id' => $productId]);
             }
         }
         return (object) $product;
@@ -99,7 +116,7 @@ class ProductService
      */
     public function getAllCategories(): object
     {
-        return $this->categoryRepository->getAllCategories();
+        return $this->category->getAllCategories();
     }
     /**
      * Delete current product
@@ -111,6 +128,10 @@ class ProductService
      */
     public function destroy(int $id)
     {
-        Product::destroy($id);
+        $this->product::destroy($id);
+    }
+    public function getProductImages(): array
+    {
+        return $this->product->images;
     }
 }

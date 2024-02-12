@@ -35,7 +35,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = $this->productService->getAllCategories();
+        (object) $categories = $this->productService->getAllCategories();
         return view('admin.main.product.create', compact('categories'));
     }
 
@@ -75,6 +75,7 @@ class ProductController extends Controller
     {
         (object) $product = $this->productService->getProduct($id);
         (array) $categories = $this->productService->getAllCategories();
+        (array) $images = $this->productService->getProductImages();
         return view('admin.main.product.edit', compact('product', 'categories'));
     }
 

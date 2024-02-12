@@ -75,6 +75,22 @@
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                                <div class="form-group text-center p-1 col-md-6">
+                                    <label>Цвет</label>
+                                    <input class="form-control text-" type="color" id="color" name="hex_code" value="{{ $product->hex_code }}" />
+                                </div>
+                            </div>
+                            <div class="row p-1">
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Обложка</label>
+                                    <img src="{{ asset('storage/img/products/1707758768_Arrow-Up.png') }}" alt="Мое изображение" style="height: 10em; width: auto;">
+                                </div>
+                                <div class="form-group p-1 text-center col-md-6">
+                                    <label>Фото товара</label>
+                                    @foreach ($images as $image)
+                                        <img src="{{ asset("$image") }}" alt="Мое изображение" style="height: 10em; width: auto;">
+                                    @endforeach
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-2 p-1">
