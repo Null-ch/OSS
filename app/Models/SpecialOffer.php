@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Category extends Model
+class SpecialOffer extends Model
 {
     use HasFactory, SoftDeletes;
     /**
@@ -15,10 +15,10 @@ class Category extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'title',
+        'header', 'description', 'image', 'sort_order', 'hex_code',
     ];
 
-    protected $table = 'categories';
+    protected $table = 'special_offers';
     protected $guarded = false;
 
     /***********************************
@@ -28,21 +28,21 @@ class Category extends Model
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/
-    
+
     /**
-     * Getting all categories
+     * Getting all specialOffers
      *
      * @return \Illuminate\Support\Collection
      * 
      */
-    public static function getAllCategories()
+    public static function getAllSpecialOffers()
     {
-        $categories = collect();
-        Category::chunk(100, function ($results) use ($categories) {
-            foreach ($results as $category) {
-                $categories->push($category);
+        $specialOffers = collect();
+        SpecialOffer::chunk(100, function ($results) use ($specialOffers) {
+            foreach ($results as $specialOffer) {
+                $specialOffers->push($specialOffer);
             }
         });
-        return $categories;
+        return $specialOffers;
     }
 }

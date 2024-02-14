@@ -13,9 +13,17 @@ class ProductImage extends Model
     protected $fillable = [
         'image_path', 'product_id', 'sort_order',
     ];
+    /***********************************
+     * RELATIONS
+     ***********************************/
 
     public function product()
     {
         return $this->belongsTo(Product::class);
     }
+
+    /***********************************
+     * MODEL HELPERS FUNCTIONS
+     ***********************************/
+
 }
