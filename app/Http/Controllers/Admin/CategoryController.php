@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Admin\CategoryService;
 
 class CategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        (object) $categories = $this->categoryService->getAllCategories();
+        return view('admin.main.category.index', compact('categories'));
     }
 
     /**
@@ -24,7 +33,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.main.category.create');
     }
 
     /**
@@ -35,29 +44,32 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->categoryService->createCategory($request);
+        return redirect()->route('admin.categories.index');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        //
+        (object) $category = $this->categoryService->getCategory($id);
+        return view('admin.main.category.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        (object) $category = $this->categoryService->getCategory($id);
+        return view('admin.main.category.edit', compact('category'));
     }
 
     /**
@@ -69,7 +81,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->categoryService->updateCategory($request, $id);
+        return redirect()->route('admin.category.edit', $id);
     }
 
     /**
@@ -80,6 +93,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->categoryService->destroy($id);
+        return redirect()->route('admin.categories.index');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Admin\ProductService;
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 
 class ProductController extends Controller
 {
@@ -62,7 +63,8 @@ class ProductController extends Controller
     public function show($id)
     {
         (object) $product = $this->productService->getProduct($id);
-        return view('admin.main.product.show', compact('product'));
+        (object) $images = $product->images;
+        return view('admin.main.product.show', compact('product', 'images'));
     }
 
     /**
@@ -75,8 +77,8 @@ class ProductController extends Controller
     {
         (object) $product = $this->productService->getProduct($id);
         (array) $categories = $this->productService->getAllCategories();
-        (array) $images = $this->productService->getProductImages();
-        return view('admin.main.product.edit', compact('product', 'categories'));
+        (object) $images = $product->images;
+        return view('admin.main.product.edit', compact('product', 'categories', 'images'));
     }
 
     /**
@@ -86,11 +88,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateRequest $request, $id)
     {
-        // (array) $data = $request->validated();
-        // $this->userService->updateUser($data, $id);
-        // return redirect()->route('admin.user.edit', $id);
+        (array) $data = $request->validated();
+        (array) $images = $request->allFiles();
+        $this->productService->updateProduct($data, $images, $id);
+        return redirect()->route('admin.product.edit', $id);
     }
 
     /**

@@ -8,7 +8,7 @@
                         <div class="row">
                             <h2>Список категорий </h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.user.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
+                                <a href="{{ route('admin.category.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr data-id="{{ $category->id }}">
-                                                <td class="p-2 text-center">{{ $category->name }}</td>
+                                                <td class="p-2 text-center">{{ $category->title }}</td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.category.show', $category->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                                 <td class="text-center p-2">

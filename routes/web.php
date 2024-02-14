@@ -26,8 +26,8 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-            Route::get('/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
             Route::get('/create/user', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
+            Route::get('/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
             Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.user.store');
             Route::get('/{user}/edit', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
             Route::patch('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
@@ -36,8 +36,8 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.categories.index');
+            Route::get('/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('admin.category.create');
             Route::get('/{category}', [App\Http\Controllers\Admin\CategoryController::class, 'show'])->name('admin.category.show');
-            Route::get('/create/category', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('admin.category.create');
             Route::post('/', [App\Http\Controllers\Admin\CategoryController::class, 'store'])->name('admin.category.store');
             Route::get('/{category}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('admin.category.edit');
             Route::patch('/update/{category}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('admin.category.update');
@@ -46,8 +46,8 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => 'product'], function () {
             Route::get('/', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('admin.products.index');
+            Route::get('/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
             Route::get('/{product}', [App\Http\Controllers\Admin\ProductController::class, 'show'])->name('admin.product.show');
-            Route::get('/create/product', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('admin.product.create');
             Route::post('/', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('admin.product.store');
             Route::get('/{product}/edit', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('admin.product.edit');
             Route::patch('/update/{product}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');

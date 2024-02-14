@@ -28,27 +28,73 @@
                 <div class="row">
                     <div class="col-10">
                         <div class="card">
-                            <div class="card-body table-responsive p-0">
-                                <table class="table table-hover text-nowrap">
-                                    <tbody>
-                                        <tr>
-                                            <th>Название</th>
-                                            <th>Описание</th>
-                                            <th>Остаток</th>
-                                            <th>Категория</th>
-                                            <th>Цвет</th>
-                                        </tr>
-                                        <tr>
-                                            <td>{{ $product->title }}</td>
-                                            <td>{{ $product->price }}</td>
-                                            <td>{{ $product->count }}</td>
-                                            <td>{{ $product->category->title }}</td>
-                                            <td style="justify-content: center; align-items: center;">
-                                                <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="row">
+                                <div class="card-body table-responsive p-0">
+                                    <table class="table table-hover text-nowrap">
+                                        <tbody>
+                                            <tr>
+                                                <th>Название</th>
+                                                <th>Описание</th>
+                                                <th>Остаток</th>
+                                                <th>Категория</th>
+                                                <th>Цвет</th>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ $product->title }}</td>
+                                                <td>{{ $product->price }}</td>
+                                                <td>{{ $product->count }}</td>
+                                                <td>{{ $product->category->title }}</td>
+                                                <td style="justify-content: center; align-items: center;">
+                                                    <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="row p-1">
+                                <div class="text-center p-1 col-md-12">
+                                    <div class="row justify-content-center">
+                                        <label class="text-center">Фотографии товара</label>
+                                    </div>
+                                    <div class="row p-1">
+                                        <div class="file-upload col-md-4">
+                                            <div class="imgUp">
+                                                <div class="imagePreview" id="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload col-md-4">
+                                            <div class="imgUp">
+                                                <div class="imagePreview" id="2"></div>
+                                            </div>
+                                        </div>
+                                        <div class="file-upload col-md-4">
+                                            <div class="imgUp">
+                                                <div class="imagePreview" id="3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="row">
+                                <div class="text-center p-1 col-md-12">
+                                    <div class="row justify-content-center">
+                                        <div>
+                                            <label>Обложка товара</label>
+                                            <div class="file-upload">
+                                                <div class="imgUp">
+                                                    <div class="imagePreview" id="preview_image">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,4 +109,39 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var imagePreview = document.getElementById('preview_image');
+            var imageSrc = "{{ asset($product->preview_image) }}";
+
+            var img = new Image();
+            img.src = imageSrc;
+            img.alt = "Preview Image";
+
+            img.addEventListener('load', function() {
+                imagePreview.style.backgroundImage = "url(" + img.src + ")";
+                imagePreview.style.backgroundSize = "contain";
+                imagePreview.style.backgroundPosition = "center";
+                imagePreview.style.width = "430px";
+                imagePreview.style.height = "400px";
+            });
+        });
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            let images = {!! json_encode($images) !!};
+            images.forEach(function(image, index) {
+                var imagePath = image.image_path;
+                var rootUrl = window.location.origin;
+                var imageUrl = rootUrl + '/' + imagePath;
+
+                var imagePreview = document.getElementById(index + 1);
+                imagePreview.style.backgroundImage = "url('" + imageUrl + "')";
+                imagePreview.style.backgroundSize = "contain";
+                imagePreview.style.backgroundPosition = "center";
+                imagePreview.style.width = "100%";
+                imagePreview.style.height = "250px";
+            });
+        });
+    </script>
 @endsection

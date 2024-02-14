@@ -8,15 +8,15 @@
                         <div class="row">
                             <h2>Просмотр данных о пользователе</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
-                            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Список пользователей</a></li>
-                            <li class="breadcrumb-item active">Просмотр данных о пользователе</li>
+                            <li class="breadcrumb-item"><a href="{{route('admin.categories.index')}}">Список категорий</a></li>
+                            <li class="breadcrumb-item active">Просмотр данных о категории</li>
                         </ol>
                     </div>
                 </div>
@@ -33,19 +33,15 @@
                                     <tbody>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Имя</th>
-                                            <th>Почта</th>
-                                            <th>Роль</th>
+                                            <th>Название</th>
                                             <th>Дата создания</th>
                                             <th>Дата обновления</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>{{ $user->updated_at }}</td>
+                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $category->title }}</td>
+                                            <td>{{ $category->created_at }}</td>
+                                            <td>{{ $category->updated_at }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

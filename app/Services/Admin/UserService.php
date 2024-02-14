@@ -38,7 +38,7 @@ class UserService
                 $users->push($user);
             }
         });
-        return (object) $users;
+        return $users;
     }
     /**
      * Getting roles
@@ -87,7 +87,7 @@ class UserService
         (object) $user = $this->user::create($data);
         
         dispatch(new SendRegistrationEmail($user, $password));
-        return (object) $user;
+        return $user;
     }
     /**
      * Update current user
@@ -102,7 +102,7 @@ class UserService
     {
         (object) $user = $this->user::find($id);
         $user->update($data);
-        return (object) $user;
+        return $user;
     }
 
     /**
