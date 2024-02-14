@@ -4,13 +4,27 @@
 .pointer {
   cursor: pointer;
 }
+html {
+  scrollbar-width: none !important;
+}
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
 .header {
   margin-left: 24px;
   margin-right: 24px;
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
-  height: 72px;
 }
 .nav {
   background-color: #f7f7f7;
@@ -26,38 +40,61 @@
   text-decoration: unset;
 }
 .tab span {
-  color: #173f28;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: 'bree-light', sans-serif;
+  color: #333333;
+  font-size: 28px;
 }
-.tab:hover {
+.tab-active {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  transition: 0.3s;
+  text-decoration: unset;
+  background-color: #333333;
+}
+.tab-active span {
+  font-family: 'bree-light', sans-serif;
+  color: #333333;
+  font-size: 28px;
+}
+.tab-active span {
+  color: #f7f7f7;
+}
+.tab-inactive {
+  display: flex;
+  align-items: center;
+  padding: 24px;
+  transition: 0.3s;
+  text-decoration: unset;
+}
+.tab-inactive span {
+  font-family: 'bree-light', sans-serif;
+  color: #333333;
+  font-size: 28px;
+}
+.tab-inactive:hover {
   background-color: #D6DCD9;
 }
-.logo {
-  align-self: center;
-  height: 48px;
-  width: 48px;
-}
 .brand {
+  font-family: 'bree-light', sans-serif;
   cursor: default;
-  color: #173f28;
-  font-weight: 600;
+  color: #333333;
   align-self: center;
-  font-size: 24px;
+  font-size: 32px;
 }
 .header-logo {
   display: flex;
   flex-direction: row;
 }
-.header-logo img {
-  align-self: center;
-  height: 48px;
-  width: 48px;
-}
 .header-logo span {
+  font-family: 'bree-light', sans-serif;
   cursor: default;
-  color: #173f28;
-  font-weight: 600;
+  color: #333333;
   align-self: center;
-  font-size: 24px;
+  font-size: 32px;
+}
+.header-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
 }
