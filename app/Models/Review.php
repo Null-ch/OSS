@@ -23,4 +23,12 @@ class Review extends Model
     protected $table = 'reviews';
     protected $guarded = false;
 
+    /***********************************
+     * RELATIONS
+     ***********************************/
+    
+    /***********************************
+     * MODEL HELPERS FUNCTIONS
+     ***********************************/
+
 }

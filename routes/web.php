@@ -63,6 +63,15 @@ Route::middleware('auth')->group(function () {
         //     Route::patch('/update/{color}', [App\Http\Controllers\Admin\ColorController::class, 'update'])->name('admin.color.update');
         //     Route::delete('/delete/{color}', [App\Http\Controllers\Admin\ColorController::class, 'destroy'])->name('admin.color.destroy');
         // });
+        Route::group(['prefix' => 'special-offer'], function () {
+            Route::get('/', [App\Http\Controllers\Admin\SpecialOfferController::class, 'index'])->name('admin.special-offers.index');
+            Route::get('/create', [App\Http\Controllers\Admin\SpecialOfferController::class, 'create'])->name('admin.special-offer.create');
+            Route::get('/{special-offer}', [App\Http\Controllers\Admin\SpecialOfferController::class, 'show'])->name('admin.special-offer.show');
+            Route::post('/', [App\Http\Controllers\Admin\SpecialOfferController::class, 'store'])->name('admin.special-offer.store');
+            Route::get('/{special-offer}/edit', [App\Http\Controllers\Admin\SpecialOfferController::class, 'edit'])->name('admin.special-offer.edit');
+            Route::patch('/update/{special-offer}', [App\Http\Controllers\Admin\SpecialOfferController::class, 'update'])->name('admin.special-offer.update');
+            Route::delete('/delete/{special-offer}', [App\Http\Controllers\Admin\SpecialOfferController::class, 'destroy'])->name('admin.special-offer.destroy');
+        });
 
         Route::group(['prefix' => 'order'], function () {
             Route::get('/', [App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');

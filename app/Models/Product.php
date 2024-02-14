@@ -29,6 +29,10 @@ class Product extends Model
     protected $table = 'products';
     protected $guarded = false;
 
+    /***********************************
+     * RELATIONS
+     ***********************************/
+    
     public function images()
     {
         return $this->hasMany(ProductImage::class,'product_id', 'id')->orderBy('sort_order');
@@ -42,4 +46,7 @@ class Product extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+    /***********************************
+     * MODEL HELPERS FUNCTIONS
+     ***********************************/
 }

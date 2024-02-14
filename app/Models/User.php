@@ -58,7 +58,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    /***********************************
+     * RELATIONS
+     ***********************************/
+    
+    /***********************************
+     * MODEL HELPERS FUNCTIONS
+     ***********************************/
     public static function isAdmin()
     {
         if (auth()->check()) {
