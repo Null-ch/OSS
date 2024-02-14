@@ -27,7 +27,7 @@ function App() {
       <Context.Provider value = {{
         logIn, logOut
       }}>
-        {isLogged === 'true' ? <span>Залогинился</span> : <span>Разлогинился</span>}
+        {/* {isLogged === 'true' ? <span>Залогинился</span> : <span>Разлогинился</span>} */}
         <Routes>
           <Route path = "/" element = {<Layout/>}>
             {/* Layout = обёртка с хедером, футером и т.д, Outlet = Контент внутри обёртки */}

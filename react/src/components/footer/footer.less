@@ -1,13 +1,17 @@
 @import (less) './../../styles/common.less';
+@import (less) './../../styles/fonts.less';
+
+@breelight: 'bree-light';
+@breethin: 'bree-thin';
 
 .footer {
-    // height: 100px;
     background-color: @black;
     display: flex;
+    align-items: center;
     flex-direction: column;
     row-gap: 64px;
     padding: 24px;
-
+    // padding-bottom: 96px;
     span {
         color: @white;
     }
@@ -23,15 +27,27 @@
     justify-content: center;
     display: flex;
     flex-direction: row;
-    column-gap: 48px;
+    column-gap: 72px;
 }
 
 .brand {
+    font-family: @breelight, sans-serif;
     cursor: default;
     color: @white;
-    font-weight: 600;
+    letter-spacing: 4px;
+    // font-weight: 600;
     align-self: center;
     font-size: 32px;
+}
+
+.brand-footer {
+    font-family: @breethin, sans-serif;
+    cursor: default;
+    color: @white;
+    letter-spacing: 4px;
+    // font-weight: 600;
+    align-self: center;
+    font-size: 64px;
 }
 
 .footer-logo {
@@ -50,19 +66,24 @@
 .footer-section {
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
+    row-gap: 16px;
 }
 
 .footer-section-title {
+    font-family: @breelight, sans-serif;
+
     padding-bottom: 8px;
-    font-weight: 600;
-    font-size: 20px;
+    // font-weight: 600;
+    font-size: 36px;
     cursor: default;
 }
 
 .footer-section-item {
-    font-weight: 600;
-    font-size: 16px;
+    font-family: @breelight, sans-serif;
+
+    // font-weight: 600;
+    font-size: 24px;
     text-decoration: underline;
+    text-underline-position: under;
     cursor: pointer;
 }

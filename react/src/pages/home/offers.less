@@ -1,0 +1,55 @@
+@import (less) './../../styles/fonts.less';
+
+@breelight: 'bree-light';
+
+.offers {
+    position: relative;
+    align-items: center;
+    // margin: 24px;
+    height: 400px;
+    width: auto;
+    background-color: #a6b8ae;
+    display: flex;
+}
+
+.offer {
+    flex: 1;
+    width:100%;
+    height:100%;
+    background-color: #a6b8ae;
+    display: flex;
+    flex-direction: row;
+    img {
+        height: 100%;
+    }
+}
+
+.offers-list {
+    background-color: #f7f7f7;
+    margin: 24px;
+}
+
+.offer-descr-container {
+    // background-color: red;
+    margin: 64px;
+    flex-grow: 1;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+}
+
+.offer-descr-header-container {
+    // background-color: blue;
+    display: flex;
+
+    justify-content: center;
+}
+
+.offer-descr {
+    font-family: bree-thin, sans-serif;
+    color: #f7f7f7;
+    font-size: 32px;
+}

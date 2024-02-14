@@ -4,3 +4,6 @@
 .pointer {
   cursor: pointer;
 }
+html {
+  scrollbar-width: none !important;
+}

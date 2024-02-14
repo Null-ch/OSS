@@ -4,9 +4,25 @@
 .pointer {
   cursor: pointer;
 }
+html {
+  scrollbar-width: none !important;
+}
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
 .footer {
   background-color: #333333;
   display: flex;
+  align-items: center;
   flex-direction: column;
   row-gap: 64px;
   padding: 24px;
@@ -23,14 +39,23 @@
   justify-content: center;
   display: flex;
   flex-direction: row;
-  column-gap: 48px;
+  column-gap: 72px;
 }
 .brand {
+  font-family: 'bree-light', sans-serif;
   cursor: default;
   color: #f7f7f7;
-  font-weight: 600;
+  letter-spacing: 4px;
   align-self: center;
   font-size: 32px;
+}
+.brand-footer {
+  font-family: 'bree-thin', sans-serif;
+  cursor: default;
+  color: #f7f7f7;
+  letter-spacing: 4px;
+  align-self: center;
+  font-size: 64px;
 }
 .footer-logo {
   align-self: center;
@@ -43,26 +68,28 @@
   width: 64px;
 }
 .footer-logo span {
+  font-family: 'bree-light', sans-serif;
   cursor: default;
   color: #f7f7f7;
-  font-weight: 600;
+  letter-spacing: 4px;
   align-self: center;
   font-size: 32px;
 }
 .footer-section {
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
+  row-gap: 16px;
 }
 .footer-section-title {
+  font-family: 'bree-light', sans-serif;
   padding-bottom: 8px;
-  font-weight: 600;
-  font-size: 20px;
+  font-size: 36px;
   cursor: default;
 }
 .footer-section-item {
-  font-weight: 600;
-  font-size: 16px;
+  font-family: 'bree-light', sans-serif;
+  font-size: 24px;
   text-decoration: underline;
+  text-underline-position: under;
   cursor: pointer;
 }

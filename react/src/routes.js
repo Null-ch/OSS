@@ -1,5 +1,5 @@
 import { CART, SHOP, HOME, ITEM, ABOUT, LOGIN, LOGOUT } from './util/constants'
-import Home from './pages/Home'
+import Home from './pages/home/Home'
 import Cart from './pages/Cart'
 import Shop from './pages/Shop'
 import Item from './pages/Item'
