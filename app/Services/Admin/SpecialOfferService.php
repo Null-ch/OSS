@@ -6,7 +6,7 @@ use App\Models\SpecialOffer;
 
 class SpecialOfferService
 {
-/**
+    /**
      * SpecialOffer class
      *
      * @var object
@@ -22,7 +22,6 @@ class SpecialOfferService
     public function __construct(SpecialOffer $specialOffer)
     {
         (object) $this->specialOffer = $specialOffer;
-
     }
     public function getCategory(int $id): object
     {
@@ -39,15 +38,24 @@ class SpecialOfferService
         return $this->specialOffer->getAllSpecialOffers();
     }
     /**
-     * Create new category
+     * Create new special offer
      *
      * @param object $data
      * 
      */
-    public function createCategory(object $data)
+    public function createsSpecialOffer(array $data)
     {
-        $title = $data->title;
-        $this->specialOffer::create(['title' => $title]);
+        if ($data['is_active'] == 'on') {
+            $data['is_active'] = 1;
+        } elseif ($data['is_active'] == 'off') {
+            $data['is_active'] = 0;
+        }
+        $file = $data['image'];
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->storeAs('public/img/products', $filename);
+        $path = 'storage/img/products/' . $filename;
+        $data['image'] = $path;
+        $this->specialOffer::create($data);
     }
     /**
      * Update current specialOffer

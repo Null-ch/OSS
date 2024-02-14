@@ -8,7 +8,7 @@
                         <div class="row">
                             <h2>Специальные предложения</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.category.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
+                                <a href="{{ route('admin.special-offer.create') }}" class="btn btn-block bg-gradient-secondary">Добавить</a>
                             </div>
                         </div>
                     </div>
@@ -33,7 +33,6 @@
                                         <tr>
                                             <th class="p-2 text-center">Заголовок</th>
                                             <th class="p-2 text-center">Текст предложения</th>
-                                            <th class="p-2 text-center">Обложка</th>
                                             <th class="p-2 text-center">Цвет</th>
                                             <th class="p-2 text-center">Порядок сортировки</th>
                                             <th class="p-2 text-center">Активность</th>
@@ -42,7 +41,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+                                        @foreach ($specialOffers as $specialOffer)
+                                            <tr data-id="{{ $specialOffer->id }}">
+                                                <td class="p-2 text-center">{{ $specialOffer->header }}</td>
+                                                <td class="p-2 text-center">{{ $specialOffer->description }}</td>
+                                                <td class="p-2 text-center">{{ $specialOffer->hex_code }}</td>
+                                                <td class="p-2 text-center">{{ $specialOffer->is_active }}</td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
+                                                <td class="text-center p-2">
+                                                    <form action="{{ route('admin.special-offer.destroy', $specialOffer->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SpecialOfferRequest;
 use App\Services\Admin\SpecialOfferService;
 
 class SpecialOfferController extends Controller
@@ -29,7 +30,7 @@ class SpecialOfferController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -42,10 +43,11 @@ class SpecialOfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SpecialOfferRequest $request)
     {
-        $this->specialOfferService->createCategory($request);
-        return redirect()->route('admin.categories.index');
+        $data = $request->validated();
+        $this->specialOfferService->createsSpecialOffer($data);
+        return redirect()->route('admin.special-offers.index');
     }
 
     /**
