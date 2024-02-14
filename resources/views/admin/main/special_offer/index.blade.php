@@ -36,6 +36,7 @@
                                             <th class="p-2 text-center">Цвет</th>
                                             <th class="p-2 text-center">Порядок сортировки</th>
                                             <th class="p-2 text-center">Активность</th>
+                                            <th class="p-2 text-center">Просмотр</th>
                                             <th class="p-2 text-center">Редактировать</th>
                                             <th class="p-2 text-center">Удалить</th>
                                         </tr>
@@ -46,6 +47,7 @@
                                                 <td class="p-2 text-center">{{ $specialOffer->header }}</td>
                                                 <td class="p-2 text-center">{{ $specialOffer->description }}</td>
                                                 <td class="p-2 text-center">{{ $specialOffer->hex_code }}</td>
+                                                <td class="p-2 text-center">{{ $specialOffer->sort_order }}</td>
                                                 <td class="p-2 text-center">{{ $specialOffer->is_active }}</td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>

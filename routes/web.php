@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +15,13 @@ use App\Http\Controllers\Admin\IndexController;
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [App\Http\Controllers\IndexController::class, 'index'])->name('home');
-    Route::get('/cart', [App\Http\Controllers\IndexController::class, 'showCart'])->name('public.cart');
-    Route::get('/shop', [App\Http\Controllers\IndexController::class, 'showShop'])->name('public.shop');
-    Route::get('/item/{id}', [App\Http\Controllers\IndexController::class, 'showItem'])->name('public.item');
+    Route::get('/', [App\Http\Controllers\ReactController::class, 'index'])->name('home');
+    Route::get('/cart', [App\Http\Controllers\ReactController::class, 'showCart'])->name('public.cart');
+    Route::get('/shop', [App\Http\Controllers\ReactController::class, 'showShop'])->name('public.shop');
+    Route::get('/item/{id}', [App\Http\Controllers\ReactController::class, 'showItem'])->name('public.item');
     
     Route::middleware('admin')->prefix('admin')->group(function () {
-        Route::get('/', IndexController::class)->name('admin.index');
+        Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
