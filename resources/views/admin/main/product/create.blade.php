@@ -49,14 +49,19 @@
                             <div class="row p-1">
                                 <div class="form-group p-1 text-center col-md-6">
                                     <label>Цена</label>
-                                    <input type="text" class="form-control text-center" name="price" placeholder="Установите цену за шт.">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control text-center" name="price" placeholder="Установите цену за шт.">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">₽</span>
+                                        </div>
+                                    </div>
                                     @error('price')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="form-group p-1 text-center col-md-6">
                                     <label>Текущее количество</label>
-                                    <input type="text" class="form-control text-center" name="count" placeholder="Установите количество товара на складе">
+                                    <input type="number" class="form-control text-center" name="count" placeholder="Установите количество товара на складе" min="0" value="0">
                                     @error('count')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -140,7 +145,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(function() {
             $(document).on("change", ".uploadFile", function() {

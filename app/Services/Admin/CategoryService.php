@@ -34,7 +34,7 @@ class CategoryService
      */
     public function getCategory(int $id): object
     {
-        return $this->category::find($id);
+        return $this->category::findOrFail($id);
     }
 
     /**

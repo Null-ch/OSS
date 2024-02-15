@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SpecialOfferRequest;
 use App\Services\Admin\SpecialOfferService;
+use App\Http\Requests\SpecialOfferUpdateRequest;
 
 class SpecialOfferController extends Controller
 {
@@ -16,7 +17,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the current special offers.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -27,9 +28,9 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new special offer.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -37,56 +38,58 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created special offer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SpecialOfferRequest $request)
     {
-        $this->specialOfferService->createCategory($request);
-        return redirect()->route('admin.categories.index');
+        $data = $request->validated();
+        $this->specialOfferService->createsSpecialOffer($data);
+        return redirect()->route('admin.special-offers.index');
     }
 
     /**
-     * Display the specified resource.
+     * Display the current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getCategory($id);
-        return view('admin.main.special_offer.show', compact('category'));
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        return view('admin.main.special_offer.show', compact('specialOffer'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getCategory($id);
-        return view('admin.main.special_offer.edit', compact('category'));
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        return view('admin.main.special_offer.edit', compact('specialOffer'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update current special offer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SpecialOfferUpdateRequest $request, $id)
     {
-        $this->specialOfferService->updateCategory($request, $id);
-        return redirect()->route('admin.category.edit', $id);
+        $data = $request->validated();
+        $this->specialOfferService->updateSpecialOffer($data, $id);
+        return redirect()->route('admin.special-offers.index', $id);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -94,6 +97,22 @@ class SpecialOfferController extends Controller
     public function destroy($id)
     {
         $this->specialOfferService->destroy($id);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.special_offer.index');
+    }
+    /**
+     * Func for chenge activity of special offer
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function toggleActivity($id)
+    {
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
+        $specialOffer->save();
+
+        return response()->json(['success' => true]);
     }
 }

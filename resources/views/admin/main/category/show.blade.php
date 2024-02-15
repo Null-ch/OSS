@@ -32,16 +32,16 @@
                                 <table class="table table-hover text-nowrap">
                                     <tbody>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Название</th>
-                                            <th>Дата создания</th>
-                                            <th>Дата обновления</th>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Название</th>
+                                            <th class="text-center">Дата создания</th>
+                                            <th class="text-center">Дата обновления</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->title }}</td>
-                                            <td>{{ $category->created_at }}</td>
-                                            <td>{{ $category->updated_at }}</td>
+                                            <td class="text-center">{{ $category->id }}</td>
+                                            <td class="text-center">{{ $category->title }}</td>
+                                            <td class="text-center">{{ $category->created_at }}</td>
+                                            <td class="text-center">{{ $category->updated_at }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

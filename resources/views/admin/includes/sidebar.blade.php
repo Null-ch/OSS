@@ -23,7 +23,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
                 <li class="nav-header">Основное</li>
-                <li class="nav-item {{ Request::is('admin/cart*') || Request::is('admin/category*') || Request::is('admin/color*') || Request::is('admin/order*') || Request::is('admin/product*') ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::is('admin/cart*') || Request::is('admin/category*') || Request::is('admin/color*') || Request::is('admin/order*') || Request::is('admin/product*') || Request::is('admin/special-offer*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <p>
                             Магазин
@@ -31,31 +31,37 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- <li class="nav-item {{Request::is('admin/cart*') ? 'menu-open' : '' }}">
+                        {{-- <li class="nav-item">
                             <a href="{{route('admin.carts.index')}}" class="nav-link">
                                 <i class="fa fa-shopping-cart m-r-20"></i>
                                 <p class="p-2 {{Request::is('admin/cart*') ? 'active' : '' }}">Корзины</p>
                             </a>
                         </li> --}}
-                        {{-- <li class="nav-item {{Request::is('admin/order*') ? 'menu-open' : '' }}">
+                        {{-- <li class="nav-item">
                             <a href="{{route('admin.orders.index')}}" class="nav-link {{Request::is('admin/order*') ? 'active' : ''}}">
                                 <i class="fa fa-rub"><b>$</b></i>
                                 <p class="p-2">Заказы</p>
                             </a>
                         </li> --}}
-                        <li class="nav-item {{Request::is('admin/product*') ? 'menu-open' : '' }}">
+                        <li class="nav-item">
                             <a href="{{route('admin.products.index')}}" class="nav-link {{Request::is('admin/product*') ? 'active' : ''}}">
                                 <i class="fa fa-cubes"></i>
                                 <p class="p-2">Товары</p>
                             </a>
                         </li>
-                        <li class="nav-item {{Request::is('admin/categories*') ? 'menu-open' : '' }}">
+                        <li class="nav-item">
                             <a href="{{route('admin.categories.index')}}" class="nav-link {{Request::is('admin/category*') ? 'active' : '' }}">
                                 <i class="fa fa-tasks"></i>
                                 <p class="p-2">Категории</p>
                             </a>
                         </li>
-                        {{-- <li class="nav-item {{Request::is('admin/colors*') ? 'menu-open' : '' }}">
+                        <li class="nav-item">
+                            <a href="{{route('admin.special-offers.index')}}" class="nav-link {{Request::is('admin/special-offer*') ? 'active' : ''}}">
+                                <i class="fa fa-fire"></i>
+                                <p class="p-2">Специальные предложения</p>
+                            </a>
+                        </li>
+                        {{-- <li class="nav-item">
                             <a href="{{route('admin.colors.index')}}" class="nav-link {{Request::is('admin/color*') ? 'active' : ''}}">
                                 <i class="fa fa-paint-brush"></i>
                                 <p class="p-2">Цвета</p>

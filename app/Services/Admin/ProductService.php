@@ -61,7 +61,7 @@ class ProductService
      */
     public function getProduct(int $id): object
     {
-        return $this->product::find($id);
+        return $this->product::findOrFail($id);
     }
 
     /**
@@ -109,7 +109,7 @@ class ProductService
      */
     public function updateProduct(array $data, array $images, int $id): object
     {
-        $product = $this->product::find($id);
+        $product = $this->product::findOrFail($id);
         $product->update($data);
         if ($images) {
             $productImages = $product->images;
