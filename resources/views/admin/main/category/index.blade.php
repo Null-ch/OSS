@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="scroll-to-top" onclick="scrollToTop()">
-                    <img src="{{ asset('images/admin/Arrow-Up.png') }}" alt="Наверх">
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
             </div>
         </section>

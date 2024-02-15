@@ -32,20 +32,20 @@
                                 <table class="table table-hover text-nowrap">
                                     <tbody>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Имя</th>
-                                            <th>Почта</th>
-                                            <th>Роль</th>
-                                            <th>Дата создания</th>
-                                            <th>Дата обновления</th>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Имя</th>
+                                            <th class="text-center">Почта</th>
+                                            <th class="text-center">Роль</th>
+                                            <th class="text-center">Дата создания</th>
+                                            <th class="text-center">Дата обновления</th>
                                         </tr>
                                         <tr>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                            <td>{{ $user->created_at }}</td>
-                                            <td>{{ $user->updated_at }}</td>
+                                            <td class="text-center">{{ $user->id }}</td>
+                                            <td class="text-center">{{ $user->name }}</td>
+                                            <td class="text-center">{{ $user->email }}</td>
+                                            <td class="text-center">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                            <td class="text-center">{{ $user->created_at }}</td>
+                                            <td class="text-center">{{ $user->updated_at }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

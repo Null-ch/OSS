@@ -33,17 +33,19 @@
                                     <table class="table table-hover text-nowrap">
                                         <tbody>
                                             <tr>
-                                                <th>Название</th>
-                                                <th>Описание</th>
-                                                <th>Остаток</th>
-                                                <th>Категория</th>
-                                                <th>Цвет</th>
+                                                <th class="text-center">ID</th>
+                                                <th class="text-center">Название</th>
+                                                <th class="text-center">Описание</th>
+                                                <th class="text-center">Остаток</th>
+                                                <th class="text-center">Категория</th>
+                                                <th class="text-center">Цвет</th>
                                             </tr>
                                             <tr>
-                                                <td>{{ $product->title }}</td>
-                                                <td>{{ $product->price }}</td>
-                                                <td>{{ $product->count }}</td>
-                                                <td>{{ $product->category->title }}</td>
+                                                <td class="text-center">{{ $product->id }}</td>
+                                                <td class="text-center">{{ $product->title }}</td>
+                                                <td class="text-center">{{ $product->price }}</td>
+                                                <td class="text-center">{{ $product->count }}</td>
+                                                <td class="text-center">{{ $product->category->title }}</td>
                                                 <td style="justify-content: center; align-items: center;">
                                                     <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
                                                 </td>

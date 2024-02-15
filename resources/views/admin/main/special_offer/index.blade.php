@@ -48,7 +48,11 @@
                                                 <td class="p-2 text-center">{{ $specialOffer->description }}</td>
                                                 <td class="p-2 text-center">{{ $specialOffer->hex_code }}</td>
                                                 <td class="p-2 text-center">{{ $specialOffer->sort_order }}</td>
-                                                <td class="p-2 text-center">{{ $specialOffer->is_active }}</td>
+                                                <td class="p-2 text-center">
+                                                    <div class="p-2">
+                                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active_checkbox" {{ $specialOffer->is_active ? 'checked' : '' }} value="{{$specialOffer->id}}">
+                                                    </div>
+                                                </td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                                 <td class="text-center p-2">
@@ -72,11 +76,26 @@
                     </div>
                 </div>
                 <div class="scroll-to-top" onclick="scrollToTop()">
-                    <img src="{{ asset('images/admin/Arrow-Up.png') }}" alt="Наверх">
+                    <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
             </div>
         </section>
     </div>
 @endsection
 @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#is_active_checkbox').change(function() {
+                var isChecked = $(this).val();
+
+                $.ajax({
+                    url: '/admin/special-offer/activity/' + isChecked,
+                    type: 'GET',
+                    success: function(response) {
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

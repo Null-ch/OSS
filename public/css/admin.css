@@ -122,3 +122,6 @@ body {
     cursor: pointer;
     font-size: 15px;
 }
+.active-checkbox {
+    background-color: green;
+}

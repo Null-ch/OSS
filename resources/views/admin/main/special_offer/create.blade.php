@@ -15,8 +15,8 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Административная панель</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('admin.special-offers.index') }}">Список специальных предложений</a></li>
-                            <li class="breadcrumb-item active">Добавление специального предложения</li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.special-offers.index') }}">Список спец. предложений</a></li>
+                            <li class="breadcrumb-item active">Редактирование спец. предложения</li>
                         </ol>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="form-group p-1 text-center col-md-6">
                                     <label>Позиция в ленте</label>
-                                    <input type="number" class="form-control text-center" name="sort_order" placeholder="Введите название" min="0" value="0">
+                                    <input type="number" class="form-control text-center" name="sort_order" placeholder="Введите название" min="1" value="1">
                                     @error('sort_order')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

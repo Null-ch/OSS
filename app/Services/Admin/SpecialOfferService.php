@@ -23,9 +23,17 @@ class SpecialOfferService
     {
         (object) $this->specialOffer = $specialOffer;
     }
-    public function getCategory(int $id): object
+    /**
+     * [Description for getSpecialOffer]
+     *
+     * @param int $id
+     * 
+     * @return object
+     * 
+     */
+    public function getSpecialOffer(int $id): object
     {
-        return $this->specialOffer::find($id);
+        return $this->specialOffer::findOrFail($id);
     }
     /**
      * Getting all categories
@@ -63,10 +71,26 @@ class SpecialOfferService
      * @param object $data
      * 
      */
-    public function updateCategory(object $data)
+    public function updateSpecialOffer(array $data, int $id)
     {
-        $title = $data->title;
-        $this->specialOffer::update(['title' => $title]);
+        $specialOffer = $this->getSpecialOffer($id);
+
+        if ($data['is_active'] == 'on') {
+            $data['is_active'] = 1;
+        } elseif ($data['is_active'] == 'off') {
+            $data['is_active'] = 0;
+        }
+
+        if ($data['image'] == null) {
+            unset($data['image']);
+        } else {
+            $file = $data['image'];
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/img/products', $filename);
+            $path = 'storage/img/products/' . $filename;
+            $data['image'] = $path;
+        }
+        $specialOffer->update($data);
     }
     /**
      * Delete current specialOffer

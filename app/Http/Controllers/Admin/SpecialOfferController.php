@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialOfferRequest;
 use App\Services\Admin\SpecialOfferService;
+use App\Http\Requests\SpecialOfferUpdateRequest;
 
 class SpecialOfferController extends Controller
 {
@@ -58,8 +59,8 @@ class SpecialOfferController extends Controller
      */
     public function show($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getCategory($id);
-        return view('admin.main.special_offer.show', compact('category'));
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        return view('admin.main.special_offer.show', compact('specialOffer'));
     }
 
     /**
@@ -70,8 +71,8 @@ class SpecialOfferController extends Controller
      */
     public function edit($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getCategory($id);
-        return view('admin.main.special_offer.edit', compact('category'));
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        return view('admin.main.special_offer.edit', compact('specialOffer'));
     }
 
     /**
@@ -81,10 +82,11 @@ class SpecialOfferController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SpecialOfferUpdateRequest $request, $id)
     {
-        $this->specialOfferService->updateCategory($request, $id);
-        return redirect()->route('admin.category.edit', $id);
+        $data = $request->validated();
+        $this->specialOfferService->updateSpecialOffer($data, $id);
+        return redirect()->route('admin.special-offers.index', $id);
     }
 
     /**
@@ -96,6 +98,14 @@ class SpecialOfferController extends Controller
     public function destroy($id)
     {
         $this->specialOfferService->destroy($id);
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.special_offer.index');
+    }
+    public function toggleActivity($id)
+    {
+        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
+        $specialOffer->save();
+
+        return response()->json(['success' => true]);
     }
 }
