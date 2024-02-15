@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialOfferRequest;
 use App\Services\Admin\SpecialOfferService;
@@ -18,7 +17,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the current special offers.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -29,7 +28,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new special offer.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -39,7 +38,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created special offer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -52,7 +51,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -64,7 +63,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -76,7 +75,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update current special offer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -90,7 +89,7 @@ class SpecialOfferController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove current special offer.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -100,6 +99,14 @@ class SpecialOfferController extends Controller
         $this->specialOfferService->destroy($id);
         return redirect()->route('admin.special_offer.index');
     }
+    /**
+     * Func for chenge activity of special offer
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
     public function toggleActivity($id)
     {
         (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
