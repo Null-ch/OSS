@@ -60,8 +60,8 @@ class SpecialOfferService
         }
         $file = $data['image'];
         $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/img/products', $filename);
-        $path = 'storage/img/products/' . $filename;
+        $file->storeAs('public/img/special-offers', $filename);
+        $path = 'storage/img/special-offers/' . $filename;
         $data['image'] = $path;
         $this->specialOffer::create($data);
     }
@@ -86,8 +86,8 @@ class SpecialOfferService
         } else {
             $file = $data['image'];
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img/products', $filename);
-            $path = 'storage/img/products/' . $filename;
+            $file->storeAs('public/img/special-offers', $filename);
+            $path = 'storage/img/special-offers/' . $filename;
             $data['image'] = $path;
         }
         $specialOffer->update($data);
