@@ -2,7 +2,7 @@ import React from 'react';
 import './offers.css';
 
 const Offer = (item) => {
-    console.log(item)
+    // console.log(item)
     return (
         <div className = 'offer'>
             <img src = {item.item.src}>

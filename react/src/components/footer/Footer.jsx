@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../icons/LogoIcon';
 import FooterSection from './FooterSection';
 import './footer.css'
-import { shopName } from '../../util/constants';
+import { shopName } from '../../utils/constants';
 
 const Footer = () => {
     return (

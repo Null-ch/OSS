@@ -1,4 +1,4 @@
-import { CART, SHOP, HOME, ITEM, ABOUT, LOGIN, LOGOUT } from './util/constants'
+import { CART, SHOP, HOME, ITEM, ABOUT, LOGIN, LOGOUT } from './utils/constants'
 import Home from './pages/home/Home'
 import Cart from './pages/Cart'
 import Shop from './pages/Shop'
