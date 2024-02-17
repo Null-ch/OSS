@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from './Nav';
 import LogoIcon from '../icons/LogoIcon';
-import { shopName } from '../../util/constants';
+import { shopName } from '../../utils/constants';
 import ProfileLoginButton from '../buttons/ProfileLoginButton';
 import ThemeButton from '../buttons/ThemeButton';
 import Button from '../buttons/Button';

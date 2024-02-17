@@ -1,0 +1,1 @@
+export const BASE_URL_FAKE = 'https://api.escuelajs.co/api/v1/';
