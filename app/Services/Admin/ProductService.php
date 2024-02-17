@@ -39,16 +39,9 @@ class ProductService
      * @return object
      * 
      */
-    public function getProducts(): object
+    public function getProducts(int $count): object
     {
-        $products = collect();
-
-        $this->product::chunk(100, function ($results) use ($products) {
-            foreach ($results as $product) {
-                $products->push($product);
-            }
-        });
-        return $products;
+        return $this->product::paginate($count);
     }
 
     /**

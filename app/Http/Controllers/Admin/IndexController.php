@@ -13,11 +13,11 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $users = User::all();
-        $products = Product::all();
-        $categories = Category::all();
-        $orders = Order::all();
-        $reviews = Review::all();
-        return view('admin.main.index', compact('users', 'products', 'categories', 'orders', 'reviews'));
+        $usersCount = User::count();
+        $productsCount = Product::count();
+        $categoriesCount = Category::count();
+        $ordersCount = Order::count();
+        $reviewsCount = Review::count();
+        return view('admin.main.index', compact('usersCount', 'productsCount', 'categoriesCount', 'ordersCount', 'reviewsCount'));
     }
 }

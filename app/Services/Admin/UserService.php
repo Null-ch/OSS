@@ -30,15 +30,9 @@ class UserService
      * @return object
      * 
      */
-    public function getUsers(): object
+    public function getUsers(int $count): object
     {
-        $users = collect();
-        $this->user::chunk(100, function ($results) use ($users) {
-            foreach ($results as $user) {
-                $users->push($user);
-            }
-        });
-        return $users;
+        return $this->user::paginate($count);
     }
     /**
      * Getting roles
