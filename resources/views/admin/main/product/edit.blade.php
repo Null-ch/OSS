@@ -190,7 +190,7 @@
                 imagePreview.style.backgroundImage = "url(" + img.src + ")";
                 imagePreview.style.backgroundSize = "contain";
                 imagePreview.style.backgroundPosition = "center";
-                imagePreview.style.width = "200%";
+                imagePreview.style.width = "100%";
                 imagePreview.style.height = "230px";
             });
         });

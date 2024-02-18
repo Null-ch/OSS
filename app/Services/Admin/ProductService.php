@@ -143,6 +143,7 @@ class ProductService
 
         return $product;
     }
+
     /**
      * Update current product
      *
@@ -172,7 +173,6 @@ class ProductService
             $this->logger->error('The product with ID ' . $id . ' was not found.');
             return;
         }
-
 
         if ($images) {
             try {
@@ -215,6 +215,7 @@ class ProductService
             }
         }
     }
+
     /**
      * Getting product categories
      *
@@ -231,6 +232,7 @@ class ProductService
 
         return $allCategories;
     }
+
     /**
      * Delete current product
      *

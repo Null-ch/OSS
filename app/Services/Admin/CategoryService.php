@@ -12,12 +12,14 @@ class CategoryService
      *
      * @var object
      */
+
     private $category;
     /**
      * LogInterface implementation
      *
      * @var object
      */
+
     private $logger;
     /**
      * Construct category service
