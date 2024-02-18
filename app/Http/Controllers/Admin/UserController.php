@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Services\Admin\UserService;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        (object) $users = $this->userService->getUsers();
+        (object) $users = $this->userService->getUsers(10);
         return view('admin.main.user.index', compact('users'));
     }
 

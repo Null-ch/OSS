@@ -4,33 +4,53 @@ namespace App\Services\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Services\LogInterface;
+use Illuminate\Database\Connection;
 
 class ProductService
 {
     /**
-     * Product class
+     * Model: Product
      *
      * @var object
      */
+
     private $product;
     /**
      * Category class
      *
      * @var object
      */
-    private $category;
 
+    private $category;
+    /**
+     * LogInterface implementation
+     *
+     * @var object
+     */
+
+    private $logger;
+    /**
+     * DB connection
+     *
+     * @var \Illuminate\Database\Connection
+     */
+
+    private $database;
     /**
      * Construct product service
      *
      * @param Product $product
      * @param Category $category
+     * @param LogInterface $logger
      * 
      */
-    public function __construct(Product $product, Category $category)
+    public function __construct(Product $product, Category $category, LogInterface $logger, Connection $database)
     {
         (object) $this->product = $product;
         (object) $this->category = $category;
+        (object) $this->logger = $logger;
+        (object) $this->database = $database;
     }
 
     /**
@@ -41,7 +61,17 @@ class ProductService
      */
     public function getProducts(int $count): object
     {
-        return $this->product::paginate($count);
+        if (!$count) {
+            $this->logger->error('The quantity has not been transferred.');
+        }
+
+        try {
+            $products = $this->product::paginate($count);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
+        }
+
+        return $products;
     }
 
     /**
@@ -54,7 +84,17 @@ class ProductService
      */
     public function getProduct(int $id): object
     {
-        return $this->product::findOrFail($id);
+        if (!$id) {
+            $this->logger->error('The id has not been transferred.');
+        }
+
+        try {
+            $product = $this->product::findOrFail($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the product: ' . $e->getMessage());
+        }
+
+        return $product;
     }
 
     /**
@@ -67,25 +107,38 @@ class ProductService
      */
     public function createProduct(array $data, array $images): object
     {
-        $product = $this->product->create($data);
-        $sortOrder = 1;
+        if (!$data) {
+            $this->logger->error('The data has not been transferred.');
+        }
+        if (!$images) {
+            $this->logger->error('The images has not been transferred.');
+        }
 
-        foreach ($images as $key => $image) {
-            $file = $image;
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img/products', $filename);
-            $path = 'storage/img/products/' . $filename;
+        try {
+            $product = $this->product->create($data);
 
-            if ($key === 'preview_image') {
-                $product->preview_image = $path;
-                $product->save();
-            } else {
-                $product->images()->create([
-                    'image_path' => $path,
-                    'sort_order' => $sortOrder,
-                ]);
-                $sortOrder++;
+            $sortOrder = 1;
+
+            foreach ($images as $key => $image) {
+                $file = $image;
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->storeAs('public/img/products', $filename);
+                $path = 'storage/img/products/' . $filename;
+
+                if ($key === 'preview_image') {
+                    $product->preview_image = $path;
+                    $product->save();
+                } else {
+                    $product->images()->create([
+                        'image_path' => $path,
+                        'sort_order' => $sortOrder,
+                    ]);
+                    $sortOrder++;
+                }
             }
+        } catch (\Exception $e) {
+            $this->database->rollBack();
+            $this->logger->error('Error when creating a product and loading images: ' . $e->getMessage());
         }
 
         return $product;
@@ -97,50 +150,70 @@ class ProductService
      * @param array $images
      * @param int $id
      * 
-     * @return object
      * 
      */
-    public function updateProduct(array $data, array $images, int $id): object
+    public function updateProduct(array $data, array $images, int $id)
     {
+        if (!$data) {
+            $this->logger->error('The data has not been transferred.');
+        }
+        if (!$id) {
+            $this->logger->error('The id has not been transferred.');
+        }
+
         $product = $this->product::findOrFail($id);
-        $product->update($data);
-        if ($images) {
-            $productImages = $product->images;
-        
-            if (isset($images['preview_image'])) {
-                $file = $images['preview_image'];
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $path = 'storage/img/products/' . $filename;
-                $file->storeAs('public/img/products', $filename);
-        
-                $product->preview_image = $path;
-                $product->save();
+        if ($product) {
+            try {
+                $product->update($data);
+            } catch (\Exception $e) {
+                $this->logger->error('Error when update the product: ' . $e->getMessage());
             }
-        
-            foreach ($images as $key => $image) {
-                if ($key !== 'preview_image') {
-                    $index = preg_replace('/[^0-9]/', '', $key);
-                    $file = $image;
+        } else {
+            $this->logger->error('The product with ID ' . $id . ' was not found.');
+            return;
+        }
+
+
+        if ($images) {
+            try {
+                $productImages = $product->images;
+
+                if (isset($images['preview_image'])) {
+                    $file = $images['preview_image'];
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $path = 'storage/img/products/' . $filename;
                     $file->storeAs('public/img/products', $filename);
-        
-                    if (isset($productImages[$index])) {
-                        $productImages[$index]->update([
-                            'image_path' => $path
-                        ]);
-                    } else {
-                        $lastIndex = $productImages->count();
-                        $product->images()->create([
-                            'image_path' => $path,
-                            'sort_order' => $lastIndex + 1,
-                        ]);
+
+                    $product->preview_image = $path;
+                    $product->save();
+                }
+
+                foreach ($images as $key => $image) {
+                    if ($key !== 'preview_image') {
+                        $index = preg_replace('/[^0-9]/', '', $key);
+                        $file = $image;
+                        $filename = time() . '_' . $file->getClientOriginalName();
+                        $path = 'storage/img/products/' . $filename;
+                        $file->storeAs('public/img/products', $filename);
+
+                        if (isset($productImages[$index])) {
+                            $productImages[$index]->update([
+                                'image_path' => $path
+                            ]);
+                        } else {
+                            $lastIndex = $productImages->count();
+                            $product->images()->create([
+                                'image_path' => $path,
+                                'sort_order' => $lastIndex + 1,
+                            ]);
+                        }
                     }
                 }
+            } catch (\Exception $e) {
+                $this->database->rollBack();
+                $this->logger->error('Error when updating product images: ' . $e->getMessage());
             }
         }
-
-        return $product;
     }
     /**
      * Getting product categories
@@ -150,7 +223,13 @@ class ProductService
      */
     public function getAllCategories(): object
     {
-        return $this->category->getAllCategories();
+        try {
+            $allCategories = $this->category->getAllCategories();
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting categories: ' . $e->getMessage());
+        }
+
+        return $allCategories;
     }
     /**
      * Delete current product
@@ -162,6 +241,10 @@ class ProductService
      */
     public function destroy(int $id)
     {
-        $this->product::destroy($id);
+        try {
+            $this->product::destroy($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when deleting a product: ' . $e->getMessage());
+        }
     }
 }

@@ -7,7 +7,7 @@ use App\Models\Order;
 class OrderService
 {
     /**
-     * Order class
+     * Model: Order
      *
      * @var object
      */

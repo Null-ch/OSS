@@ -3,15 +3,24 @@
 namespace App\Services\Admin;
 
 use App\Models\SpecialOffer;
+use App\Services\LogInterface;
 
 class SpecialOfferService
 {
     /**
-     * SpecialOffer class
+     * Model: SpecialOffer
      *
      * @var object
      */
+
     private $specialOffer;
+    /**
+     * LogInterface implementation
+     *
+     * @var object
+     */
+
+    private $logger;
 
     /**
      * Construct specialOffer service
@@ -19,10 +28,12 @@ class SpecialOfferService
      * @param SpecialOffer $specialOffer
      * 
      */
-    public function __construct(SpecialOffer $specialOffer)
+    public function __construct(SpecialOffer $specialOffer, LogInterface $logger)
     {
         (object) $this->specialOffer = $specialOffer;
+        (object) $this->logger = $logger;
     }
+
     /**
      * [Description for getSpecialOffer]
      *
@@ -33,8 +44,16 @@ class SpecialOfferService
      */
     public function getSpecialOffer(int $id): object
     {
-        return $this->specialOffer::findOrFail($id);
+        try {
+            $specialOffer = $this->specialOffer::findOrFail($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the special offer: ' . $e->getMessage());
+            return [];
+        }
+
+        return $specialOffer;
     }
+
     /**
      * Getting all categories
      *
@@ -43,8 +62,16 @@ class SpecialOfferService
      */
     public function getAllSpecialOffers(): object
     {
-        return $this->specialOffer->getAllSpecialOffers();
+        try {
+            $specialOffers = $this->specialOffer->getAllSpecialOffers();
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the special offers: ' . $e->getMessage());
+            return [];
+        }
+
+        return $specialOffers;
     }
+
     /**
      * Create new special offer
      *
@@ -53,18 +80,29 @@ class SpecialOfferService
      */
     public function createsSpecialOffer(array $data)
     {
+        if (!$data) {
+            $this->logger->error('The data has not been transferred.');
+        }
+
         if ($data['is_active'] == 'on') {
             $data['is_active'] = 1;
         } elseif ($data['is_active'] == 'off') {
             $data['is_active'] = 0;
         }
+
         $file = $data['image'];
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->storeAs('public/img/special-offers', $filename);
-        $path = 'storage/img/special-offers/' . $filename;
-        $data['image'] = $path;
-        $this->specialOffer::create($data);
+        try {
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/img/special-offers', $filename);
+            $path = 'storage/img/special-offers/' . $filename;
+            $data['image'] = $path;
+            $this->specialOffer::create($data);
+        } catch (\Exception $e) {
+            $this->logger->error('Error loading images: ' . $e->getMessage());
+            return [];
+        }
     }
+
     /**
      * Update current specialOffer
      *
@@ -75,23 +113,40 @@ class SpecialOfferService
     {
         $specialOffer = $this->getSpecialOffer($id);
 
-        if ($data['is_active'] == 'on') {
-            $data['is_active'] = 1;
-        } elseif ($data['is_active'] == 'off') {
-            $data['is_active'] = 0;
+        if (!$specialOffer) {
+            $this->logger->error('The special offer with ID ' . $id . ' was not found.');
+            return;
         }
 
-        if ($data['image'] == null) {
-            unset($data['image']);
-        } else {
-            $file = $data['image'];
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img/special-offers', $filename);
-            $path = 'storage/img/special-offers/' . $filename;
-            $data['image'] = $path;
+        try {
+            if ($data['is_active'] == 'on') {
+                $data['is_active'] = 1;
+            } elseif ($data['is_active'] == 'off') {
+                $data['is_active'] = 0;
+            }
+
+            if ($data['image'] == null) {
+                unset($data['image']);
+            } else {
+                try {
+                    $file = $data['image'];
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->storeAs('public/img/special-offers', $filename);
+                    $path = 'storage/img/special-offers/' . $filename;
+                    $data['image'] = $path;
+                } catch (\Exception $e) {
+                    $this->logger->error('Error loading images: ' . $e->getMessage());
+                    return;
+                }
+            }
+
+            $specialOffer->update($data);
+        } catch (\Exception $e) {
+            $this->logger->error('Error updating the special offer: ' . $e->getMessage());
+            return;
         }
-        $specialOffer->update($data);
     }
+
     /**
      * Delete current specialOffer
      *
@@ -100,6 +155,10 @@ class SpecialOfferService
      */
     public function destroy(int $id)
     {
-        $this->specialOffer::destroy($id);
+        try {
+            $this->specialOffer::destroy($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when deleting a special offer: ' . $e->getMessage());
+        }
     }
 }
