@@ -3,7 +3,7 @@ import './styles/reset.css'
 import Layout from "./components/Layout";
 import {publicRoutes} from './routes'
 import {Route, Routes, BrowserRouter} from 'react-router-dom'
-import { Context } from "./utils/context";
+// import { Context } from "./utils/context";
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
@@ -26,9 +26,9 @@ function App() {
 
   return (
     <>
-      <Context.Provider value = {{
+      {/* <Context.Provider value = {{
         logIn, logOut
-      }}>
+      }}> */}
         <BrowserRouter>
           {/* {isLogged === 'true' ? <span>Залогинился</span> : <span>Разлогинился</span>} */}
           <Header/>
@@ -51,7 +51,7 @@ function App() {
           <Footer/>
 
         </BrowserRouter>
-      </Context.Provider>
+      {/* </Context.Provider> */}
     </>
   );
 }

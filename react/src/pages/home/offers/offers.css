@@ -10,6 +10,10 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+.offers-list {
+  background-color: #f7f7f7;
+  margin: 24px;
+}
 .offers {
   position: relative;
   align-items: center;
@@ -28,10 +32,6 @@
 }
 .offer img {
   height: 100%;
-}
-.offers-list {
-  background-color: #f7f7f7;
-  margin: 24px;
 }
 .offer-descr-container {
   margin: 64px;

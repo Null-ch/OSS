@@ -43,8 +43,9 @@ export default catSlice.reducer; // формируется автоматиче�
 export const fetchCategories = () => {
     return async function fetchCatThunk(dispatch) {
         dispatch(setStatus(STATUS.LOADING));
+
         try{
-            const res = await fetch('${BASE_URL}categories');
+            const res = await fetch(`${BASE_URL_FAKE}categories`);
             const data = await res.json();
             dispatch(setCats(data.slice(0, 5)));
             dispatch(setStatus(STATUS.IDLE))
@@ -55,14 +56,15 @@ export const fetchCategories = () => {
 }
 
 export const fetchProductsByCat = (catId, type) => {
-    return async function fetchCatProductThunk(dispatch){ // thunk - либа для создания асинхр. action (которые синхр. по умолчанию)
+    return async function fetchCatProductThunk(dispatch){ // thunk - либа для создания асинхр. action
+        // (которые синхр. по умолчанию)
         if (type === 'all') dispatch(setCatProducts(STATUS.LOADING));
         if (type === 'single') dispatch(setCatProductStatus(STATUS.LOADDING));
-
+        
         try{
-            const res = await fetch('${BASE_URL}catregories/${catId}/products');
+            const res = await fetch(`${BASE_URL_FAKE}categories/${catId}/products`);
             const data = await res.json();
-
+            console.log(data)
             if (type === 'all'){
                 dispatch(setCatProducts(data.slice(0, 10)));
                 dispatch(setCatProductsStatus(STATUS.IDLE));
