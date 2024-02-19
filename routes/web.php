@@ -19,7 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [App\Http\Controllers\ReactController::class, 'showCart'])->name('public.cart');
     Route::get('/shop', [App\Http\Controllers\ReactController::class, 'showShop'])->name('public.shop');
     Route::get('/item/{id}', [App\Http\Controllers\ReactController::class, 'showItem'])->name('public.item');
-    
+
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 
@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::patch('/update/{order}', [App\Http\Controllers\Admin\OrderController::class, 'update'])->name('admin.order.update');
             Route::delete('/delete/{order}', [App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('admin.order.destroy');
         });
-        
+
         Route::group(['prefix' => 'review'], function () {
             Route::get('/', [App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('admin.reviews.index');
             Route::get('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'show'])->name('admin.review.show');
@@ -83,6 +83,10 @@ Route::middleware('auth')->group(function () {
             Route::patch('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'update'])->name('admin.review.update');
             Route::delete('/delete/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('admin.review.destroy');
         });
+    });
+
+    Route::group(['prefix' => 'catalog'], function () {
+        Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('catalog.index');
     });
 });
 

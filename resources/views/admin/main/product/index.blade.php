@@ -35,9 +35,7 @@
                                             <th class="p-2 text-center">Цена</th>
                                             <th class="p-2 text-center">Количество</th>
                                             <th class="p-2 text-center">Категория</th>
-                                            <th class="p-2 text-center">Просмотр</th>
-                                            <th class="p-2 text-center">Редактировать</th>
-                                            <th class="p-2 text-center">Удалить</th>
+                                            <th class="p-2 text-center" colspan="3">Действия</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,12 +47,8 @@
                                                 <td class="p-2 text-center">{{ $product->category->title }}</td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-2">
-                                                    <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                    </form>
+                                                <td class="text-center p-1">
+                                                    <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -80,4 +74,41 @@
     </div>
 @endsection
 @section('scripts')
+<script type="text/javascript">
+    function deleteConfirmation(id) {
+        Swal.fire({
+            title: "Удалить?",
+            text: "Подтвердите удаление",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Да, удалить!",
+            cancelButtonText: "Нет, отменить",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var CSRF_TOKEN = {!! json_encode(csrf_token()) !!};
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ url('admin/product/delete/') }}/" + id,
+                    data: {
+                        _token: CSRF_TOKEN,
+                        _method: 'DELETE'
+                    },
+                    dataType: 'JSON',
+                    success: function(results) {
+                        if (results.success === true) {
+                            Swal.fire("Готово!", results.message, "success").then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire("Ошибка!", results.message, "error").then(() => {
+                                location.reload();
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
 @endsection

@@ -36,9 +36,7 @@
                                             <th class="p-2 text-center">Цвет</th>
                                             <th class="p-2 text-center">Порядок сортировки</th>
                                             <th class="p-2 text-center">Активность</th>
-                                            <th class="p-2 text-center">Просмотр</th>
-                                            <th class="p-2 text-center">Редактировать</th>
-                                            <th class="p-2 text-center">Удалить</th>
+                                            <th class="p-2 text-center" colspan="3">Действия</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -50,17 +48,13 @@
                                                 <td class="p-2 text-center">{{ $specialOffer->sort_order }}</td>
                                                 <td class="p-2 text-center">
                                                     <div class="p-2">
-                                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active_checkbox" {{ $specialOffer->is_active ? 'checked' : '' }} value="{{$specialOffer->id}}">
+                                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active_checkbox" {{ $specialOffer->is_active ? 'checked' : '' }} value="{{ $specialOffer->id }}">
                                                     </div>
                                                 </td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-2">
-                                                    <form action="{{ route('admin.special-offer.destroy', $specialOffer->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                    </form>
+                                                <td class="text-center p-1">
+                                                    <button class="btn btn-danger" onclick="deleteConfirmation({{ $specialOffer->id }})">Удалить</button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -92,10 +86,46 @@
                 $.ajax({
                     url: '/admin/special-offer/activity/' + isChecked,
                     type: 'GET',
-                    success: function(response) {
-                    }
+                    success: function(response) {}
                 });
             });
         });
+    </script>
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            Swal.fire({
+                title: "Удалить?",
+                text: "Подтвердите удаление",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Да, удалить!",
+                cancelButtonText: "Нет, отменить",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var CSRF_TOKEN = {!! json_encode(csrf_token()) !!};
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('admin/special-offer/delete/') }}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN,
+                            _method: 'DELETE'
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                Swal.fire("Готово!", results.message, "success").then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire("Ошибка!", results.message, "error").then(() => {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        }
     </script>
 @endsection

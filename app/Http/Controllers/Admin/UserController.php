@@ -97,6 +97,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         $this->userService->destroy($id);
-        return redirect()->route('admin.users.index');
+        return response()->json([
+            'success' => true,
+            'message' => "Пользователь успешно удален",
+        ]);
     }
 }

@@ -97,7 +97,10 @@ class SpecialOfferController extends Controller
     public function destroy($id)
     {
         $this->specialOfferService->destroy($id);
-        return redirect()->route('admin.special_offer.index');
+        return response()->json([
+            'success' => true,
+            'message' => "Пользователь успешно удален",
+        ]);
     }
     /**
      * Func for chenge activity of special offer

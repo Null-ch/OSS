@@ -43,6 +43,7 @@ class ProductService
      * @param Product $product
      * @param Category $category
      * @param LogInterface $logger
+     * @param Connection $database
      * 
      */
     public function __construct(Product $product, Category $category, LogInterface $logger, Connection $database)

@@ -103,6 +103,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $this->productService->destroy($id);
-        return redirect()->route('admin.products.index');
+        return response()->json([
+            'success' => true,
+            'message' => "Пользователь успешно удален",
+        ]);
     }
 }

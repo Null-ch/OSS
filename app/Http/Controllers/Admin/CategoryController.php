@@ -97,6 +97,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $this->categoryService->destroy($id);
-        return redirect()->route('admin.categories.index');
+        return response()->json([
+            'success' => true,
+            'message' => "Пользователь успешно удален",
+        ]);
     }
 }
