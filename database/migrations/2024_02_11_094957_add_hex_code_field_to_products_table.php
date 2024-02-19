@@ -26,7 +26,7 @@ class AddHexCodeFieldToProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->text('hex_code');
+            $table->dropColumn('hex_code');
         });
     }
 }

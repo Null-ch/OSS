@@ -26,7 +26,7 @@ class AddSortOrderFieldToProductImagesTable extends Migration
     public function down()
     {
         Schema::table('product_images', function (Blueprint $table) {
-            $table->integer('sort_order');
+            $table->dropColumn('sort_order');
         });
     }
 }

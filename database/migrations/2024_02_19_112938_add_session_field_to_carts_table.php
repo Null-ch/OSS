@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPreviewImageFieldToProductsTable extends Migration
+class AddSessionFieldToCartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPreviewImageFieldToProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->text('preview_image')->nullable()->after('description');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->string('session')->nullable()->after('user_id');
         });
     }
 
@@ -25,8 +25,8 @@ class AddPreviewImageFieldToProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('preview_image');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('session');
         });
     }
 }

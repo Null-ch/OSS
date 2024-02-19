@@ -28,7 +28,7 @@ class AddRgbCodeFieldToColorsTable extends Migration
     public function down()
     {
         Schema::table('colors', function (Blueprint $table) {
-            $table->string('rgb_code');
+            $table->dropColumn('rgb_code');
         });
     }
 }

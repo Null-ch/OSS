@@ -24,6 +24,7 @@ class Product extends Model
         'count',
         'category_id',
         'hex_code',
+        'is_active',
     ];
 
     protected $table = 'products';

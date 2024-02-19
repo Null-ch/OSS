@@ -28,7 +28,7 @@ class AddGroupFieldToColorsTable extends Migration
     public function down()
     {
         Schema::table('colors', function (Blueprint $table) {
-            $table->string('group');
+            $table->dropColumn('group');
         });
     }
 }
