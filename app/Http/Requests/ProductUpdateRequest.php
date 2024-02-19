@@ -32,6 +32,13 @@ class ProductUpdateRequest extends FormRequest
             'category_id' => 'required|int',
         ];
     }
+
+    /**
+     * Receiving messages in case of validation error
+     *
+     * @return array
+     * 
+     */
     public function messages()
     {
         return [

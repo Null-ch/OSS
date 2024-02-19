@@ -36,7 +36,7 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <input type="submit" class="btn btn-block bg-gradient-secondary" value="Добавить">
+                        <input type="submit" class="btn btn-block bg-gradient-secondary" value="Обновить">
                     </form>
                 </div>
             </div>

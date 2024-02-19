@@ -33,6 +33,13 @@ class CreateUserRequest extends FormRequest
             'role' => '',
         ];
     }
+    
+    /**
+     * Receiving messages in case of validation error
+     *
+     * @return array
+     * 
+     */
     public function messages()
     {
         return [

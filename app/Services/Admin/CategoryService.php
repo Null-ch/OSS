@@ -74,14 +74,13 @@ class CategoryService
     /**
      * Create new category
      *
-     * @param object $data
+     * @param array $data
      * 
      */
-    public function createCategory(object $data)
+    public function createCategory(array $data)
     {
-        $title = $data->title;
         try {
-            $this->category::create(['title' => $title]);
+            $this->category::create($data);
         } catch (\Exception $e) {
             $this->logger->error('Error when creating a category: ' . $e->getMessage());
         }
@@ -90,16 +89,17 @@ class CategoryService
     /**
      * Update current category
      *
-     * @param object $data
+     * @param array $data
+     * @param int $id
+     * 
      * 
      */
-    public function updateCategory(object $data, int $id)
+    public function updateCategory(array $data, int $id)
     {
-        $title = $data->title;
         $category =  $this->category::findOrFail($id);
         if ($category) {
             try {
-                $this->category::update(['title' => $title]);
+                $this->category::update($data);
             } catch (\Exception $e) {
                 $this->logger->error('Error updating the category: ' . $e->getMessage());
             }

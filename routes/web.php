@@ -53,15 +53,6 @@ Route::middleware('auth')->group(function () {
             Route::delete('/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.product.destroy');
         });
 
-        // Route::group(['prefix' => 'color'], function () {
-        //     Route::get('/', [App\Http\Controllers\Admin\ColorController::class, 'index'])->name('admin.colors.index');
-        //     Route::get('/{id}', [App\Http\Controllers\Admin\ColorController::class, 'show'])->name('admin.color.show');
-        //     Route::get('/create/color', [App\Http\Controllers\Admin\ColorController::class, 'create'])->name('admin.color.create');
-        //     Route::post('/', [App\Http\Controllers\Admin\ColorController::class, 'store'])->name('admin.color.store');
-        //     Route::get('/{id}/edit', [App\Http\Controllers\Admin\ColorController::class, 'edit'])->name('admin.color.edit');
-        //     Route::patch('/update/{id}', [App\Http\Controllers\Admin\ColorController::class, 'update'])->name('admin.color.update');
-        //     Route::delete('/delete/{id}', [App\Http\Controllers\Admin\ColorController::class, 'destroy'])->name('admin.color.destroy');
-        // });
         Route::group(['prefix' => 'special-offer'], function () {
             Route::get('/', [App\Http\Controllers\Admin\SpecialOfferController::class, 'index'])->name('admin.special-offers.index');
             Route::get('/create', [App\Http\Controllers\Admin\SpecialOfferController::class, 'create'])->name('admin.special-offer.create');
@@ -82,6 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::patch('/update/{order}', [App\Http\Controllers\Admin\OrderController::class, 'update'])->name('admin.order.update');
             Route::delete('/delete/{order}', [App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('admin.order.destroy');
         });
+        
         Route::group(['prefix' => 'review'], function () {
             Route::get('/', [App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('admin.reviews.index');
             Route::get('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'show'])->name('admin.review.show');

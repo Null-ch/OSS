@@ -32,6 +32,13 @@ class SpecialOfferUpdateRequest extends FormRequest
             'image' => '',
         ];
     }
+
+    /**
+     * Receiving messages in case of validation error
+     *
+     * @return array
+     * 
+     */
     public function messages()
     {
         return [
