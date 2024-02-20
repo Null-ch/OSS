@@ -134,6 +134,7 @@ class CartService
     {
         return $this->cart->create();
     }
+    
     /**
      * Adding a product to the shopping cart
      *
@@ -204,6 +205,67 @@ class CartService
         }
 
         return $resonse;
+    }
+
+    /**
+     * Update current product in the cart
+     *
+     * @param array $data
+     * 
+     * @return array
+     * 
+     */
+    public function updateProduct(array $data): array
+    {
+        $product = $this->product->find($data['id']);
+
+        if (!$product) {
+            $response = [
+                'result' => false,
+                'message' => 'Товар не найден!',
+            ];
+
+            return $response;
+        }
+
+        $cart = $this->getCart();
+
+        if (!$cart) {
+            $this->logger->error('Ошибка при создании корзины');
+            $response = [
+                'result' => false,
+                'message' => 'Ошибка при обновлении товара!',
+            ];
+
+            return $response;
+        }
+
+        try {
+            $cartProduct = $this->cartProduct::where('cart_id', $cart->id)
+                ->where('product_id', $product->id)
+                ->first();
+
+            if ($cartProduct) {
+                $cartProduct->quantity = $data['quantity'];
+                $cartProduct->save();
+
+                $response = [
+                    'result' => true,
+                    'message' => 'Товар успешно обновлен!',
+                ];
+
+                return $response;
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Ошибка при создании записи в таблице cart_products: ' . $e->getMessage());
+        }
+
+        $response = [
+            'result' => false,
+            'message' => 'Ошибка при обновлении товара!',
+        ];
+
+        return $response;
     }
 
     /**

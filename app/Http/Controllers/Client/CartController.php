@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Client;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Client\CartService;
-use App\Http\Requests\Client\Cart\AddProductRequest;
-use App\Http\Requests\Client\Cart\DeleteProductRequest;
+use App\Http\Requests\Client\Cart\AddCartProductRequest;
+use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
 
 class CartController extends Controller
 {
@@ -38,15 +37,18 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    public function addProduct(AddProductRequest $request)
+    public function addProduct(AddCartProductRequest $request)
     {
         $data = $request->validated();
         $response = $this->cartService->addProduct($data);
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    public function updateProduct(int $id, $data)
+    public function updateProduct(UpdateCartProductRequest $request)
     {
+        $data = $request->validated();
+        $response = $this->cartService->updateProduct($data);
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
     public function deleteProduct($id)
     {
