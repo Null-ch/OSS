@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Product;
+use App\Models\CartProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cart extends Model
 {
@@ -27,8 +29,11 @@ class Cart extends Model
      * RELATIONS
      ***********************************/
 
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, CartProduct::class, 'cart_id', 'id', 'id', 'product_id');
+    }
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/
-    
 }

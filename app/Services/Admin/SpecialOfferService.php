@@ -26,6 +26,7 @@ class SpecialOfferService
      * Construct specialOffer service
      *
      * @param SpecialOffer $specialOffer
+     * @param LogInterface $logger
      * 
      */
     public function __construct(SpecialOffer $specialOffer, LogInterface $logger)

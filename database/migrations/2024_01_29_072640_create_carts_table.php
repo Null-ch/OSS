@@ -16,8 +16,8 @@ class CreateCartsTable extends Migration
         if (!Schema::hasTable('carts')) {
             Schema::create('carts', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('user_id');
-                $table->unsignedBigInteger('order_id');
+                $table->unsignedBigInteger('user_id')->nullable();
+                $table->unsignedBigInteger('order_id')->nullable();
                 $table->softDeletes();
                 $table->timestamps();
             });

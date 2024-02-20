@@ -16,9 +16,17 @@ class CartProduct extends Model
     protected $fillable = [
         'cart_id',
         'product_id',
-        'count',
+        'quantity',
     ];
 
     protected $table = 'cart_products';
     protected $guarded = false;
+
+    /***********************************
+     * RELATIONS
+     ***********************************/
+
+    /***********************************
+     * MODEL HELPERS FUNCTIONS
+     ***********************************/
 }

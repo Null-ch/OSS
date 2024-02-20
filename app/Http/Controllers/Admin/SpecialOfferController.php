@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SpecialOfferRequest;
+use App\Http\Requests\Admin\SpecialOfferRequest;
 use App\Services\Admin\SpecialOfferService;
-use App\Http\Requests\SpecialOfferUpdateRequest;
+use App\Http\Requests\Admin\SpecialOfferUpdateRequest;
 
 class SpecialOfferController extends Controller
 {

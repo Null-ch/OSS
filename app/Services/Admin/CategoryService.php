@@ -21,10 +21,12 @@ class CategoryService
      */
 
     private $logger;
+
     /**
      * Construct category service
      *
      * @param Category $category
+     * @param LogInterface $logger
      * 
      */
     public function __construct(Category $category, LogInterface $logger)

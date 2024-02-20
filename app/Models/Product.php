@@ -21,7 +21,7 @@ class Product extends Model
         'description',
         'preview_image',
         'price',
-        'count',
+        'quantity',
         'category_id',
         'hex_code',
         'is_active',

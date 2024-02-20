@@ -23,10 +23,12 @@ class UserService
      */
 
     private $logger;
+
     /**
      * Construct user service
      *
      * @param User $user
+     * @param LogInterface $logger
      * 
      */
     public function __construct(User $user, LogInterface $logger)

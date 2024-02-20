@@ -43,7 +43,7 @@
                                             <tr data-id="{{ $product->id }}">
                                                 <td class="p-2 text-center">{{ $product->title }}</td>
                                                 <td class="p-2 text-center">{{ $product->price }}</td>
-                                                <td class="p-2 text-center">{{ $product->count }}</td>
+                                                <td class="p-2 text-center">{{ $product->quantity }}</td>
                                                 <td class="p-2 text-center">{{ $product->category->title }}</td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>

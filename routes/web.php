@@ -25,12 +25,12 @@ Route::middleware('auth')->group(function () {
 
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-            Route::get('/create/user', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
-            Route::get('/{user}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
+            Route::get('/create/id', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
+            Route::get('/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
             Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.user.store');
-            Route::get('/edit/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
-            Route::patch('/update/{user}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
-            Route::delete('/delete/{user}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.destroy');
+            Route::get('/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
+            Route::patch('/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
+            Route::delete('/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.destroy');
         });
 
         Route::group(['prefix' => 'category'], function () {
@@ -84,10 +84,13 @@ Route::middleware('auth')->group(function () {
             Route::delete('/delete/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('admin.review.destroy');
         });
     });
+});
 
-    Route::group(['prefix' => 'catalog'], function () {
-        Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('catalog.index');
-    });
+Route::prefix('cart')->group(function () {
+    Route::get('/', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart.index');
+    Route::post('/add', [App\Http\Controllers\Client\CartController::class, 'addProduct'])->name('client.cart.add');
+    Route::put('/update/{id}', [App\Http\Controllers\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
+    Route::delete('/delete/{id}', [App\Http\Controllers\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
 });
 
 /*

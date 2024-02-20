@@ -61,8 +61,8 @@
                                 </div>
                                 <div class="form-group p-1 text-center col-md-6">
                                     <label>Текущее количество</label>
-                                    <input type="number" class="form-control text-center" name="count" placeholder="Установите количество товара на складе" min="0" value="0">
-                                    @error('count')
+                                    <input type="number" class="form-control text-center" name="quantity" placeholder="Установите количество товара на складе" min="0" value="0">
+                                    @error('quantity')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

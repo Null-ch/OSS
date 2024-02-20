@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Client\Cart;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class DeleteProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255',
+            'id' => 'required|integer',
         ];
     }
 
@@ -37,9 +37,8 @@ class CategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'Необходимо заполнить заголовок',
-            'title.string' => 'Содержимое должно быть текстом',
-            'title.max' => 'Максимальная длина 255 знаков',
+            'id.required' => 'Это поле должно быть заполнено',
+            'id.integer' => 'Должно быть передано числовое значение',
         ];
     }
 }

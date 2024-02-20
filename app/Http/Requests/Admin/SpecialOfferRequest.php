@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SpecialOfferUpdateRequest extends FormRequest
+class SpecialOfferRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class SpecialOfferUpdateRequest extends FormRequest
             'hex_code' => 'required',
             'sort_order' => 'required',
             'is_active' => 'required',
-            'image' => '',
+            'image' => 'required',
         ];
     }
 
@@ -46,6 +46,7 @@ class SpecialOfferUpdateRequest extends FormRequest
             'description.required' => 'Необходимо заполнить описание',
             'hex_code.required' => 'Необходимо выбрать цвет',
             'sort_order.required' => 'Необходимо выбрать порядок отображения',
+            'is_active.required' => 'Необходимо выбрать активность',
             'image.required' => 'Поле обязательно для заполнения',
             'header.string' => 'Содержимое должно быть текстом',
             'description.string' => 'Содержимое должно быть текстом',
