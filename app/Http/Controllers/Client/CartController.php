@@ -17,7 +17,7 @@ class CartController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Getting a list of products in the shopping cart
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +29,7 @@ class CartController extends Controller
     }
 
     /**
-     * [Description for addProduct]
+     * Adding a product to the shopping cart
      *
      * @param int $id
      * @param int $quantity
@@ -44,12 +44,28 @@ class CartController extends Controller
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * Updating an item in the shopping cart
+     *
+     * @param UpdateCartProductRequest $request
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
     public function updateProduct(UpdateCartProductRequest $request)
     {
         $data = $request->validated();
         $response = $this->cartService->updateProduct($data);
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
+    /**
+     * Removing a product from the shopping cart
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
     public function deleteProduct($id)
     {
         $response = $this->cartService->deleteProduct($id);

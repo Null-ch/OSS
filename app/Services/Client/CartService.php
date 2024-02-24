@@ -138,7 +138,7 @@ class CartService
     /**
      * Adding a product to the shopping cart
      *
-     * @param array $data
+     * @param array $data Accepts the product id as input
      * 
      * @return bool
      * 
@@ -210,7 +210,7 @@ class CartService
     /**
      * Update current product in the cart
      *
-     * @param array $data
+     * @param array $data Accepts the product ID and quantity as input
      * 
      * @return array
      * 

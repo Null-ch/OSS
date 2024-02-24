@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Services\Admin\UserService;
-use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CreateUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;

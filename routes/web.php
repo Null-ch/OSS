@@ -93,6 +93,11 @@ Route::prefix('cart')->group(function () {
     Route::delete('/delete/{id}', [App\Http\Controllers\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
 });
 
+Route::prefix('products')->group(function () {
+    Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product.index');
+    Route::get('/show/{id}', [App\Http\Controllers\Client\ProductController::class, 'show'])->name('client.product.show');
+});
+
 /*
 |--------------------------------------------------------------------------
 | React routes
