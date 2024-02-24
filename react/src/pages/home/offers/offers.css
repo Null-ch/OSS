@@ -10,11 +10,11 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
-.offers-list {
+.offers {
   background-color: #f7f7f7;
   margin: 24px;
 }
-.offers {
+.offers-list {
   position: relative;
   align-items: center;
   height: 400px;
@@ -33,7 +33,7 @@
 .offer img {
   height: 100%;
 }
-.offer-descr-container {
+.offer-title-container {
   margin: 64px;
   flex-grow: 1;
   height: auto;
@@ -43,11 +43,11 @@
   justify-content: center;
   max-width: 600px;
 }
-.offer-descr-header-container {
+.offer-title-header-container {
   display: flex;
   justify-content: center;
 }
-.offer-descr {
+.offer-title {
   font-family: bree-thin, sans-serif;
   color: #f7f7f7;
   font-size: 32px;

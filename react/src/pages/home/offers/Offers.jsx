@@ -10,8 +10,8 @@ const Offers = ({items}) => {
     const iconRight = <ArrowIcon className = 'arrow-hover' rotate = '270' width = '36' height = '36' fillColor = '#f7f7f7'/>
     
     return (
-        <div className='offers-list'>
-            <div className='offers'>
+        <div className='offers'>
+            <div className='offers-list'>
                 <Flipper icon = {iconLeft} variant = 'left'/>
                 {items.map((item, key) => {
                     return <Offer key = {key} item = {item}/>

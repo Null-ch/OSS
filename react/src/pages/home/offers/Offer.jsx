@@ -7,10 +7,10 @@ const Offer = (item) => {
         <div className = 'offer'>
             <img src = {item.item.src}>
             </img>
-            <div className='offer-descr-container'>
-                <div className='offer-descr-header-container'>
-                    <span className='offer-descr'>
-                        ПРЕМИУМ-МЫЛО С ЭКСТРАКТОМ АВОКАДО И ГОВНА
+            <div className='offer-title-container'>
+                <div className='offer-title-header-container'>
+                    <span className='offer-title'>
+                        ПРЕМИУМ-МЫЛО С ЭКСТРАКТОМ АВОКАДО
                     </span>
                 </div>
             </div>

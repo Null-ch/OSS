@@ -20,14 +20,33 @@ html {
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
 .header {
-  margin-left: 24px;
-  margin-right: 24px;
+  top: 0px;
+  left: 0px;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
+  max-height: 100px;
+  width: 100%;
+}
+.header-fixed {
+  top: 0px;
+  left: 0px;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 24px;
+  background-color: #f7f7f7;
+  display: flex;
+  flex-direction: row;
+  max-height: 100px;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  height: 64px;
 }
 .nav {
-  background-color: #f7f7f7;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -66,14 +85,32 @@ html {
   padding: 24px;
   transition: 0.3s;
   text-decoration: unset;
+  box-sizing: border-box;
+  position: relative;
 }
 .tab-inactive span {
   font-family: 'bree-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
-.tab-inactive:hover {
-  background-color: #D6DCD9;
+.tab-inactive::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform-origin: center;
+}
+.tab-inactive::before {
+  z-index: 10;
+  border-bottom: 1px solid #333;
+  transform: scale3d(0, 1, 1);
+}
+.tab-inactive:hover::before {
+  transform: scale3d(1, 1, 1);
+  transition: transform 0.3s;
 }
 .brand {
   font-family: 'bree-light', sans-serif;
