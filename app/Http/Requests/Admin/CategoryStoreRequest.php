@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class CategoryStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,7 @@ class CategoryRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'preview_image' => 'required|file|mimes:jpeg,png,jpg|max:16384',
         ];
     }
 
@@ -40,6 +41,10 @@ class CategoryRequest extends FormRequest
             'title.required' => 'Необходимо заполнить заголовок',
             'title.string' => 'Содержимое должно быть текстом',
             'title.max' => 'Максимальная длина 255 знаков',
+            'preview_image.required' => 'Загрузка превью обязательна',
+            'preview_image.file' => 'Загружаемый объект должен быть файлом',
+            'preview_image.mimes' => 'Доступные для загрузки расширения файлов: jpeg,png,jpg',
+            'preview_image.max' => 'Максимальный размер изображение 16мб',
         ];
     }
 }

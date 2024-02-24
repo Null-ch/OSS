@@ -88,7 +88,7 @@
                             <div class="text-center p-1 col-md-12">
                                 <div class="row justify-content-center">
                                     <div>
-                                        <span>Загрузите обложку товара</span>
+                                        <label>Загрузите обложку товара</label>
                                         <div class="file-upload" id="1">
                                             <div class="imgUp">
                                                 <div class="imagePreview"></div>

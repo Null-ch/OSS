@@ -82,6 +82,11 @@ class CategoryService
     public function createCategory(array $data)
     {
         try {
+            $file = $data['preview_image'];
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('public/img/products', $filename);
+            $path = 'storage/img/products/' . $filename;
+            $data['preview_image'] = $path;
             $this->category::create($data);
         } catch (\Exception $e) {
             $this->logger->error('Error when creating a category: ' . $e->getMessage());
@@ -98,10 +103,17 @@ class CategoryService
      */
     public function updateCategory(array $data, int $id)
     {
-        $category =  $this->category::findOrFail($id);
+        $category = $this->category::findOrFail($id);
         if ($category) {
             try {
-                $this->category::update($data);
+                if (isset($data['preview_image'])) {
+                    $file = $data['preview_image'];
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->storeAs('public/img/products', $filename);
+                    $path = 'storage/img/products/' . $filename;
+                    $data['preview_image'] = $path;
+                }
+                $category->update($data);
             } catch (\Exception $e) {
                 $this->logger->error('Error updating the category: ' . $e->getMessage());
             }

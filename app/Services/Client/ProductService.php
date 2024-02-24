@@ -48,11 +48,8 @@ class ProductService
                 ->where('deleted_at', null)
                 ->get();
 
-
             if ($products) {
-                foreach ($products as $product) {
-                    $product->images;
-                }
+                $products->load('images');
                 $response = [
                     'result' => true,
                     'cart' => $products,

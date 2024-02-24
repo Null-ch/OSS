@@ -86,6 +86,15 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+/*
+|--------------------------------------------------------------------------
+| Client routes
+|--------------------------------------------------------------------------
+|
+| React routes are located here
+|
+*/
+
 Route::prefix('cart')->group(function () {
     Route::get('/', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart.index');
     Route::post('/add', [App\Http\Controllers\Client\CartController::class, 'addProduct'])->name('client.cart.add');
@@ -94,18 +103,16 @@ Route::prefix('cart')->group(function () {
 });
 
 Route::prefix('products')->group(function () {
-    Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.product.index');
+    Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.products.index');
     Route::get('/show/{id}', [App\Http\Controllers\Client\ProductController::class, 'show'])->name('client.product.show');
 });
 
-/*
-|--------------------------------------------------------------------------
-| React routes
-|--------------------------------------------------------------------------
-|
-| React routes are located here
-|
-*/
+Route::prefix('categories')->group(function () {
+    Route::get('/', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.categories.index');
+    Route::get('/{id}/products', [App\Http\Controllers\Client\CategoryController::class, 'getProducts'])->name('client.category.product.show');
+});
+
+
 
 
 /*

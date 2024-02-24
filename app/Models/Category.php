@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,7 +16,7 @@ class Category extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'title',
+        'title', 'preview_image',
     ];
 
     protected $table = 'categories';
@@ -24,11 +25,14 @@ class Category extends Model
     /***********************************
      * RELATIONS
      ***********************************/
-
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/
-    
+
     /**
      * Getting all categories
      *
