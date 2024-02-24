@@ -1,8 +1,8 @@
 import { CART, SHOP, HOME, ITEM, ABOUT, LOGIN, LOGOUT } from './utils/constants'
 import Home from './pages/home/Home'
 import Cart from './pages/Cart'
-import Shop from './pages/Shop'
-import Item from './pages/Item'
+import Shop from './pages/shop/Shop'
+import Item from './pages/shop/items/Item'
 import About from './pages/About'
 
 const home = {

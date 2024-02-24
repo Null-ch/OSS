@@ -9,7 +9,7 @@ import BagIcon from '../icons/BagIcon';
 
 const Header = () => {
     return (
-        <div className = 'header'>
+        <div id = 'header' className = 'header'>
             <LogoIcon text = { shopName } width = '88' height = '88' fillColor = '#333333'/>
             <Nav/>
             

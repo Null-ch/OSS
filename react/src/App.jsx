@@ -1,28 +1,38 @@
 import React, {useEffect, useState} from "react";
 import './styles/reset.css'
+import './styles/common.css'
 import Layout from "./components/Layout";
 import {publicRoutes} from './routes'
 import {Route, Routes, BrowserRouter} from 'react-router-dom'
-// import { Context } from "./utils/context";
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 
 function App() {
 
-  const isLogged = localStorage.getItem('isLoggedIn')
-  const [loggedIn, setLoggedIn] = useState(isLogged);
+  const isLogged = localStorage.getItem('isLoggedIn');
+  // const [loggedIn, setLoggedIn] = useState(isLogged);
 
-  const logIn = () => {
-    localStorage.setItem('isLoggedIn', JSON.stringify(true))
-    setLoggedIn(true)
-  }
+  // const logIn = () => {
+  //   localStorage.setItem('isLoggedIn', JSON.stringify(true));
+  //   setLoggedIn(true);
+  // }
 
-  const logOut = () => {
-    localStorage.setItem('isLoggedIn', JSON.stringify(false))
-    setLoggedIn(false)
-  }
+  // const logOut = () => {
+  //   localStorage.setItem('isLoggedIn', JSON.stringify(false));
+  //   setLoggedIn(false);
+  // }
 
   // console.log(isLogged)
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
+      document.getElementById("header").className = 'header-fixed';
+    } else {
+      document.getElementById("header").className = 'header';
+    }
+  }
 
   return (
     <>

@@ -13,8 +13,10 @@ const Categories = () => {
       }, []);
 
     return (
-        <div>
-            <span className = 'categories-title'>Категории</span>
+        <div className = 'categories'>
+            <div className = 'categories-title-container'>
+                <span className = 'categories-title'>Категории</span>
+            </div>
             <div className = 'categories-list'>
                 {
                     categories.map(category => (
