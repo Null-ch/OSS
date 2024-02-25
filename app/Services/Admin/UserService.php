@@ -173,21 +173,13 @@ class UserService
      *
      * @param int $id
      * 
-     * @return array
-     * 
      */
-    public function toggleActivity(int $id): array
+    public function toggleActivity(int $id)
     {
         $user = $this->getUser($id);
         if ($user) {
             $user->is_active == 1 ? $user->is_active = 0 : $user->is_active = 1;
             $user->save();
-    
-            $response = ['success' => true];
-        } else {
-            $response = ['success' => false];
         }
-
-        return $response;
     }
 }

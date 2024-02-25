@@ -142,21 +142,13 @@ class CategoryService
      *
      * @param int $id
      * 
-     * @return array
-     * 
      */
-    public function toggleActivity(int $id): array
+    public function toggleActivity(int $id)
     {
         $category = $this->getCategory($id);
         if ($category) {
             $category->is_active == 1 ? $category->is_active = 0 : $category->is_active = 1;
             $category->save();
-    
-            $response = ['success' => true];
-        } else {
-            $response = ['success' => false];
         }
-
-        return $response;
     }
 }

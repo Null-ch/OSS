@@ -170,21 +170,13 @@ class SpecialOfferService
      *
      * @param int $id
      * 
-     * @return array
-     * 
      */
-    public function toggleActivity(int $id): array
+    public function toggleActivity(int $id)
     {
         $specialOffer = $this->getSpecialOffer($id);
         if ($specialOffer) {
             $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
             $specialOffer->save();
-    
-            $response = ['success' => true];
-        } else {
-            $response = ['success' => false];
         }
-
-        return $response;
     }
 }
