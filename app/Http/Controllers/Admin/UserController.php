@@ -101,4 +101,19 @@ class UserController extends Controller
             'message' => "Пользователь успешно удален",
         ]);
     }
+    
+    /**
+     * Func for chenge activity of user
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function toggleActivity($id)
+    {
+        $response = $this->userService->toggleActivity($id);
+
+        return response()->json($response, 200);
+    }
 }

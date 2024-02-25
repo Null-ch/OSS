@@ -36,20 +36,29 @@
                                             <th class="p-2 text-center">Роль</th>
                                             <th class="p-2 text-center">Дата создания</th>
                                             <th class="p-2 text-center">Дата изменения</th>
+                                            <th class="p-2 text-center">Активность</th>
                                             <th class="p-2 text-center" colspan="3">Действия</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($users as $user)
                                             <tr data-id="{{ $user->id }}">
-                                                <td class="p-2 text-center">{{ $user->name }}</td>
-                                                <td class="p-2 text-center">{{ $user->email }}</td>
-                                                <td class="p-2 text-center">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                                <td class="p-2 text-center">{{ $user->created_at }}</td>
-                                                <td class="p-2 text-center">{{ $user->updated_at }}</td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><i class="far fa-eye"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-1">
+                                                <td class="p-2 text-center pt-3">{{ $user->name }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $user->email }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $user->created_at }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $user->updated_at }}</td>
+                                                <td class="p-2 text-center">
+                                                    <div class="p-2">
+                                                        <label class="toggle">
+                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $user->id }}" {{ $user->is_active ? 'checked' : '' }} value="{{ $user->id }}">
+                                                            <div class="toggle-switch"></div>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                <td class="text-center p-1 pt-3">
                                                     <button class="btn btn-danger" onclick="deleteConfirmation({{ $user->id }})">Удалить</button>
                                                 </td>
                                             </tr>
@@ -73,6 +82,24 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[name="is_active"]').change(function() {
+                let id = $(this).val();
+                let url = '/admin/user/activity/' + id;
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {},
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript">
         function deleteConfirmation(id) {
             Swal.fire({

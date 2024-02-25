@@ -102,4 +102,19 @@ class CategoryController extends Controller
             'message' => "Пользователь успешно удален",
         ]);
     }
+
+    /**
+     * Func for chenge activity of category
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function toggleActivity($id)
+    {
+        $response = $this->categoryService->toggleActivity($id);
+
+        return response()->json($response, 200);
+    }
 }

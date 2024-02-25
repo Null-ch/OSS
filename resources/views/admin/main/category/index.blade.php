@@ -39,7 +39,7 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr data-id="{{ $category->id }}">
-                                                <td class="p-2 text-center">{{ $category->title }}</td>
+                                                <td class="p-2 text-center  pt-3">{{ $category->title }}</td>
                                                 <td class="p-2 text-center">
                                                     <div class="p-2">
                                                         <label class="toggle">
@@ -48,9 +48,9 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.category.show', $category->id) }}"><i class="far fa-eye"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-1">
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.category.show', $category->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                <td class="text-center p-1 pt-3">
                                                     <button class="btn btn-danger" onclick="deleteConfirmation({{ $category->id }})">Удалить</button>
                                                 </td>
                                             </tr>
@@ -82,7 +82,7 @@
     $(document).ready(function() {
         $('input[name="is_active"]').change(function() {
             let id = $(this).val();
-            let url = '/admin/product/activity/' + id;
+            let url = '/admin/category/activity/' + id;
 
             $.ajax({
                 url: url,

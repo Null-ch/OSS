@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
             Route::patch('/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
             Route::delete('/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.destroy');
+            Route::get('/activity/{id}', [App\Http\Controllers\Admin\UserController::class, 'toggleActivity'])->name('admin.user.activity');
         });
 
         Route::group(['prefix' => 'category'], function () {
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('admin.category.edit');
             Route::patch('/update/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('admin.category.update');
             Route::delete('/delete/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'destroy'])->name('admin.category.destroy');
+            Route::get('/activity/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'toggleActivity'])->name('admin.category.activity');
         });
 
         Route::group(['prefix' => 'product'], function () {

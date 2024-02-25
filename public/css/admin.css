@@ -200,3 +200,8 @@ body {
     position: relative;
     top: 2px;
   }
+
+  .action-icon {
+    width: 35px;
+    height: 35px;
+  }

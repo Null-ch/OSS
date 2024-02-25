@@ -42,10 +42,10 @@
                                     <tbody>
                                         @foreach ($specialOffers as $specialOffer)
                                             <tr data-id="{{ $specialOffer->id }}">
-                                                <td class="p-2 text-center">{{ $specialOffer->header }}</td>
-                                                <td class="p-2 text-center">{{ $specialOffer->description }}</td>
-                                                <td class="p-2 text-center">{{ $specialOffer->hex_code }}</td>
-                                                <td class="p-2 text-center">{{ $specialOffer->sort_order }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $specialOffer->header }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $specialOffer->description }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $specialOffer->hex_code }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $specialOffer->sort_order }}</td>
                                                 <td class="p-2 text-center">
                                                     <div class="p-2">
                                                         <label class="toggle">
@@ -54,10 +54,11 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-1">
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                <td class="text-center p-1 pt-3">
                                                     <button class="btn btn-danger" onclick="deleteConfirmation({{ $specialOffer->id }})">Удалить</button>
+                                                </td>
                                                 </td>
                                             </tr>
                                         @endforeach

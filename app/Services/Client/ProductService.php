@@ -80,7 +80,9 @@ class ProductService
     public function getProduct(int $id): array
     {
         try {
-            $product = $this->product::findOrFail($id);
+            $product = $this->product::where('is_active', true)
+                ->where('deleted_at', null)
+                ->findOrFail($id);
             if ($product) {
                 $product->images;
                 $response = [

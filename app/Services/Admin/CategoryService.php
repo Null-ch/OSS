@@ -105,7 +105,7 @@ class CategoryService
      */
     public function updateCategory(array $data, int $id)
     {
-        $category = $this->category::findOrFail($id);
+        $category = $this->category->getCategory($id);
         if ($category) {
             try {
                 if (isset($data['preview_image'])) {
@@ -135,5 +135,28 @@ class CategoryService
         } catch (\Exception $e) {
             $this->logger->error('Error when deleting a category: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Func for chenge activity of category
+     *
+     * @param int $id
+     * 
+     * @return array
+     * 
+     */
+    public function toggleActivity(int $id): array
+    {
+        $category = $this->getCategory($id);
+        if ($category) {
+            $category->is_active == 1 ? $category->is_active = 0 : $category->is_active = 1;
+            $category->save();
+    
+            $response = ['success' => true];
+        } else {
+            $response = ['success' => false];
+        }
+
+        return $response;
     }
 }

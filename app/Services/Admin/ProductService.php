@@ -260,7 +260,6 @@ class ProductService
      */
     public function toggleActivity(int $id): array
     {
-        $response = ['success' => true];
         $product = $this->getProduct($id);
         if ($product) {
             $product->is_active == 1 ? $product->is_active = 0 : $product->is_active = 1;

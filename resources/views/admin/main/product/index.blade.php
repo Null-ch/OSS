@@ -42,10 +42,10 @@
                                     <tbody>
                                         @foreach ($products as $product)
                                             <tr data-id="{{ $product->id }}">
-                                                <td class="p-2 text-center">{{ $product->title }}</td>
-                                                <td class="p-2 text-center">{{ $product->price }}</td>
-                                                <td class="p-2 text-center">{{ $product->quantity }}</td>
-                                                <td class="p-2 text-center">{{ $product->category->title }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $product->title }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $product->price }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $product->quantity }}</td>
+                                                <td class="p-2 text-center pt-3">{{ $product->category->title }}</td>
                                                 <td class="p-2 text-center">
                                                     <div class="p-2">
                                                         <label class="toggle">
@@ -54,9 +54,9 @@
                                                         </label>
                                                     </div>
                                                 </td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><i class="far fa-eye"></i></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
-                                                <td class="text-center p-1">
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                <td class="text-center p-1 pt-3">
                                                     <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
                                                 </td>
                                             </tr>

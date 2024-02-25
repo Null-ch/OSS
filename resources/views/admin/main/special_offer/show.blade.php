@@ -8,7 +8,7 @@
                         <div class="row">
                             <h2>Просмотр данных о спец. предложении</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{{ route('admin.special-offer.edit', $specialOffer->id) }}" class="text-success"><i class="fas fa-pencil-alt  pt-3"></i></a>
                             </div>
                         </div>
                     </div>

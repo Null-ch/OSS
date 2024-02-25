@@ -8,7 +8,7 @@
                         <div class="row">
                             <h2>Просмотр данных о товаре</h2>
                             <div class="col-2">
-                                <a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt  pt-3"></i></a>
                             </div>
                         </div>
                     </div>
@@ -28,31 +28,29 @@
                 <div class="row">
                     <div class="col-10">
                         <div class="card">
-                            <div class="row">
-                                <div class="card-body table-responsive p-0">
-                                    <table class="table table-hover text-nowrap">
-                                        <tbody>
-                                            <tr>
-                                                <th class="text-center">ID</th>
-                                                <th class="text-center">Название</th>
-                                                <th class="text-center">Описание</th>
-                                                <th class="text-center">Остаток</th>
-                                                <th class="text-center">Категория</th>
-                                                <th class="text-center">Цвет</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center">{{ $product->id }}</td>
-                                                <td class="text-center">{{ $product->title }}</td>
-                                                <td class="text-center">{{ $product->price }}</td>
-                                                <td class="text-center">{{ $product->quantity }}</td>
-                                                <td class="text-center">{{ $product->category->title }}</td>
-                                                <td style="justify-content: center; align-items: center;">
-                                                    <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-center">ID</th>
+                                            <th class="text-center">Название</th>
+                                            <th class="text-center">Описание</th>
+                                            <th class="text-center">Остаток</th>
+                                            <th class="text-center">Категория</th>
+                                            <th class="text-center">Цвет</th>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center">{{ $product->id }}</td>
+                                            <td class="text-center">{{ $product->title }}</td>
+                                            <td class="text-center">{{ $product->price }}</td>
+                                            <td class="text-center">{{ $product->quantity }}</td>
+                                            <td class="text-center">{{ $product->category->title }}</td>
+                                            <td style="justify-content: center; align-items: center;">
+                                                <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="card">

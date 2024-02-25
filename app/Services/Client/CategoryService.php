@@ -45,6 +45,7 @@ class CategoryService
     {
         try {
             $categories = $this->category::where('deleted_at', null)
+                ->where('is_active', true)
                 ->get();
 
             if ($categories) {
@@ -78,7 +79,9 @@ class CategoryService
     public function getCategory(int $id): ?object
     {
         try {
-            $category = $this->category::findOrFail($id);
+            $category = $this->category::where('deleted_at', null)
+                ->where('is_active', true)
+                ->findOrFail($id);
             return $category;
         } catch (\Exception $e) {
             $this->logger->error('Error when getting category: ' . $e->getMessage());
