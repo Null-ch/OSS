@@ -58,13 +58,15 @@ class SpecialOfferService
     /**
      * Getting all categories
      *
-     * @return array
+     * @param int $count
+     * 
+     * @return object
      * 
      */
-    public function getAllSpecialOffers(): object
+    public function getAllSpecialOffers(int $count): object
     {
         try {
-            $specialOffers = $this->specialOffer->getAllSpecialOffers();
+            $specialOffers = $this->specialOffer::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the special offers: ' . $e->getMessage());
             return [];
@@ -161,5 +163,28 @@ class SpecialOfferService
         } catch (\Exception $e) {
             $this->logger->error('Error when deleting a special offer: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Func for chenge activity of special offer
+     *
+     * @param int $id
+     * 
+     * @return array
+     * 
+     */
+    public function toggleActivity(int $id): array
+    {
+        $specialOffer = $this->getSpecialOffer($id);
+        if ($specialOffer) {
+            $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
+            $specialOffer->save();
+    
+            $response = ['success' => true];
+        } else {
+            $response = ['success' => false];
+        }
+
+        return $response;
     }
 }

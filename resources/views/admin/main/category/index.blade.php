@@ -32,6 +32,7 @@
                                     <thead>
                                         <tr>
                                             <th class="p-2 text-center">Название</th>
+                                            <th class="p-2 text-center">Активность</th>
                                             <th class="p-2 text-center" colspan="3">Действия</th>
                                         </tr>
                                     </thead>
@@ -39,6 +40,14 @@
                                         @foreach ($categories as $category)
                                             <tr data-id="{{ $category->id }}">
                                                 <td class="p-2 text-center">{{ $category->title }}</td>
+                                                <td class="p-2 text-center">
+                                                    <div class="p-2">
+                                                        <label class="toggle">
+                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $category->id }}" {{ $category->is_active ? 'checked' : '' }} value="{{ $category->id }}">
+                                                            <div class="toggle-switch"></div>
+                                                        </label>
+                                                    </div>
+                                                </td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.category.show', $category->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                                 <td class="text-center p-1">
@@ -56,6 +65,9 @@
                     <div class="col-2 p-1">
                         <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary mt-2">Назад</a>
                     </div>
+                    <div class="col-8 d-flex p-1 mt-2 justify-content-end ">
+                        {!! $categories->links()->render() !!}
+                    </div>
                 </div>
                 <div class="scroll-to-top" onclick="scrollToTop()">
                     <i class="fa fa-angle-up" aria-hidden="true"></i>
@@ -65,6 +77,24 @@
     </div>
 @endsection
 @section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('input[name="is_active"]').change(function() {
+            let id = $(this).val();
+            let url = '/admin/product/activity/' + id;
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(response) {},
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script>
     <script type="text/javascript">
         function deleteConfirmation(id) {
             Swal.fire({

@@ -16,7 +16,8 @@ class Category extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'title', 'preview_image',
+        'title',
+        'preview_image',
     ];
 
     protected $table = 'categories';

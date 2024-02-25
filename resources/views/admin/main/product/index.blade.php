@@ -14,12 +14,12 @@
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Административная панель</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Административная панель</a></li>
                             <li class="breadcrumb-item active">Список товаров</li>
                         </ol>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <section class="content">
@@ -35,6 +35,7 @@
                                             <th class="p-2 text-center">Цена</th>
                                             <th class="p-2 text-center">Количество</th>
                                             <th class="p-2 text-center">Категория</th>
+                                            <th class="p-2 text-center">Активность</th>
                                             <th class="p-2 text-center" colspan="3">Действия</th>
                                         </tr>
                                     </thead>
@@ -45,6 +46,14 @@
                                                 <td class="p-2 text-center">{{ $product->price }}</td>
                                                 <td class="p-2 text-center">{{ $product->quantity }}</td>
                                                 <td class="p-2 text-center">{{ $product->category->title }}</td>
+                                                <td class="p-2 text-center">
+                                                    <div class="p-2">
+                                                        <label class="toggle">
+                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $product->id }}" {{ $product->is_active ? 'checked' : '' }} value="{{ $product->id }}">
+                                                            <div class="toggle-switch"></div>
+                                                        </label>
+                                                    </div>
+                                                </td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><i class="far fa-eye"></i></a></td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
                                                 <td class="text-center p-1">
@@ -74,41 +83,59 @@
     </div>
 @endsection
 @section('scripts')
-<script type="text/javascript">
-    function deleteConfirmation(id) {
-        Swal.fire({
-            title: "Удалить?",
-            text: "Подтвердите удаление",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Да, удалить!",
-            cancelButtonText: "Нет, отменить",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var CSRF_TOKEN = {!! json_encode(csrf_token()) !!};
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[name="is_active"]').change(function() {
+                let id = $(this).val();
+                let url = '/admin/product/activity/' + id;
+
                 $.ajax({
-                    type: 'POST',
-                    url: "{{ url('admin/product/delete/') }}/" + id,
-                    data: {
-                        _token: CSRF_TOKEN,
-                        _method: 'DELETE'
-                    },
-                    dataType: 'JSON',
-                    success: function(results) {
-                        if (results.success === true) {
-                            Swal.fire("Готово!", results.message, "success").then(() => {
-                                location.reload();
-                            });
-                        } else {
-                            Swal.fire("Ошибка!", results.message, "error").then(() => {
-                                location.reload();
-                            });
-                        }
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {},
+                    error: function(xhr, status, error) {
+                        console.error(error);
                     }
                 });
-            }
+            });
         });
-    }
-</script>
+    </script>
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            Swal.fire({
+                title: "Удалить?",
+                text: "Подтвердите удаление",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Да, удалить!",
+                cancelButtonText: "Нет, отменить",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var CSRF_TOKEN = {!! json_encode(csrf_token()) !!};
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('admin/product/delete/') }}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN,
+                            _method: 'DELETE'
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                Swal.fire("Готово!", results.message, "success").then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire("Ошибка!", results.message, "error").then(() => {
+                                    location.reload();
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    </script>
 @endsection

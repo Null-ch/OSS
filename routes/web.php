@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('admin.product.edit');
             Route::patch('/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
             Route::delete('/delete/{id}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('admin.product.destroy');
+            Route::get('/activity/{id}', [App\Http\Controllers\Admin\ProductController::class, 'toggleActivity'])->name('admin.product.activity');
         });
 
         Route::group(['prefix' => 'special-offer'], function () {

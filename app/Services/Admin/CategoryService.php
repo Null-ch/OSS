@@ -58,13 +58,15 @@ class CategoryService
     /**
      * Getting all categories
      *
+     * @param int $count
+     * 
      * @return array
      * 
      */
-    public function getAllCategories(): object
+    public function getAllCategories(int $count): object
     {
         try {
-            $categories =  $this->category->getAllCategories();
+            $categories =  $this->category::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error when getting categories: ' . $e->getMessage());
             return [];

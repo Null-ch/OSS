@@ -15,7 +15,8 @@ class UserAddres extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'addres', 'user_id',
+        'addres',
+        'user_id',
     ];
     
     protected $table = 'user_addres';

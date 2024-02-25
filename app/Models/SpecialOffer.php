@@ -15,7 +15,12 @@ class SpecialOffer extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'header', 'description', 'image', 'sort_order', 'hex_code',
+        'header',
+        'description',
+        'image',
+        'sort_order',
+        'hex_code',
+        'is_active',
     ];
 
     protected $table = 'special_offers';

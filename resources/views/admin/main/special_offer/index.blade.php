@@ -48,7 +48,10 @@
                                                 <td class="p-2 text-center">{{ $specialOffer->sort_order }}</td>
                                                 <td class="p-2 text-center">
                                                     <div class="p-2">
-                                                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active_checkbox" {{ $specialOffer->is_active ? 'checked' : '' }} value="{{ $specialOffer->id }}">
+                                                        <label class="toggle">
+                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $specialOffer->id }}" {{ $specialOffer->is_active ? 'checked' : '' }} value="{{ $specialOffer->id }}">
+                                                            <div class="toggle-switch"></div>
+                                                        </label>
                                                     </div>
                                                 </td>
                                                 <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><i class="far fa-eye"></i></a></td>
@@ -68,6 +71,9 @@
                     <div class="col-2 p-1">
                         <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary mt-2">Назад</a>
                     </div>
+                    <div class="col-8 d-flex p-1 mt-2 justify-content-end ">
+                        {!! $specialOffers->links()->render() !!}
+                    </div>
                 </div>
                 <div class="scroll-to-top" onclick="scrollToTop()">
                     <i class="fa fa-angle-up" aria-hidden="true"></i>
@@ -80,11 +86,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#is_active_checkbox').change(function() {
-                var isChecked = $(this).val();
+            $('input[name="is_active"]').change(function() {
+                var id = $(this).val();
 
                 $.ajax({
-                    url: '/admin/special-offer/activity/' + isChecked,
+                    url: '/admin/special-offer/activity/' + id,
                     type: 'GET',
                     success: function(response) {}
                 });

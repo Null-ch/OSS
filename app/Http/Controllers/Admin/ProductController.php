@@ -108,4 +108,19 @@ class ProductController extends Controller
             'message' => "Пользователь успешно удален",
         ]);
     }
+
+    /**
+     * Func for chenge activity of product
+     *
+     * @param mixed $id
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     */
+    public function toggleActivity($id)
+    {
+        $response = $this->productService->toggleActivity($id);
+
+        return response()->json($response, 200);
+    }
 }

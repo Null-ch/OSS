@@ -23,7 +23,7 @@ class SpecialOfferController extends Controller
      */
     public function index()
     {
-        (object) $specialOffers = $this->specialOfferService->getAllSpecialOffers();
+        (object) $specialOffers = $this->specialOfferService->getAllSpecialOffers(10);
         return view('admin.main.special_offer.index', compact('specialOffers'));
     }
 
@@ -112,10 +112,8 @@ class SpecialOfferController extends Controller
      */
     public function toggleActivity($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
-        $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
-        $specialOffer->save();
+        $response = $this->specialOfferService->toggleActivity($id);
 
-        return response()->json(['success' => true]);
+        return response()->json($response);
     }
 }

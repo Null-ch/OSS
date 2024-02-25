@@ -22,6 +22,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "ajax-min": "^1.0.14",
         "less": "^4.2.0",
         "less-loader": "^12.2.0",
         "react": "^18.2.0",

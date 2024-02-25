@@ -239,7 +239,6 @@ class ProductService
      *
      * @param int $id
      * 
-     * @return [type]
      * 
      */
     public function destroy(int $id)
@@ -249,5 +248,29 @@ class ProductService
         } catch (\Exception $e) {
             $this->logger->error('Error when deleting a product: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Func for chenge activity of product
+     *
+     * @param int $id
+     * 
+     * @return array
+     * 
+     */
+    public function toggleActivity(int $id): array
+    {
+        $response = ['success' => true];
+        $product = $this->getProduct($id);
+        if ($product) {
+            $product->is_active == 1 ? $product->is_active = 0 : $product->is_active = 1;
+            $product->save();
+    
+            $response = ['success' => true];
+        } else {
+            $response = ['success' => false];
+        }
+
+        return $response;
     }
 }
