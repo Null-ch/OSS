@@ -1,8 +1,7 @@
-@import (less) './../../../styles/fonts.less';
+// @import (less) './../../../styles/fonts.less';
 @import (less) './../../../styles/common.less';
 
-@breelight: 'bree-light';
-@breethin: 'bree-thin';
+
 @thickness: 1px;
 @hover-border: #333;
 
@@ -18,7 +17,7 @@
 
 .item {
     // background-color: red;
-    height: 400px;
+    height: 300px;
     width: 300px;
     cursor: pointer;
     padding: 8px;
@@ -53,8 +52,17 @@
     }
 
     &:hover::before, &:hover::after {
+        z-index: -1;
         transform: scale3d(1,1,1);
         transition: transform 0.3s;
+        // pointer-events: all !important;
+    }
+}
+
+.item:hover {
+    .item-heart, .item-bag, .item-info-container, .item-preview-buttons {
+        transition: 0.3s;
+        opacity: 85%;
     }
 }
 
@@ -63,7 +71,10 @@
     // height: 100%;
 }
 
-.item-title-container {
+.item-info-container {
+    opacity: 0%;
+
+    background-color: @white;
     position: absolute;
     width: 100%;
     // width: min-content;
@@ -72,7 +83,7 @@
     left: 0;
     text-align: center;
     box-sizing: border-box;
-    flex-direction: column;
+    flex-direction: row;
     // background-color: @white;
     // width: 100%;
     padding: 8px;
@@ -81,15 +92,78 @@
 }
 
 .item-title {
+    flex: 1;
+    text-align: left;
     font-family: @breelight;
     color: @black;
     font-size: 24px;
+}
+
+.item-price-container {
+    align-self: self-end;
 }
 
 .item-price {
     font-family: @breelight;
     color: @black;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
 }
 
+.item-price-currency {
+    align-self:flex-end;
+    font-family: @breelight;
+    color: @black;
+    font-size: 28px;
+}
+
+.item-heart {
+    opacity: 0%;
+    fill: @white;
+    &:hover {
+        fill: red;
+    }
+}
+
+.item-bag {
+    opacity: 0%;
+    fill: @white;
+    &:hover {
+        fill: yellow;
+    }
+}
+
+.item-icons {
+    display: flex;
+    flex-direction: column;
+    position:absolute;
+    bottom: 0;
+    right: 16px;
+    top: 16px;
+    z-index: 20;
+    gap: 8px;
+}
+
+.item-preview-buttons {
+    opacity: 0%;
+    z-index: 20;
+}
+
+.item-quick-buy-button {
+    cursor: pointer;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    background-color: @black;
+    border: none;
+    span {
+        font-family: @breelight;
+        color: @white;
+        font-size: 18px;
+    }
+
+    &:hover {
+        opacity: 100%;
+        // background-color: red;
+    }
+}

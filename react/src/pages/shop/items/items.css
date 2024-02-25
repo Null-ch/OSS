@@ -31,7 +31,7 @@ html {
   width: 75%;
 }
 .item {
-  height: 400px;
+  height: 300px;
   width: 300px;
   cursor: pointer;
   padding: 8px;
@@ -63,32 +63,97 @@ html {
 }
 .item:hover::before,
 .item:hover::after {
+  z-index: -1;
   transform: scale3d(1, 1, 1);
   transition: transform 0.3s;
+}
+.item:hover .item-heart,
+.item:hover .item-bag,
+.item:hover .item-info-container,
+.item:hover .item-preview-buttons {
+  transition: 0.3s;
+  opacity: 85%;
 }
 .item-image {
   width: 100%;
 }
-.item-title-container {
+.item-info-container {
+  opacity: 0%;
+  background-color: #f7f7f7;
   position: absolute;
   width: 100%;
   display: flex;
   left: 0;
   text-align: center;
   box-sizing: border-box;
-  flex-direction: column;
+  flex-direction: row;
   padding: 8px;
   bottom: 0px;
   gap: 8px;
 }
 .item-title {
+  flex: 1;
+  text-align: left;
   font-family: 'bree-light';
   color: #333333;
   font-size: 24px;
 }
+.item-price-container {
+  align-self: self-end;
+}
 .item-price {
   font-family: 'bree-light';
   color: #333333;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
+}
+.item-price-currency {
+  align-self: flex-end;
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 28px;
+}
+.item-heart {
+  opacity: 0%;
+  fill: #f7f7f7;
+}
+.item-heart:hover {
+  fill: red;
+}
+.item-bag {
+  opacity: 0%;
+  fill: #f7f7f7;
+}
+.item-bag:hover {
+  fill: yellow;
+}
+.item-icons {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  right: 16px;
+  top: 16px;
+  z-index: 20;
+  gap: 8px;
+}
+.item-preview-buttons {
+  opacity: 0%;
+  z-index: 20;
+}
+.item-quick-buy-button {
+  cursor: pointer;
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  background-color: #333333;
+  border: none;
+}
+.item-quick-buy-button span {
+  font-family: 'bree-light';
+  color: #f7f7f7;
+  font-size: 18px;
+}
+.item-quick-buy-button:hover {
+  opacity: 100%;
 }

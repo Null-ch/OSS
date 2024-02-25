@@ -6,6 +6,9 @@ import {publicRoutes} from './routes'
 import {Route, Routes, BrowserRouter} from 'react-router-dom'
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
+import Modal from "./components/modal/Modal";
+import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
 
@@ -22,7 +25,8 @@ function App() {
   //   setLoggedIn(false);
   // }
 
-  // console.log(isLogged)
+  const dispatch = useDispatch();
+  const {isModalVisible, content} = useSelector((state) => state.modal);
 
   window.onscroll = function() {scrollFunction()};
 
@@ -59,6 +63,14 @@ function App() {
           </Routes>
 
           <Footer/>
+
+          <Modal
+                isActive = {isModalVisible}
+                content = {content}
+                onClose={() => {
+                    dispatch(setIsModalVisible(false));
+                }}
+            />
 
         </BrowserRouter>
       {/* </Context.Provider> */}

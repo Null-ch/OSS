@@ -15,7 +15,7 @@ const Header = () => {
             
             <div className = 'header-btns'>
                 <ProfileLoginButton/>
-                <Button route = '/cart' className = 'button-hover' icon = {<BagIcon width = '36' height = '36' fillColor = '#8e8e8e'/>}/>
+                <Button route = '/cart' className = 'button-hover' icon = {<BagIcon width = '44' height = '44' fillColor = '#8e8e8e'/>}/>
                 <ThemeButton/>
             </div>
         </div>
