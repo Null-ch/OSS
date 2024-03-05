@@ -89,6 +89,11 @@ class ProductService
                     'result' => true,
                     'product' => $product
                 ];
+            } else {
+                $response = [
+                    'result' => false,
+                    'message' => 'Товар не найден'
+                ];
             }
         } catch (\Exception $e) {
             $this->logger->error('Error when getting product: ' . $e->getMessage());
