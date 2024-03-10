@@ -2,15 +2,20 @@ import React from 'react';
 import './itemQuickBuy.css';
 import { useSelector } from 'react-redux';
 import Button from '../../../components/buttons/Button';
+import { Link } from 'react-router-dom';
 
 // todo price в отдельный компонент
 
 const ItemQuickBuy = () => {
     const {data: item} = useSelector((state) => state.modal);
-    console.log(item);
+    // console.log(item);
+
+    const onClick = (e) => {
+        e.stopPropagation();
+    }
 
     return (
-        <div className = 'quick-buy-window'>
+        <div className = 'quick-buy-window' onClick = {onClick}>
             <div className = 'quick-buy-header'>
                 <span className = 'quick-buy-item-title'>
                     {item.title}
@@ -34,7 +39,10 @@ const ItemQuickBuy = () => {
                         <span className = 'item-price'>{item.price}</span>
                         <span className = 'item-price-currency'>₽</span>
                     </div>
-                    <a className = 'span-link'>Страница товара</a>
+
+                    <Link to = {`products/${item.id}`}>
+                        <a className = 'span-link'>Страница товара</a>
+                    </Link>
                 </div>
                 <Button text = 'Купить'/>
             </div>
