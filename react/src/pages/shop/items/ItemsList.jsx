@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const ItemsList = ({items}) => {
     const dispatch = useDispatch();
-    const {data: data} = useSelector((state) => state.modal);
 
     useEffect(() => {
         dispatch(setContent(<ItemQuickBuy/>));
@@ -28,6 +27,9 @@ const ItemsList = ({items}) => {
                     onQuickBuyClick = {(item) => {
                         showModal(item);
                     }}
+                    // onClick = {(e) => {
+                    //     console.log(item);
+                    // }}
                     item = {item}
                     key = {item.id}
                     />

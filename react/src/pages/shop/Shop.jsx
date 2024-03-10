@@ -5,8 +5,6 @@ import './shop.css';
 
 const Shop = () => {
     const {data = [], isLoading, error} = useGetItemsQuery();
-    // console.log('data:')
-    // console.log(data)
   
     if (error) {
       console.log(`error: ${error}`);

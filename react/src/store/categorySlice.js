@@ -64,7 +64,6 @@ export const fetchProductsByCat = (catId, type) => {
         try{
             const res = await fetch(`${BASE_URL_FAKE}categories/${catId}/products`);
             const data = await res.json();
-            console.log(data)
             if (type === 'all'){
                 dispatch(setCatProducts(data.slice(0, 10)));
                 dispatch(setCatProductsStatus(STATUS.IDLE));

@@ -12,11 +12,9 @@ const modalSlice = createSlice({
             state.data = action.payload;
         },
         setIsModalVisible(state, action) {
-            console.log('setIsModalVisible')
             state.isModalVisible = action.payload;
         },
         setContent(state, action) {
-            console.log('setContent')
             state.content = action.payload;
         }
     }
