@@ -93,6 +93,7 @@ class ProductService
             $product = $this->product::findOrFail($id);
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the product: ' . $e->getMessage());
+            return null;
         }
 
         return $product;
@@ -164,7 +165,7 @@ class ProductService
             $this->logger->error('The id has not been transferred.');
         }
 
-        $product = $this->product::findOrFail($id);
+        $product = $this->getProduct($id);
         if ($product) {
             try {
                 $product->update($data);

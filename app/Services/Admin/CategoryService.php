@@ -43,13 +43,13 @@ class CategoryService
      * @return object
      * 
      */
-    public function getCategory(int $id): object
+    public function getCategory(int $id): ?object
     {
         try {
             $category =  $this->category::findOrFail($id);
         } catch (\Exception $e) {
             $this->logger->error('Error when getting category: ' . $e->getMessage());
-            return [];
+            return null;
         }
 
         return $category;
@@ -63,13 +63,13 @@ class CategoryService
      * @return array
      * 
      */
-    public function getAllCategories(int $count): object
+    public function getAllCategories(int $count): ?object
     {
         try {
             $categories =  $this->category::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error when getting categories: ' . $e->getMessage());
-            return [];
+            return null;
         }
 
         return $categories;
@@ -105,7 +105,7 @@ class CategoryService
      */
     public function updateCategory(array $data, int $id)
     {
-        $category = $this->category->getCategory($id);
+        $category = $this->getCategory($id);
         if ($category) {
             try {
                 if (isset($data['preview_image'])) {

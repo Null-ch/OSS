@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-12 ml-2 p-2">
                         <h3>Редактирование категории</h3>
-                        <form action="{{ route('admin.category.update', $category->id)  }}" method="POST" class="w-25" enctype="multipart/form-data">
+                        <form action="{{ route('admin.category.update', $category->id) }}" method="POST" class="w-25" enctype="multipart/form-data">
                             @csrf
                             @method('PATCH')
                             <div class="form-group">
@@ -90,21 +90,21 @@
         });
     </script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
-            var imagePreview = document.getElementById('preview_image');
-            var imageSrc = "{{ asset($category->preview_image) }}";
+    window.addEventListener('DOMContentLoaded', function() {
+        var imagePreview = document.getElementById('preview_image');
+        var imageSrc = "{{ asset($category->preview_image) }}";
 
-            var img = new Image();
-            img.src = imageSrc;
-            img.alt = "Preview Image";
+        var img = new Image();
+        img.src = imageSrc;
+        img.alt = "Preview Image";
 
-            img.addEventListener('load', function() {
-                imagePreview.style.backgroundImage = "url(" + img.src + ")";
-                imagePreview.style.backgroundSize = "contain";
-                imagePreview.style.backgroundPosition = "center";
-                imagePreview.style.width = "100%";
-                imagePreview.style.height = "230px";
-            });
+        img.addEventListener('load', function() {
+            imagePreview.style.backgroundImage = "url(" + img.src + ")";
+            imagePreview.style.backgroundSize = "contain";
+            imagePreview.style.backgroundPosition = "center";
+            imagePreview.style.width = "430px";
+            imagePreview.style.height = "400px";
         });
+    });
     </script>
 @endsection

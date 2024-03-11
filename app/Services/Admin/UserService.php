@@ -95,12 +95,13 @@ class UserService
      * @return object
      * 
      */
-    public function getUser(int $id): object
+    public function getUser(int $id): ?object
     {
         try {
             (object) $user = $this->user::findOrFail($id);
         } catch (\Exception $e) {
             $this->logger->error('The user was not found: ' . $e->getMessage());
+            return null;
         }
 
         return $user;
@@ -140,7 +141,7 @@ class UserService
      */
     public function updateUser(array $data, int $id)
     {
-        $user = $this->user::find($id);
+        $user = $this->getUser($id);
 
         if ($user) {
             try {
