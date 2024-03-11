@@ -43,13 +43,13 @@ class SpecialOfferService
      * @return object
      * 
      */
-    public function getSpecialOffer(int $id): object
+    public function getSpecialOffer(int $id): ?object
     {
         try {
             $specialOffer = $this->specialOffer::findOrFail($id);
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the special offer: ' . $e->getMessage());
-            return [];
+            return null;
         }
 
         return $specialOffer;
@@ -63,13 +63,13 @@ class SpecialOfferService
      * @return object
      * 
      */
-    public function getAllSpecialOffers(int $count): object
+    public function getAllSpecialOffers(int $count): ?object
     {
         try {
             $specialOffers = $this->specialOffer::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the special offers: ' . $e->getMessage());
-            return [];
+            return null;
         }
 
         return $specialOffers;
