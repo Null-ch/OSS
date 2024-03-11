@@ -60,7 +60,7 @@ class ProductService
      * @return object
      * 
      */
-    public function getProducts(int $count): object
+    public function getProducts(int $count): ?object
     {
         if (!$count) {
             $this->logger->error('The quantity has not been transferred.');
@@ -83,7 +83,7 @@ class ProductService
      * @return object
      * 
      */
-    public function getProduct(int $id): object
+    public function getProduct(int $id): ?object
     {
         if (!$id) {
             $this->logger->error('The id has not been transferred.');
@@ -106,7 +106,7 @@ class ProductService
      * @return object
      * 
      */
-    public function createProduct(array $data, array $images): object
+    public function createProduct(array $data, array $images): ?object
     {
         if (!$data) {
             $this->logger->error('The data has not been transferred.');
@@ -140,6 +140,7 @@ class ProductService
         } catch (\Exception $e) {
             $this->database->rollBack();
             $this->logger->error('Error when creating a product and loading images: ' . $e->getMessage());
+            return null;
         }
 
         return $product;

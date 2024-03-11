@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
                 $table->string('title');
                 $table->integer('price');
                 $table->unsignedBigInteger('category_id');
-                $table->unsignedBigInteger('color_id');
                 $table->softDeletes();
                 $table->timestamps();
             });

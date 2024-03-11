@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCountFieldToProducts extends Migration
+class AddQuantityFieldToProducts extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class AddCountFieldToProducts extends Migration
     {
         if (Schema::hasTable('products')) {
             Schema::table('products', function (Blueprint $table) {
-                $table->integer('count')->default(0)->after('price');
+                $table->integer('quantity')->default(0)->after('price');
             });
         }
     }
@@ -28,7 +28,7 @@ class AddCountFieldToProducts extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('count');
+            $table->dropColumn('quantity');
         });
     }
 }

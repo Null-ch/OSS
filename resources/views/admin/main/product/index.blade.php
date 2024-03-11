@@ -56,7 +56,6 @@
                                                         </div>
                                                     </td>
                                                     <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
                                                     </td>

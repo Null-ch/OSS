@@ -6,7 +6,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <div class="row">
-                            <h2>Просмотр данных о пользователе</h2>
+                            <h2>Просмотр данных о категории</h2>
                             <div class="col-2">
                                 <a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt  pt-3"></i></a>
                             </div>
