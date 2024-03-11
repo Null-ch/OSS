@@ -41,28 +41,30 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
-                                            <tr data-id="{{ $user->id }}">
-                                                <td class="p-2 text-center pt-3">{{ $user->name }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $user->email }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $user->created_at }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $user->updated_at }}</td>
-                                                <td class="p-2 text-center">
-                                                    <div class="p-2">
-                                                        <label class="toggle">
-                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $user->id }}" {{ $user->is_active ? 'checked' : '' }} value="{{ $user->id }}">
-                                                            <div class="toggle-switch"></div>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
-                                                <td class="text-center p-1 pt-3">
-                                                    <button class="btn btn-danger" onclick="deleteConfirmation({{ $user->id }})">Удалить</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if (isset($users))
+                                            @foreach ($users as $user)
+                                                <tr data-id="{{ $user->id }}">
+                                                    <td class="p-2 text-center pt-3">{{ $user->name }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $user->email }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $user->role == 0 ? 'Администратор' : 'Пользователь' }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $user->created_at }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $user->updated_at }}</td>
+                                                    <td class="p-2 text-center">
+                                                        <div class="p-2">
+                                                            <label class="toggle">
+                                                                <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $user->id }}" {{ $user->is_active ? 'checked' : '' }} value="{{ $user->id }}">
+                                                                <div class="toggle-switch"></div>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.user.show', $user->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.user.edit', $user->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                    <td class="text-center p-1 pt-3">
+                                                        <button class="btn btn-danger" onclick="deleteConfirmation({{ $user->id }})">Удалить</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>

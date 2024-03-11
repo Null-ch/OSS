@@ -40,27 +40,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($products as $product)
-                                            <tr data-id="{{ $product->id }}">
-                                                <td class="p-2 text-center pt-3">{{ $product->title }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $product->price }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $product->quantity }}</td>
-                                                <td class="p-2 text-center pt-3">{{ $product->category->title }}</td>
-                                                <td class="p-2 text-center">
-                                                    <div class="p-2">
-                                                        <label class="toggle">
-                                                            <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $product->id }}" {{ $product->is_active ? 'checked' : '' }} value="{{ $product->id }}">
-                                                            <div class="toggle-switch"></div>
-                                                        </label>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
-                                                <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
-                                                <td class="text-center p-1 pt-3">
-                                                    <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if (isset($products))
+                                            @foreach ($products as $product)
+                                                <tr data-id="{{ $product->id }}">
+                                                    <td class="p-2 text-center pt-3">{{ $product->title }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $product->price }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $product->quantity }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $product->category->title }}</td>
+                                                    <td class="p-2 text-center">
+                                                        <div class="p-2">
+                                                            <label class="toggle">
+                                                                <input class="toggle-checkbox" type="checkbox" name="is_active" id="is_active_checkbox_{{ $product->id }}" {{ $product->is_active ? 'checked' : '' }} value="{{ $product->id }}">
+                                                                <div class="toggle-switch"></div>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
+                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.product.edit', $product->id) }}" class="text-success"><img src="{{ asset('adminlte/dist/img/basic_trashcan_remove.png') }}" alt="delete_image" class="action-icon"></a></td>
+                                                    <td class="text-center p-1 pt-3">
+                                                        <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
