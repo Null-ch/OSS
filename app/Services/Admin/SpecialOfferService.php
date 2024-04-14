@@ -102,7 +102,6 @@ class SpecialOfferService
             $this->specialOffer::create($data);
         } catch (\Exception $e) {
             $this->logger->error('Error loading images: ' . $e->getMessage());
-            return [];
         }
     }
 

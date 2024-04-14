@@ -16,13 +16,6 @@ class TokenService
      */
 
     private $user;
-    /**
-     * LogInterface implementation
-     *
-     * @var object
-     */
-
-    private $logger;
 
     /**
      * Hash object init
@@ -38,13 +31,20 @@ class TokenService
      * @param LogInterface $logger
      * 
      */
-    public function __construct(User $user, LogInterface $logger, Hash $hash)
+    public function __construct(User $user, Hash $hash)
     {
         (object) $this->user = $user;
-        (object) $this->logger = $logger;
         (object) $this->hash = $hash;
     }
 
+    /**
+     * Generate api token
+     *
+     * @param array $data
+     * 
+     * @return array
+     * 
+     */
     public function generateToken(array $data): array
     {
         $user = $this->user::where('email', $data['email'])->first();

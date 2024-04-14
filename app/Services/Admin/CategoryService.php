@@ -60,7 +60,7 @@ class CategoryService
      *
      * @param int $count
      * 
-     * @return array
+     * @return object
      * 
      */
     public function getAllCategories(int $count): ?object

@@ -43,13 +43,13 @@ class UserService
      * @return object
      * 
      */
-    public function getUsers(int $count)
+    public function getUsers(int $count): ?object
     {
         try {
             $users = $this->user::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error fetching users: ' . $e->getMessage());
-            return [];
+            return;
         }
 
         return $users;

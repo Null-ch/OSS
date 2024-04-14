@@ -225,7 +225,7 @@ class ProductService
      * @return array
      * 
      */
-    public function getAllCategories(): object
+    public function getAllCategories(): ?object
     {
         try {
             $allCategories = $this->category->getAllCategories();
