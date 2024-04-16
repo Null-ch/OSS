@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.categories-title {
+  font-family: 'bree-thin';
+  width: min-content;
+  display: flex;
+  justify-content: center;
+  font-size: 36px;
+}
+.categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.categories-list {
+  margin: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+}
+.category {
+  height: 350px;
+  width: 300px;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+  padding: 8px;
+}
+.category::before,
+.category::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform-origin: center;
+}
+.category::before {
+  z-index: 10;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
+  transform: scale3d(0, 1, 1);
+}
+.category::after {
+  z-index: 10;
+  border-left: 1px solid #333;
+  border-right: 1px solid #333;
+  transform: scale3d(1, 0, 1);
+}
+.category:hover::before,
+.category:hover::after {
+  transform: scale3d(1, 1, 1);
+  transition: transform 0.3s;
+}
+.category-preview {
+  width: 100%;
+}
+.category-container {
+  display: flex;
+  text-align: center;
+  box-sizing: border-box;
+  flex-direction: column;
+  background-color: #f7f7f7;
+  width: 100%;
+  padding: 8px;
+  bottom: 0px;
+  gap: 8px;
+}
+.category-title {
+  font-family: 'bree-thin';
+  color: #333333;
+  font-size: 28px;
+}
