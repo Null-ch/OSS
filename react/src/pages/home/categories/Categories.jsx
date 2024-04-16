@@ -7,11 +7,11 @@ import Category from './Category';
 const Categories = () => {
     const dispatch = useDispatch()
     const {data: categories} = useSelector((state) => state.category)
-
     useEffect(() => {
         dispatch(fetchCategories());
       }, []);
 
+    // console.log(categories)
     return (
         <div className = 'categories'>
             <div className = 'categories-title-container'>

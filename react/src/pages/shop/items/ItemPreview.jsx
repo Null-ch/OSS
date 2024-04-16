@@ -3,12 +3,13 @@ import Heart from '../../../components/icons/HeartIcon';
 import Bag from '../../../components/icons/BagPlusIcon';
 import React from 'react';
 import Button from '../../../components/buttons/Button';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+import { PRODUCTS } from './../../../utils/constants';
 
 const Item = ({item, onClick, onQuickBuyClick}) => {
     return (
             <div className = 'item' onClick = {onClick}>
-                <Link to = {`/products/show/${item.id}`}>
+                <Link to = {`${PRODUCTS}${item.id}`}>
                     <img className = 'item-image' src = {item.images[1]}/>
 
                     <div className = 'item-info-container'>
@@ -29,7 +30,7 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
                     <Button
                     className = 'item-quick-buy-button'
                     text = 'Смотреть'
-                    onClick = {(e)=>{
+                    onClick = {(e) => {
                         onQuickBuyClick(item);
                         e.stopPropagation();
                     }}

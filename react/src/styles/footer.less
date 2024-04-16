@@ -1,0 +1,89 @@
+@import (less) './../../styles/common.less';
+@import (less) './../../styles/fonts.less';
+
+@breelight: 'bree-light';
+@breethin: 'bree-thin';
+
+.footer {
+    background-color: @black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 64px;
+    padding: 24px;
+    // padding-bottom: 96px;
+    span {
+        color: @white;
+    }
+}
+
+.logo {
+    align-self: flex-start;
+    height: 64px;
+    width: 64px;
+}
+
+.footer-sections {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    column-gap: 72px;
+}
+
+.brand {
+    font-family: @breelight, sans-serif;
+    cursor: default;
+    color: @white;
+    letter-spacing: 4px;
+    // font-weight: 600;
+    align-self: center;
+    font-size: 32px;
+}
+
+.brand-footer {
+    font-family: @breethin, sans-serif;
+    cursor: default;
+    color: @white;
+    letter-spacing: 4px;
+    // font-weight: 600;
+    align-self: center;
+    font-size: 64px;
+}
+
+.footer-logo {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+
+    img {
+        .logo();
+    }
+    span {
+        .brand();
+    }
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+}
+
+.footer-section-title {
+    font-family: @breelight, sans-serif;
+
+    padding-bottom: 8px;
+    // font-weight: 600;
+    font-size: 36px;
+    cursor: default;
+}
+
+.footer-section-item {
+    font-family: @breelight, sans-serif;
+
+    // font-weight: 600;
+    font-size: 24px;
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer;
+}
