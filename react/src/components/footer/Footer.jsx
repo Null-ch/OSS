@@ -1,9 +1,8 @@
 import React from 'react';
-import logo from './../../icons/logo-white.svg'
-import Logo from '../Logo';
+import Logo from '../icons/LogoIcon';
 import FooterSection from './FooterSection';
 import './footer.css'
-import { shopName } from '../../util/constants';
+import { shopName } from '../../utils/constants';
 
 const Footer = () => {
     return (
@@ -14,8 +13,10 @@ const Footer = () => {
                 <FooterSection title = 'Contacts'/>
             </div>
 
-            <Logo className = 'footer-logo' src = {logo} title = {shopName}/>
-
+            <Logo width = '200' height = '200' fillColor = '#ffffff'/>
+            <span className='brand-footer'>
+                SAMPLE TEXT
+            </span>
         </div>
     );
 };

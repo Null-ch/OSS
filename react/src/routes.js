@@ -1,9 +1,17 @@
-import { CART, SHOP, HOME, ITEM, ABOUT, LOGIN, LOGOUT } from './util/constants'
-import Home from './pages/Home'
-import Cart from './pages/Cart'
-import Shop from './pages/Shop'
-import Item from './pages/Item'
-import About from './pages/About'
+import { CART, PRODUCTS, HOME, ABOUT, LOGIN, LOGOUT } from './utils/constants'
+// import Home from './pages/home/Home'
+// import Cart from './pages/Cart'
+// import Shop from './pages/shop/Shop'
+// import Item from './pages/shop/items/Item'
+// import About from './pages/About'
+import { lazy } from 'react'
+
+// lazy точно нужен?
+const Home = lazy(() => import('./pages/home/Home'))
+const Cart = lazy(() => import('./pages/Cart'))
+const Shop = lazy(() => import('./pages/shop/Shop'))
+const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'))
+const About = lazy(() => import('./pages/About'))
 
 const home = {
     path: HOME,
@@ -16,15 +24,15 @@ const cart = {
     component: <Cart/>,
 }
 
-const shop = {
-    path: SHOP,
+const products = {
+    path: PRODUCTS,
     component: <Shop/>,
     title: 'Магазин'
 }
 
-const item = {
-    path: ITEM + '/:id',
-    component: <Item/>,
+const itemPage = {
+    path: PRODUCTS + '/:id', // show
+    component: <ItemPage/>,
 }
 
 const about = {
@@ -44,8 +52,9 @@ const logout = {
 export const publicRoutes = [
     home,
     cart,
-    shop,
-    item,
+    products,
+    // item,
+    itemPage,
     about,
     login,
     logout
@@ -53,6 +62,6 @@ export const publicRoutes = [
 
 export const nav = [
     home,
-    shop,
+    products,
     about,
 ]

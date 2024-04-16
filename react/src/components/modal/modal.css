@@ -1,0 +1,36 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.modal {
+  background-color: #33333344;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
