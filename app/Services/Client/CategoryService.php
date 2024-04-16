@@ -51,7 +51,7 @@ class CategoryService
             if ($categories) {
                 $response = [
                     'result' => true,
-                    'cart' => $categories,
+                    'categories' => $categories,
                 ];
             } else {
                 $response = [

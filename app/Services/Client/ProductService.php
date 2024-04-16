@@ -52,7 +52,7 @@ class ProductService
                 $products->load('images');
                 $response = [
                     'result' => true,
-                    'cart' => $products,
+                    'products' => $products,
                 ];
             } else {
                 $response = [

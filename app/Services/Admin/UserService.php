@@ -49,7 +49,7 @@ class UserService
             $users = $this->user::paginate($count);
         } catch (\Exception $e) {
             $this->logger->error('Error fetching users: ' . $e->getMessage());
-            return;
+            return null;
         }
 
         return $users;
