@@ -1,4 +1,4 @@
-import { CART, PRODUCTS, HOME, PRODUCT, ABOUT, LOGIN, LOGOUT } from './utils/constants'
+import { CART, PRODUCTS, HOME, ABOUT, LOGIN, LOGOUT } from './utils/constants'
 // import Home from './pages/home/Home'
 // import Cart from './pages/Cart'
 // import Shop from './pages/shop/Shop'
@@ -10,7 +10,7 @@ import { lazy } from 'react'
 const Home = lazy(() => import('./pages/home/Home'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Shop = lazy(() => import('./pages/shop/Shop'))
-const Item = lazy(() => import('./pages/shop/items/Item'))
+const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'))
 const About = lazy(() => import('./pages/About'))
 
 const home = {
@@ -30,9 +30,9 @@ const products = {
     title: 'Магазин'
 }
 
-const item = {
-    path: PRODUCT + '/:id',
-    component: <Item/>,
+const itemPage = {
+    path: PRODUCTS + '/:id', // show
+    component: <ItemPage/>,
 }
 
 const about = {
@@ -53,7 +53,8 @@ export const publicRoutes = [
     home,
     cart,
     products,
-    item,
+    // item,
+    itemPage,
     about,
     login,
     logout

@@ -87,8 +87,7 @@ html {
   text-align: center;
   box-sizing: border-box;
   flex-direction: row;
-  padding: 16px;
-  padding-top: 8px;
+  padding: 8px;
   bottom: 0px;
   gap: 8px;
 }

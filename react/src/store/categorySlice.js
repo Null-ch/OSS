@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit"
-import {BASE_URL_FAKE} from '../utils/url'
+import {DOMAIN} from '../utils/url'
 import {STATUS} from '../utils/status'
 
 const catSlice = createSlice({
@@ -44,9 +44,25 @@ export const fetchCategories = () => {
     return async function fetchCatThunk(dispatch) {
         dispatch(setStatus(STATUS.LOADING));
 
-        try{
-            const res = await fetch(`${BASE_URL_FAKE}categories`);
+        try {
+            const url = `${DOMAIN}categories`;
+            // console.log(url)
+            const res = await fetch(url, {
+                mode: 'no-cors',
+                method: 'GET',
+                headers: {
+                  Accept: 'application/json',
+                  contentType: "json;"
+                }
+            })
+            .then(res => res.json())
+            .then(json => {
+              console.log('parsed json', json) // access json.body here
+            })
+
+            console.log(res)
             const data = await res.json();
+            
             dispatch(setCats(data.slice(0, 5)));
             dispatch(setStatus(STATUS.IDLE))
         } catch(err){
@@ -62,7 +78,7 @@ export const fetchProductsByCat = (catId, type) => {
         if (type === 'single') dispatch(setCatProductStatus(STATUS.LOADDING));
         
         try{
-            const res = await fetch(`${BASE_URL_FAKE}categories/${catId}/products`);
+            const res = await fetch(`${DOMAIN}categories/${catId}/products`);
             const data = await res.json();
             if (type === 'all'){
                 dispatch(setCatProducts(data.slice(0, 10)));
