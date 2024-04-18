@@ -68,6 +68,7 @@ html {
 }
 .tab {
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 24px;
   transition: 0.3s;
@@ -78,24 +79,36 @@ html {
   color: #333333;
   font-size: 28px;
 }
+.tab svg {
+  fill: #333333;
+}
 .tab-active {
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 24px;
   transition: 0.3s;
   text-decoration: unset;
   background-color: #333333;
+  position: relative;
 }
 .tab-active span {
   font-family: 'bree-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
+.tab-active svg {
+  fill: #333333;
+}
 .tab-active span {
   color: #f7f7f7;
 }
+.tab-active svg {
+  fill: #f7f7f7;
+}
 .tab-inactive {
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 24px;
   transition: 0.3s;
@@ -107,6 +120,71 @@ html {
   font-family: 'bree-light', sans-serif;
   color: #333333;
   font-size: 28px;
+}
+.tab-inactive svg {
+  fill: #333333;
+}
+.tab-inactive::before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  transform-origin: center;
+}
+.tab-inactive::before {
+  z-index: 10;
+  border-bottom: 1px solid #333;
+  transform: scale3d(0, 1, 1);
+}
+.tab-inactive:hover::before {
+  transform: scale3d(1, 1, 1);
+  transition: transform 0.3s;
+}
+.tab-title {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.tab-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  transition: 0.3s;
+  text-decoration: unset;
+  background-color: #333333;
+}
+.tab-active span {
+  font-family: 'bree-light', sans-serif;
+  color: #333333;
+  font-size: 28px;
+}
+.tab-active svg {
+  fill: #333333;
+}
+.tab-active span {
+  color: #f7f7f7;
+}
+.tab-inactive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  transition: 0.3s;
+  text-decoration: unset;
+  box-sizing: border-box;
+  position: relative;
+}
+.tab-inactive span {
+  font-family: 'bree-light', sans-serif;
+  color: #333333;
+  font-size: 28px;
+}
+.tab-inactive svg {
+  fill: #333333;
 }
 .tab-inactive::before {
   content: '';

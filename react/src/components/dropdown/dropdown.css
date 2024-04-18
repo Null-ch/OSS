@@ -1,0 +1,75 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+.dropdown-menu {
+  z-index: 100;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+.dropdown-menu-item {
+  position: relative;
+}
+.dropdown {
+  width: 200px;
+  position: absolute;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  border: 1px solid #333333;
+  background-color: #f7f7f7;
+}
+.dropdown-active {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.dropdown-link {
+  width: 100%;
+  display: block;
+  color: #333333;
+  text-decoration: none;
+  font-family: 'bree-light', sans-serif;
+  padding: 4px 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.dropdown-link:hover {
+  text-decoration: underline;
+}

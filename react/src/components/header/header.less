@@ -41,6 +41,7 @@
 
 .tab {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 24px;
     transition: 0.3s;
@@ -50,6 +51,53 @@
         color: @black;
         font-size: 28px;
     }
+
+    svg { fill: @black; }
+}
+
+.tab-active {
+    .tab();
+    background-color: @black;
+    position: relative;
+    span {
+        color: @white;
+    }
+    svg { fill: @white; }
+}
+
+.tab-inactive {
+    .tab();
+
+    box-sizing: border-box;
+    position: relative;
+
+    &::before {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        transform-origin: center;
+    }
+
+    &::before {
+        z-index: 10;
+        border-bottom: @thickness solid @hover-border;
+        transform: scale3d(0,1,1);
+    }
+
+    &:hover::before {
+        transform: scale3d(1,1,1);
+        transition: transform 0.3s;
+    }
+}
+
+.tab-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .tab-active {

@@ -47,23 +47,12 @@ export const fetchCategories = () => {
         try {
             const url = `${DOMAIN}categories`;
             // console.log(url)
-            const res = await fetch(url, {
-                mode: 'no-cors',
-                method: 'GET',
-                headers: {
-                  Accept: 'application/json',
-                  contentType: "json;"
-                }
-            })
-            .then(res => res.json())
-            .then(json => {
-              console.log('parsed json', json) // access json.body here
-            })
+            const res = await fetch(url)
 
-            console.log(res)
             const data = await res.json();
-            
-            dispatch(setCats(data.slice(0, 5)));
+            // console.log(data)
+        
+            dispatch(setCats(data.categories.slice(0, 5)));
             dispatch(setStatus(STATUS.IDLE))
         } catch(err){
             dispatch(setStatus(STATUS.ERROR));

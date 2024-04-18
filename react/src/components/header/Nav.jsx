@@ -10,15 +10,18 @@ const Nav = () => {
 
     return (
         <div className = 'nav'>
-            {nav.map(({path, title}, key) => {
-                const r = path === '/' ? path === p : p.startsWith(path);
+            {
+                nav.map(({path, title, list}, key) => {
 
-                return <Tab
-                    className = { r ? 'tab-active' : 'tab-inactive'}
-                    key = {key}
-                    path = {path}
-                    title = {title}/>
-                })}
+                    return <Tab
+                        className = { (path === '/' ? path === p : p.startsWith(path)) ? 'tab-active' : 'tab-inactive'}
+                        key = {key}
+                        path = {path}
+                        title = {title}
+                        list = {list}
+                    />
+                })
+            }
         </div>
     );
 };

@@ -27,7 +27,13 @@ const cart = {
 const products = {
     path: PRODUCTS,
     component: <Shop/>,
-    title: 'Магазин'
+    title: 'Товары',
+    list: [
+        {
+            path: '',
+            title: 'Все'
+        },
+    ],
 }
 
 const itemPage = {

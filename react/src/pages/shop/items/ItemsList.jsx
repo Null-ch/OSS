@@ -18,20 +18,21 @@ const ItemsList = ({items}) => {
         dispatch(setModalData(data));
         dispatch(setIsModalVisible(true));
     }
-
+    // console.log(data)
+    // console.log(items)
     return (
         <>
             <div className = 'items'>
-                {items.map((item) => {
+                {(items || []).map((item) => {
                     return <Item
-                    onQuickBuyClick = {(item) => {
-                        showModal(item);
-                    }}
-                    // onClick = {(e) => {
-                    //     console.log(item);
-                    // }}
-                    item = {item}
-                    key = {item.id}
+                        onQuickBuyClick = {(item) => {
+                            showModal(item);
+                        }}
+                        // onClick = {(e) => {
+                        //     console.log(item);
+                        // }}
+                        item = {item}
+                        key = {item.id}
                     />
                 })}
             </div>

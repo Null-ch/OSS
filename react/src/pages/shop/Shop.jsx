@@ -5,7 +5,7 @@ import './shop.css';
 
 const Shop = () => {
     const {data = [], isLoading, error} = useGetItemsQuery();
-  
+    // console.log(data)
     if (error) {
       console.log(`error: ${error}`);
     }
@@ -13,7 +13,7 @@ const Shop = () => {
     return (
         <div className = 'shop'>
             {isLoading ? <h1>Loading...</h1> : ''}
-            <ItemsList items = {data}/>
+            <ItemsList items = {data.products}/>
         </div>
     );
 };
