@@ -48,6 +48,7 @@ html {
 }
 .categories-list {
   margin: 24px;
+  margin-bottom: 56px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -91,6 +92,7 @@ html {
   transition: transform 0.3s;
 }
 .category-preview {
+  height: 100%;
   width: 100%;
 }
 .category-container {
@@ -108,4 +110,5 @@ html {
   font-family: 'bree-thin';
   color: #333333;
   font-size: 28px;
+  font-weight: 600;
 }

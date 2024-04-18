@@ -41,6 +41,7 @@
 
 .tab {
     display: flex;
+    flex-direction: column;
     align-items: center;
     padding: 24px;
     transition: 0.3s;
@@ -50,14 +51,18 @@
         color: @black;
         font-size: 28px;
     }
+
+    svg { fill: @black; }
 }
 
 .tab-active {
     .tab();
     background-color: @black;
+    position: relative;
     span {
         color: @white;
     }
+    svg { fill: @white; }
 }
 
 .tab-inactive {
@@ -87,6 +92,12 @@
         transform: scale3d(1,1,1);
         transition: transform 0.3s;
     }
+}
+
+.tab-title {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .brand {

@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
 import { DOMAIN } from '../../utils/url'
 
 // RTK query
-
+// console.log(DOMAIN)
 export const itemsApi = createApi({
     reducerPath: 'itemsApi',
     baseQuery: fetchBaseQuery({baseUrl: DOMAIN}),

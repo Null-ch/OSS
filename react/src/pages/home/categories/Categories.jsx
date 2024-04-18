@@ -11,7 +11,7 @@ const Categories = () => {
         dispatch(fetchCategories());
       }, []);
 
-    console.log(categories)
+    // console.log(categories)
     return (
         <div className = 'categories'>
             <div className = 'categories-title-container'>

@@ -5,12 +5,13 @@ import React from 'react';
 import Button from '../../../components/buttons/Button';
 import {Link} from 'react-router-dom';
 import { PRODUCTS } from './../../../utils/constants';
+import { DOMAIN } from './../../../utils/url'
 
 const Item = ({item, onClick, onQuickBuyClick}) => {
     return (
             <div className = 'item' onClick = {onClick}>
                 <Link to = {`${PRODUCTS}${item.id}`}>
-                    <img className = 'item-image' src = {item.images[1]}/>
+                    <img className = 'item-image' src = {`${DOMAIN}${item.preview_image}`}/>
 
                     <div className = 'item-info-container'>
                         <span className = 'item-title'>{item.title}</span>
