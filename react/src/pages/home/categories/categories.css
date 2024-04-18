@@ -48,7 +48,10 @@ html {
 }
 .categories-list {
   margin: 24px;
+<<<<<<< HEAD
   margin-bottom: 56px;
+=======
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -92,7 +95,10 @@ html {
   transition: transform 0.3s;
 }
 .category-preview {
+<<<<<<< HEAD
   height: 100%;
+=======
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
   width: 100%;
 }
 .category-container {
@@ -110,5 +116,8 @@ html {
   font-family: 'bree-thin';
   color: #333333;
   font-size: 28px;
+<<<<<<< HEAD
   font-weight: 600;
+=======
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
 }

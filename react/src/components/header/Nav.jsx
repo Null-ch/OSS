@@ -10,6 +10,7 @@ const Nav = () => {
 
     return (
         <div className = 'nav'>
+<<<<<<< HEAD
             {
                 nav.map(({path, title, list}, key) => {
 
@@ -22,6 +23,17 @@ const Nav = () => {
                     />
                 })
             }
+=======
+            {nav.map(({path, title}, key) => {
+                const r = path === '/' ? path === p : p.startsWith(path);
+
+                return <Tab
+                    className = { r ? 'tab-active' : 'tab-inactive'}
+                    key = {key}
+                    path = {path}
+                    title = {title}/>
+                })}
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
         </div>
     );
 };

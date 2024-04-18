@@ -3,7 +3,10 @@ import './itemQuickBuy.css';
 import { useSelector } from 'react-redux';
 import Button from '../../../components/buttons/Button';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 import { DOMAIN } from './../../../utils/url'
+=======
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
 
 // todo price в отдельный компонент
 
@@ -25,7 +28,11 @@ const ItemQuickBuy = () => {
         
             <div className = 'quick-buy-body'>
                 <div className = 'quick-buy-image-container'>
+<<<<<<< HEAD
                     <img className = 'quick-buy-image' src = {`${DOMAIN}${item.preview_image}`} />
+=======
+                    <img className = 'quick-buy-image' src = {item.images[1]} />
+>>>>>>> 0e8f35afd20cf5efe9539ae6d58590be45c12c40
                 </div>
                 <div className = 'quick-buy-item-descr'>
                     <span>
