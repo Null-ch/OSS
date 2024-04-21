@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import categoryReducer from "./categorySlice";
 import { itemsApi } from "./query/itemsApi";
+import { categoriesApi } from "./query/categoriesApi";
 import modalReducer from './modalSlice'
 
 // todo user slice
@@ -10,7 +11,9 @@ export default configureStore({
     reducer: {
         category: categoryReducer,
         modal: modalReducer,
-        [itemsApi.reducerPath]: itemsApi.reducer,
+        // reducer создаётся RTK Query автоматически, он содержит в т.ч эндпоинты
+        [itemsApi.reducerPath]: itemsApi.reducer, // 'itemsApi'
+        [categoriesApi.reducerPath]: categoriesApi.reducer, // 'categoriesApi'
         // user: userSlice
     },
 
@@ -33,5 +36,8 @@ export default configureStore({
                 ignoredPaths: ['modal.content'],
               },
         }
-    ).concat(itemsApi.middleware)
+    )
+    // дополнительно добавляем свои миддлвейры в из наших Api
+    .concat(itemsApi.middleware) 
+    .concat(categoriesApi.middleware)
 });

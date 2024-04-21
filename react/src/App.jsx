@@ -4,7 +4,7 @@ import './styles/common.css'
 import Layout from "./components/Layout";
 import {publicRoutes} from './routes'
 import {Route, Routes, useLocation} from 'react-router-dom'
-import Header from './components/header/Header';
+import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';

@@ -27,10 +27,11 @@ const cart = {
 const products = {
     path: PRODUCTS,
     component: <Shop/>,
-    title: 'Товары',
+    title: 'Продукты',
+    listEntities: 'categories',
     list: [
         {
-            path: '',
+            path: 'products',
             title: 'Все'
         },
     ],
