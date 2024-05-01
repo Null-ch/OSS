@@ -1,4 +1,4 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { DOMAIN } from '../../utils/url'
 
 // RTK query
@@ -8,8 +8,16 @@ export const itemsApi = createApi({
     endpoints: (builder) => ({
         getItems: builder.query({
             query: () => '/products',
-        })
+        }),
+        getItem: builder.query({
+            query: (id) => ({
+                url: `/products/show/${id}`,
+                // params: {
+                    // id: id
+                // }
+            })
+        }),
     })
 })
 
-export const { useGetItemsQuery } = itemsApi;
+export const { useGetItemsQuery, useGetItemQuery } = itemsApi;

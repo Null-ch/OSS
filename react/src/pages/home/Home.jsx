@@ -9,12 +9,12 @@ import soapImg from './../../img/soap1.jpg'
 
 const Home = () => {
     return (
-        <div>
+        <main>
             <Offers items = {[
                 { src:soapImg }
                 ]}/>
             <Categories/>
-        </div>
+        </main>
     );
 };
 

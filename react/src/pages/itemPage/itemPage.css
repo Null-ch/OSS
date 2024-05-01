@@ -1,0 +1,81 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.item-page {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px;
+}
+.item-page-preview {
+  border: 1px solid #333333;
+}
+.item-page-info {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #333333;
+  padding: 24px;
+}
+.item-page-title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.item-page-brand {
+  font-family: 'bree-thin', sans-serif;
+  font-size: 18px;
+}
+.item-page-title {
+  font-family: 'bree-thin', sans-serif;
+  font-size: 32px;
+}
+.item-page-price-container {
+  display: flex;
+  flex-direction: row;
+}
+.item-page-price-container div {
+  flex: 1;
+}
+.item-page-price {
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 28px;
+  font-weight: 600;
+}
+.item-page-price-currency {
+  align-self: flex-end;
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 28px;
+}
+.item-page-description {
+  text-align: left;
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 18px;
+}

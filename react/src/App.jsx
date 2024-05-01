@@ -35,11 +35,11 @@ function App() {
   window.onscroll = function() { scrollFunction() };
 
   function scrollFunction() {
-    if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
-      document.getElementById("header").className = 'header-fixed';
-    } else {
-      document.getElementById("header").className = 'header';
-    }
+    // if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
+    //   document.getElementById("header").className = 'header-fixed';
+    // } else {
+    //   document.getElementById("header").className = 'header';
+    // }
   }
 
   return (

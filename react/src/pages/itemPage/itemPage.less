@@ -1,3 +1,71 @@
-.itemPage {
-    
+@import (less) '../../styles/common.less';
+
+
+.item-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+}
+
+.item-page-preview {
+    border: 1px solid @black;
+}
+
+.item-page-info {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid @black;
+    padding: 24px;
+}
+
+.item-page-title-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px; 
+}
+
+.item-page-brand {
+    font-family: @breethin, sans-serif;
+    font-size: 18px;
+}
+
+.item-page-title {
+    font-family: @breethin, sans-serif;
+    font-size: 32px;
+}
+
+.item-page-price-container {
+    // height: 100%;
+    display: flex;
+    flex-direction: row;
+
+    div {
+        flex: 1;
+    }
+}
+
+.item-page-price {
+    font-family: @breelight;
+    color: @black;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.item-page-price-currency {
+    align-self:flex-end;
+    font-family: @breelight;
+    color: @black;
+    font-size: 28px;
+}
+
+.item-page-description {
+    text-align: left;
+    font-family: @breelight;
+    color: @black;
+    font-size: 18px;
 }

@@ -40,7 +40,9 @@
     align-items: center;
     // transition: 0.3s;
     text-decoration: unset;
+
     span {
+        opacity: 90%;
         font-family: @breelight, sans-serif;
         color: @black;
         font-size: 28px;
@@ -48,6 +50,13 @@
     }
 
     svg { fill: @black; }
+
+
+    &:hover {
+        span {
+            opacity: 100%;
+        }
+    }
 }
 
 .tab-active {
