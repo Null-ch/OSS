@@ -9,6 +9,7 @@ import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import NotFound from "./pages/util/NotFound.jsx";
 
 function App() {
   // const isLogged = localStorage.getItem('isLoggedIn');
@@ -59,6 +60,7 @@ function App() {
           }    
           )}
         </Route>
+        <Route path = "*" element = {<NotFound/>}/>
       </Routes>
 
       <Footer/>

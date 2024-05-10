@@ -1,16 +1,4 @@
 @import '../../styles/fonts.css';
-@font-face {
-  font-family: 'bree-light';
-  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
-}
-@font-face {
-  font-family: 'bree-regular';
-  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
-}
-@font-face {
-  font-family: 'bree-thin';
-  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
-}
 body {
   background: #f7f7f7;
 }
@@ -32,7 +20,7 @@ html {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
-  max-height: 100px;
+  max-height: 64px;
   width: 100%;
 }
 .header-fixed {
@@ -44,7 +32,7 @@ html {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
-  max-height: 100px;
+  max-height: 64px;
   width: 100%;
   position: fixed;
   z-index: 100;

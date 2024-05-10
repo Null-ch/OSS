@@ -31,14 +31,14 @@ const products = {
     listEntities: 'categories',
     list: [
         {
-            path: 'products',
+            path: '/products',
             title: 'Все'
         },
     ],
 }
 
 const itemPage = {
-    path: PRODUCTS + '/:id', // show
+    path: PRODUCTS + '/:id',
     component: <ItemPage/>,
 }
 

@@ -19,7 +19,7 @@ const Button = (props: IButtonProps) => {
     // console.log(props)
 
     const {
-        variant, icon, iconPosition, iconColor, text, textColor, route, className, onClick,
+        variant, icon, iconPosition, iconColor, text, textColor, route, className, onClick, disabled,
         ...restProps
     } = props;
     
@@ -34,16 +34,14 @@ const Button = (props: IButtonProps) => {
     }
 
     return (
-        // <Context.Provider>
-            <a className = 'button-container' href={route}>
-                <button onClick={onClick} className={className} style={{gap: !text ? 0 : 8, display: 'flex', flexDirection: direction as 'row'}} {...restProps}>
-                    {icon}
-                    <span>
-                        {text}
-                    </span>
-                </button>
-            </a>
-        // </Context.Provider>
+        <a className = 'button-container' href={route}>
+            <button disabled = {disabled} onClick={onClick} className={className} style={{gap: !text ? 0 : 8, display: 'flex', flexDirection: direction as 'row'}} {...restProps}>
+                {icon}
+                <span>
+                    {text}
+                </span>
+            </button>
+        </a>
     );
 };
 

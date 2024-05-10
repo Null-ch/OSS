@@ -4,12 +4,7 @@ import "./header.css"
 import ArrowIcon from '../icons/ArrowIcon';
 import DropdownMenu from '../dropdown/DropdownMenu';
 
-const Tab = ({path, title, list, onClick, className, listEntities}) => {
-    if (listEntities === 'categories') {
-        // todo insert categories here or in Nav.jsx
-        // console.log(entities);
-    }
-    
+const Tab = ({path, title, list, onClick, className }) => {
     // todo при выборе категории в Продуктах перезагружается страница, выяснить почему
 
     // на мой взгляд выглядит всрато, не придумал как лучше - мы N (кол-во табов) лишних раз подпишемся
@@ -24,11 +19,20 @@ const Tab = ({path, title, list, onClick, className, listEntities}) => {
         if ( dropdownMenuRef.current && !dropdownMenuRef.current.contains(e.target)
             && e.target !== dropdownButtonRef.current
         ) {
-            console.log('close');
-            setIsOpened(false);
+            // console.log('close');
+            if (!isOpened) {
+                // console.log(isOpened);
+                setIsOpened(false);
+            }
+
         }
-        if (e.preventDefault) { e.preventDefault(); }
+        // todo вспомнить нахуя я добавил это (ломает любой клик\выделение на странице)
+        // if (e.preventDefault) { e.preventDefault(); }
     }
+
+    useEffect(() => {
+        // console.log(isOpened);
+        }, [isOpened])
 
     useEffect(() => {
         document.addEventListener('mousedown', handleOutsideClick);
@@ -39,7 +43,11 @@ const Tab = ({path, title, list, onClick, className, listEntities}) => {
         <>
             {
                 list ?
-                <details ref={dropdownMenuRef} className = {className} open = {isOpened} onToggle = {(e)=>{setIsOpened(e.currentTarget.open)}}>
+                <details
+                    ref={dropdownMenuRef}
+                    className = {className}
+                    open = {isOpened}
+                    onToggle = {(e)=>{setIsOpened(e.currentTarget.open)}}>
                     <summary ref={dropdownButtonRef} className = 'tab-title'>
                         <span>{title}</span>
                         <ArrowIcon

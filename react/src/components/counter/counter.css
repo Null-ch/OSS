@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.counter {
+  display: flex;
+  flex-direction: row;
+  width: 144px;
+  height: 40px;
+  border: 1px solid #333;
+}
+.button {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.counter-button {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 75%;
+}
+.counter-button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.counter-button:hover {
+  opacity: 100%;
+}
+.counter-button-disabled {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  opacity: 50%;
+  cursor: no-drop;
+}
+.counter-button-disabled span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.counter-input {
+  border: none;
+  flex-grow: 1;
+  width: 100%;
+  font-size: 24px;
+  text-align: center;
+  color: #333333;
+}
+input::-webkit-inner-spin-button {
+  display: none;
+}

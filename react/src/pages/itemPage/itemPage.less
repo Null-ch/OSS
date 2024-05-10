@@ -1,6 +1,5 @@
 @import (less) '../../styles/common.less';
 
-
 .item-page {
     display: flex;
     flex-direction: row;
@@ -31,7 +30,7 @@
 
 .item-page-brand {
     font-family: @breethin, sans-serif;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .item-page-title {
@@ -52,15 +51,55 @@
 .item-page-price {
     font-family: @breelight;
     color: @black;
-    font-size: 28px;
-    font-weight: 600;
+    font-size: 32px;
+}
+
+.item-page-price-total {
+    .item-page-price();
+    font-size: 24px;
 }
 
 .item-page-price-currency {
     align-self:flex-end;
     font-family: @breelight;
     color: @black;
-    font-size: 28px;
+    font-size: 24px;
+}
+
+.item-page-price-currency-total {
+    .item-page-price-currency();
+    font-size: 16px;
+}
+
+.button {
+    width: 146px;
+    height: 40px;
+    border: 1px solid #333;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    opacity: 75%;
+    cursor: pointer;
+    span {
+        font-size: 16px;
+        font-family: @breelight, sans-serif;
+        color: @white;
+    }
+}
+
+.item-page-button {
+    .button();
+    opacity: 75%;
+    cursor: pointer;
+    &:hover {
+        opacity: 100%;
+    }
+}
+
+.item-page-button-disabled {
+    .button();
+    opacity: 50%;
+    cursor:no-drop;
 }
 
 .item-page-description {
@@ -68,4 +107,37 @@
     font-family: @breelight;
     color: @black;
     font-size: 18px;
+}
+
+.item-page-shipment-container {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.item-page-shipment-link {
+    font-family: @breelight, sans-serif;
+    color: @black;
+    text-decoration-thickness: 1px;
+    &:hover {
+        text-decoration: solid;
+    }
+}
+
+.item-page-shipment-info {
+    font-family: @breelight, sans-serif;
+    color: @black;
+}
+
+.item-page-counter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.item-page-action-buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
 }

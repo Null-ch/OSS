@@ -1,6 +1,7 @@
 export const HOME = '/'
 // export const SHOP = '/shop'
 export const PRODUCTS = '/products'
+export const PRODUCTS_SHOW = '/products/show'
 export const CART = '/cart'
 export const ITEM = '/item'
 export const PRODUCT = '/product'
