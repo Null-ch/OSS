@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Client\ProductService;
+use App\Services\Api\Client\ProductService;
 
 class ProductController extends Controller
 {

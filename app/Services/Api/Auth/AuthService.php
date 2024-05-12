@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Services\Api;
+namespace App\Services\Api\Auth;
 
 use App\Models\User;
 use App\Services\LogInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
-class TokenService
+class AuthService
 {
     /**
      * Model: User
@@ -37,30 +37,27 @@ class TokenService
         (object) $this->hash = $hash;
     }
 
-    /**
-     * Generate api token
-     *
-     * @param array $data
-     * 
-     * @return array
-     * 
-     */
-    public function generateToken(array $data): array
+    public function login(array $data)
     {
         $user = $this->user::where('email', $data['email'])->first();
 
         if (!$user || !$this->hash::check($data['password'], $user->password)) {
-            return [
-                'result' => false,
-                'token' => 'Incorrect email or password'
-            ];
+            return response()->json([
+                'message' => 'Email или пароль не верны!'
+            ], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('auth_token')->plainTextToken;
+        return $token;
+    }
 
-        return [
-            'result' => true,
-            'token' => $token
-        ];
+    public function logout($user)
+    {
+        $user->currentAccessToken()->delete();
+    }
+
+    public function isAuthenticated()
+    {
+        return Auth::check();
     }
 }

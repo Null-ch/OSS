@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Client;
+namespace App\Services\Api\Client;
 
 use App\Models\Product;
 use App\Services\LogInterface;

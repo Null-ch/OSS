@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\ReactController::class, 'index'])->name('home');
-    Route::get('/cart', [App\Http\Controllers\ReactController::class, 'showCart'])->name('public.cart');
-    Route::get('/shop', [App\Http\Controllers\ReactController::class, 'showShop'])->name('public.shop');
-    Route::get('/item/{id}', [App\Http\Controllers\ReactController::class, 'showItem'])->name('public.item');
 
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
@@ -88,35 +85,6 @@ Route::middleware('auth')->group(function () {
         });
     });
 });
-
-/*
-|--------------------------------------------------------------------------
-| Client routes
-|--------------------------------------------------------------------------
-|
-| React routes are located here
-|
-*/
-
-Route::prefix('cart')->group(function () {
-    Route::get('/', [App\Http\Controllers\Client\CartController::class, 'index'])->name('client.cart.index');
-    Route::post('/add', [App\Http\Controllers\Client\CartController::class, 'addProduct'])->name('client.cart.add');
-    Route::put('/update/{id}', [App\Http\Controllers\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
-    Route::delete('/delete/{id}', [App\Http\Controllers\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
-});
-
-Route::prefix('products')->group(function () {
-    Route::get('/', [App\Http\Controllers\Client\ProductController::class, 'index'])->name('client.products.index');
-    Route::get('/show/{id}', [App\Http\Controllers\Client\ProductController::class, 'show'])->name('client.product.show');
-});
-
-Route::prefix('categories')->group(function () {
-    Route::get('/', [App\Http\Controllers\Client\CategoryController::class, 'index'])->name('client.categories.index');
-    Route::get('/{id}/products', [App\Http\Controllers\Client\CategoryController::class, 'getProducts'])->name('client.category.product.show');
-});
-
-
-
 
 /*
 |--------------------------------------------------------------------------

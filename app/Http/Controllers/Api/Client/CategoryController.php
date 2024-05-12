@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Client\CategoryService;
+use App\Services\Api\Client\CategoryService;
 
 class CategoryController extends Controller
 {
@@ -37,6 +37,13 @@ class CategoryController extends Controller
     public function getProducts($id)
     {
         (object) $response = $this->categoryService->getProducts($id);
+
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    public function show($id)
+    {
+        (object) $response = $this->categoryService->getCategory($id);
 
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
