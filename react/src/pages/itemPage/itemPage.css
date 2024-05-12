@@ -54,38 +54,35 @@ html {
   font-family: 'bree-thin', sans-serif;
   font-size: 32px;
 }
-.item-page-price-container {
-  display: flex;
-  flex-direction: row;
-}
-.item-page-price-container div {
-  flex: 1;
-}
-.item-page-price {
+.i-p-price #price {
   font-family: 'bree-light';
   color: #333333;
   font-size: 32px;
 }
-.item-page-price-total {
-  font-family: 'bree-light';
-  color: #333333;
-  font-size: 32px;
-  font-size: 24px;
-}
-.item-page-price-currency {
+.i-p-price #currency {
   align-self: flex-end;
   font-family: 'bree-light';
   color: #333333;
   font-size: 24px;
 }
-.item-page-price-currency-total {
+.i-p-price-total #price {
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 32px;
+}
+.i-p-price-total #currency {
   align-self: flex-end;
   font-family: 'bree-light';
   color: #333333;
   font-size: 24px;
+}
+.i-p-price-total #price {
+  font-size: 24px;
+}
+.i-p-price-total #currency {
   font-size: 16px;
 }
-.button {
+.i-p-button {
   width: 146px;
   height: 40px;
   border: 1px solid #333;
@@ -95,7 +92,7 @@ html {
   opacity: 75%;
   cursor: pointer;
 }
-.button span {
+.i-p-button span {
   font-size: 16px;
   font-family: 'bree-light', sans-serif;
   color: #f7f7f7;
@@ -168,4 +165,69 @@ html {
   display: flex;
   flex-direction: row;
   gap: 16px;
+}
+.i-p-counter {
+  display: flex;
+  flex-direction: row;
+  width: 144px;
+  height: 40px;
+  border: 1px solid #333;
+}
+.i-p-counter input {
+  font-family: 'bree-light';
+  border: none;
+  flex-grow: 1;
+  width: 100%;
+  font-size: 28px;
+  text-align: center;
+  color: #333333;
+}
+.counter-button {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.counter-button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.i-p-counter-button {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 75%;
+}
+.i-p-counter-button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.i-p-counter-button:hover {
+  opacity: 100%;
+}
+.i-p-counter-button-disabled {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  opacity: 50%;
+  cursor: no-drop;
+}
+.i-p-counter-button-disabled span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
 }

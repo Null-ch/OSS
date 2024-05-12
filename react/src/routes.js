@@ -1,4 +1,4 @@
-import { CART, PRODUCTS, HOME, ABOUT, LOGIN, LOGOUT } from './utils/constants'
+import { CART, PRODUCTS, PRODUCTS_CATEGORY, HOME, ABOUT, LOGIN, LOGOUT } from './utils/constants'
 // import Home from './pages/home/Home'
 // import Cart from './pages/Cart'
 // import Shop from './pages/shop/Shop'
@@ -12,6 +12,7 @@ const Cart = lazy(() => import('./pages/Cart'))
 const Shop = lazy(() => import('./pages/shop/Shop'))
 const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'))
 const About = lazy(() => import('./pages/About'))
+const CategoryPage = lazy(() => import('./pages/category/CategoryPage'))
 
 const home = {
     path: HOME,
@@ -35,6 +36,11 @@ const products = {
             title: 'Все'
         },
     ],
+}
+
+const categoriesProducts = {
+    path: PRODUCTS_CATEGORY + '/:id',
+    component: <CategoryPage/>,
 }
 
 const itemPage = {
@@ -62,6 +68,7 @@ export const publicRoutes = [
     products,
     // item,
     itemPage,
+    categoriesProducts,
     about,
     login,
     logout

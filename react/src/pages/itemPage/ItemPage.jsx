@@ -6,6 +6,7 @@ import Counter from '../../components/counter/Counter';
 import Button from '../../components/buttons/Button';
 // import NotFound from '../util/NotFound';
 import {useParams} from 'react-router-dom'
+import Price from '../../components/util/Price';
 
 const ItemPage = () => {
     // общее хранилище со всеми продуктами, либо сбор всех и кеширование
@@ -16,6 +17,8 @@ const ItemPage = () => {
     // console.log(data);
 
     const product = data.product
+
+    document.title = product?.title
 
     var cart = JSON.parse(window.localStorage.getItem('oss-cart')) || {};
 
@@ -49,10 +52,7 @@ const ItemPage = () => {
                             <span className = 'item-page-brand'>SAMPLE-TEXT</span>
                             <h1 className = 'item-page-title' title = 'Название продукта'>{product.title}</h1>
                         </div>
-                        <div className = 'item-page-price-container'>
-                            <span className = 'item-page-price' title = 'Цена за 1шт.'>{product.price}</span>
-                            <span className = 'item-page-price-currency'>₽</span>
-                        </div>
+                        <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { product.price }/>
                         <div className = 'item-page-shipment-container'>
                             <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
                             <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
@@ -63,17 +63,22 @@ const ItemPage = () => {
                                 onIncrement = {onIncrement}
                                 onChangeInput = {onChangeCounter}
                                 disableDecr = {isNoneSelected}
+                                className = 'i-p-counter '
+                                btnClassName = 'i-p-counter-button'
+                                btnDisabledClassName = 'i-p-counter-button-disabled'
                             />
                             {
                                 !isNoneSelected &&
-                                <div>
-                                    <span className = 'item-page-price-total' title = 'Сумма'>= {count * product.price}</span>
-                                    <span className = 'item-page-price-currency-total'>₽</span>
-                                </div>    
+                                <Price
+                                    className = 'i-p-price-total'
+                                    title = 'Сумма'
+                                    price = { '= ' + String(count * product.price)}
+                                />
                             }
                         </div>
                         <div className = 'item-page-action-buttons-container'>
                             <Button
+                            
                                 disabled = {isNoneSelected}
                                 className = {isNoneSelected ? 'item-page-button-disabled' : 'item-page-button'}
                                 title = {isNoneSelected ? 'Нечего добавить' : 'Добавить в корзину'}

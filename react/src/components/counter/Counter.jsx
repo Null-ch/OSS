@@ -2,12 +2,12 @@ import React from 'react';
 import Button from '../buttons/Button';
 import './counter.css'
 
-const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement }) => {
+const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement, className, btnClassName, btnDisabledClassName }) => {
     return (
-        <div className = 'counter'>
+        <div className = {className}>
             <Button
                 onClick = {() => {onIncrement(-1)}}
-                className = {disableDecr ? 'counter-button-disabled' : 'counter-button'}
+                className = {disableDecr ? btnDisabledClassName : btnClassName}
                 text = '-'
                 disabled = {disableDecr}
             />
@@ -15,12 +15,12 @@ const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement }
                 value = {value}
                 type = 'number'
                 min = '0'
-                className = 'counter-input'
+                // className = 'counter-input'
                 onChange = { onChangeInput }
             />
             <Button
                 onClick = {() => {onIncrement(1)}}
-                className = {disableIncr ? 'counter-button-disabled' : 'counter-button'}
+                className = {disableIncr ? btnDisabledClassName : btnClassName}
                 text = '+'
             />
         </div>

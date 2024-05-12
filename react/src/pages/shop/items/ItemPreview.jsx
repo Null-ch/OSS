@@ -28,14 +28,14 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
                 </div>
 
                 <div className = 'item-preview-buttons'>
-                    <Button
+                    {/* <Button
                     className = 'item-quick-buy-button'
                     text = 'Смотреть'
                     onClick = {(e) => {
                         onQuickBuyClick(item);
                         e.stopPropagation();
                     }}
-                    />
+                    /> */}
                 </div>
             </div>
     );

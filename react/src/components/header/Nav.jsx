@@ -25,7 +25,7 @@ const Nav = () => {
 
                         categories.map((cat) => {
                             dropdownList.push({
-                                path: `/categories/${cat.id}/products`,
+                                path: `/products/category/${cat.id}`,
                                 title: cat.title,
                             })
                         });

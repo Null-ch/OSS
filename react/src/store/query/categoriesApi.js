@@ -9,9 +9,15 @@ export const categoriesApi = createApi({
         getCategories: builder.query({ // .query - метод получения данных из билдера
             // объект с описания того, с чем будем работать
             query: () => '/categories',
-        })
+        }),
+        getCategoryProducts: builder.query({ // .query - метод получения данных из билдера
+            // объект с описания того, с чем будем работать
+            query: (id) => ({
+                url: `/categories/${id}/products`,
+            })
+        }),
     })
 })
 
 // экспорт кастомных хуков для получения данных:
-export const { useGetCategoriesQuery } = categoriesApi;  // "use..." = хук, "...query" = query-запрос
+export const { useGetCategoriesQuery, useGetCategoryProductsQuery } = categoriesApi;  // "use..." = хук, "...query" = query-запрос

@@ -4,6 +4,8 @@ import ItemsList from './items/ItemsList';
 import './shop.css';
 
 const Shop = () => {
+    document.title = 'Продукты'
+
     const {data = [], isLoading, error} = useGetItemsQuery();
     // console.log(data)
     if (error) {
@@ -12,7 +14,7 @@ const Shop = () => {
 
     return (
         <div className = 'shop'>
-            {isLoading ? <h1>Loading...</h1> : ''}
+            {/* {isLoading ? <h1>Loading...</h1> : ''} */}
             <ItemsList items = {data.products}/>
         </div>
     );

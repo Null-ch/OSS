@@ -11,7 +11,8 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     textColor?: string
     route?: string
     className?: string
-    onClick(): void 
+    onClick(): void,
+    bubble: React.ReactNode,
 }
 
 const Button = (props: IButtonProps) => {
@@ -19,7 +20,7 @@ const Button = (props: IButtonProps) => {
     // console.log(props)
 
     const {
-        variant, icon, iconPosition, iconColor, text, textColor, route, className, onClick, disabled,
+        variant, icon, iconPosition, iconColor, text, textColor, route, className, onClick, disabled, bubble,
         ...restProps
     } = props;
     
@@ -34,14 +35,17 @@ const Button = (props: IButtonProps) => {
     }
 
     return (
-        <a className = 'button-container' href={route}>
-            <button disabled = {disabled} onClick={onClick} className={className} style={{gap: !text ? 0 : 8, display: 'flex', flexDirection: direction as 'row'}} {...restProps}>
-                {icon}
-                <span>
-                    {text}
-                </span>
-            </button>
-        </a>
+        <div>
+            <a className = 'button-container' href={route}>
+                <button disabled = {disabled} onClick={onClick} className={className} style={{gap: !text ? 0 : 8, display: 'flex', flexDirection: direction as 'row'}} {...restProps}>
+                    {icon}
+                    <span>
+                        {text}
+                    </span>
+                </button>
+            </a>
+            {bubble}
+        </div>
     );
 };
 
