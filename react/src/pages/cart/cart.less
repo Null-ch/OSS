@@ -17,13 +17,13 @@
     position: absolute;
     left: 0px;
     bottom: 0px;
-    font-family: @mainlight;
+    font-family: @mainlight, @fontdefault;
 }
 
 .c-p {
     width: 400px;
     // height: 100px;
-    background-color: white;
+    background-color: @white;
     border: 1px solid @black;
     padding: 16px;
     display: flex;
@@ -31,7 +31,7 @@
     gap: 16px;
 
     #c-p-title {
-        font-family: @mainregular;
+        font-family: @mainregular, @fontdefault;
         color: @black;
         text-align: center;
         font-size: 24px;
@@ -57,21 +57,21 @@
     }
 
     #c-p-product-title {
-        font-family: @mainthin;
+        font-family: @mainthin, @fontdefault;
         color: @black;
         font-size: 16px;
     }
     
     #c-p-product-price {
         #price {
-            font-family: @mainthin;
+            font-family: @mainlight, @fontdefault;
             color: @black;
             font-size: 16px;
         }
     
         #currency {
             align-self: flex-end;
-            font-family: @mainthin;
+            font-family: @mainlight, @fontdefault;
             color: @black;
             font-size: 12px;
         }
@@ -84,7 +84,7 @@
         color: @black;
         text-decoration: underline;
         text-decoration-thickness: 1px;
-        font-family: @mainlight;
+        font-family: @mainlight, @fontdefault;
         text-align: center;
         font-size: 18px;
         outline: 1px solid #ccc;
@@ -103,21 +103,21 @@
 
         align-items: center;
         #c-p-total-title {
-            font-family: @mainlight;
+            font-family: @mainlight, @fontdefault;
             color: @black;
             font-size: 18px;
         }
 
         #c-p-total-price {
             #price {
-                font-family: @mainlight;
+                font-family: @mainlight, @fontdefault;
                 color: @black;
                 font-size: 24px;
             }
         
             #currency {
                 align-self:flex-end;
-                font-family: @mainlight;
+                font-family: @mainlight, @fontdefault;
                 color: @black;
                 font-size: 16;
             }
@@ -146,6 +146,11 @@
     }
 }
 
+.c-p-empty {
+    font-family: @mainlight;
+    font-size: 18px;
+}
+
 .c-p-counter {
     display: flex;
     flex-direction: row;
@@ -154,7 +159,7 @@
     border: 1px solid #ccc;
 
     input {
-        font-family: @mainthin;
+        font-family: @mainthin, @fontdefault;
         border: none;
         flex-grow: 1;
         width: 100%;

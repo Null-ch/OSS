@@ -22,6 +22,18 @@
   font-family: 'centro-sans-pro-regular';
   src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
 }
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
 .offers {
   background-color: #f7f7f7;
   margin: 24px;

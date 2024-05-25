@@ -1,15 +1,15 @@
 @import (less) './../../styles/common.less';
-@import (less) './../../styles/fonts.less';
 
 .footer {
     border-top: 1px solid #ccc;
     background-color: @white;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    row-gap: 64px;
-    padding: 24px;
     // background-color: red;
+    display: flex;
+    align-items: start;
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+    padding: 24px;
     // position: fixed;
     // width: 100%;
     bottom: 0px;
@@ -17,75 +17,61 @@
     span {
         color: @black;
     }
+    // max-height: 72px;
 }
 
-.logo {
-    align-self: flex-start;
-    height: 64px;
-    width: 64px;
-}
-
-.footer-sections {
-    justify-content: center;
+.f-section {
+    flex: 3;
+    // flex-grow: 1;
     display: flex;
     flex-direction: row;
-    column-gap: 72px;
+    gap: 16px;
 }
 
-.brand {
-    font-family: @mainlight, sans-serif;
-    cursor: default;
-    color: @white;
-    letter-spacing: 4px;
-    // font-weight: 600;
-    align-self: center;
-    font-size: 32px;
+.f-section-left {
+    .f-section();
+    justify-content: end;
 }
 
-.brand-footer {
-    font-family: @mainthin, sans-serif;
-    cursor: default;
-    color: @white;
-    letter-spacing: 4px;
-    // font-weight: 600;
-    align-self: center;
-    font-size: 64px;
+.f-section-right {
+    .f-section();
+    justify-content: start;
 }
 
-.footer-logo {
-    align-self: center;
-    display: flex;
-    flex-direction: row;
-
-    img {
-        .logo();
-    }
-    span {
-        .brand();
-    }
-}
-
-.footer-section {
-    display: flex;
-    flex-direction: column;
-    row-gap: 16px;
-}
-
-.footer-section-title {
-    font-family: @mainlight, sans-serif;
-
-    padding-bottom: 8px;
-    // font-weight: 600;
-    font-size: 36px;
-    cursor: default;
-}
-
-.footer-section-item {
-    font-family: @mainlight, sans-serif;
-
-    // font-weight: 600;
+.f-link {
+    font-family: @mainlight;
     font-size: 24px;
     text-decoration: underline;
-    text-underline-position: under;
-    cursor: pointer;
+    color: @black;
+    opacity: 85%;
+    &:hover {
+        opacity: 100%;
+        text-decoration: none;
+    }
 }
+
+.f-brand-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    // justify-content: center;
+    // align-self: flex-start;
+    // height: 64px;
+    // width: 64px;
+}
+
+.f-brand-link {
+    font-family: @mainthin;
+    font-size: 48px;
+    text-decoration: none;
+    color: @black;
+    opacity: 85%;
+    text-wrap: nowrap;
+    &:hover {
+        opacity: 100%;
+        // text-decoration: none;
+    }
+}
+

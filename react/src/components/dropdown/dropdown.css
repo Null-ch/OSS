@@ -75,7 +75,7 @@ html {
   position: absolute;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   border: 1px solid #333333;
-  background-color: #f7f7f7;
+  background-color: white;
 }
 .dropdown-active {
   opacity: 1;

@@ -35,6 +35,7 @@ html {
   scrollbar-width: none !important;
 }
 .item-page {
+  background-color: white;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -52,7 +53,7 @@ html {
   gap: 16px;
   border: 1px solid #333333;
   padding: 24px;
-  background-color: white;
+  background-color: #f7f7f7;
 }
 .item-page-title-container {
   display: flex;
@@ -67,24 +68,24 @@ html {
   font-size: 32px;
 }
 .i-p-price #price {
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 32px;
 }
 .i-p-price #currency {
   align-self: flex-end;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 24px;
 }
 .i-p-price-total #price {
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 32px;
 }
 .i-p-price-total #currency {
   align-self: flex-end;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 24px;
 }
@@ -146,7 +147,7 @@ html {
 }
 .item-page-description {
   text-align: left;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 18px;
 }
@@ -186,7 +187,7 @@ html {
   border: 1px solid #333;
 }
 .i-p-counter input {
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   border: none;
   flex-grow: 1;
   width: 100%;

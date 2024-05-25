@@ -49,11 +49,11 @@ html {
   position: absolute;
   left: 0px;
   bottom: 0px;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
 }
 .c-p {
   width: 400px;
-  background-color: white;
+  background-color: #f7f7f7;
   border: 1px solid #333333;
   padding: 16px;
   display: flex;
@@ -61,7 +61,7 @@ html {
   gap: 16px;
 }
 .c-p #c-p-title {
-  font-family: 'centro-sans-pro-regular';
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #333333;
   text-align: center;
   font-size: 24px;
@@ -83,18 +83,18 @@ html {
   border: 1px solid #333333;
 }
 .c-p #c-p-product-title {
-  font-family: 'centro-sans-pro-thin';
+  font-family: 'centro-sans-pro-thin', sans-serif;
   color: #333333;
   font-size: 16px;
 }
 .c-p #c-p-product-price #price {
-  font-family: 'centro-sans-pro-thin';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 16px;
 }
 .c-p #c-p-product-price #currency {
   align-self: flex-end;
-  font-family: 'centro-sans-pro-thin';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 12px;
 }
@@ -105,7 +105,7 @@ html {
   color: #333333;
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   text-align: center;
   font-size: 18px;
   outline: 1px solid #ccc;
@@ -122,18 +122,18 @@ html {
   align-items: center;
 }
 .c-p #c-p-total #c-p-total-title {
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 18px;
 }
 .c-p #c-p-total #c-p-total-price #price {
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 24px;
 }
 .c-p #c-p-total #c-p-total-price #currency {
   align-self: flex-end;
-  font-family: 'centro-sans-pro-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 16;
 }
@@ -158,6 +158,10 @@ html {
 .c-p #c-p-delete:hover {
   opacity: 100%;
 }
+.c-p-empty {
+  font-family: 'centro-sans-pro-light';
+  font-size: 18px;
+}
 .c-p-counter {
   display: flex;
   flex-direction: row;
@@ -166,7 +170,7 @@ html {
   border: 1px solid #ccc;
 }
 .c-p-counter input {
-  font-family: 'centro-sans-pro-thin';
+  font-family: 'centro-sans-pro-thin', sans-serif;
   border: none;
   flex-grow: 1;
   width: 100%;

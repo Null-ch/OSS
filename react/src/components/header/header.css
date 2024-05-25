@@ -78,16 +78,16 @@ html {
   text-decoration: unset;
 }
 .tab span {
-  opacity: 90%;
+  opacity: 85%;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
+.tab span:hover {
+  opacity: 100%;
+}
 .tab svg {
   fill: #333333;
-}
-.tab:hover span {
-  opacity: 100%;
 }
 .tab-active {
   padding: 16px;
@@ -100,19 +100,20 @@ html {
   position: relative;
 }
 .tab-active span {
-  opacity: 90%;
+  opacity: 85%;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
+.tab-active span:hover {
+  opacity: 100%;
+}
 .tab-active svg {
   fill: #333333;
 }
-.tab-active:hover span {
-  opacity: 100%;
-}
 .tab-active span {
   color: #f7f7f7;
+  opacity: 100%;
 }
 .tab-active svg {
   fill: #f7f7f7 !important;
@@ -136,16 +137,16 @@ html {
   position: relative;
 }
 .tab-inactive span {
-  opacity: 90%;
+  opacity: 85%;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
+.tab-inactive span:hover {
+  opacity: 100%;
+}
 .tab-inactive svg {
   fill: #333333;
-}
-.tab-inactive:hover span {
-  opacity: 100%;
 }
 .tab-inactive:hover {
   border-bottom: 1px solid #333333;
@@ -153,10 +154,15 @@ html {
 }
 .brand {
   font-family: 'centro-sans-pro-light', sans-serif;
-  cursor: default;
   color: #333333;
+  text-decoration: none;
   align-self: center;
-  font-size: 32px;
+  font-size: 24px;
+  text-wrap: nowrap;
+  opacity: 85%;
+}
+.brand:hover {
+  opacity: 100%;
 }
 .header-logo {
   display: flex;
@@ -164,10 +170,15 @@ html {
 }
 .header-logo span {
   font-family: 'centro-sans-pro-light', sans-serif;
-  cursor: default;
   color: #333333;
+  text-decoration: none;
   align-self: center;
-  font-size: 32px;
+  font-size: 24px;
+  text-wrap: nowrap;
+  opacity: 85%;
+}
+.header-logo span:hover {
+  opacity: 100%;
 }
 .header-btns {
   display: flex;

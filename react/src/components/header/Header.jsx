@@ -10,6 +10,7 @@ import Bubble from '../bubble/Bubble';
 import CartPreview from '../../pages/cart/CartPreview';
 import Cart from '../../pages/cart/Cart';
 import './header.css'
+import {Link} from 'react-router-dom'
 
 const Header = () => {
 
@@ -25,7 +26,8 @@ const Header = () => {
 
     return (
         <div id = 'header' className = 'header'>
-            <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/>
+            <Link className = 'brand' to = '/'>SAMPLE TEXT</Link>
+            {/* <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/> */}
             <Nav/>
             
             <div className = 'header-btns'>

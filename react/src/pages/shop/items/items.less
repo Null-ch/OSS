@@ -1,18 +1,18 @@
 // @import (less) './../../../styles/fonts.less';
 @import (less) './../../../styles/common.less';
 
-
 @thickness: 1px;
-@hover-border: #333;
+@hover-border: @black;
 
 .items {
-    // background-color:black;
+    background-color: white;
     display: flex;
+    justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 16px;
-    padding: 24px;
-    width: 75%;
+    // padding: 24px;
+    width: 100%;
 }
 
 .item {
@@ -95,7 +95,7 @@
 .item-title {
     flex: 1;
     text-align: left;
-    font-family: @mainlight, sans-serif;
+    font-family: @mainlight, @fontdefault;
     color: @black;
     font-size: 24px;
 }
@@ -105,7 +105,7 @@
 }
 
 .item-price {
-    font-family: @mainlight, sans-serif;
+    font-family: @mainlight, @fontdefault;
     color: @black;
     font-size: 28px;
     font-weight: 600;
@@ -113,7 +113,7 @@
 
 .item-price-currency {
     align-self:flex-end;
-    font-family: @mainlight, sans-serif;
+    font-family: @mainlight, @fontdefault;
     color: @black;
     font-size: 28px;
 }
@@ -137,7 +137,7 @@
 .item-icons {
     display: flex;
     flex-direction: column;
-    position:absolute;
+    position: absolute;
     bottom: 0;
     right: 16px;
     top: 16px;
@@ -158,7 +158,7 @@
     background-color: @black;
     border: none;
     span {
-        font-family: @mainlight, sans-serif;
+        font-family: @mainlight, @fontdefault;
         color: @white;
         font-size: 18px;
     }

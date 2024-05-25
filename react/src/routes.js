@@ -11,7 +11,7 @@ const Home = lazy(() => import('./pages/home/Home'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Shop = lazy(() => import('./pages/shop/Shop'))
 const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'))
-const About = lazy(() => import('./pages/About'))
+const About = lazy(() => import('./pages/about/About'))
 const CategoryPage = lazy(() => import('./pages/category/CategoryPage'))
 
 const home = {
