@@ -1,4 +1,26 @@
+@import (css) './../../styles/fonts.css';
 @import (less) './src/styles/common.less';
+
+@breelight: 'bree-light';
+
+.c-icon-container {
+    display: flex;
+    position: relative;
+}
+
+.c-icon-counter {
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    
+    align-self: center;
+    background-color: white;
+    border: 1px solid #333;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    font-family: @breelight;
+}
 
 .c-p {
     width: 400px;
@@ -30,6 +52,12 @@
         align-items: center;
     }
     
+    #c-p-product-preview-image {
+        width: 40px;
+        height: 40px;
+        border: 1px solid @black;
+    }
+
     #c-p-product-title {
         font-family: @breethin;
         color: @black;
@@ -118,7 +146,6 @@
         opacity: 75%;
         &:hover { opacity: 100%; }
     }
-
 }
 
 .c-p-counter {

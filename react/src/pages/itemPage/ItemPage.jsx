@@ -7,6 +7,11 @@ import Button from '../../components/buttons/Button';
 // import NotFound from '../util/NotFound';
 import {useParams} from 'react-router-dom'
 import Price from '../../components/util/Price';
+import { BRAND } from '../../utils/constants';
+import { updateCartProducts } from '../../store/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
+
+// window.localStorage.clear();
 
 const ItemPage = () => {
     // общее хранилище со всеми продуктами, либо сбор всех и кеширование
@@ -14,29 +19,25 @@ const ItemPage = () => {
 
     const {data = [], isLoading} = useGetItemQuery(id);
 
-    // console.log(data);
+    const product = data.product;
+    document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 
-    const product = data.product
-
-    document.title = product?.title
-
-    var cart = JSON.parse(window.localStorage.getItem('oss-cart')) || {};
-
-    const [count, setCount] = useState(cart[id] || 0);
-
-    function updateCount(value) {
-        cart[id] = value;
-        window.localStorage.setItem('oss-cart', JSON.stringify(cart));
-        setCount(value);
+    let count = 0;
+    const items = useSelector(state => state.cart.cart);
+    if (items && product) {
+        let p = items[product.id] || {};
+        count = p.count || count;
     }
 
-    function onChangeCounter(e) {
-        updateCount(e.target?.value);
+    const dispatch = useDispatch();
+    const updateCart = (v) => dispatch(updateCartProducts(v));
+
+    function updateCount(count) {
+        updateCart({ count, product });
     }
 
     function onIncrement(incr) {
-        var value = Math.max(0, Math.min(Number(count) + incr));
-        updateCount(value);
+        updateCount(Math.max(0, Math.min(Number(count) + incr)));
     }
 
     const isNoneSelected = count < 1;
@@ -46,7 +47,7 @@ const ItemPage = () => {
             {/* {isLoading ? <h1>Loading...</h1> : ''} */}
             {product &&
                 <article className = 'item-page'>
-                    <img className = 'item-page-preview' src = {`${DOMAIN}${product.preview_image}`}/>
+                    <img className = 'item-page-preview' src = {`${DOMAIN}${product?.preview_image}`}/>
                     <div className = 'item-page-info'>
                         <div className = 'item-page-title-container'>
                             <span className = 'item-page-brand'>SAMPLE-TEXT</span>
@@ -61,7 +62,7 @@ const ItemPage = () => {
                             <Counter
                                 value = {count}
                                 onIncrement = {onIncrement}
-                                onChangeInput = {onChangeCounter}
+                                onChangeInput = {updateCount}
                                 disableDecr = {isNoneSelected}
                                 className = 'i-p-counter '
                                 btnClassName = 'i-p-counter-button'

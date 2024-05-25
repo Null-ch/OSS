@@ -19,7 +19,7 @@ const ItemsList = ({items}) => {
         dispatch(setIsModalVisible(true));
     }
     // console.log(data)
-    console.log(items)
+    // console.log(items)
     return (
         <div className = 'items'>
             {(items || []).map((item) => {

@@ -42,6 +42,8 @@ function App() {
     //   document.getElementById("header").className = 'header';
     // }
   }
+  
+  // window.localStorage.clear();
 
   return (
     <>

@@ -1,16 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import categoryReducer from "./categorySlice";
+import cartReducer from "./cartSlice";
 import { itemsApi } from "./query/itemsApi";
 import { categoriesApi } from "./query/categoriesApi";
 import modalReducer from './modalSlice'
 
 // todo user slice
-// todo cart slice
 
 export default configureStore({
     reducer: {
         category: categoryReducer,
         modal: modalReducer,
+        cart: cartReducer,
         // reducer создаётся RTK Query автоматически, он содержит в т.ч эндпоинты
         [itemsApi.reducerPath]: itemsApi.reducer, // 'itemsApi'
         [categoriesApi.reducerPath]: categoriesApi.reducer, // 'categoriesApi'

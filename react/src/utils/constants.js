@@ -15,3 +15,5 @@ export const SETTINGS = '/account/settings'
 export const shopName = 'PrettyShopName'
 export const LOGIN = '/login'
 export const LOGOUT = '/logout'
+
+export const BRAND = 'SAMPLE_TEXT'

@@ -5,10 +5,10 @@ import { shopName } from '../../utils/constants';
 // import ProfileLoginButton from '../buttons/ProfileLoginButton';
 // import ThemeButton from '../buttons/ThemeButton';
 import Button from '../buttons/Button';
-import BagIcon from '../icons/BagIcon';
+// import BagIcon from '../icons/BagIcon';
 import Bubble from '../bubble/Bubble';
 import CartPreview from '../../pages/cart/CartPreview';
-
+import Cart from '../../pages/cart/Cart';
 import './header.css'
 
 const Header = () => {
@@ -40,7 +40,7 @@ const Header = () => {
                     }
                     // route = '/cart'
                     className = 'h-cart-button'
-                    icon = {<BagIcon width = '44' height = '44' fillColor = '#333333'/>}
+                    icon = {<Cart/>}
                 />
                 {/* <ThemeButton/> */}
             </div>

@@ -1,3 +1,4 @@
+@import '../../styles/fonts.css';
 @font-face {
   font-family: 'bree-light';
   src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
@@ -21,6 +22,22 @@ body {
 }
 html {
   scrollbar-width: none !important;
+}
+.c-icon-container {
+  display: flex;
+  position: relative;
+}
+.c-icon-counter {
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  align-self: center;
+  background-color: white;
+  border: 1px solid #333;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  font-family: 'bree-light';
 }
 .c-p {
   width: 400px;
@@ -47,6 +64,11 @@ html {
   flex-direction: row;
   gap: 16px;
   align-items: center;
+}
+.c-p #c-p-product-preview-image {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333333;
 }
 .c-p #c-p-product-title {
   font-family: 'bree-thin';
