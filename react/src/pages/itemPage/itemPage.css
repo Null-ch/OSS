@@ -10,6 +10,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -45,35 +57,34 @@ html {
 .item-page-title-container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
 }
 .item-page-brand {
-  font-family: 'bree-thin', sans-serif;
-  font-size: 16px;
+  font-family: 'centro-sans-pro-thin', sans-serif;
+  font-size: 12px;
 }
 .item-page-title {
-  font-family: 'bree-thin', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   font-size: 32px;
 }
 .i-p-price #price {
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 32px;
 }
 .i-p-price #currency {
   align-self: flex-end;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 24px;
 }
 .i-p-price-total #price {
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 32px;
 }
 .i-p-price-total #currency {
   align-self: flex-end;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 24px;
 }
@@ -95,7 +106,7 @@ html {
 }
 .i-p-button span {
   font-size: 16px;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #f7f7f7;
 }
 .item-page-button {
@@ -110,7 +121,7 @@ html {
 }
 .item-page-button span {
   font-size: 16px;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #f7f7f7;
 }
 .item-page-button:hover {
@@ -130,12 +141,12 @@ html {
 }
 .item-page-button-disabled span {
   font-size: 16px;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #f7f7f7;
 }
 .item-page-description {
   text-align: left;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 18px;
 }
@@ -145,7 +156,7 @@ html {
   gap: 4px;
 }
 .item-page-shipment-link {
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   text-decoration-thickness: 1px;
 }
@@ -153,7 +164,7 @@ html {
   text-decoration: solid;
 }
 .item-page-shipment-info {
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
 }
 .item-page-counter-container {
@@ -175,7 +186,7 @@ html {
   border: 1px solid #333;
 }
 .i-p-counter input {
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   border: none;
   flex-grow: 1;
   width: 100%;

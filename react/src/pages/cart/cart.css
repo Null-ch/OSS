@@ -11,6 +11,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -37,7 +49,7 @@ html {
   position: absolute;
   left: 0px;
   bottom: 0px;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
 }
 .c-p {
   width: 400px;
@@ -49,7 +61,7 @@ html {
   gap: 16px;
 }
 .c-p #c-p-title {
-  font-family: 'bree-regular';
+  font-family: 'centro-sans-pro-regular';
   color: #333333;
   text-align: center;
   font-size: 24px;
@@ -71,18 +83,18 @@ html {
   border: 1px solid #333333;
 }
 .c-p #c-p-product-title {
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin';
   color: #333333;
   font-size: 16px;
 }
 .c-p #c-p-product-price #price {
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin';
   color: #333333;
   font-size: 16px;
 }
 .c-p #c-p-product-price #currency {
   align-self: flex-end;
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin';
   color: #333333;
   font-size: 12px;
 }
@@ -93,7 +105,7 @@ html {
   color: #333333;
   text-decoration: underline;
   text-decoration-thickness: 1px;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   text-align: center;
   font-size: 18px;
   outline: 1px solid #ccc;
@@ -110,18 +122,18 @@ html {
   align-items: center;
 }
 .c-p #c-p-total #c-p-total-title {
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 18px;
 }
 .c-p #c-p-total #c-p-total-price #price {
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 24px;
 }
 .c-p #c-p-total #c-p-total-price #currency {
   align-self: flex-end;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 16;
 }
@@ -154,7 +166,7 @@ html {
   border: 1px solid #ccc;
 }
 .c-p-counter input {
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin';
   border: none;
   flex-grow: 1;
   width: 100%;

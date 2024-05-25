@@ -10,6 +10,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -30,13 +42,13 @@ html {
 }
 .not-found-404 {
   color: #333333;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   font-size: 192px;
   text-align: center;
 }
 .not-found-info {
   color: #333333;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light', sans-serif;
   text-align: center;
   font-size: 48px;
 }

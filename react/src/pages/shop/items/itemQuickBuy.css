@@ -10,6 +10,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -37,7 +49,7 @@ html {
 }
 .quick-buy-item-title {
   text-align: left;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 24px;
 }
@@ -61,7 +73,7 @@ html {
 }
 .quick-buy-item-descr span {
   text-align: left;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #333333;
   font-size: 18px;
 }
@@ -86,7 +98,7 @@ html {
 }
 .quick-buy-footer button span {
   text-align: left;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light';
   color: #f7f7f7;
   font-size: 24px;
 }
@@ -96,7 +108,7 @@ html {
 }
 .span-link {
   text-align: left;
-  font-family: 'bree-light';
+  font-family: 'centro-sans-pro-light', 'sans-serif';
   color: #333333;
   font-size: 16px;
   cursor: pointer;

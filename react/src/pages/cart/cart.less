@@ -1,8 +1,6 @@
 @import (css) './../../styles/fonts.css';
 @import (less) './src/styles/common.less';
 
-@breelight: 'bree-light';
-
 .c-icon-container {
     display: flex;
     position: relative;
@@ -19,7 +17,7 @@
     position: absolute;
     left: 0px;
     bottom: 0px;
-    font-family: @breelight;
+    font-family: @mainlight;
 }
 
 .c-p {
@@ -33,7 +31,7 @@
     gap: 16px;
 
     #c-p-title {
-        font-family: @breeregular;
+        font-family: @mainregular;
         color: @black;
         text-align: center;
         font-size: 24px;
@@ -59,21 +57,21 @@
     }
 
     #c-p-product-title {
-        font-family: @breethin;
+        font-family: @mainthin;
         color: @black;
         font-size: 16px;
     }
     
     #c-p-product-price {
         #price {
-            font-family: @breethin;
+            font-family: @mainthin;
             color: @black;
             font-size: 16px;
         }
     
         #currency {
             align-self: flex-end;
-            font-family: @breethin;
+            font-family: @mainthin;
             color: @black;
             font-size: 12px;
         }
@@ -86,7 +84,7 @@
         color: @black;
         text-decoration: underline;
         text-decoration-thickness: 1px;
-        font-family: @breelight;
+        font-family: @mainlight;
         text-align: center;
         font-size: 18px;
         outline: 1px solid #ccc;
@@ -105,21 +103,21 @@
 
         align-items: center;
         #c-p-total-title {
-            font-family: @breelight;
+            font-family: @mainlight;
             color: @black;
             font-size: 18px;
         }
 
         #c-p-total-price {
             #price {
-                font-family: @breelight;
+                font-family: @mainlight;
                 color: @black;
                 font-size: 24px;
             }
         
             #currency {
                 align-self:flex-end;
-                font-family: @breelight;
+                font-family: @mainlight;
                 color: @black;
                 font-size: 16;
             }
@@ -156,7 +154,7 @@
     border: 1px solid #ccc;
 
     input {
-        font-family: @breethin;
+        font-family: @mainthin;
         border: none;
         flex-grow: 1;
         width: 100%;

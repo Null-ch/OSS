@@ -11,6 +11,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -67,7 +79,7 @@ html {
 }
 .tab span {
   opacity: 90%;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
@@ -89,7 +101,7 @@ html {
 }
 .tab-active span {
   opacity: 90%;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
@@ -125,7 +137,7 @@ html {
 }
 .tab-inactive span {
   opacity: 90%;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 28px;
 }
@@ -140,7 +152,7 @@ html {
   margin-bottom: -1px;
 }
 .brand {
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   cursor: default;
   color: #333333;
   align-self: center;
@@ -151,7 +163,7 @@ html {
   flex-direction: row;
 }
 .header-logo span {
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   cursor: default;
   color: #333333;
   align-self: center;
