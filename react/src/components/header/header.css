@@ -44,9 +44,33 @@ html {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
-  max-height: 64px;
   width: 100%;
   border-bottom: 1px solid #ccc;
+}
+.h-section {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex: 1;
+}
+.h-section-left {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex: 1;
+  justify-content: start;
+}
+.h-section-right {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  flex: 1;
+  justify-content: end;
+}
+.h-section-nav {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 }
 .header-fixed {
   top: 0px;
@@ -57,7 +81,6 @@ html {
   background-color: #f7f7f7;
   display: flex;
   flex-direction: row;
-  max-height: 64px;
   width: 100%;
   border-bottom: 1px solid #ccc;
   position: fixed;
@@ -96,8 +119,8 @@ html {
   flex-direction: column;
   align-items: center;
   text-decoration: unset;
-  background-color: #333333;
   position: relative;
+  outline: 1px solid #333333;
 }
 .tab-active span {
   opacity: 85%;
@@ -112,13 +135,14 @@ html {
   fill: #333333;
 }
 .tab-active span {
-  color: #f7f7f7;
+  color: #333333;
   opacity: 100%;
 }
 .tab-active svg {
-  fill: #f7f7f7 !important;
+  fill: #333333 !important;
 }
 .tab-title {
+  text-wrap: nowrap;
   height: 100%;
   width: 100%;
   display: flex;

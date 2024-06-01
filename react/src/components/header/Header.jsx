@@ -26,26 +26,34 @@ const Header = () => {
 
     return (
         <div id = 'header' className = 'header'>
-            <Link className = 'brand' to = '/'>SAMPLE TEXT</Link>
-            {/* <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/> */}
-            <Nav/>
-            
-            <div className = 'header-btns'>
-                {/* <ProfileLoginButton/> */}
-                <Button
-                    onClick = {onCartClick}
-                    bubble = {
-                        <Bubble
-                            hidden = {isBubbleHidden}
-                            content = {<CartPreview onClose = {onClose}/>}
-                        />
-                    }
-                    // route = '/cart'
-                    className = 'h-cart-button'
-                    icon = {<Cart/>}
-                />
-                {/* <ThemeButton/> */}
+            <div className = 'h-section-left'>
+                <Link className = 'brand' to = '/'>SAMPLE TEXT</Link>
             </div>
+            
+            <div className = 'h-section-nav'>
+                <Nav/>
+            </div>
+
+            <div className = 'h-section-right'>
+                <div className = 'header-btns'>
+                    {/* <ProfileLoginButton/> */}
+                    <Button
+                        onClick = {onCartClick}
+                        bubble = {
+                            <Bubble
+                                hidden = {isBubbleHidden}
+                                content = {<CartPreview onClose = {onClose}/>}
+                            />
+                        }
+                        // route = '/cart'
+                        className = 'h-cart-button'
+                        icon = {<Cart/>}
+                    />
+                    {/* <ThemeButton/> */}
+                </div>  
+            </div>
+
+            {/* <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/> */}
         </div>
     );
 };
