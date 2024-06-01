@@ -68,6 +68,24 @@
 @section('scripts')
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        function setImageBackground(elementId, imagePath) {
+            var imagePreview = document.getElementById(elementId);
+            if (!imagePreview) return;
+
+            var img = new Image();
+            img.src = imagePath;
+            img.alt = "Preview Image";
+
+            img.addEventListener('load', function() {
+                imagePreview.style.backgroundImage = "url(" + img.src + ")";
+                imagePreview.style.backgroundSize = "contain";
+                imagePreview.style.backgroundPosition = "center";
+                imagePreview.style.backgroundRepeat = "no-repeat";
+                imagePreview.style.width = "100%";
+                imagePreview.style.height = "230px";
+            });
+        }
+
         $(function() {
             $(document).on("change", ".uploadFile", function() {
                 var uploadFile = $(this);
@@ -81,30 +99,18 @@
                             "background-image": "url(" + this.result + ")",
                             "background-size": "contain",
                             "background-position": "center",
+                            "backgroundRepeat": "no-repeat",
                             "width": "100%",
                             "height": "230px"
                         });
                     }
                 }
             });
-        });
-    </script>
-    <script>
-    window.addEventListener('DOMContentLoaded', function() {
-        var imagePreview = document.getElementById('preview_image');
-        var imageSrc = "{{ asset($category->preview_image) }}";
 
-        var img = new Image();
-        img.src = imageSrc;
-        img.alt = "Preview Image";
+            var previewImageElementId = 'preview_image';
+            var previewImagePath = "{{ asset($category->preview_image) }}";
+            setImageBackground(previewImageElementId, previewImagePath);
 
-        img.addEventListener('load', function() {
-            imagePreview.style.backgroundImage = "url(" + img.src + ")";
-            imagePreview.style.backgroundSize = "contain";
-            imagePreview.style.backgroundPosition = "center";
-            imagePreview.style.width = "430px";
-            imagePreview.style.height = "400px";
         });
-    });
     </script>
 @endsection

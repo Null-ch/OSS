@@ -86,8 +86,15 @@ class CategoryService
         try {
             $file = $data['preview_image'];
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img/products', $filename);
-            $path = 'storage/img/products/' . $filename;
+            $destinationPath = public_path('/img/categories/');
+
+            //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath);
+            }
+
+            $path = 'img/categories/' . $filename;
+            $file->move(public_path('img/categories/'), $filename);
             $data['preview_image'] = $path;
             $this->category::create($data);
         } catch (\Exception $e) {
@@ -111,8 +118,16 @@ class CategoryService
                 if (isset($data['preview_image'])) {
                     $file = $data['preview_image'];
                     $filename = time() . '_' . $file->getClientOriginalName();
-                    $file->storeAs('public/img/products', $filename);
-                    $path = 'storage/img/products/' . $filename;
+
+                    $destinationPath = public_path('img/categories/');
+
+                    //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath);
+                    }
+
+                    $path = 'img/categories/' . $filename;
+                    $file->move(public_path('img/categories/'), $filename);
                     $data['preview_image'] = $path;
                 }
                 $category->update($data);

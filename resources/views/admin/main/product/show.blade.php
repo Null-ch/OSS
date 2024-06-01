@@ -130,13 +130,12 @@
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             let images = {!! json_encode($images) !!};
+
             images.forEach(function(image, index) {
                 var imagePath = image.image_path;
-                var rootUrl = window.location.origin;
-                var imageUrl = rootUrl + '/' + imagePath;
 
                 var imagePreview = document.getElementById(index + 1);
-                imagePreview.style.backgroundImage = "url('" + imageUrl + "')";
+                imagePreview.style.backgroundImage = "url('" + '/' + imagePath + "')";
                 imagePreview.style.backgroundSize = "contain";
                 imagePreview.style.backgroundPosition = "center";
                 imagePreview.style.width = "100%";

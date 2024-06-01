@@ -124,15 +124,22 @@ class ProductService
             foreach ($images as $key => $image) {
                 $file = $image;
                 $filename = time() . '_' . $file->getClientOriginalName();
-                $file->storeAs('public/img/products', $filename);
-                $path = 'storage/img/products/' . $filename;
+                $destinationPath = public_path('img/products/');
+
+                //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath);
+                }
 
                 if ($key === 'preview_image') {
-                    $product->preview_image = $path;
+                    
+                    $file->move(public_path('img/products/'), $filename);
+                    $product->preview_image = 'img/products/' . $filename;
                     $product->save();
                 } else {
+                    $file->move(public_path('img/products/images/'), $filename);
                     $product->images()->create([
-                        'image_path' => $path,
+                        'image_path' => 'img/products/images/' . $filename,
                         'sort_order' => $sortOrder,
                     ]);
                     $sortOrder++;
@@ -184,10 +191,16 @@ class ProductService
                 if (isset($images['preview_image'])) {
                     $file = $images['preview_image'];
                     $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = 'storage/img/products/' . $filename;
-                    $file->storeAs('public/img/products', $filename);
+                    $destinationPath = public_path('img/products/');
 
-                    $product->preview_image = $path;
+                    //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath);
+                    }
+
+                    $file->move(public_path('img/products/'), $filename);
+
+                    $product->preview_image = 'img/products/' . $filename;
                     $product->save();
                 }
 
@@ -196,17 +209,24 @@ class ProductService
                         $index = preg_replace('/[^0-9]/', '', $key);
                         $file = $image;
                         $filename = time() . '_' . $file->getClientOriginalName();
-                        $path = 'storage/img/products/' . $filename;
-                        $file->storeAs('public/img/products', $filename);
+
+                        //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+                        $destinationPath = public_path('img/products/images/');
+
+                        if (!file_exists($destinationPath)) {
+                            mkdir($destinationPath);
+                        }
+
+                        $file->move(public_path('img/products/images/'), $filename);
 
                         if (isset($productImages[$index])) {
                             $productImages[$index]->update([
-                                'image_path' => $path
+                                'image_path' => 'img/products/images/' . $filename
                             ]);
                         } else {
                             $lastIndex = $productImages->count();
                             $product->images()->create([
-                                'image_path' => $path,
+                                'image_path' => 'img/products/images/' . $filename,
                                 'sort_order' => $lastIndex + 1,
                             ]);
                         }

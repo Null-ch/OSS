@@ -27,8 +27,6 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.css') }}">
     <!-- admin styles -->
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-
 </head>
 @include('admin.includes.header')
 
