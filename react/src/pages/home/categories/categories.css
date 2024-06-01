@@ -11,16 +11,16 @@
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
 @font-face {
-  font-family: 'bree-light';
-  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'bree-regular';
-  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
 }
 @font-face {
-  font-family: 'bree-thin';
-  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
 }
 body {
   background: #f7f7f7;
@@ -35,7 +35,7 @@ html {
   scrollbar-width: none !important;
 }
 .categories-title {
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin', sans-serif;
   width: min-content;
   display: flex;
   justify-content: center;
@@ -62,7 +62,9 @@ html {
   cursor: pointer;
   box-sizing: border-box;
   position: relative;
-  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .category::before,
 .category::after {
@@ -92,24 +94,14 @@ html {
   transform: scale3d(1, 1, 1);
   transition: transform 0.3s;
 }
-.category-preview {
-  height: 100%;
-  width: 100%;
-}
-.category-container {
-  display: flex;
-  text-align: center;
-  box-sizing: border-box;
-  flex-direction: column;
-  background-color: #f7f7f7;
-  width: 100%;
-  padding: 8px;
-  bottom: 0px;
-  gap: 8px;
-}
 .category-title {
-  font-family: 'bree-thin';
+  font-family: 'centro-sans-pro-thin', sans-serif;
   color: #333333;
   font-size: 28px;
-  font-weight: 600;
+  text-align: center;
+}
+.category-preview {
+  object-fit: contain;
+  height: 300px;
+  width: 100%;
 }

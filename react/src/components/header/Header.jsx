@@ -10,6 +10,7 @@ import Bubble from '../bubble/Bubble';
 import CartPreview from '../../pages/cart/CartPreview';
 import Cart from '../../pages/cart/Cart';
 import './header.css'
+import {Link} from 'react-router-dom'
 
 const Header = () => {
 
@@ -25,25 +26,34 @@ const Header = () => {
 
     return (
         <div id = 'header' className = 'header'>
-            <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/>
-            <Nav/>
-            
-            <div className = 'header-btns'>
-                {/* <ProfileLoginButton/> */}
-                <Button
-                    onClick = {onCartClick}
-                    bubble = {
-                        <Bubble
-                            hidden = {isBubbleHidden}
-                            content = {<CartPreview onClose = {onClose}/>}
-                        />
-                    }
-                    // route = '/cart'
-                    className = 'h-cart-button'
-                    icon = {<Cart/>}
-                />
-                {/* <ThemeButton/> */}
+            <div className = 'h-section-left'>
+                <Link className = 'brand' to = '/'>SAMPLE TEXT</Link>
             </div>
+            
+            <div className = 'h-section-nav'>
+                <Nav/>
+            </div>
+
+            <div className = 'h-section-right'>
+                <div className = 'header-btns'>
+                    {/* <ProfileLoginButton/> */}
+                    <Button
+                        onClick = {onCartClick}
+                        bubble = {
+                            <Bubble
+                                hidden = {isBubbleHidden}
+                                content = {<CartPreview onClose = {onClose}/>}
+                            />
+                        }
+                        // route = '/cart'
+                        className = 'h-cart-button'
+                        icon = {<Cart/>}
+                    />
+                    {/* <ThemeButton/> */}
+                </div>  
+            </div>
+
+            {/* <LogoIcon text = { shopName } width = '64' height = '64' fillColor = '#333333'/> */}
         </div>
     );
 };

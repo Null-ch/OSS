@@ -10,11 +10,11 @@ const cartSlice = createSlice({
     reducers: {
         updateCartProducts(state, action) {
             let data = action.payload;
-            console.log(data);
+            // console.log(data);
             var cart = JSON.parse(window.localStorage.getItem('oss-cart') || '{}') || {};
 
             const {product, count} = data;
-            if (count > 0)  {
+            if (count && count > 0)  {
                 cart[product.id] = {
                     product: data.product,
                     count: data.count,

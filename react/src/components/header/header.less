@@ -1,7 +1,6 @@
 @import (less) './../../styles/common.less';
 @import (css) './../../styles/fonts.css';
 
-@breelight: 'bree-light';
 @thickness: 1px;
 @hover-border: #333;
 
@@ -15,10 +14,34 @@
     background-color: @white;
     display: flex;
     flex-direction: row;
-    max-height: 64px;
+    // max-height: 64px;
     width: 100%;
 
     border-bottom: 1px solid #ccc;
+}
+
+.h-section {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    flex: 1;
+}
+
+.h-section-left {
+    .h-section();
+    justify-content: start;
+}
+
+.h-section-right {
+    .h-section();
+    justify-content: end;
+}
+
+.h-section-nav {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    // height: 100%;
 }
 
 .header-fixed {
@@ -29,7 +52,7 @@
 }
 
 .nav {
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -44,38 +67,38 @@
     text-decoration: unset;
 
     span {
-        opacity: 90%;
-        font-family: @breelight, sans-serif;
+        opacity: 85%;
+        font-family: @mainlight, @fontdefault;
         color: @black;
         font-size: 28px;
+        &:hover {
+            opacity: 100%;
+        }
         // font-weight: 500;
     }
 
     svg { fill: @black; }
-
-
-    &:hover {
-        span {
-            opacity: 100%;
-        }
-    }
 }
 
 .tab-active {
     .tab();
-    background-color: @black;
+    // background-color: @black;
     position: relative;
+    outline: 1px solid @black;
+    // border-bottom: 2px solid @black;
     span {
-        color: @white;
+        color: @black;
+        opacity: 100%;
     }
     svg {
-        fill: @white !important;
+        fill: @black !important;
     }
 }
 
 .tab-title {
     // padding: 16px;
     // padding-right: 16px;
+    text-wrap: nowrap;
     height: 100%;
     width: 100%;
     display: flex;
@@ -86,47 +109,27 @@
 
 .tab-inactive {
     .tab();
-    // z-index: 120;
     box-sizing: border-box;
     position: relative;
 
-    // &::before {
-    //     content: '';
-    //     box-sizing: border-box;
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     height: 100%;
-    //     width: 100%;
-    //     transform-origin: center;
-    // }
-
-    // &::before {
-    //     z-index: 10;
-    //     border-bottom: @thickness solid @hover-border;
-    //     transform: scale3d(0,1,1);
-    // }
-
-    // &:hover::before {
-    //     transform: scale3d(1,1,1);
-    //     transition: transform 0.3s;
-    // }
-
     &:hover {
-        // transform: scale3d(0,1,1);
-        // transform: scale3d(0,1,1);
         border-bottom: 1px solid @black;
         margin-bottom: -1px;
-        // transition: 0.3s;
     }
 }
 
 .brand {
-    font-family: @breelight, sans-serif;
-    cursor: default;
+    font-family: @mainlight, @fontdefault;
+    // cursor: default;
     color: @black;
+    text-decoration: none;
     align-self: center;
-    font-size: 32px;
+    font-size: 24px;
+    text-wrap: nowrap;
+    opacity: 85%;
+    &:hover {
+        opacity: 100%;
+    }
 }
 
 .header-logo {

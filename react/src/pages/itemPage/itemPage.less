@@ -1,6 +1,7 @@
 @import (less) '../../styles/common.less';
 
 .item-page {
+    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -20,35 +21,35 @@
     gap: 16px;
     border: 1px solid @black;
     padding: 24px;
-    background-color: white;
+    background-color: @white;
 }
 
 .item-page-title-container {
     display: flex;
     flex-direction: column;
-    gap: 4px; 
+    // gap: 2px;
 }
 
 .item-page-brand {
-    font-family: @breethin, sans-serif;
-    font-size: 16px;
+    font-family: @mainthin, @fontdefault;
+    font-size: 12px;
 }
 
 .item-page-title {
-    font-family: @breethin, sans-serif;
+    font-family: @mainlight, @fontdefault;
     font-size: 32px;
 }
 
 .i-p-price {
     #price {
-        font-family: @breelight;
+        font-family: @mainlight, @fontdefault;
         color: @black;
         font-size: 32px;
     }
 
     #currency {
         align-self:flex-end;
-        font-family: @breelight;
+        font-family: @mainlight, @fontdefault;
         color: @black;
         font-size: 24px;
     }
@@ -71,7 +72,7 @@
     cursor: pointer;
     span {
         font-size: 16px;
-        font-family: @breelight, sans-serif;
+        font-family: @mainregular, @fontdefault;
         color: @white;
     }
 }
@@ -93,7 +94,7 @@
 
 .item-page-description {
     text-align: left;
-    font-family: @breelight;
+    font-family: @mainlight, @fontdefault;
     color: @black;
     font-size: 18px;
 }
@@ -105,7 +106,7 @@
 }
 
 .item-page-shipment-link {
-    font-family: @breelight, sans-serif;
+    font-family: @mainlight, @fontdefault;
     color: @black;
     text-decoration-thickness: 1px;
     &:hover {
@@ -114,7 +115,7 @@
 }
 
 .item-page-shipment-info {
-    font-family: @breelight, sans-serif;
+    font-family: @mainlight, @fontdefault;
     color: @black;
 }
 
@@ -139,7 +140,7 @@
     border: 1px solid #333;
     
     input {
-        font-family: @breelight;
+        font-family: @mainlight, @fontdefault;
         border: none;
         flex-grow: 1;
         width: 100%;

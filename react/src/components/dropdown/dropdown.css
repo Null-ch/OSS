@@ -10,6 +10,18 @@
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 body {
   background: #f7f7f7;
 }
@@ -34,6 +46,18 @@ html {
   font-family: 'bree-thin';
   src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
 }
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
 .dropdown-menu {
   z-index: 100;
   width: 100%;
@@ -51,7 +75,7 @@ html {
   position: absolute;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
   border: 1px solid #333333;
-  background-color: #f7f7f7;
+  background-color: white;
 }
 .dropdown-active {
   opacity: 1;
@@ -66,7 +90,7 @@ html {
   display: block;
   color: #333333;
   text-decoration: none;
-  font-family: 'bree-light', sans-serif;
+  font-family: 'centro-sans-pro-light', sans-serif;
   padding: 4px 8px;
   font-size: 18px;
   font-weight: 600;

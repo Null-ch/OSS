@@ -34,66 +34,17 @@ body {
 html {
   scrollbar-width: none !important;
 }
-.footer {
-  border-top: 1px solid #ccc;
+.input {
+  padding: 8px 16px;
+  border: 1px solid #333333;
   background-color: #f7f7f7;
-  display: flex;
-  align-items: start;
-  flex-direction: row;
-  justify-content: center;
-  gap: 32px;
-  padding: 24px;
-  bottom: 0px;
-}
-.footer span {
-  color: #333333;
-}
-.f-section {
-  flex: 3;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-}
-.f-section-left {
-  flex: 3;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: end;
-}
-.f-section-right {
-  flex: 3;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  justify-content: start;
-}
-.f-link {
-  font-family: 'centro-sans-pro-light';
-  font-size: 24px;
-  text-decoration: underline;
-  color: #333333;
+  font-size: 18px;
   opacity: 85%;
 }
-.f-link:hover {
-  opacity: 100%;
-  text-decoration: none;
+.input:focus {
+  border: 1px solid red;
+  background-color: white;
 }
-.f-brand-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-.f-brand-link {
-  font-family: 'centro-sans-pro-thin';
-  font-size: 48px;
-  text-decoration: none;
-  color: #333333;
-  opacity: 85%;
-  text-wrap: nowrap;
-}
-.f-brand-link:hover {
+.input:hover {
   opacity: 100%;
 }

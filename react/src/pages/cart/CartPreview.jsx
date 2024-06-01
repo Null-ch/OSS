@@ -29,8 +29,8 @@ const CartPreview = ({onClose}) => {
         updateCart({ count, product: item.product });
     }
 
-    function onItemDelete() {
-
+    function onItemDelete(product) {
+        updateCart({ product });
     }
 
     let itemsList = [];
@@ -54,8 +54,8 @@ const CartPreview = ({onClose}) => {
                 disableDecr = {false}
                 disableIncr = {false}
                 value = {count}
-                onChangeInput = {onChangeCounter}
-                onIncrement = {(incr) => {onIncrement(item, incr)}}
+                onChangeInput = { onChangeCounter }
+                onIncrement = { (incr) => { onIncrement(item, incr); } }
                 className = 'c-p-counter'
                 btnClassName = 'c-p-counter-button'
                 btnDisabledClassName = 'c-p-counter-button-disabled'
@@ -64,7 +64,7 @@ const CartPreview = ({onClose}) => {
             <div id = 'c-p-delete'>
                 <XIcon
                     title = 'Убрать'
-                    onClick = {onItemDelete}
+                    onClick = { () => { onItemDelete(product); } }
                     width = '12'
                     height = '12'
                     fillColor = '#AA3939'

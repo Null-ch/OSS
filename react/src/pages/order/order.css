@@ -1,0 +1,115 @@
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+@font-face {
+  font-family: 'centro-sans-pro-thin';
+  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-light';
+  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'centro-sans-pro-regular';
+  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.order-page {
+  justify-content: center;
+  background-color: white;
+  height: 1000px;
+  display: flex;
+  flex-direction: row;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  padding: 24px;
+}
+.order-page .o-p-container {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+}
+.order-page .o-p-items {
+  padding-right: 24px;
+  flex: 1;
+}
+.order-page .o-p-data {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 24px;
+  border-left: 1px solid #ccc;
+  flex: 1;
+}
+.order-page .o-p-contacts,
+.order-page .o-p-shipment {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.order-page .o-p-contacts-title,
+.order-page .o-p-shipment-title {
+  font-size: 24px;
+  font-weight: 600;
+}
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.order-items .o-i-table {
+  border: 1px solid #ccc;
+  width: 100%;
+}
+.order-items .o-i-table th {
+  font-weight: 600;
+  font-size: 18px;
+  color: #333333;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+.order-items .o-i-table td {
+  font-size: 24px;
+  color: #333333;
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+.order-subtotal {
+  font-family: 'centro-sans-pro-light', sans-serif;
+  font-size: 24px;
+  color: #333333;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  font-weight: 600;
+}
+.order-subtotal .o-s-total-price #price {
+  font-family: 'centro-sans-pro-light', sans-serif;
+  color: #333333;
+  font-size: 24px;
+}
+.order-subtotal .o-s-total-price #currency {
+  align-self: flex-end;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  color: #333333;
+  font-size: 18px;
+}

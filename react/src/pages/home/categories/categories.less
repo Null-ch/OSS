@@ -1,13 +1,10 @@
-@import (less) './../../../styles/fonts.less';
 @import (less) './../../../styles/common.less';
 
-@breelight: 'bree-light';
-@breethin: 'bree-thin';
 @thickness: 1px;
 @hover-border: #333;
 
 .categories-title {
-    font-family: @breethin;
+    font-family: @mainthin, @fontdefault;
     // width: 100%;
     width: min-content;
 
@@ -44,8 +41,10 @@
     cursor: pointer;
     box-sizing: border-box;
     position: relative;
-    // gap: 8px;
-    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    // padding: 8px;
 
     &::before, &::after {
         content: '';
@@ -78,27 +77,16 @@
     }
 }
 
-.category-preview {
-    height: 100%;
-    width: 100%;
-}
-
-.category-container {
-    display: flex;
-    // position: absolute;
-    text-align: center;
-    box-sizing: border-box;
-    flex-direction: column;
-    background-color: @white;
-    width: 100%;
-    padding: 8px;
-    bottom: 0px;
-    gap: 8px;
-}
-
 .category-title {
-    font-family: @breethin;
+    font-family: @mainthin, @fontdefault;
     color: @black;
     font-size: 28px;
-    font-weight: 600;
+    text-align: center;
+    // font-weight: 600;
+}
+
+.category-preview {
+    object-fit: contain;
+    height: 300px;
+    width: 100%;
 }
