@@ -8,7 +8,7 @@
     <title>OSS</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>JS</noscript>
     <div id="root"></div>
     <script src="{{ mix('js/index.js') }}"></script>
   </body>
