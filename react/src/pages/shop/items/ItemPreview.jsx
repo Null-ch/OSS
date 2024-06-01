@@ -10,7 +10,7 @@ import { DOMAIN } from './../../../utils/url'
 const Item = ({item, onClick, onQuickBuyClick}) => {
     return (
             <div className = 'item' onClick = {onClick}>
-                <Link to = {`${PRODUCTS}${item.id}`}>
+                <Link to = {`${PRODUCTS}/${item.id}`}>
                     <img className = 'item-image' src = {`${DOMAIN}${item.preview_image}`}/>
 
                     <div className = 'item-info-container'>
@@ -28,14 +28,14 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
                 </div>
 
                 <div className = 'item-preview-buttons'>
-                    <Button
+                    {/* <Button
                     className = 'item-quick-buy-button'
                     text = 'Смотреть'
                     onClick = {(e) => {
                         onQuickBuyClick(item);
                         e.stopPropagation();
                     }}
-                    />
+                    /> */}
                 </div>
             </div>
     );

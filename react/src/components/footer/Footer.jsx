@@ -2,7 +2,6 @@ import React from 'react';
 import Logo from '../icons/LogoIcon';
 import FooterSection from './FooterSection';
 import './footer.css'
-import { shopName } from '../../utils/constants';
 
 const Footer = () => {
     return (
@@ -13,7 +12,7 @@ const Footer = () => {
                 <FooterSection title = 'Contacts'/>
             </div>
 
-            <Logo width = '200' height = '200' fillColor = '#ffffff'/>
+            <Logo width = '200' height = '200' fillColor = '#333'/>
             <span className='brand-footer'>
                 SAMPLE TEXT
             </span>

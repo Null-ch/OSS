@@ -1,0 +1,213 @@
+@import '../../styles/fonts.css';
+@font-face {
+  font-family: 'bree-light';
+  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-regular';
+  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
+}
+@font-face {
+  font-family: 'bree-thin';
+  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
+}
+body {
+  background: #f7f7f7;
+}
+.semibold span {
+  font-weight: 600;
+}
+.pointer {
+  cursor: pointer;
+}
+html {
+  scrollbar-width: none !important;
+}
+.c-icon-container {
+  display: flex;
+  position: relative;
+}
+.c-icon-counter {
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  align-self: center;
+  background-color: white;
+  border: 1px solid #333;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  font-family: 'bree-light';
+}
+.c-p {
+  width: 400px;
+  background-color: white;
+  border: 1px solid #333333;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.c-p #c-p-title {
+  font-family: 'bree-regular';
+  color: #333333;
+  text-align: center;
+  font-size: 24px;
+}
+.c-p #c-p-products {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.c-p #c-p-product {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}
+.c-p #c-p-product-preview-image {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333333;
+}
+.c-p #c-p-product-title {
+  font-family: 'bree-thin';
+  color: #333333;
+  font-size: 16px;
+}
+.c-p #c-p-product-price #price {
+  font-family: 'bree-thin';
+  color: #333333;
+  font-size: 16px;
+}
+.c-p #c-p-product-price #currency {
+  align-self: flex-end;
+  font-family: 'bree-thin';
+  color: #333333;
+  font-size: 12px;
+}
+.c-p #c-p-checkout {
+  padding: 4px 24px;
+  width: min-content;
+  align-self: center;
+  color: #333333;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-family: 'bree-light';
+  text-align: center;
+  font-size: 18px;
+  outline: 1px solid #ccc;
+  opacity: 75%;
+}
+.c-p #c-p-checkout:hover {
+  text-decoration: none;
+  opacity: 100%;
+}
+.c-p #c-p-total {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+}
+.c-p #c-p-total #c-p-total-title {
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 18px;
+}
+.c-p #c-p-total #c-p-total-price #price {
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 24px;
+}
+.c-p #c-p-total #c-p-total-price #currency {
+  align-self: flex-end;
+  font-family: 'bree-light';
+  color: #333333;
+  font-size: 16;
+}
+.c-p #c-p-close {
+  position: absolute;
+  right: 8px;
+  cursor: pointer;
+  opacity: 75%;
+}
+.c-p #c-p-close:hover {
+  opacity: 100%;
+}
+.c-p #c-p-delete {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 75%;
+}
+.c-p #c-p-delete:hover {
+  opacity: 100%;
+}
+.c-p-counter {
+  display: flex;
+  flex-direction: row;
+  width: 96px;
+  height: 24px;
+  border: 1px solid #ccc;
+}
+.c-p-counter input {
+  font-family: 'bree-thin';
+  border: none;
+  flex-grow: 1;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  color: #333333;
+}
+.counter-button {
+  flex: 1;
+  border: none;
+  background-color: #ffff;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+.counter-button span {
+  color: #333333;
+  font-weight: 400;
+  font-size: 24px;
+}
+.c-p-counter-button {
+  flex: 1;
+  border: none;
+  background-color: #ffff;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 75%;
+}
+.c-p-counter-button span {
+  color: #333333;
+  font-weight: 400;
+  font-size: 24px;
+}
+.c-p-counter-button:hover {
+  opacity: 100%;
+}
+.c-p-counter-button-disabled {
+  flex: 1;
+  border: none;
+  background-color: #ffff;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  opacity: 50%;
+  cursor: no-drop;
+}
+.c-p-counter-button-disabled span {
+  color: #333333;
+  font-weight: 400;
+  font-size: 24px;
+}

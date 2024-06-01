@@ -1,0 +1,12 @@
+.bubble {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+}
+.bubble-hidden {
+  position: absolute;
+  z-index: 100;
+  right: 0;
+  visibility: hidden;
+  display: none;
+}

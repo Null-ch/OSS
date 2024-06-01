@@ -38,7 +38,7 @@ const ItemQuickBuy = () => {
                 <div className = 'quick-buy-item-price-container'>
                     <div>
                         <span className = 'item-price'>{item.price}</span>
-                        <span className = 'item-price-currency'>₽</span>
+                        <span className = 'item-price-currency'> ₽</span>
                     </div>
 
                     <Link to = {`products/${item.id}`}>

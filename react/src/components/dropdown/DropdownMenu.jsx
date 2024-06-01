@@ -11,6 +11,7 @@ const DropdownMenu = ({ list }) => {
                     <ul className="dropdown-list">
                         <li className="dropdown-item">
                             {list.map(({path, title}, key) => {
+                                // console.log(path)
                                 return <a key = {key} href={path} className="dropdown-link">{title}</a>   
                             })}
                         </li>

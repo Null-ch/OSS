@@ -4,11 +4,12 @@ import './styles/common.css'
 import Layout from "./components/Layout";
 import {publicRoutes} from './routes'
 import {Route, Routes, useLocation} from 'react-router-dom'
-import Header from './components/header/Header';
+import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import NotFound from "./pages/util/NotFound.jsx";
 
 function App() {
   // const isLogged = localStorage.getItem('isLoggedIn');
@@ -35,12 +36,14 @@ function App() {
   window.onscroll = function() { scrollFunction() };
 
   function scrollFunction() {
-    if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
-      document.getElementById("header").className = 'header-fixed';
-    } else {
-      document.getElementById("header").className = 'header';
-    }
+    // if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
+    //   document.getElementById("header").className = 'header-fixed';
+    // } else {
+    //   document.getElementById("header").className = 'header';
+    // }
   }
+  
+  // window.localStorage.clear();
 
   return (
     <>
@@ -59,6 +62,7 @@ function App() {
           }    
           )}
         </Route>
+        <Route path = "*" element = {<NotFound/>}/>
       </Routes>
 
       <Footer/>
