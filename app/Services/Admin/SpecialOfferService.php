@@ -96,9 +96,16 @@ class SpecialOfferService
         $file = $data['image'];
         try {
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/img/special-offers', $filename);
-            $path = 'storage/img/special-offers/' . $filename;
+            $destinationPath = public_path('img/special-offers/');
+
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $path = 'img/special-offers/' . $filename;
+            $file->move(public_path('img/special-offers/'), $filename);
             $data['image'] = $path;
+
             $this->specialOffer::create($data);
         } catch (\Exception $e) {
             $this->logger->error('Error loading images: ' . $e->getMessage());
@@ -133,8 +140,15 @@ class SpecialOfferService
                 try {
                     $file = $data['image'];
                     $filename = time() . '_' . $file->getClientOriginalName();
-                    $file->storeAs('public/img/special-offers', $filename);
-                    $path = 'storage/img/special-offers/' . $filename;
+
+                    $destinationPath = public_path('img/special-offers/');
+
+                    if (!file_exists($destinationPath)) {
+                        mkdir($destinationPath, 0755, true);
+                    }
+
+                    $path = 'img/special-offers/' . $filename;
+                    $file->move(public_path('img/special-offers/'), $filename);
                     $data['image'] = $path;
                 } catch (\Exception $e) {
                     $this->logger->error('Error loading images: ' . $e->getMessage());

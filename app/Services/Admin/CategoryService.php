@@ -87,10 +87,9 @@ class CategoryService
             $file = $data['preview_image'];
             $filename = time() . '_' . $file->getClientOriginalName();
             $destinationPath = public_path('/img/categories/');
-
-            //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
+            
             if (!file_exists($destinationPath)) {
-                mkdir($destinationPath);
+                mkdir($destinationPath, 0755, true);
             }
 
             $path = 'img/categories/' . $filename;
@@ -121,9 +120,8 @@ class CategoryService
 
                     $destinationPath = public_path('img/categories/');
 
-                    //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
                     if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath);
+                        mkdir($destinationPath, 0755, true);
                     }
 
                     $path = 'img/categories/' . $filename;

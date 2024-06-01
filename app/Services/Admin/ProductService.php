@@ -126,9 +126,8 @@ class ProductService
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $destinationPath = public_path('img/products/');
 
-                //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
                 if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath);
+                    mkdir($destinationPath, 0755, true);
                 }
 
                 if ($key === 'preview_image') {
@@ -193,9 +192,8 @@ class ProductService
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $destinationPath = public_path('img/products/');
 
-                    //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
                     if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath);
+                        mkdir($destinationPath, 0755, true);
                     }
 
                     $file->move(public_path('img/products/'), $filename);
@@ -210,11 +208,10 @@ class ProductService
                         $file = $image;
                         $filename = time() . '_' . $file->getClientOriginalName();
 
-                        //Если разворачиваешь на nix то измени на mkdir($destinationPath, 0755, true);
                         $destinationPath = public_path('img/products/images/');
 
                         if (!file_exists($destinationPath)) {
-                            mkdir($destinationPath);
+                            mkdir($destinationPath, 0755, true);
                         }
 
                         $file->move(public_path('img/products/images/'), $filename);

@@ -13,10 +13,11 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-
 /public/img/products/*.png
 /public/img/products/*.jpg
 /public/img/products/images/*.png
 /public/img/products/images/*.jpg
 /public/img/categories/*.png
 /public/img/categories/*.jpg
+/public/img/special-offers/*.jpg
+/public/img/special-offers/*.png

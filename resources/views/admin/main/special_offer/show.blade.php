@@ -83,6 +83,7 @@
                 imagePreview.style.backgroundImage = "url(" + img.src + ")";
                 imagePreview.style.backgroundSize = "contain";
                 imagePreview.style.backgroundPosition = "center";
+                imagePreview.style.backgroundRepeat = "no-repeat";
                 imagePreview.style.width = "100%";
                 imagePreview.style.height = "430px";
             });
