@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [App\Http\Controllers\ReactController::class, 'index'])->name('home');
+    Route::get('/products', [App\Http\Controllers\ReactController::class, 'index']);
+    Route::get('/products/{id}', [App\Http\Controllers\ReactController::class, 'index']);
+    Route::get('/products/category/{id}', [App\Http\Controllers\ReactController::class, 'index']);
 
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
@@ -95,4 +98,21 @@ Route::middleware('auth')->group(function () {
 |
 */
 
+Route::prefix('cart')->group(function () {
+    Route::get('/', [App\Http\Controllers\Api\Client\CartController::class, 'index'])->name('client.cart.index');
+    Route::post('/add', [App\Http\Controllers\Api\Client\CartController::class, 'addProduct'])->name('client.cart.add');
+    Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
+    Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
+});
+
+Route::prefix('products')->group(function () {
+    Route::get('/', [App\Http\Controllers\Api\Client\ProductController::class, 'index'])->name('client.products.index');
+    Route::get('/show/{id}', [App\Http\Controllers\Api\Client\ProductController::class, 'show'])->name('client.product.show');
+});
+
+Route::prefix('categories')->group(function () {
+    Route::get('/', [App\Http\Controllers\Api\Client\CategoryController::class, 'index'])->name('client.categories.index');
+    Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.categories.show');
+    Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.category.product.show');
+});
 Auth::routes();
