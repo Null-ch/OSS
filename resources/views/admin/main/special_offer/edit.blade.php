@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-12 ml-2 p-2">
                     <h3>Редактирование специального предложения</h3>
-                    <form action="{{ route('admin.special-offer.update', $specialOffer->id) }}" method="POST" class="w-25">
+                    <form action="{{ route('admin.special-offer.update', $specialOffer->id) }}" method="POST" class="w-25" enctype="multipart/form-data">
                         @csrf
                         @method('PATCH')
                         <div class="row p-1">
