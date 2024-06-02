@@ -18,7 +18,7 @@ mix.js("react/src/index.js", "public/js")
         [
             "react/src/styles/reset.css",
             "react/src/styles/common.css",
-            "react/src/styles/fonts.css",
+            // "react/src/styles/fonts.css",
         ],
         "public/css/app.css"
     )
