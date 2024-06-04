@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +43,7 @@ Route::prefix('cart')->group(function () {
     Route::post('/add', [App\Http\Controllers\Api\Client\CartController::class, 'addProduct'])->name('client.cart.add');
     Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
     Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
+    Route::post('/check-availability', [App\Http\Controllers\Api\Client\CartController::class, 'checkAvailability'])->name('client.cart.add');
 });
 
 Route::prefix('products')->group(function () {

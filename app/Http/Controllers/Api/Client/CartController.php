@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Api\Client\CartService;
 use App\Http\Requests\Client\Cart\AddCartProductRequest;
@@ -70,5 +71,19 @@ class CartController extends Controller
     {
         $response = $this->cartService->deleteProduct($id);
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+    }
+        
+    /**
+     * Method checkAvailability
+     *
+     * @param Request $request [explicite description]
+     *
+     * @return void
+     */
+    public function checkAvailability(Request $request)
+    {
+        $data = $request->all();
+        $response = $this->cartService->checkAvailability($data);
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE); 
     }
 }

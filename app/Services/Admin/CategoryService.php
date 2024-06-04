@@ -3,7 +3,9 @@
 namespace App\Services\Admin;
 
 use App\Models\Category;
+use App\Services\FileService;
 use App\Services\LogInterface;
+use Illuminate\Support\Facades\DB;
 
 class CategoryService
 {
@@ -23,16 +25,24 @@ class CategoryService
     private $logger;
 
     /**
+     * fileService
+     *
+     * @var object
+     */
+    private $fileService;
+
+    /**
      * Construct category service
      *
      * @param Category $category
      * @param LogInterface $logger
      * 
      */
-    public function __construct(Category $category, LogInterface $logger)
+    public function __construct(Category $category, LogInterface $logger, FileService $fileService)
     {
         (object) $this->category = $category;
         (object) $this->logger = $logger;
+        (object) $this->fileService = $fileService;
     }
 
     /**
@@ -83,20 +93,15 @@ class CategoryService
      */
     public function createCategory(array $data)
     {
+        DB::beginTransaction();
         try {
-            $file = $data['preview_image'];
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = public_path('/img/categories/');
-            
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-
+            $filename = $this->fileService->uploadFile($data['preview_image'], '/img/categories/');
             $path = 'img/categories/' . $filename;
-            $file->move(public_path('img/categories/'), $filename);
             $data['preview_image'] = $path;
             $this->category::create($data);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->logger->error('Error when creating a category: ' . $e->getMessage());
         }
     }
@@ -112,24 +117,19 @@ class CategoryService
     public function updateCategory(array $data, int $id)
     {
         $category = $this->getCategory($id);
+        DB::beginTransaction();
+
         if ($category) {
             try {
                 if (isset($data['preview_image'])) {
-                    $file = $data['preview_image'];
-                    $filename = time() . '_' . $file->getClientOriginalName();
-
-                    $destinationPath = public_path('img/categories/');
-
-                    if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath, 0755, true);
-                    }
-
+                    $filename = $this->fileService->uploadFile($data['preview_image'], '/img/categories/');
                     $path = 'img/categories/' . $filename;
-                    $file->move(public_path('img/categories/'), $filename);
                     $data['preview_image'] = $path;
                 }
                 $category->update($data);
+                DB::commit();
             } catch (\Exception $e) {
+                DB::rollBack();
                 $this->logger->error('Error updating the category: ' . $e->getMessage());
             }
         }

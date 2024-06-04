@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\User;
 use App\Services\LogInterface;
+use Illuminate\Support\Facades\DB;
 use App\Jobs\SendRegistrationEmail;
 use Illuminate\Support\Facades\Hash;
 
@@ -117,17 +118,22 @@ class UserService
     {
         (string) $password = $data['password'];
         $data['password'] = Hash::make($password);
-
+        DB::beginTransaction();
+        
         try {
             (object) $user = $this->user::create($data);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->logger->error('Error when creating a user: ' . $e->getMessage());
             return;
         }
 
         try {
             dispatch(new SendRegistrationEmail($user, $password));
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->logger->error('Error when sending an email after registration: ' . $e->getMessage());
         }
     }

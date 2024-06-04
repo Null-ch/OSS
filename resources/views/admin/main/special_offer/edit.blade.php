@@ -118,6 +118,7 @@
                             "background-image": "url(" + this.result + ")",
                             "background-size": "contain",
                             "background-position": "center",
+                            "backgroundRepeat": "no-repeat",
                             "width": "100%",
                             "height": "230px"
                         });
@@ -139,6 +140,7 @@
             imagePreview.style.backgroundImage = "url(" + img.src + ")";
             imagePreview.style.backgroundSize = "contain";
             imagePreview.style.backgroundPosition = "center";
+            imagePreview.style.backgroundRepeat = "no-repeat";
             imagePreview.style.width = "100%";
             imagePreview.style.height = "230px";
         });

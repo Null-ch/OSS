@@ -3,7 +3,9 @@
 namespace App\Services\Admin;
 
 use App\Models\SpecialOffer;
+use App\Services\FileService;
 use App\Services\LogInterface;
+use Illuminate\Support\Facades\DB;
 
 class SpecialOfferService
 {
@@ -23,16 +25,24 @@ class SpecialOfferService
     private $logger;
 
     /**
+     * fileService
+     *
+     * @var object
+     */
+    private $fileService;
+
+    /**
      * Construct specialOffer service
      *
      * @param SpecialOffer $specialOffer
      * @param LogInterface $logger
      * 
      */
-    public function __construct(SpecialOffer $specialOffer, LogInterface $logger)
+    public function __construct(SpecialOffer $specialOffer, LogInterface $logger, FileService $fileService)
     {
         (object) $this->specialOffer = $specialOffer;
         (object) $this->logger = $logger;
+        (object) $this->fileService = $fileService;
     }
 
     /**
@@ -92,22 +102,18 @@ class SpecialOfferService
         } elseif ($data['is_active'] == 'off') {
             $data['is_active'] = 0;
         }
-
-        $file = $data['image'];
+        
+        DB::beginTransaction();
+        
         try {
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = public_path('img/special-offers/');
-
-            if (!file_exists($destinationPath)) {
-                mkdir($destinationPath, 0755, true);
-            }
-
+            $file = $data['image'];
+            $filename = $this->fileService->uploadFile($file, 'img/special-offers/');
             $path = 'img/special-offers/' . $filename;
-            $file->move(public_path('img/special-offers/'), $filename);
             $data['image'] = $path;
-
             $this->specialOffer::create($data);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->logger->error('Error loading images: ' . $e->getMessage());
         }
     }
@@ -127,6 +133,8 @@ class SpecialOfferService
             return;
         }
 
+        DB::beginTransaction();
+
         try {
             if ($data['is_active'] == 'on') {
                 $data['is_active'] = 1;
@@ -139,16 +147,8 @@ class SpecialOfferService
             } else {
                 try {
                     $file = $data['image'];
-                    $filename = time() . '_' . $file->getClientOriginalName();
-
-                    $destinationPath = public_path('img/special-offers/');
-
-                    if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath, 0755, true);
-                    }
-
+                    $filename = $this->fileService->uploadFile($file, 'img/special-offers/');
                     $path = 'img/special-offers/' . $filename;
-                    $file->move(public_path('img/special-offers/'), $filename);
                     $data['image'] = $path;
                 } catch (\Exception $e) {
                     $this->logger->error('Error loading images: ' . $e->getMessage());
@@ -157,7 +157,9 @@ class SpecialOfferService
             }
 
             $specialOffer->update($data);
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->logger->error('Error updating the special offer: ' . $e->getMessage());
             return;
         }
