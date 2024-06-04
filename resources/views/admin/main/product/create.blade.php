@@ -160,6 +160,7 @@
                             "background-image": "url(" + this.result + ")",
                             "background-size": "contain",
                             "background-position": "center",
+                            "backgroundRepeat": "no-repeat",
                             "width": "100%",
                             "height": "230px"
                         });

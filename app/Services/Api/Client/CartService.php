@@ -134,7 +134,7 @@ class CartService
     {
         return $this->cart->create();
     }
-    
+
     /**
      * Adding a product to the shopping cart
      *
@@ -314,5 +314,36 @@ class CartService
         }
 
         return $response;
+    }
+    public function checkAvailability(array $data)
+    {
+        try {
+            if (empty($data) || !isset($data['data'])) {
+                throw new \Exception('Invalid data provided.');
+            }
+
+            $output = [];
+
+            if (isset($data)) {
+                foreach ($data['data'] as $item) {
+                    $product = $this->product->findOrFail($item['id']);
+                    if ($product->quantity < $item['quantity']) {
+                        $availability = false;
+                    } else {
+                        $availability = true;
+                    }
+
+                    $output[] = [
+                        'id' => $product->id,
+                        'availability' => $availability,
+                        'quantity' => $product->quantity
+                    ];
+                }
+                return $output;
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('' . $e->getMessage());
+            return false;
+        }
     }
 }

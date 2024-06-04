@@ -4,7 +4,9 @@ namespace App\Services\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Services\FileService;
 use App\Services\LogInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
 
 class ProductService
@@ -37,6 +39,14 @@ class ProductService
      */
 
     private $database;
+
+    /**
+     * fileService
+     *
+     * @var object
+     */
+    private $fileService;
+
     /**
      * Construct product service
      *
@@ -46,12 +56,13 @@ class ProductService
      * @param Connection $database
      * 
      */
-    public function __construct(Product $product, Category $category, LogInterface $logger, Connection $database)
+    public function __construct(Product $product, Category $category, LogInterface $logger, Connection $database, FileService $fileService)
     {
         (object) $this->product = $product;
         (object) $this->category = $category;
         (object) $this->logger = $logger;
         (object) $this->database = $database;
+        (object) $this->fileService = $fileService;
     }
 
     /**
@@ -122,21 +133,12 @@ class ProductService
             $sortOrder = 1;
 
             foreach ($images as $key => $image) {
-                $file = $image;
-                $filename = time() . '_' . $file->getClientOriginalName();
-                $destinationPath = public_path('img/products/');
-
-                if (!file_exists($destinationPath)) {
-                    mkdir($destinationPath, 0755, true);
-                }
-
                 if ($key === 'preview_image') {
-                    
-                    $file->move(public_path('img/products/'), $filename);
+                    $filename = $this->fileService->uploadFile($image, 'img/products/');
                     $product->preview_image = 'img/products/' . $filename;
                     $product->save();
                 } else {
-                    $file->move(public_path('img/products/images/'), $filename);
+                    $filename = $this->fileService->uploadFile($image, 'img/products/images/');
                     $product->images()->create([
                         'image_path' => 'img/products/images/' . $filename,
                         'sort_order' => $sortOrder,
@@ -144,6 +146,7 @@ class ProductService
                     $sortOrder++;
                 }
             }
+            $this->database->commit();
         } catch (\Exception $e) {
             $this->database->rollBack();
             $this->logger->error('Error when creating a product and loading images: ' . $e->getMessage());
@@ -188,47 +191,32 @@ class ProductService
                 $productImages = $product->images;
 
                 if (isset($images['preview_image'])) {
-                    $file = $images['preview_image'];
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $destinationPath = public_path('img/products/');
-
-                    if (!file_exists($destinationPath)) {
-                        mkdir($destinationPath, 0755, true);
-                    }
-
-                    $file->move(public_path('img/products/'), $filename);
-
+                    $filename = $this->fileService->uploadFile($images['preview_image'], 'img/products/');
                     $product->preview_image = 'img/products/' . $filename;
                     $product->save();
                 }
 
                 foreach ($images as $key => $image) {
-                    if ($key !== 'preview_image') {
-                        $index = preg_replace('/[^0-9]/', '', $key);
-                        $file = $image;
-                        $filename = time() . '_' . $file->getClientOriginalName();
+                    if ($key === 'preview_image') {
+                        continue;
+                    }
 
-                        $destinationPath = public_path('img/products/images/');
+                    $index = preg_replace('/[^0-9]/', '', $key);
+                    $filename = $this->fileService->uploadFile($image, 'img/products/images/');
 
-                        if (!file_exists($destinationPath)) {
-                            mkdir($destinationPath, 0755, true);
-                        }
-
-                        $file->move(public_path('img/products/images/'), $filename);
-
-                        if (isset($productImages[$index])) {
-                            $productImages[$index]->update([
-                                'image_path' => 'img/products/images/' . $filename
-                            ]);
-                        } else {
-                            $lastIndex = $productImages->count();
-                            $product->images()->create([
-                                'image_path' => 'img/products/images/' . $filename,
-                                'sort_order' => $lastIndex + 1,
-                            ]);
-                        }
+                    if (isset($productImages[$index])) {
+                        $productImages[$index]->update([
+                            'image_path' => 'img/products/images/' . $filename
+                        ]);
+                    } else {
+                        $lastIndex = $productImages->count();
+                        $product->images()->create([
+                            'image_path' => 'img/products/images/' . $filename,
+                            'sort_order' => $lastIndex + 1,
+                        ]);
                     }
                 }
+                $this->database->commit();
             } catch (\Exception $e) {
                 $this->database->rollBack();
                 $this->logger->error('Error when updating product images: ' . $e->getMessage());
