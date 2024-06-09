@@ -5,65 +5,62 @@
 @hover-border: @black;
 
 .items {
+    padding: 24px;
     background-color: white;
     display: flex;
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 24px;
     // padding: 24px;
     width: 100%;
+    height: max-content;
 }
+
 
 .item {
-    // background-color: red;
-    height: 300px;
     width: 300px;
-    cursor: pointer;
-    padding: 8px;
-
+    z-index: 10;
+    height: min-content;
     box-sizing: border-box;
-    // box-sizing:inherit;
-    position: relative;
+    &:hover {
+        .i-info {
+            border: 1px solid @black;
+            border-bottom: none;
+        }
+        .i-controls {
+            border-top: none;
+            display: flex !important;
+            gap: 8px;
+        }
 
-    &::before, &::after {
-        content: '';
-        box-sizing: border-box;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        transform-origin: center;
-    }
-
-    &::before {
-        z-index: 10;
-        border-top: @thickness solid @hover-border;
-        border-bottom: @thickness solid @hover-border;
-        transform: scale3d(0,1,1);
-    }
-
-    &::after {
-        z-index: 10;
-        border-left: @thickness solid @hover-border;
-        border-right: @thickness solid @hover-border;
-        transform: scale3d(1,0,1);
-    }
-
-    &:hover::before, &:hover::after {
-        z-index: -1;
-        transform: scale3d(1,1,1);
-        transition: transform 0.3s;
-        // pointer-events: all !important;
     }
 }
 
-.item:hover {
-    .item-heart, .item-bag, .item-info-container, .item-preview-buttons {
-        transition: 0.3s;
-        opacity: 85%;
-    }
+.i-info {
+    cursor: pointer;
+    z-index: 10;
+    height: min-content;
+    box-sizing: border-box;
+    border: 1px solid @grey;
+}
+
+.i-controls {
+    border-top: 1px solid red;
+    border: 1px solid @black;
+    box-sizing: border-box;
+    padding: 8px;
+    background-color: white;
+    width: 300px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    display: none;
+}
+
+.i-info {
+    padding: 8px;
 }
 
 .item-image {
@@ -71,25 +68,41 @@
     // height: 100%;
 }
 
-.item-info-container {
-    opacity: 0%;
-
-    background-color: @white;
-    position: absolute;
+.i-i-container {
     width: 100%;
-    // width: min-content;
 
     display: flex;
-    left: 0;
     text-align: center;
     box-sizing: border-box;
     flex-direction: row;
-    // background-color: @white;
-    // width: 100%;
-    padding: 16px;
-    padding-top: 8px;
-    bottom: 0px;
     gap: 8px;
+    
+}
+
+.i-c-info {
+    font-family: @mainlight, @fontdefault;
+}
+
+.i-c-button {
+    .pointer();
+    padding: 4px 24px;
+    // width: 144px;
+    align-self: center;
+    color: @white;
+    background-color: @black;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    font-family: @mainlight, @fontdefault;
+    text-align: center;
+    font-size: 18px;
+    outline: 1px solid #ccc;
+    border: none;
+    opacity: 75%;
+
+    &:hover {
+        text-decoration: none;
+        opacity: 100%;
+    }
 }
 
 .item-title {
@@ -115,7 +128,7 @@
     align-self:flex-end;
     font-family: @mainlight, @fontdefault;
     color: @black;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .item-heart {

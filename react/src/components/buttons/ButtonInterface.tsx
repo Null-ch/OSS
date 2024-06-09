@@ -35,8 +35,8 @@ const Button = (props: IButtonProps) => {
     }
 
     return (
-        <div>
-            <a className = 'button-container' href={route}>
+        <div className = 'button-container'>
+            <a href = {route}>
                 <button disabled = {disabled} onClick={onClick} className={className} style={{gap: !text ? 0 : 8, display: 'flex', flexDirection: direction as 'row'}} {...restProps}>
                     {icon}
                     <span>

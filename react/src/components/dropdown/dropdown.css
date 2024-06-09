@@ -86,7 +86,7 @@ html {
   flex-direction: column;
   gap: 8px;
 }
-.dropdown-link {
+.dropdown-item-link {
   display: block;
   color: #333333;
   text-decoration: none;
@@ -95,6 +95,6 @@ html {
   font-size: 18px;
   font-weight: 600;
 }
-.dropdown-link:hover {
-  text-decoration: underline;
+.dropdown-item-link:hover {
+  text-decoration: underline !important;
 }
