@@ -46,7 +46,14 @@
                                                     <td class="p-2 text-center pt-3">{{ $product->title }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $product->price }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $product->quantity }}</td>
-                                                    <td class="p-2 text-center pt-3">{{ $product->category->title }}</td>
+                                                    {{-- <td class="p-2 text-center pt-3">{{ $product->category->title }}</td> --}}
+                                                    <td class="p-2 text-center pt-3">
+                                                        @if($product->category)
+                                                            {{ $product->category->title }}
+                                                        @else
+                                                            Без категории
+                                                        @endif
+                                                    </td>
                                                     <td class="p-2 text-center">
                                                         <div class="p-2">
                                                             <label class="toggle">

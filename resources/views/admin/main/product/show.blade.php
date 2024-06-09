@@ -44,7 +44,13 @@
                                             <td class="text-center">{{ $product->title }}</td>
                                             <td class="text-center">{{ $product->price }}</td>
                                             <td class="text-center">{{ $product->quantity }}</td>
-                                            <td class="text-center">{{ $product->category->title }}</td>
+                                            <td class="p-2 text-center pt-3">
+                                                @if($product->category)
+                                                    {{ $product->category->title }}
+                                                @else
+                                                    Без категории
+                                                @endif
+                                            </td>
                                             <td style="justify-content: center; align-items: center;">
                                                 <div style="background-color: {{ $product->hex_code }}; width: 20px; height: 20px;"></div>
                                             </td>
