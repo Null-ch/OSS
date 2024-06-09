@@ -8,24 +8,26 @@ import { PRODUCTS } from './../../../utils/constants';
 import { DOMAIN } from './../../../utils/url'
 
 const Item = ({item, onClick, onQuickBuyClick}) => {
+    console.log(item);
     return (
-            <div className = 'item' onClick = {onClick}>
+        <div className = 'item'>
+            <div className = 'i-info' onClick = {onClick}>
                 <Link to = {`${PRODUCTS}/${item.id}`}>
                     <img className = 'item-image' src = {`${DOMAIN}${item.preview_image}`}/>
-
-                    <div className = 'item-info-container'>
-                        <span className = 'item-title'>{item.title}</span>
-                        <div className = 'item-price-container'>
-                            <span className = 'item-price'>{item.price}</span>
-                            <span className = 'item-price-currency'>₽</span>
-                        </div>
-                    </div>
                 </Link>
-        
-                <div className = 'item-icons'>
+
+                <div className = 'i-i-container'>
+                    <span className = 'item-title'>{item.title}</span>
+                    <div className = 'item-price-container'>
+                        <span className = 'item-price'>{item.price}</span>
+                        <span className = 'item-price-currency'>₽</span>
+                    </div>
+                </div>
+                        
+                {/* <div className = 'item-icons'>
                     <Heart title = 'В избранное' className = 'item-heart' width = '32' height = '32' fillColor = '#333333'/>
                     <Bag title = 'В корзину' className = 'item-bag' width = '36' height = '36' fillColor = '#333333'/>
-                </div>
+                </div> */}
 
                 <div className = 'item-preview-buttons'>
                     {/* <Button
@@ -38,6 +40,17 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
                     /> */}
                 </div>
             </div>
+
+            <div className = 'i-controls'>
+                <div className = 'i-c-info'>
+                    <span>{`В наличии: ${item.quantity} шт.`}</span>
+                </div>
+                <Button
+                    className = 'i-c-button'
+                    text = 'В корзину'
+                />                            
+            </div>
+        </div>
     );
 };
 

@@ -4,7 +4,7 @@ import { DOMAIN } from '../../utils/url'
 // RTK query
 export const itemsApi = createApi({
     reducerPath: 'itemsApi',
-    baseQuery: fetchBaseQuery({baseUrl: DOMAIN}),
+    baseQuery: fetchBaseQuery({baseUrl: DOMAIN + 'api'}),
     endpoints: (builder) => ({
         getItems: builder.query({
             query: () => '/products',

@@ -47,52 +47,57 @@ const ItemPage = () => {
             {/* {isLoading ? <h1>Loading...</h1> : ''} */}
             {product &&
                 <article className = 'item-page'>
-                    <img className = 'item-page-preview' src = {`${DOMAIN}${product?.preview_image}`}/>
-                    <div className = 'item-page-info'>
-                        <div className = 'item-page-title-container'>
-                            <span className = 'item-page-brand'>SAMPLE-TEXT</span>
-                            <h1 className = 'item-page-title' title = 'Название продукта'>{product.title}</h1>
-                        </div>
-                        <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { product.price }/>
-                        <div className = 'item-page-shipment-container'>
-                            <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
-                            <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
-                        </div>
-                        <div className = 'item-page-counter-container'>
-                            <Counter
-                                value = {count}
-                                onIncrement = {onIncrement}
-                                onChangeInput = {updateCount}
-                                disableDecr = {isNoneSelected}
-                                className = 'i-p-counter '
-                                btnClassName = 'i-p-counter-button'
-                                btnDisabledClassName = 'i-p-counter-button-disabled'
-                            />
-                            {
-                                !isNoneSelected &&
-                                <Price
-                                    className = 'i-p-price-total'
-                                    title = 'Сумма'
-                                    price = { '= ' + String(count * product.price)}
+                    <div className = 'i-p-preview-container'> 
+                        <img className = 'i-p-preview' src = {`${DOMAIN}${product?.preview_image}`}/>
+                    </div>
+                
+                    <div className = 'i-p-info-container'>
+                        <div className = 'i-p-info'>
+                            <div className = 'item-page-title-container'>
+                                <span className = 'item-page-brand'>SAMPLE-TEXT</span>
+                                <h1 className = 'item-page-title' title = 'Название продукта'>{product.title}</h1>
+                            </div>
+                            <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { product.price }/>
+                            <div className = 'item-page-shipment-container'>
+                                <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
+                                <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
+                            </div>
+                            <div className = 'item-page-counter-container'>
+                                <Counter
+                                    value = {count}
+                                    onIncrement = {onIncrement}
+                                    onChangeInput = {updateCount}
+                                    disableDecr = {isNoneSelected}
+                                    className = 'i-p-counter '
+                                    btnClassName = 'i-p-counter-button'
+                                    btnDisabledClassName = 'i-p-counter-button-disabled'
                                 />
-                            }
+                                {
+                                    !isNoneSelected &&
+                                    <Price
+                                        className = 'i-p-price-total'
+                                        title = 'Сумма'
+                                        price = { '= ' + String(count * product.price)}
+                                    />
+                                }
+                            </div>
+                            <div className = 'item-page-action-buttons-container'>
+                                <Button
+                                
+                                    disabled = {isNoneSelected}
+                                    className = {isNoneSelected ? 'item-page-button-disabled' : 'item-page-button'}
+                                    title = {isNoneSelected ? 'Нечего добавить' : 'Добавить в корзину'}
+                                    text = 'В корзину'
+                                />
+                                <Button
+                                    disabled = {isNoneSelected}
+                                    className = {isNoneSelected ? 'item-page-button-disabled' : 'item-page-button'}
+                                    title = {isNoneSelected ? 'Нечего заказать' : 'Быстрый заказ'}
+                                    text = 'Заказать'
+                                />
+                            </div>
+                            <p className = 'item-page-description'>{product.description}</p>
                         </div>
-                        <div className = 'item-page-action-buttons-container'>
-                            <Button
-                            
-                                disabled = {isNoneSelected}
-                                className = {isNoneSelected ? 'item-page-button-disabled' : 'item-page-button'}
-                                title = {isNoneSelected ? 'Нечего добавить' : 'Добавить в корзину'}
-                                text = 'В корзину'
-                            />
-                            <Button
-                                disabled = {isNoneSelected}
-                                className = {isNoneSelected ? 'item-page-button-disabled' : 'item-page-button'}
-                                title = {isNoneSelected ? 'Нечего заказать' : 'Быстрый заказ'}
-                                text = 'Заказать'
-                            />
-                        </div>
-                        <p className = 'item-page-description'>{product.description}</p>
                     </div>
                 </article>
             // :

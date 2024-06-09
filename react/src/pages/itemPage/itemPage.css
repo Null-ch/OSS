@@ -42,16 +42,29 @@ html {
   gap: 16px;
   padding: 24px;
 }
-.item-page-preview {
-  border: 1px solid #333333;
+.i-p-preview-container {
+  max-width: 500px;
+  flex: 1;
+  border: 1px solid #c8c8c8;
 }
-.item-page-info {
+.i-p-preview {
+  box-sizing: border-box;
   width: 100%;
-  max-width: 400px;
+  padding: 24px;
+  max-width: 500px;
+}
+.i-p-info-container {
+  max-width: 500px;
+  flex: 1;
+}
+.i-p-info {
+  flex: 1;
+  box-sizing: border-box;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  border: 1px solid #333333;
+  border: 1px solid #c8c8c8;
   padding: 24px;
   background-color: #f7f7f7;
 }
@@ -61,11 +74,11 @@ html {
 }
 .item-page-brand {
   font-family: 'centro-sans-pro-thin', sans-serif;
-  font-size: 12px;
+  font-size: 1 6px;
 }
 .item-page-title {
   font-family: 'centro-sans-pro-light', sans-serif;
-  font-size: 32px;
+  font-size: 48px;
 }
 .i-p-price #price {
   font-family: 'centro-sans-pro-light', sans-serif;
@@ -149,7 +162,7 @@ html {
   text-align: left;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
-  font-size: 18px;
+  font-size: 24px;
 }
 .item-page-shipment-container {
   display: flex;
@@ -159,12 +172,14 @@ html {
 .item-page-shipment-link {
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
+  font-size: 18px;
   text-decoration-thickness: 1px;
 }
 .item-page-shipment-link:hover {
-  text-decoration: solid;
+  text-decoration: solid !important;
 }
 .item-page-shipment-info {
+  font-size: 18px;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
 }

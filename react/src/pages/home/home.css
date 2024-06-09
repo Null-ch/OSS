@@ -1,3 +1,16 @@
 .main-page {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.h-categories {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  width: 75%;
+}
+.h-categories > div:not(:first-child) {
+  border-top: 1px solid #c8c8c8;
 }
