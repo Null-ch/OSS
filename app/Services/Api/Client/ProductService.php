@@ -48,8 +48,11 @@ class ProductService
                 ->where('deleted_at', null)
                 ->get();
 
-            if ($products) {
-                $products->load('images');
+            $products->each(function ($product) {
+                $product->load('category');
+            });
+
+            if ($products->isNotEmpty()) {
                 $response = [
                     'result' => true,
                     'products' => $products,
@@ -85,6 +88,7 @@ class ProductService
                 ->findOrFail($id);
             if ($product) {
                 $product->images;
+                $product->load('category');
                 $response = [
                     'result' => true,
                     'product' => $product

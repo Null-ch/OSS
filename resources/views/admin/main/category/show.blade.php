@@ -34,12 +34,14 @@
                                         <tr>
                                             <th class="text-center">ID</th>
                                             <th class="text-center">Название</th>
+                                            <th class="text-center">Описание</th>
                                             <th class="text-center">Дата создания</th>
                                             <th class="text-center">Дата обновления</th>
                                         </tr>
                                         <tr>
                                             <td class="text-center">{{ $category->id }}</td>
                                             <td class="text-center">{{ $category->title }}</td>
+                                            <td class="text-center">{{ $category->description }}</td>
                                             <td class="text-center">{{ $category->created_at }}</td>
                                             <td class="text-center">{{ $category->updated_at }}</td>
                                         </tr>

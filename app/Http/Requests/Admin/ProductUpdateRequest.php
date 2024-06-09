@@ -29,7 +29,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'required|int',
             'quantity' => 'required|int',
             'hex_code' => 'required',
-            'category_id' => 'required|int',
+            'category_id' => '',
         ];
     }
 
@@ -46,13 +46,11 @@ class ProductUpdateRequest extends FormRequest
             'description.required' => 'Поле обязательно для заполнения',
             'price.required' => 'Поле обязательно для заполнения',
             'quantity.required' => 'Поле обязательно для заполнения',
-            'category_id.required' => 'Поле обязательно для заполнения',
             'hex_code.required' => 'Поле обязательно для заполнения',
             'title.string' => 'Содержимое должно быть текстом',
             'description.string' => 'Содержимое должно быть текстом',
             'price.int' => 'Содержиое должно быть числом',
             'quantity.int' => 'Содержиое должно быть числом',
-            'category_id.int' => 'Содержиое должно быть числом',
             'title.max' => 'Максимальная длина 255 знаков',
             'description.max' => 'Максимальная длина 655',
         ];

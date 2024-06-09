@@ -71,6 +71,7 @@
                                 <div class="form-group text-center p-1 col-md-6">
                                     <label>Категория</label>
                                     <select name="category_id" class="form-control text-center">
+                                        <option value="">Без категории</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}">
                                                 {{ $category->title }}</option>

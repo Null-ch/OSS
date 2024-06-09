@@ -26,6 +26,7 @@ class CategoryStoreRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'preview_image' => 'required|file|mimes:jpeg,png,jpg|max:16384',
+            'description' => 'nullable|string|max:2000',
         ];
     }
 
@@ -45,6 +46,8 @@ class CategoryStoreRequest extends FormRequest
             'preview_image.file' => 'Загружаемый объект должен быть файлом',
             'preview_image.mimes' => 'Доступные для загрузки расширения файлов: jpeg,png,jpg',
             'preview_image.max' => 'Максимальный размер изображение 16мб',
+            'description.string' => 'Содержимое должно быть текстом',
+            'description.max' => 'Максимальная длина 2000 знаков',
         ];
     }
 }

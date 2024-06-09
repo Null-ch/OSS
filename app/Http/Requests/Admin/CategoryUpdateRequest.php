@@ -26,6 +26,7 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'preview_image' => '',
+            'description' => 'nullable|string|max:2000',
         ];
     }
 
@@ -41,6 +42,8 @@ class CategoryUpdateRequest extends FormRequest
             'title.required' => 'Необходимо заполнить заголовок',
             'title.string' => 'Содержимое должно быть текстом',
             'title.max' => 'Максимальная длина 255 знаков',
+            'description.string' => 'Содержимое должно быть текстом',
+            'description.max' => 'Максимальная длина 2000 знаков',
         ];
     }
 }

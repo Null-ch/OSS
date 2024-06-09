@@ -36,6 +36,13 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Описание</label>
+                                <textarea rows="5" cols="30" class="form-control" name="description" placeholder="Описание категории..." value="{{old('description')}}"></textarea>
+                                @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <div class="text-center p-1 col-md-12">
                                 <div class="row justify-content-center">
                                     <div>

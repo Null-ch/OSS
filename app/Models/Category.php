@@ -18,6 +18,7 @@ class Category extends Model
     protected $fillable = [
         'title',
         'preview_image',
+        'description',
     ];
 
     protected $table = 'categories';
