@@ -46,6 +46,7 @@ export const fetchCategories = () => {
 
         try {
             const url = `${DOMAIN}api/categories`;
+            console.log(url);
             // console.log(url)
             const res = await fetch(url)
 
@@ -67,7 +68,9 @@ export const fetchProductsByCat = (catId, type) => {
         if (type === 'single') dispatch(setCatProductStatus(STATUS.LOADDING));
         
         try{
-            const res = await fetch(`${DOMAIN}api/categories/${catId}/products`);
+            const url = `${DOMAIN}api/categories/${catId}/products`;
+            console.log(url);
+            const res = await fetch(url);
             const data = await res.json();
             if (type === 'all'){
                 dispatch(setCatProducts(data.slice(0, 10)));
