@@ -58,5 +58,5 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('order')->group(function () {
-    Route::get('/add', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.cart.index');
+    Route::get('/add', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.add');
 });
