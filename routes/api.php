@@ -56,3 +56,7 @@ Route::prefix('categories')->group(function () {
     Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.categories.show');
     Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.category.product.show');
 });
+
+Route::prefix('order')->group(function () {
+    Route::get('/add', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.cart.index');
+});

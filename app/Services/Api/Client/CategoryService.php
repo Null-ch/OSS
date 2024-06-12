@@ -101,15 +101,15 @@ class CategoryService
     {
         try {
             $category = $this->getCategory($id);
-
+            $category->load('products');
+            $category->products->load('images');
             if ($category) {
                 $products = $category->products;
 
                 if ($products->isNotEmpty()) {
-                    $products->load('images');
                     $response = [
                         'result' => true,
-                        'products' => $products
+                        'category' => $category,
                     ];
                 } else {
                     $response = [
