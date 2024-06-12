@@ -24,7 +24,7 @@ const Home = () => {
             {/* <Categories/> */}
             <div className = 'h-categories'>
                 {
-                    categories.map((cat, i) => <Category index = {i} category = {cat}/>)
+                    categories.map((cat, i) => <Category key = {i} index = {i} category = {cat}/>)
                 }
             </div>
         </main>

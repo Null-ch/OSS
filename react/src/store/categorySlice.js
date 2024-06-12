@@ -46,7 +46,6 @@ export const fetchCategories = () => {
 
         try {
             const url = `${DOMAIN}api/categories`;
-            console.log(url);
             // console.log(url)
             const res = await fetch(url)
 
@@ -69,7 +68,6 @@ export const fetchProductsByCat = (catId, type) => {
         
         try{
             const url = `${DOMAIN}api/categories/${catId}/products`;
-            console.log(url);
             const res = await fetch(url);
             const data = await res.json();
             if (type === 'all'){

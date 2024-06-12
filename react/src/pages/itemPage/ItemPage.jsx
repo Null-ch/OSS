@@ -5,7 +5,7 @@ import {DOMAIN} from '../../utils/url'
 import Counter from '../../components/counter/Counter';
 import Button from '../../components/buttons/Button';
 // import NotFound from '../util/NotFound';
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import Price from '../../components/util/Price';
 import { BRAND } from '../../utils/constants';
 import { updateCartProducts } from '../../store/cartSlice';
@@ -42,6 +42,9 @@ const ItemPage = () => {
 
     const isNoneSelected = count < 1;
 
+    const category = product?.category;
+    const to = category && '/products/category/' + category.id;
+
     return (
         <div>
             {/* {isLoading ? <h1>Loading...</h1> : ''} */}
@@ -56,6 +59,10 @@ const ItemPage = () => {
                             <div className = 'item-page-title-container'>
                                 <span className = 'item-page-brand'>SAMPLE-TEXT</span>
                                 <h1 className = 'item-page-title' title = 'Название продукта'>{product.title}</h1>
+                                {
+                                    category &&
+                                    <Link to = {to} title = 'Категория продукта' className = 'i-p-category-link'>{category.title}</Link>
+                                }
                             </div>
                             <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { product.price }/>
                             <div className = 'item-page-shipment-container'>

@@ -68,13 +68,22 @@ html {
   padding: 24px;
   background-color: #f7f7f7;
 }
+.i-p-category-link {
+  font-family: 'centro-sans-pro-regular', sans-serif;
+  color: #333333;
+  text-decoration: underline;
+}
+.i-p-category-link:hover {
+  text-decoration: none;
+}
 .item-page-title-container {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 .item-page-brand {
   font-family: 'centro-sans-pro-thin', sans-serif;
-  font-size: 1 6px;
+  font-size: 16px;
 }
 .item-page-title {
   font-family: 'centro-sans-pro-light', sans-serif;
