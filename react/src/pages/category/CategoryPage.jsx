@@ -13,11 +13,18 @@ const CategoryPage = () => {
 
     // todo страница на случай если продуктов в категории нет
 
+    const product = products[1] || {};
+    const category = product.category;
+
     return (
         <div className = 'category-page'>
-            <div className = 'category-page-info'>
+            {
+                category &&
+                <div className = 'category-page-info'>
+                    <h1>{category.title}</h1>
+                </div>
+            }
 
-            </div>
             <ItemsList items = {products}/>
             <div className = 'category-page-products'>
 

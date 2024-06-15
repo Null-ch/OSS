@@ -57,6 +57,7 @@ html {
   flex: 1;
 }
 .c-title-container .c-title {
+  text-align: center;
   text-decoration: underline !important;
   text-decoration-thickness: 1px !important;
   color: #333333;

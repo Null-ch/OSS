@@ -82,22 +82,23 @@ html {
   border: 1px solid #333333;
 }
 .c-p #c-p-product-title {
-  font-family: 'centro-sans-pro-thin', sans-serif;
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #333333;
-  font-size: 16px;
+  font-size: 18px;
 }
 .c-p #c-p-product-price #price {
-  font-family: 'centro-sans-pro-light', sans-serif;
+  font-family: 'centro-sans-pro-regular', sans-serif;
   color: #333333;
-  font-size: 16px;
+  font-size: 18px;
 }
 .c-p #c-p-product-price #currency {
   align-self: flex-end;
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
-  font-size: 12px;
+  font-size: 14px;
 }
-.c-p #c-p-checkout {
+.c-p .c-p-checkout {
+  cursor: pointer;
   padding: 4px 24px;
   width: min-content;
   align-self: center;
@@ -108,10 +109,11 @@ html {
   font-family: 'centro-sans-pro-light', sans-serif;
   text-align: center;
   font-size: 18px;
+  border: none;
   outline: 1px solid #ccc;
   opacity: 75%;
 }
-.c-p #c-p-checkout:hover {
+.c-p .c-p-checkout:hover {
   text-decoration: none;
   opacity: 100%;
 }

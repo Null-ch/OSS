@@ -13,5 +13,6 @@ export const ABOUT = '/about'
 // export const ORDERS = '/account/orders'
 // export const SETTINGS = '/account/settings'
 export const CREATE_ORDER = '/order'
+export const CHECK = '/cart/check-availability'
 
 export const BRAND = 'SAMPLE NAME'

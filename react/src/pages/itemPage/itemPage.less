@@ -40,15 +40,23 @@
     background-color: @white;
 }
 
+.i-p-category-link {
+    font-family: @mainregular, @fontdefault;
+    color: @black;
+    text-decoration: underline;
+    &:hover {
+        text-decoration: none;
+    }
+}
 .item-page-title-container {
     display: flex;
     flex-direction: column;
-    // gap: 2px;
+    gap: 4px;
 }
 
 .item-page-brand {
     font-family: @mainthin, @fontdefault;
-    font-size: 1 6px;
+    font-size: 16px;
 }
 
 .item-page-title {
@@ -132,6 +140,19 @@
 }
 
 .item-page-shipment-info {
+    font-size: 18px;
+    font-family: @mainlight, @fontdefault;
+    color: @black;
+}
+
+.i-p-counter-data {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 4px;
+}
+
+.i-p-counter-info {
     font-size: 18px;
     font-family: @mainlight, @fontdefault;
     color: @black;

@@ -22,7 +22,7 @@ const OrderItems = ({items}) => {
         );
     }
 
-    console.log(rows);
+    // console.log(rows);
 
     return (
         <div className = 'order-items'>

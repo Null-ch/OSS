@@ -53,7 +53,7 @@ html {
 }
 .item:hover .i-info {
   border: 1px solid #333333;
-  border-bottom: none;
+  border-bottom: 1px solid #ffffff00;
 }
 .item:hover .i-controls {
   border-top: none;
@@ -61,14 +61,13 @@ html {
   gap: 8px;
 }
 .i-info {
-  cursor: pointer;
+  padding: 8px;
   z-index: 10;
   height: min-content;
   box-sizing: border-box;
   border: 1px solid #c8c8c8;
 }
 .i-controls {
-  border-top: 1px solid red;
   border: 1px solid #333333;
   box-sizing: border-box;
   padding: 8px;
@@ -80,8 +79,16 @@ html {
   gap: 8px;
   display: none;
 }
-.i-info {
-  padding: 8px;
+.i-c-category-link {
+  font-family: 'centro-sans-pro-regular', sans-serif;
+  color: #333333;
+  text-decoration: underline;
+}
+.i-c-category-link:hover {
+  text-decoration: none;
+}
+.i-c-info {
+  font-family: 'centro-sans-pro-light', sans-serif;
 }
 .item-image {
   width: 100%;
@@ -89,13 +96,10 @@ html {
 .i-i-container {
   width: 100%;
   display: flex;
-  text-align: center;
+  align-items: start;
   box-sizing: border-box;
   flex-direction: row;
   gap: 8px;
-}
-.i-c-info {
-  font-family: 'centro-sans-pro-light', sans-serif;
 }
 .i-c-button {
   cursor: pointer;

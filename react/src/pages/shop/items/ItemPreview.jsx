@@ -1,6 +1,5 @@
 import './items.css';
 import Heart from '../../../components/icons/HeartIcon';
-import Bag from '../../../components/icons/BagPlusIcon';
 import React from 'react';
 import Button from '../../../components/buttons/Button';
 import {Link} from 'react-router-dom';
@@ -8,7 +7,9 @@ import { PRODUCTS } from './../../../utils/constants';
 import { DOMAIN } from './../../../utils/url'
 
 const Item = ({item, onClick, onQuickBuyClick}) => {
-    console.log(item);
+    // console.log(item);
+    const category = item.category;
+    const to = category && '/products/category/' + category.id;
     return (
         <div className = 'item'>
             <div className = 'i-info' onClick = {onClick}>
@@ -42,6 +43,10 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
             </div>
 
             <div className = 'i-controls'>
+                {
+                    category &&
+                    <Link to = {to} title = 'Категория продукта' className = 'i-c-category-link'>{category.title}</Link>
+                }
                 <div className = 'i-c-info'>
                     <span>{`В наличии: ${item.quantity} шт.`}</span>
                 </div>

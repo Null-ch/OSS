@@ -2,7 +2,7 @@ import React from 'react';
 import './input.css';
 
 const Input = ({type, index, placeholder, inputList}) => {
-    console.log(inputList)
+    // console.log(inputList)
     return (
         <div>
             <input
