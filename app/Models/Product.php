@@ -33,12 +33,12 @@ class Product extends Model
     /***********************************
      * RELATIONS
      ***********************************/
-    
+
     public function images()
     {
-        return $this->hasMany(ProductImage::class,'product_id', 'id')->orderBy('sort_order');
+        return $this->hasMany(ProductImage::class, 'product_id', 'id')->orderBy('sort_order');
     }
-    
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');

@@ -27,5 +27,4 @@ class ProductImage extends Model
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/
-
 }

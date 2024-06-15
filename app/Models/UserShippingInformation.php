@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserAddres extends Model
+class UserShippingInformation extends Model
 {
     use HasFactory, SoftDeletes;
     /**
@@ -15,11 +15,12 @@ class UserAddres extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'addres',
+        'type',
         'user_id',
+        'value',
     ];
     
-    protected $table = 'user_addres';
+    protected $table = 'user_shipping_informations';
     protected $guarded = false;
     
     /***********************************
