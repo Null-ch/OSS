@@ -192,6 +192,17 @@ html {
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
 }
+.i-p-counter-data {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 4px;
+}
+.i-p-counter-info {
+  font-size: 18px;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  color: #333333;
+}
 .item-page-counter-container {
   display: flex;
   flex-direction: row;

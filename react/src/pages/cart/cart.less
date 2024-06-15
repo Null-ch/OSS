@@ -56,27 +56,28 @@
     }
 
     #c-p-product-title {
-        font-family: @mainthin, @fontdefault;
+        font-family: @mainregular, @fontdefault;
         color: @black;
-        font-size: 16px;
+        font-size: 18px;
     }
     
     #c-p-product-price {
         #price {
-            font-family: @mainlight, @fontdefault;
+            font-family: @mainregular, @fontdefault;
             color: @black;
-            font-size: 16px;
+            font-size: 18px;
         }
     
         #currency {
             align-self: flex-end;
             font-family: @mainlight, @fontdefault;
             color: @black;
-            font-size: 12px;
+            font-size: 14px;
         }
     }
 
-    #c-p-checkout {
+    .c-p-checkout {
+        cursor: pointer;
         padding: 4px 24px;
         width: min-content;
         align-self: center;
@@ -87,6 +88,7 @@
         font-family: @mainlight, @fontdefault;
         text-align: center;
         font-size: 18px;
+        border: none;
         outline: 1px solid #ccc;
         opacity: 75%;
 

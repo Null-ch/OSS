@@ -69,26 +69,29 @@ const ItemPage = () => {
                                 <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
                                 <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
                             </div>
-                            <div className = 'item-page-counter-container'>
-                                <Counter
-                                    value = {count}
-                                    onIncrement = {onIncrement}
-                                    onChangeInput = {updateCount}
-                                    disableDecr = {isNoneSelected}
-                                    className = 'i-p-counter '
-                                    btnClassName = 'i-p-counter-button'
-                                    btnDisabledClassName = 'i-p-counter-button-disabled'
-                                />
-                                {
-                                    !isNoneSelected &&
-                                    <Price
-                                        className = 'i-p-price-total'
-                                        title = 'Сумма'
-                                        price = { '= ' + String(count * product.price)}
+                            <div className = 'i-p-counter-data'>
+                                <span className = 'i-p-counter-info'>В корзине:</span>
+                                <div className = 'item-page-counter-container'>
+                                    <Counter
+                                        value = {count}
+                                        onIncrement = {onIncrement}
+                                        onChangeInput = {updateCount}
+                                        disableDecr = {isNoneSelected}
+                                        className = 'i-p-counter '
+                                        btnClassName = 'i-p-counter-button'
+                                        btnDisabledClassName = 'i-p-counter-button-disabled'
                                     />
-                                }
+                                    {
+                                        !isNoneSelected &&
+                                        <Price
+                                            className = 'i-p-price-total'
+                                            title = 'Сумма'
+                                            price = { '= ' + String(count * product.price)}
+                                        />
+                                    }
+                                </div>
                             </div>
-                            <div className = 'item-page-action-buttons-container'>
+                            {/* <div className = 'item-page-action-buttons-container'>
                                 <Button
                                 
                                     disabled = {isNoneSelected}
@@ -102,7 +105,7 @@ const ItemPage = () => {
                                     title = {isNoneSelected ? 'Нечего заказать' : 'Быстрый заказ'}
                                     text = 'Заказать'
                                 />
-                            </div>
+                            </div> */}
                             <p className = 'item-page-description'>{product.description}</p>
                         </div>
                     </div>

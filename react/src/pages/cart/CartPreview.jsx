@@ -6,6 +6,7 @@ import XIcon from '../../components/icons/XIcon';
 import { DOMAIN } from '../../utils/url';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateCartProducts } from '../../store/cartSlice';
+import Button from '../../components/buttons/Button';
 
 // превью корзины в правом верхнем углу
 // клик на корзину - появляется баббл с этой страницей
@@ -19,7 +20,7 @@ function onChangeCounter(e) {
 const CartPreview = ({onClose}) => {
     var totalPrice = 0;
 
-    const items = useSelector(state => state.cart.cart);
+    const items = useSelector(state => state.cart.cart); // dict
 
     const dispatch = useDispatch();
     const updateCart = (v) => dispatch(updateCartProducts(v));
@@ -75,6 +76,23 @@ const CartPreview = ({onClose}) => {
         itemsList.push(_product)
     }
 
+    async function onCreateOrder() {
+        console.log('onCreateOrder');
+        const data = [];
+        for (let item of Object.entries(items)) {
+            console.log(item);
+            data.push({ id: item[0], quantity: item[1].count });
+        }
+        let response = await fetch(DOMAIN + 'api/cart/check-availability', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(data)
+          });
+        console.log(response);
+    }
+
     return (
         <div className = 'c-p'>
             <XIcon id = 'c-p-close' onClick = {onClose} width = '16' height = '16' fillColor = '#333'/>
@@ -91,7 +109,14 @@ const CartPreview = ({onClose}) => {
                         <h1 id = 'c-p-total-title'>Сумма:</h1>
                         <Price id = 'c-p-total-price' price = {totalPrice} title = 'Всего'/>
                     </div>
-                    <a id = 'c-p-checkout' href = '#'>Заказать</a>
+                    <Button
+                        disabled = {false}
+                        className = 'c-p-checkout'
+                        title = 'Заказать'
+                        text = 'Заказать'
+                        onClick = {onCreateOrder}
+                    />
+                    {/* <a id = 'c-p-checkout' href = '/order'>Заказать</a> */}
                 </>
             }
         </div>
