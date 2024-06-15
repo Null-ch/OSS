@@ -318,16 +318,16 @@ class CartService
     public function checkAvailability(array $data)
     {
         try {
-            if (empty($data) || !isset($data['data'])) {
+            if (empty($data)) {
                 throw new \Exception('Invalid data provided.');
             }
 
             $output = [];
 
             if (isset($data)) {
-                foreach ($data['data'] as $item) {
-                    $product = $this->product->findOrFail($item['id']);
-                    if ($product->quantity < $item['quantity']) {
+                foreach ($data as $key => $value) {
+                    $product = $this->product->findOrFail($value['id']);
+                    if ($product->quantity < $value['quantity']) {
                         $availability = false;
                     } else {
                         $availability = true;

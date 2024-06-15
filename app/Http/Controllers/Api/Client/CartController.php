@@ -72,7 +72,7 @@ class CartController extends Controller
         $response = $this->cartService->deleteProduct($id);
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
-        
+
     /**
      * Method checkAvailability
      *
@@ -84,6 +84,6 @@ class CartController extends Controller
     {
         $data = $request->all();
         $response = $this->cartService->checkAvailability($data);
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE); 
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
