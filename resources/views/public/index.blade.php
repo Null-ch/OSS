@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="https://getdrawings.com/free-icon-bw/opera-browser-icon-6.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="sosi-hui-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Web site created using create-react-app"/>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />

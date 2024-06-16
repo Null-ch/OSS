@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/index', function () {
-    return view('public.index');
-});
-
 Route::middleware('auth')->group(function () {
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
