@@ -73,17 +73,4 @@ class CartController extends Controller
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
 
-    /**
-     * Method checkAvailability
-     *
-     * @param Request $request [explicite description]
-     *
-     * @return void
-     */
-    public function checkAvailability(Request $request)
-    {
-        $data = $request->all();
-        $response = $this->cartService->checkAvailability($data);
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
-    }
 }

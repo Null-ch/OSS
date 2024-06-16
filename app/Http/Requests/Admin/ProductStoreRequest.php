@@ -29,7 +29,7 @@ class ProductStoreRequest extends FormRequest
             'price' => 'required|int',
             'quantity' => 'required|int',
             'hex_code' => 'required',
-            'category_id' => '',
+            'category_id' => 'required',
         ];
     }
     
@@ -46,6 +46,7 @@ class ProductStoreRequest extends FormRequest
             'description.required' => 'Поле обязательно для заполнения',
             'price.required' => 'Поле обязательно для заполнения',
             'quantity.required' => 'Поле обязательно для заполнения',
+            'category_id.required' => 'Поле обязательно для заполнения',
             'hex_code.required' => 'Поле обязательно для заполнения',
             'title.string' => 'Содержимое должно быть текстом',
             'description.string' => 'Содержимое должно быть текстом',

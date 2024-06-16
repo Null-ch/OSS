@@ -315,35 +315,4 @@ class CartService
 
         return $response;
     }
-    public function checkAvailability(array $data)
-    {
-        try {
-            if (empty($data)) {
-                throw new \Exception('Invalid data provided.');
-            }
-
-            $output = [];
-
-            if (isset($data)) {
-                foreach ($data as $key => $value) {
-                    $product = $this->product->findOrFail($value['id']);
-                    if ($product->quantity < $value['quantity']) {
-                        $availability = false;
-                    } else {
-                        $availability = true;
-                    }
-
-                    $output[] = [
-                        'id' => $product->id,
-                        'availability' => $availability,
-                        'quantity' => $product->quantity
-                    ];
-                }
-                return $output;
-            }
-        } catch (\Exception $e) {
-            $this->logger->error('' . $e->getMessage());
-            return false;
-        }
-    }
 }

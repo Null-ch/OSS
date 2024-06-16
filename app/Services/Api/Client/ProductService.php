@@ -109,4 +109,54 @@ class ProductService
 
         return $response;
     }
+
+    
+    /**
+     * Method checkAvailability
+     *
+     * @param \Illuminate\Http\Request $request [explicite description]
+     *
+     * @return array
+     */
+    public function checkAvailability(\Illuminate\Http\Request $request):?array
+    {
+        $data = $request->all();
+        try {
+            if (empty($data)) {
+                throw new \Exception('Invalid data provided.');
+            }
+
+            $output = [];
+
+            if (isset($data)) {
+                foreach ($data as $key => $value) {
+                    $product = $this->product->find($value['id']);
+                    if (!isset($product)) {
+                        $output[] = [
+                            'id' => $value['id'],
+                            'availability' => false,
+                            'quantity' => 0,
+                            'message' => 'Товара не существует',
+                        ];
+                    } else {
+                        if ($product->quantity < $value['quantity']) {
+                            $availability = false;
+                        } else {
+                            $availability = true;
+                        }
+
+                        $output[] = [
+                            'id' => $product->id,
+                            'availability' => $availability,
+                            'quantity' => $product->quantity
+                        ];
+                    }
+                }
+                return $output;
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('' . $e->getMessage());
+            return null;
+        }
+    }
 }

@@ -7,11 +7,11 @@ use App\Services\Api\Client\ProductService;
 
 class ProductController extends Controller
 {
-    protected $producrService;
+    protected $productService;
 
-    public function __construct(ProductService $producrService)
+    public function __construct(ProductService $productService)
     {
-        $this->producrService = $producrService;
+        $this->productService = $productService;
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        (object) $response = $this->producrService->getProducts();
+        (object) $response = $this->productService->getProducts();
 
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
@@ -35,8 +35,21 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        (object) $response = $this->producrService->getProduct($id);
+        (object) $response = $this->productService->getProduct($id);
 
+        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * Method checkAvailability
+     *
+     * @param \Illuminate\Http\Request $request [explicite description]
+     *
+     * @return void
+     */
+    public function checkAvailability(\Illuminate\Http\Request $request)
+    {
+        $response = $this->productService->checkAvailability($request);
         return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
     }
 }
