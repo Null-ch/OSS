@@ -80,13 +80,16 @@ const CartPreview = ({onClose}) => {
         console.log('onCreateOrder');
         const data = [];
         for (let item of Object.entries(items)) {
-            console.log(item);
+            // console.log(item);
             data.push({ id: item[0], quantity: item[1].count });
         }
+        console.log(data);
+        console.log(document.querySelector('meta[name="csrf-token"]').content)
         let response = await fetch(DOMAIN + 'api/cart/check-availability', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json;charset=utf-8'
+              'Content-Type': 'application/json;charset=utf-8',
+              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
             },
             body: JSON.stringify(data)
           });
