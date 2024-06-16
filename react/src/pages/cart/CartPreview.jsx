@@ -84,27 +84,29 @@ const CartPreview = ({onClose}) => {
             data.push({ id: item[0], quantity: item[1].count });
         }
         console.log(data);
-        let response = await fetch(DOMAIN + 'index');
+        // let response = await fetch(DOMAIN + 'index');
           // Получаем HTML-код страницы
-        const html = await response.text();
+        // const html = await response.text();
 
         // Создаем экземпляр DOMParser
-        const parser = new DOMParser();
+        // const parser = new DOMParser();
 
         // Преобразуем строку HTML в объект Document
-        const doc = parser.parseFromString(html, "text/html");
-        const metaTag = doc.querySelector('meta[name="sosi-hui-token"]');
-        console.log(metaTag.content)
+        // const doc = parser.parseFromString(html, "text/html");
+        // const metaTag = doc.querySelector('meta[name="sosi-hui-token"]');
+        // console.log(metaTag.content)
 
-        let res = await fetch(DOMAIN + 'api/cart/check-availability', {
+        let res = await fetch(DOMAIN + 'api/public/cart/check-availability', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              'X-CSRF-TOKEN': metaTag.content,
+            //   'X-CSRF-TOKEN': metaTag.content,
             },
             body: JSON.stringify(data)
           });
-        console.log(res);
+        // console.log(res);
+        const check = await res.json();
+        console.log(check);
     }
 
     return (

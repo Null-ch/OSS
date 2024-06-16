@@ -18,7 +18,7 @@ const ItemPage = () => {
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const {data = [], isLoading} = useGetItemQuery(id);
-
+    console.log(data);
     const product = data.product;
     document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 

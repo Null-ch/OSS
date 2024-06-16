@@ -8,13 +8,14 @@ const CategoryPage = () => {
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const {data = [], isLoading} = useGetCategoryProductsQuery(id);
-    // console.log(data);
-    const products = data.products || []
+    console.log(data);
+    const category = data.category;
+    const products = category?.products || []
 
     // todo страница на случай если продуктов в категории нет
 
-    const product = products[1] || {};
-    const category = product.category;
+    const product = products[0] || {};
+    // const category = product.category;
 
     return (
         <div className = 'category-page'>
