@@ -84,16 +84,27 @@ const CartPreview = ({onClose}) => {
             data.push({ id: item[0], quantity: item[1].count });
         }
         console.log(data);
-        console.log(document.querySelector('meta[name="csrf-token"]').content)
-        let response = await fetch(DOMAIN + 'api/cart/check-availability', {
+        let response = await fetch(DOMAIN + 'index');
+          // Получаем HTML-код страницы
+        const html = await response.text();
+
+        // Создаем экземпляр DOMParser
+        const parser = new DOMParser();
+
+        // Преобразуем строку HTML в объект Document
+        const doc = parser.parseFromString(html, "text/html");
+        const metaTag = doc.querySelector('meta[name="sosi-hui-token"]');
+        console.log(metaTag.content)
+
+        let res = await fetch(DOMAIN + 'api/cart/check-availability', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
-              'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+              'X-CSRF-TOKEN': metaTag.content,
             },
             body: JSON.stringify(data)
           });
-        console.log(response);
+        console.log(res);
     }
 
     return (
