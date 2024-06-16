@@ -13,13 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/index', function () {
+    return view('public.index'); // Возвращает содержимое Blade шаблона
+});
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [App\Http\Controllers\ReactController::class, 'index'])->name('home');
-    Route::get('/products', [App\Http\Controllers\ReactController::class, 'index']);
-    Route::get('/products/{id}', [App\Http\Controllers\ReactController::class, 'index']);
-    Route::get('/products/category/{id}', [App\Http\Controllers\ReactController::class, 'index']);
-
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 
