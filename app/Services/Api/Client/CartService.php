@@ -66,12 +66,7 @@ class CartService
     public function getCartProducts(): array
     {
         try {
-            $cart = $this->cart::where('order_id', null)
-                ->where(function ($query) {
-                    $query->where('user_id', auth()->user()->id)
-                        ->orWhere('session', session()->getId());
-                })
-                ->first();
+            $cart = $this->getCart();
 
             if ($cart) {
                 $products = $cart->products;
