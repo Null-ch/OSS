@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\SpecialOffer;
 
 class IndexController extends Controller
 {
@@ -18,6 +19,7 @@ class IndexController extends Controller
         $categoriesCount = Category::count();
         $ordersCount = Order::count();
         $reviewsCount = Review::count();
-        return view('admin.main.index', compact('usersCount', 'productsCount', 'categoriesCount', 'ordersCount', 'reviewsCount'));
+        $specialOffersCount = SpecialOffer::count();
+        return view('admin.main.index', compact('usersCount', 'productsCount', 'categoriesCount', 'ordersCount', 'reviewsCount', 'specialOffersCount'));
     }
 }

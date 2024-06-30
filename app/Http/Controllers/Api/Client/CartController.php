@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api\Client;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Services\Api\Client\CartService;
+use App\Services\Api\Client\ClientCartService;
 use App\Http\Requests\Client\Cart\AddCartProductRequest;
 use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
 
@@ -12,7 +11,7 @@ class CartController extends Controller
 {
     protected $cartService;
 
-    public function __construct(CartService $cartService)
+    public function __construct(ClientCartService $cartService)
     {
         $this->cartService = $cartService;
     }

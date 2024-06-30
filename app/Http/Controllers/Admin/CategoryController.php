@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\CategoryService;
+use App\Services\Admin\AdminCategoryService;
 use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Http\Requests\Admin\CategoryUpdateRequest;
 
@@ -11,7 +11,7 @@ class CategoryController extends Controller
 {
     protected $categoryService;
 
-    public function __construct(CategoryService $categoryService)
+    public function __construct(AdminCategoryService $categoryService)
     {
         $this->categoryService = $categoryService;
     }
@@ -23,7 +23,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        (object) $categories = $this->categoryService->getAllCategories(10);
+        (object) $categories = $this->categoryService->getCategories(10);
         return view('admin.main.category.index', compact('categories'));
     }
 

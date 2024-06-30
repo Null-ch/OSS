@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Services\Admin\UserService;
 use App\Http\Controllers\Controller;
+use App\Services\Admin\AdminUserService;
 use App\Http\Requests\Admin\CreateUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
 
@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     protected $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(AdminUserService $userService)
     {
         $this->userService = $userService;
     }
@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        (object) $user =  $this->userService->getUser($id);
+        (object) $user =  $this->userService->getUserById($id);
         return view('admin.main.user.show', compact('user'));
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        (object) $user = $this->userService->getUser($id);
+        (object) $user = $this->userService->getUserById($id);
         (array) $roles = $this->userService->getRoles();
         return view('admin.main.user.edit', compact('user', 'roles'));
     }
@@ -101,7 +101,7 @@ class UserController extends Controller
             'message' => "Пользователь успешно удален",
         ]);
     }
-    
+
     /**
      * Func for chenge activity of user
      *

@@ -5,49 +5,43 @@ namespace App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Controller;
 use App\Infrastructure\Services\ResponseService;
 use App\Services\Api\Client\ClientCategoryService;
+use App\Services\Api\Client\ClientSpecialOfferService;
 
 class CategoryController extends Controller
 {
-    protected $categoryService;
+    protected $specialOffer;
     protected $responseService;
 
 
-    public function __construct(ClientCategoryService $categoryService, ResponseService $responseService)
+    public function __construct(ClientSpecialOfferService $specialOffer, ResponseService $responseService)
     {
-        $this->categoryService = $categoryService;
+        $this->specialOffer = $specialOffer;
         $this->responseService = $responseService;
     }
 
     /**
-     * Getting a list of products in the shopping cart
+     * Getting a list of special offers
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        (object) $data = $this->categoryService->getCategories(10);
+        (object) $data = $this->specialOffer->getSpecialOffers(3);
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
     /**
-     * Getting products by category id
+     * Getting special offer by id
      *
      * @param mixed $id
      * 
      * @return \Illuminate\Http\Response
      * 
      */
-    public function getProducts($id)
-    {
-        (object) $data = $this->categoryService->getProducts($id);
-        $response = $this->responseService->getResponse($data);
-        return response()->json($response, JSON_UNESCAPED_UNICODE);
-    }
-
     public function show($id)
     {
-        (object) $data = $this->categoryService->getCategory($id);
+        (object) $data = $this->specialOffer->getSpecialOfferById($id);
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }

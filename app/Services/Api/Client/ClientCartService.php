@@ -5,9 +5,9 @@ namespace App\Services\Api\Client;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
-use App\Services\LogInterface;
+use App\Infrastructure\Interfaces\LogInterface;
 
-class CartService
+class ClientCartService
 {
     /**
      * Model: Cart

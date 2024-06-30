@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SpecialOfferRequest;
-use App\Services\Admin\SpecialOfferService;
+use App\Services\Admin\AdminSpecialOfferService;
 use App\Http\Requests\Admin\SpecialOfferUpdateRequest;
 
 class SpecialOfferController extends Controller
 {
     protected $specialOfferService;
 
-    public function __construct(SpecialOfferService $specialOfferService)
+    public function __construct(AdminSpecialOfferService $specialOfferService)
     {
         $this->specialOfferService = $specialOfferService;
     }
@@ -23,7 +23,7 @@ class SpecialOfferController extends Controller
      */
     public function index()
     {
-        (object) $specialOffers = $this->specialOfferService->getAllSpecialOffers(10);
+        (object) $specialOffers = $this->specialOfferService->getSpecialOffers(10);
         return view('admin.main.special_offer.index', compact('specialOffers'));
     }
 
@@ -58,7 +58,7 @@ class SpecialOfferController extends Controller
      */
     public function show($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        (object) $specialOffer = $this->specialOfferService->getSpecialOfferById($id);
         return view('admin.main.special_offer.show', compact('specialOffer'));
     }
 
@@ -70,7 +70,7 @@ class SpecialOfferController extends Controller
      */
     public function edit($id)
     {
-        (object) $specialOffer = $this->specialOfferService->getSpecialOffer($id);
+        (object) $specialOffer = $this->specialOfferService->getSpecialOfferById($id);
         return view('admin.main.special_offer.edit', compact('specialOffer'));
     }
 
