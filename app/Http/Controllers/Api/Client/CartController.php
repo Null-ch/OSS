@@ -77,5 +77,4 @@ class CartController extends Controller
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
-
 }
