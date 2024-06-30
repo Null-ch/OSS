@@ -9,5 +9,4 @@ interface UserInterface
     public function getGenders(): ?array;
     public function getGender(): ?string;
     public function getUser(int $id): ?object;
-
 }

@@ -60,10 +60,10 @@ class ClientCartService
      * Get cart products
      *
      * 
-     * @return array
+     * @return object
      * 
      */
-    public function getCartProducts(): array
+    public function getCartProducts(): ?object
     {
         try {
             $cart = $this->getCart();
@@ -76,25 +76,15 @@ class ClientCartService
                 foreach ($products as $product) {
                     $product->images;
                 }
-                $response = [
-                    'result' => true,
-                    'cart' => $products,
-                ];
             } else {
-                $response = [
-                    'result' => false,
-                    'message' => 'Корзина пуста'
-                ];
+                return null;
             }
         } catch (\Exception $e) {
             $this->logger->error('Error when getting cart products: ' . $e->getMessage());
-            $response = [
-                'result' => false,
-                'message' => 'Корзина пуста'
-            ];
+            return null;
         }
 
-        return $response;
+        return $products;
     }
 
     /**
@@ -112,11 +102,12 @@ class ClientCartService
                         ->orWhere('session', session()->getId());
                 })
                 ->first();
-            return $cart;
         } catch (\Exception $e) {
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;
         }
+
+        return $cart;
     }
 
     /**
@@ -135,21 +126,16 @@ class ClientCartService
      *
      * @param array $data Accepts the product id as input
      * 
-     * @return bool
+     * @return string|null
      * 
      */
-    public function addProduct(array $data): array
+    public function addProduct(array $data): ?string
     {
         $product = $this->product->find($data['id']);
         if ($product) {
             $cart = $this->getCart();
         } else {
-            $resonse = [
-                'result' => false,
-                'message' => 'Попытка добавления несуществующего товара!',
-            ];
-
-            return $resonse;
+            return null;
         }
 
         if ($cart) {
@@ -159,16 +145,9 @@ class ClientCartService
                     'product_id' => $data['id'],
                     'quantity' => $data['quantity'],
                 ]);
-                $resonse = [
-                    'result' => true,
-                    'message' => 'Товар успешно добавлен!',
-                ];
             } catch (\Exception $e) {
                 $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
-                $resonse = [
-                    'result' => false,
-                    'message' => 'Ошибка при добавлении товара!',
-                ];
+                return null;
             }
         } else {
             $cart = $this->createCart();
@@ -179,27 +158,17 @@ class ClientCartService
                         'product_id' => $data['id'],
                         'quantity' => $data['quantity'],
                     ]);
-                    $resonse = [
-                        'result' => true,
-                        'message' => 'Товар успешно добавлен!',
-                    ];
                 } catch (\Exception $e) {
                     $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
-                    $resonse = [
-                        'result' => false,
-                        'message' => 'Ошибка при добавлении товара!',
-                    ];
+                    return null;
                 }
             } else {
                 $this->logger->error('Error when  creating a shopping cart');
-                $resonse = [
-                    'result' => false,
-                    'message' => 'Ошибка при добавлении товара!',
-                ];
+                return null;
             }
         }
 
-        return $resonse;
+        return 'Товар успешно добавлен!';
     }
 
     /**
@@ -207,32 +176,22 @@ class ClientCartService
      *
      * @param array $data Accepts the product ID and quantity as input
      * 
-     * @return array
+     * @return string|null
      * 
      */
-    public function updateProduct(array $data): array
+    public function updateProduct(array $data): ?string
     {
         $product = $this->product->find($data['id']);
 
         if (!$product) {
-            $response = [
-                'result' => false,
-                'message' => 'Товар не найден!',
-            ];
-
-            return $response;
+            return null;
         }
 
         $cart = $this->getCart();
 
         if (!$cart) {
             $this->logger->error('Ошибка при создании корзины');
-            $response = [
-                'result' => false,
-                'message' => 'Ошибка при обновлении товара!',
-            ];
-
-            return $response;
+            return null;
         }
 
         try {
@@ -243,24 +202,13 @@ class ClientCartService
             if ($cartProduct) {
                 $cartProduct->quantity = $data['quantity'];
                 $cartProduct->save();
-
-                $response = [
-                    'result' => true,
-                    'message' => 'Товар успешно обновлен!',
-                ];
-
-                return $response;
             }
         } catch (\Exception $e) {
             $this->logger->error('Ошибка при создании записи в таблице cart_products: ' . $e->getMessage());
+            return null;
         }
 
-        $response = [
-            'result' => false,
-            'message' => 'Ошибка при обновлении товара!',
-        ];
-
-        return $response;
+        return 'Товар успешно обновлен!';
     }
 
     /**
@@ -268,10 +216,10 @@ class ClientCartService
      *
      * @param int $id
      * 
-     * @return array
+     * @return string|null
      * 
      */
-    public function deleteProduct(int $id): array
+    public function deleteProduct(int $id): ?string
     {
         try {
             $product = $this->product->findOrFail($id);
@@ -284,30 +232,17 @@ class ClientCartService
 
                 if ($cartProduct) {
                     $cartProduct->delete();
-                    $response = [
-                        'result' => true,
-                        'message' => 'Товар удален из корзины!',
-                    ];
                 } else {
-                    $response = [
-                        'result' => false,
-                        'message' => 'Товар не найден в корзине!',
-                    ];
+                    return null;
                 }
             } else {
-                $response = [
-                    'result' => false,
-                    'message' => 'Корзина не найдена!',
-                ];
+                return null;
             }
         } catch (\Exception $e) {
             $this->logger->error('Ошибка при удалении товара из корзины: ' . $e->getMessage());
-            $response = [
-                'result' => false,
-                'message' => 'Ошибка при удалении товара из корзины!',
-            ];
+            return null;
         }
 
-        return $response;
+        return 'Товар удален!';
     }
 }

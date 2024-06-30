@@ -60,7 +60,7 @@ class AdminSpecialOfferService extends SpecialOfferService
 
         if ($data['is_active'] == 'on') {
             $data['is_active'] = 1;
-        } elseif ($data['is_active'] == 'off') {
+        } else {
             $data['is_active'] = 0;
         }
 

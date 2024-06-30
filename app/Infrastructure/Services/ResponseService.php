@@ -14,7 +14,7 @@ class ResponseService
         } else {
             return [
                 'result' => false,
-                'message' => 'Данные не найдены',
+                'message' => 'Операция завершена с ошибкой!',
             ];
         }
     }

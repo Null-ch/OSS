@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
 use App\Services\Api\Client\ClientCartService;
+use App\Infrastructure\Services\ResponseService;
 use App\Http\Requests\Client\Cart\AddCartProductRequest;
 use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
 
 class CartController extends Controller
 {
     protected $cartService;
+    protected $responseService;
 
-    public function __construct(ClientCartService $cartService)
+    public function __construct(ClientCartService $cartService, ResponseService $responseService)
     {
         $this->cartService = $cartService;
+        $this->responseService = $responseService;
     }
 
     /**
@@ -23,9 +26,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        (object) $response = $this->cartService->getCartProducts();
-
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        (object) $cartData = $this->cartService->getCartProducts();
+        $responseData = $this->responseService->getResponse($cartData);
+        return response()->json($responseData, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -39,9 +42,10 @@ class CartController extends Controller
      */
     public function addProduct(AddCartProductRequest $request)
     {
-        $data = $request->validated();
-        $response = $this->cartService->addProduct($data);
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        $productData = $request->validated();
+        $responseData = $this->cartService->addProduct($productData);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -54,9 +58,10 @@ class CartController extends Controller
      */
     public function updateProduct(UpdateCartProductRequest $request)
     {
-        $data = $request->validated();
-        $response = $this->cartService->updateProduct($data);
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        $productData = $request->validated();
+        $responseData = $this->cartService->updateProduct($productData);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
     /**
      * Removing a product from the shopping cart
@@ -68,8 +73,9 @@ class CartController extends Controller
      */
     public function deleteProduct($id)
     {
-        $response = $this->cartService->deleteProduct($id);
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        $responseData = $this->cartService->deleteProduct($id);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
 }
