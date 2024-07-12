@@ -29,10 +29,11 @@ class OrderController extends Controller
         $this->responseService = $responseService;
     }
 
-    public function store(StoreOrderRequest $request)
+    public function createOrder(StoreOrderRequest $request)
     {
         $data = $request->validated();
-        $responseData = $this->orderService->createOrder($data);
+        // $responseData = $this->orderService->createOrder($data);
+        $responseData = 'sps';
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
