@@ -2,12 +2,13 @@
 
 namespace App\Infrastructure\Services;
 
+use App\Infrastructure\Interfaces\CartInterface;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
 use App\Infrastructure\Interfaces\LogInterface;
 
-class CartService
+class CartService implements CartInterface
 {
     /**
      * Model: Cart
@@ -25,35 +26,34 @@ class CartService
     protected $logger;
 
     /**
-     * Model: CartProduct
-     *
-     * @var object
-     */
-    protected $cartProduct;
-
-
-    /**
      * Model: Product
      *
      * @var object
      */
-    protected $product;
+    protected $product; 
 
     /**
-     * Construct cart service
+     * cartProductService
      *
-     * @param Cart $cart
-     * @param LogInterface $logger
-     * @param CartProduct $cartProduct
-     * @param Product $product
-     * 
+     * @var object
      */
-    protected function __construct(Cart $cart, LogInterface $logger, CartProduct $cartProduct, Product $product)
+    protected $cartProductService;
+    
+    /**
+     * __construct
+     *
+     * @param  mixed $cart
+     * @param  mixed $logger
+     * @param  mixed $cartProduct
+     * @param  mixed $product
+     * @param  mixed $cartProductService
+     */
+    protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService)
     {
         (object) $this->cart = $cart;
         (object) $this->logger = $logger;
-        (object) $this->cartProduct = $cartProduct;
         (object) $this->product = $product;
+        (object) $this->cartProductService = $cartProductService;
     }
 
     /**
@@ -138,7 +138,7 @@ class CartService
 
         if ($cart) {
             try {
-                $this->cartProduct->create([
+                $this->cartProductService->createCartProduct([
                     'cart_id' => $cart->id,
                     'product_id' => $data['id'],
                     'quantity' => $data['quantity'],
@@ -151,7 +151,7 @@ class CartService
             $cart = $this->createCart();
             if ($cart) {
                 try {
-                    $this->cartProduct->create([
+                    $this->cartProductService->createCartProduct([
                         'cart_id' => $cart->id,
                         'product_id' => $data['id'],
                         'quantity' => $data['quantity'],
@@ -165,8 +165,6 @@ class CartService
                 return null;
             }
         }
-
-        return 'Товар успешно добавлен';
     }
 
     /**
@@ -193,20 +191,11 @@ class CartService
         }
 
         try {
-            $cartProduct = $this->cartProduct::where('cart_id', $cart->id)
-                ->where('product_id', $product->id)
-                ->first();
-
-            if ($cartProduct) {
-                $cartProduct->quantity = $data['quantity'];
-                $cartProduct->save();
-            }
+            $this->cartProductService->updateCartProduct($cart, $product, $data);
         } catch (\Exception $e) {
             $this->logger->error('Ошибка при создании записи в таблице cart_products: ' . $e->getMessage());
             return null;
         }
-
-        return 'Корзина обновлена';
     }
 
     /**
@@ -224,15 +213,7 @@ class CartService
             $cart = $this->getCart();
 
             if ($cart && $product) {
-                $cartProduct = $this->cartProduct::where('cart_id', $cart->id)
-                    ->where('product_id', $product->id)
-                    ->first();
-
-                if ($cartProduct) {
-                    $cartProduct->delete();
-                } else {
-                    return null;
-                }
+                $this->cartProductService->deleteCartProduct($cart, $product);
             } else {
                 return null;
             }
@@ -240,7 +221,5 @@ class CartService
             $this->logger->error('Ошибка при удалении товара из корзины: ' . $e->getMessage());
             return null;
         }
-
-        return 'Товар удален из корзины!';
     }
 }

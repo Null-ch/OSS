@@ -3,7 +3,19 @@
 namespace App\Infrastructure\Interfaces;
 
 interface SpecialOfferInterface
-{
-    public function getSpecialOfferById(int $id): ?object;
+{    
+    /**
+     * getSpecialOfferById
+     *
+     * @param  int $id
+     * @return object
+     */
+    public function getSpecialOfferById(int $id): ?object;    
+    /**
+     * getSpecialOffers
+     *
+     * @param  int $count
+     * @return object
+     */
     public function getSpecialOffers(int $count): ?object;
 }
