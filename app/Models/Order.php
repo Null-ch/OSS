@@ -26,6 +26,21 @@ class Order extends Model
     protected $guarded = false;
 
     /***********************************
+     * ORDER STATUSES
+     ***********************************/
+    private $statuses = [
+        'new' => 'Новый',
+        'pending_payment' => 'Ожидает оплаты',
+        'paid' => 'Оплачен',
+        'cancelled' => 'Отменен',
+    ];
+
+    public static function getStatuses()
+    {
+        return self::$statuses;
+    }
+
+    /***********************************
      * RELATIONS
      ***********************************/
 
@@ -33,7 +48,11 @@ class Order extends Model
     {
         return $this->belongsTo(UserShippingInformation::class, 'user_shipping_information_id');
     }
-    
+    public function cart()
+    {
+        return $this->hasOne(Cart::class, 'order_id');
+    }
+
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/

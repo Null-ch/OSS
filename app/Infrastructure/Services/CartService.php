@@ -30,7 +30,7 @@ class CartService implements CartInterface
      *
      * @var object
      */
-    protected $product; 
+    protected $product;
 
     /**
      * cartProductService
@@ -38,7 +38,7 @@ class CartService implements CartInterface
      * @var object
      */
     protected $cartProductService;
-    
+
     /**
      * __construct
      *
@@ -54,6 +54,39 @@ class CartService implements CartInterface
         (object) $this->logger = $logger;
         (object) $this->product = $product;
         (object) $this->cartProductService = $cartProductService;
+    }
+
+    /**
+     * Get cart
+     *
+     * @return object
+     * 
+     */
+    public function getCart(): ?object
+    {
+        try {
+            $cart = $this->cart::where(function ($query) {
+                $query->whereNotNull('order_id')
+                    ->whereHas('order', function ($query) {
+                        $query->whereNotIn('status', ['paid', 'cancelled']);
+                    })
+                    ->orWhere('order_id', null);
+            })
+                ->where(function ($query) {
+                    $query->where('user_id', auth()->user()->id)
+                        ->orWhere('session', session()->getId());
+                })
+                ->first();
+
+            if (!$cart) {
+                $cart = $this->createCart();
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting cart: ' . $e->getMessage());
+            return null;
+        }
+
+        return $cart;
     }
 
     /**
@@ -88,29 +121,6 @@ class CartService implements CartInterface
     }
 
     /**
-     * Get cart
-     *
-     * @return object
-     * 
-     */
-    public function getCart(): ?object
-    {
-        try {
-            $cart = $this->cart::where('order_id', null)
-                ->where(function ($query) {
-                    $query->where('user_id', auth()->user()->id)
-                        ->orWhere('session', session()->getId());
-                })
-                ->first();
-        } catch (\Exception $e) {
-            $this->logger->error('Error when getting cart: ' . $e->getMessage());
-            return null;
-        }
-
-        return $cart;
-    }
-
-    /**
      * Create new cart
      *
      * @return object
@@ -132,38 +142,25 @@ class CartService implements CartInterface
     public function addProduct(array $data): ?string
     {
         $product = $this->product->find($data['id']);
-        if ($product) {
-            $cart = $this->getCart();
+        if (!$product) {
+            return null;
         }
 
-        if ($cart) {
-            try {
-                $this->cartProductService->createCartProduct([
-                    'cart_id' => $cart->id,
-                    'product_id' => $data['id'],
-                    'quantity' => $data['quantity'],
-                ]);
-            } catch (\Exception $e) {
-                $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
-                return null;
-            }
-        } else {
-            $cart = $this->createCart();
-            if ($cart) {
-                try {
-                    $this->cartProductService->createCartProduct([
-                        'cart_id' => $cart->id,
-                        'product_id' => $data['id'],
-                        'quantity' => $data['quantity'],
-                    ]);
-                } catch (\Exception $e) {
-                    $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
-                    return null;
-                }
-            } else {
-                $this->logger->error('Error when  creating a shopping cart');
-                return null;
-            }
+        $cart = $this->getCart();
+        if (!$cart) {
+            $this->logger->error('Error when getting a shopping cart');
+            return null;
+        }
+
+        try {
+            $this->cartProductService->createCartProduct([
+                'cart_id' => $cart->id,
+                'product_id' => $data['id'],
+                'quantity' => $data['quantity'],
+            ]);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when creating an entry in the cart_products table: ' . $e->getMessage());
+            return null;
         }
     }
 
@@ -186,7 +183,7 @@ class CartService implements CartInterface
         $cart = $this->getCart();
 
         if (!$cart) {
-            $this->logger->error('Ошибка при создании корзины');
+            $this->logger->error('Error when getting a shopping cart');
             return null;
         }
 

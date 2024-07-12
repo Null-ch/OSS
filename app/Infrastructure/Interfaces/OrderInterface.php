@@ -7,13 +7,19 @@ interface OrderInterface
     /**
      * getOrder
      *
-     * @return void
+     * @return object|null
      */
-    public function getOrder();    
+    public function getOrder(int $id): ?object;
     /**
      * createOrder
      *
-     * @return void
+     * @return string|null
      */
-    public function createOrder();
+    public function createOrder(array $data): ?string;
+    /**
+     * deleteOrder
+     *
+     * @return string|null
+     */
+    public function deleteOrder(int $id): ?string;
 }

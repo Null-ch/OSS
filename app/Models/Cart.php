@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +33,10 @@ class Cart extends Model
     public function products()
     {
         return $this->hasManyThrough(Product::class, CartProduct::class, 'cart_id', 'id', 'id', 'product_id');
+    }
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
     }
     /***********************************
      * MODEL HELPERS FUNCTIONS
