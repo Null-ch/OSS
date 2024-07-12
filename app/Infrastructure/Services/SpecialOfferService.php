@@ -22,7 +22,7 @@ class SpecialOfferService implements SpecialOfferInterface
      * @var object
      */
 
-     protected $logger;
+    protected $logger;
 
     /**
      * Construct specialOffer service
@@ -31,10 +31,12 @@ class SpecialOfferService implements SpecialOfferInterface
      * @param LogInterface $logger
      * 
      */
-    public function __construct(SpecialOffer $specialOffer, LogInterface $logger)
-    {
-        (object) $this->specialOffer = $specialOffer;
-        (object) $this->logger = $logger;
+    public function __construct(
+        SpecialOffer $specialOffer,
+        LogInterface $logger
+    ) {
+        $this->specialOffer = $specialOffer;
+        $this->logger = $logger;
     }
 
     /**

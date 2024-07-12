@@ -47,7 +47,7 @@ class CartProductService
     protected $messageService;
 
 
-    
+
     /**
      * __construct
      *
@@ -56,12 +56,16 @@ class CartProductService
      * @param  mixed $product
      * @param  mixed $messageService
      */
-    protected function __construct(CartProduct $cartProduct, LogInterface $logger, Product $product, MessageService $messageService)
-    {
-        (object) $this->cartProduct = $cartProduct;
-        (object) $this->logger = $logger;
-        (object) $this->product = $product;
-        (object) $this->messageService = $messageService;
+    protected function __construct(
+        CartProduct $cartProduct,
+        LogInterface $logger,
+        Product $product,
+        MessageService $messageService
+    ) {
+        $this->cartProduct = $cartProduct;
+        $this->logger = $logger;
+        $this->product = $product;
+        $this->messageService = $messageService;
     }
 
     /**

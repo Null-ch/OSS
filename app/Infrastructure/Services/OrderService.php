@@ -3,11 +3,15 @@
 namespace App\Services\Admin;
 
 use App\Models\Order;
+use App\Helpers\Helpers;
 use Illuminate\Support\Facades\DB;
+use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\OrderInterface;
-use App\Infrastructure\Services\UserService;
+use App\Infrastructure\Services\UserDetailsService;
+use App\Infrastructure\Services\OrderUserDetailsService;
+use App\Infrastructure\Services\UserShippingInformationService;
 
 class OrderService implements OrderInterface
 {
@@ -38,17 +42,61 @@ class OrderService implements OrderInterface
     protected $userService;
 
     /**
-     * Construct order service
+     * userShippingInformationService
      *
-     * @param Order $order
-     * 
+     * @var object
      */
-    public function __construct(Order $order, LogInterface $logger, MessageService $messageService, UserService $userService)
-    {
-        (object) $this->order = $order;
-        (object) $this->logger = $logger;
-        (object) $this->messageService = $messageService;
-        (object) $this->userService = $userService;
+    protected $userShippingInformationService;
+
+    /**
+     * userDetailsService
+     *
+     * @var mixed
+     */
+    protected $userDetailsService;    
+    /**
+     * orderUserDetailsService
+     *
+     * @var mixed
+     */
+    protected $orderUserDetailsService;
+    /**
+     * helpers
+     *
+     * @var mixed
+     */
+    protected $helpers;
+
+    /**
+     * __construct
+     *
+     * @param  mixed $order
+     * @param  mixed $logger
+     * @param  mixed $messageService
+     * @param  mixed $userService
+     * @param  mixed $userShippingInformationService
+     * @param  mixed $userDetailsService
+     * @param  mixed $orderUserDetailsService
+     * @param  mixed $helpers
+     */
+    public function __construct(
+        Order $order,
+        LogInterface $logger,
+        MessageService $messageService,
+        UserService $userService,
+        UserShippingInformationService $userShippingInformationService,
+        UserDetailsService $userDetailsService,
+        OrderUserDetailsService $orderUserDetailsService,
+        Helpers $helpers
+    ) {
+        $this->order = $order;
+        $this->logger = $logger;
+        $this->messageService = $messageService;
+        $this->userService = $userService;
+        $this->userShippingInformationService = $userShippingInformationService;
+        $this->userDetailsService = $userDetailsService;
+        $this->orderUserDetailsService = $orderUserDetailsService;
+        $this->helpers = $helpers;
     }
 
     /**
@@ -67,6 +115,15 @@ class OrderService implements OrderInterface
 
         return $order;
     }
+    protected function getUserId(array $userData): int
+    {
+        if (auth()->check()) {
+            return auth()->user()->id;
+        } else {
+            $user = $this->userService->createUser($userData);
+            return $user->id;
+        }
+    }
     /**
      * createOrder
      *
@@ -76,17 +133,12 @@ class OrderService implements OrderInterface
     {
         DB::beginTransaction();
         try {
-            if (auth()->check()) {
-                $userId = auth()->user()->id;
-                // $userShippingInformationId = $this->userShippingInformationService->createUser($data['user_shipping_information'], $userId);
-                // $userDetailsId = $this->userDetailsService->createUser($data['user_personal_data'], $userId);
-            } else {
-                $user = $this->userService->createUser($data['user_personal_data']);
-                // $userDetailsId = $this->userDetailsService->createUser($data['user_personal_data']);
-                // $userShippingInformationId = $this->userShippingInformationService->createUser($data['user_shipping_information']);
-            }
-            $order = $this->order->create($data);
-            // $this->orderUserDetailsService->createorderUserDetails($order->id, $userDetailsId);
+            $userId = $this->getUserId($data['user_personal_data']);
+            $userShippingInformationId = $this->userShippingInformationService->createUserShippingInformation($data['user_shipping_information'], $userId);
+            $userDetailsId = $this->userDetailsService->createUserDetails($data['user_personal_data'], $userId);
+            $orderData = $this->helpers::prepareOrderData($data, $userId, $userShippingInformationId->id, $userDetailsId->id);
+            $order = $this->order->create($orderData);
+            $this->orderUserDetailsService->createOrderUserDetails($order->id, $userDetailsId->id);
             DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
@@ -95,6 +147,7 @@ class OrderService implements OrderInterface
             return null;
         }
     }
+
     /**
      * deleteOrder
      *

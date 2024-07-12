@@ -32,10 +32,12 @@ class ProductService implements ProductInterface
      * @param Connection $database
      * 
      */
-    protected function __construct(Product $product, LogInterface $logger)
-    {
-        (object) $this->product = $product;
-        (object) $this->logger = $logger;
+    protected function __construct(
+        Product $product,
+        LogInterface $logger
+    ) {
+        $this->product = $product;
+        $this->logger = $logger;
     }
 
     /**

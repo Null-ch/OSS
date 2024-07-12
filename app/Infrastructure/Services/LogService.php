@@ -21,7 +21,7 @@ class LogService implements LogInterface
      */
     public function __construct(Log $logger)
     {
-        (object) $this->logger = $logger;
+        $this->logger = $logger;
     }
     /**
      * Implementation of a method that allows logging errors

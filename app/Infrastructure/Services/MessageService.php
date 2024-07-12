@@ -21,11 +21,13 @@ class MessageService
     protected $messageFactory;
 
 
-    protected function __construct(MessageFactory $messageFactory, LogInterface $logger)
-    {
-        (object) $this->logger = $logger;
-        (object) $this->messageFactory = $messageFactory;
-    }    
+    protected function __construct(
+        MessageFactory $messageFactory,
+        LogInterface $logger
+    ) {
+        $this->logger = $logger;
+        $this->messageFactory = $messageFactory;
+    }
     /**
      * getMessage
      *

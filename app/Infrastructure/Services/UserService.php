@@ -47,12 +47,16 @@ class UserService
      * @param  mixed $userValidator
      * @param  mixed $messageService
      */
-    public function __construct(User $user, LogInterface $logger, UserValidator $userValidator, MessageService $messageService)
-    {
-        (object) $this->user = $user;
-        (object) $this->logger = $logger;
-        (object) $this->userValidator = $userValidator;
-        (object) $this->messageService = $messageService;
+    public function __construct(
+        User $user,
+        LogInterface $logger,
+        UserValidator $userValidator,
+        MessageService $messageService
+    ) {
+        $this->user = $user;
+        $this->logger = $logger;
+        $this->userValidator = $userValidator;
+        $this->messageService = $messageService;
     }
 
     /**

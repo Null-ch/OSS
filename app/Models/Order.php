@@ -29,10 +29,10 @@ class Order extends Model
      * ORDER STATUSES
      ***********************************/
     private $statuses = [
-        'new' => 'Новый',
-        'pending_payment' => 'Ожидает оплаты',
-        'paid' => 'Оплачен',
-        'cancelled' => 'Отменен',
+        '0' => 'Новый',
+        '1' => 'Ожидает оплаты',
+        '2' => 'Оплачен',
+        '3' => 'Отменен',
     ];
 
     public static function getStatuses()

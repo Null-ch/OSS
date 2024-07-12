@@ -31,10 +31,12 @@ class CategoryService implements CategoryInterface
      * @param Category $category
      * 
      */
-    public function __construct(LogInterface $logger, Category $category)
-    {
-        (object) $this->logger = $logger;
-        (object) $this->category = $category;
+    public function __construct(
+        LogInterface $logger,
+        Category $category
+    ) {
+        $this->logger = $logger;
+        $this->category = $category;
     }
 
     /**

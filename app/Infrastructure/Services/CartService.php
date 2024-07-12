@@ -56,13 +56,18 @@ class CartService implements CartInterface
      * @param  mixed $cartProductService
      * @param  mixed $productService
      */
-    protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService, ProductService $productService)
-    {
-        (object) $this->cart = $cart;
-        (object) $this->logger = $logger;
-        (object) $this->product = $product;
-        (object) $this->cartProductService = $cartProductService;
-        (object) $this->productService = $productService;
+    protected function __construct(
+        Cart $cart,
+        LogInterface $logger,
+        Product $product,
+        CartProductService $cartProductService,
+        ProductService $productService
+    ) {
+        $this->cart = $cart;
+        $this->logger = $logger;
+        $this->product = $product;
+        $this->cartProductService = $cartProductService;
+        $this->productService = $productService;
     }
 
     /**
@@ -83,7 +88,7 @@ class CartService implements CartInterface
             } elseif ($session) {
                 $cart = $this->cart::where('session', $session)->first();
             }
-        
+
             if ($cart) {
                 $cart = $this->cart::where(function ($query) use ($cart) {
                     $query->whereNotNull('order_id')
@@ -93,7 +98,7 @@ class CartService implements CartInterface
                         ->orWhere('order_id', null);
                 })->where('id', $cart->id)->first();
             }
-        
+
             if (!$cart) {
                 if ($userId || $session) {
                     $cart = $this->cart->create(['user_id' => $userId, 'session' => $session]);
@@ -108,7 +113,7 @@ class CartService implements CartInterface
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;
         }
-        
+
         return $cart;
     }
 
