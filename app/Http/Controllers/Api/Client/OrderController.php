@@ -3,27 +3,60 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Api\Client\CartService;
-use App\Services\Api\Client\OrderService;
-use App\Http\Requests\Client\Cart\AddCartProductRequest;
-use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
+use App\Services\Api\Client\ClientOrderService;
+use App\Http\Requests\Client\Order\StoreOrderRequest;
+use App\Infrastructure\Services\ResponseService;
+use App\Infrastructure\Services\UserService;
 
 class OrderController extends Controller
-{
+{    
+    /**
+     * orderService
+     *
+     * @var object
+     */
     protected $orderService;
-
-    public function __construct(OrderService $orderService)
-    {
-        $this->orderService = $orderService;
-    }
+    protected $responseService;   
 
     /**
-     * Getting a list of products in the shopping cart
+     * __construct
      *
-     * @return \Illuminate\Http\Response
+     * @param  object $orderService
      */
-    public function index()
+    public function __construct(ClientOrderService $orderService, ResponseService $responseService)
     {
+        $this->orderService = $orderService;
+        $this->responseService = $responseService;
     }
 
+    public function store(StoreOrderRequest $request)
+    {
+        $data = $request->validated();
+        $responseData = $this->orderService->createOrder($data);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
+
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show($id)
+    // {
+    //     //
+    // }
+
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, $id)
+    // {
+    //     //
+    // }
 }

@@ -5,52 +5,97 @@ namespace App\Services\Api\Client;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
+use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Services\CartService;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\MessageService;
+use App\Services\Api\Client\ClientProductService;
 use App\Infrastructure\Services\CartProductService;
 
 class ClientCartService extends CartService
 {
-/**
+    /**
      * Model: Cart
      *
      * @var object
      */
 
-     protected $cart;
+    protected $cart;
 
-     /**
-      * LogInterface implementation
-      *
-      * @var object
-      */
-     protected $logger;
- 
-     /**
-      * Model: Product
-      *
-      * @var object
-      */
-     protected $product; 
- 
-     /**
-      * cartProductService
-      *
-      * @var object
-      */
-     protected $cartProductService;
-     
-     /**
-      * __construct
-      *
-      * @param  mixed $cart
-      * @param  mixed $logger
-      * @param  mixed $cartProduct
-      * @param  mixed $product
-      * @param  mixed $cartProductService
-      */
-     protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService)
+    /**
+     * LogInterface implementation
+     *
+     * @var object
+     */
+    protected $logger;
+
+    /**
+     * Model: Product
+     *
+     * @var object
+     */
+    protected $product;
+
+    /**
+     * cartProductService
+     *
+     * @var object
+     */
+    protected $cartProductService;
+
+    /**
+     * productService
+     *
+     * @var object
+     */
+    protected $productService;
+
+    /**
+     * __construct
+     *
+     * @param  mixed $cart
+     * @param  mixed $logger
+     * @param  mixed $product
+     * @param  mixed $cartProductService
+     * @param  mixed $productService
+     */
+    protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService, ClientProductService $productService)
     {
-        parent::__construct($cart, $logger, $product, $cartProductService);
+        parent::__construct($cart, $logger, $product, $cartProductService, $productService);
+    }
+
+    /**
+     * Create new cart
+     *
+     * @return object
+     * 
+     */
+    public function createCart(\Illuminate\Http\Request $request): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $data = $request->all();
+            $cartData = $this->productService->checkAvailability($data);
+            if ($cartData && !$cartData['error']) {
+                $cart = $this->getCart();
+            } else {
+                return $cartData;
+            }
+
+            $this->cartProductService->clearingByCartId($cart->id);
+            
+            foreach ($data as $key => $value) {
+                $product = $this->product->find($value['id']);
+                if (isset($product)) {
+                    $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id]);
+                }
+            }
+            DB::commit();
+            return $cart->id;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
+            return null;
+        }
     }
 }

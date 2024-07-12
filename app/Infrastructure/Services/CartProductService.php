@@ -47,14 +47,14 @@ class CartProductService
     protected $messageService;
 
 
+    
     /**
      * __construct
      *
      * @param  mixed $cartProduct
      * @param  mixed $logger
      * @param  mixed $product
-     * @param  mixed $messageFactory
-     * @return void
+     * @param  mixed $messageService
      */
     protected function __construct(CartProduct $cartProduct, LogInterface $logger, Product $product, MessageService $messageService)
     {
@@ -62,7 +62,8 @@ class CartProductService
         (object) $this->logger = $logger;
         (object) $this->product = $product;
         (object) $this->messageService = $messageService;
-    }    
+    }
+
     /**
      * getCartProduct
      *
@@ -82,7 +83,20 @@ class CartProductService
         }
 
         return $cartProduct;
-    }    
+    }
+
+    public function getCartProductsByCartId(int $id): ?object
+    {
+        try {
+            $cartProducts = $this->cartProduct::where('cart_id', $id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
+            return null;
+        }
+
+        return $cartProducts;
+    }
+
     /**
      * createCartProduct
      *
@@ -101,7 +115,8 @@ class CartProductService
             $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
             return null;
         }
-    }    
+    }
+
     /**
      * updateCartProduct
      *
@@ -126,7 +141,8 @@ class CartProductService
             $this->logger->error('Error when update cartProduct object: ' . $e->getMessage());
             return null;
         }
-    }    
+    }
+
     /**
      * deleteCartProduct
      *
@@ -140,6 +156,29 @@ class CartProductService
         try {
             $cartProduct = $this->getCartProduct($cart, $product);
             $cartProduct->delete();
+            DB::commit();
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * clearingByCartId
+     *
+     * @param  int $id
+     * @return string
+     */
+    public function clearingByCartId(int $id): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $cartProduct = $this->getCartProductsByCartId($id);
+            foreach ($cartProduct as $item) {
+                $item->delete();
+            }
             DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {

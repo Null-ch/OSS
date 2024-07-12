@@ -38,19 +38,18 @@ class ClientProductService extends ProductService
     /**
      * Method checkAvailability
      *
-     * @param \Illuminate\Http\Request $request [explicite description]
      *
      * @return array
      */
-    public function checkAvailability(\Illuminate\Http\Request $request): ?array
+    public function checkAvailability(array $data): ?array
     {
-        $data = $request->all();
         try {
             if (empty($data)) {
                 return null;
             }
 
             $output = [];
+            $error = false;
 
             if (isset($data)) {
                 foreach ($data as $key => $value) {
@@ -62,9 +61,11 @@ class ClientProductService extends ProductService
                             'quantity' => 0,
                             'message' => 'Товара не существует',
                         ];
+                        $error = true;
                     } else {
                         if ($product->quantity < $value['quantity']) {
                             $availability = false;
+                            $error = true;
                         } else {
                             $availability = true;
                         }
@@ -74,6 +75,7 @@ class ClientProductService extends ProductService
                             'availability' => $availability,
                             'quantity' => $product->quantity
                         ];
+                        $output['error'] = $error;
                     }
                 }
                 return $output;

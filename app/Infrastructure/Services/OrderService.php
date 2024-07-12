@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\OrderInterface;
+use App\Infrastructure\Services\UserService;
 
 class OrderService implements OrderInterface
 {
@@ -22,13 +23,19 @@ class OrderService implements OrderInterface
      * @var object
      */
     protected $logger;
-    
+
     /**
      * messageFactory
      *
      * @var object
      */
     protected $messageService;
+    /**
+     * userService
+     *
+     * @var object
+     */
+    protected $userService;
 
     /**
      * Construct order service
@@ -36,11 +43,12 @@ class OrderService implements OrderInterface
      * @param Order $order
      * 
      */
-    public function __construct(Order $order, LogInterface $logger, MessageService $messageService)
+    public function __construct(Order $order, LogInterface $logger, MessageService $messageService, UserService $userService)
     {
         (object) $this->order = $order;
         (object) $this->logger = $logger;
         (object) $this->messageService = $messageService;
+        (object) $this->userService = $userService;
     }
 
     /**
@@ -68,7 +76,17 @@ class OrderService implements OrderInterface
     {
         DB::beginTransaction();
         try {
-            $this->order->create($data);
+            if (auth()->check()) {
+                $userId = auth()->user()->id;
+                // $userShippingInformationId = $this->userShippingInformationService->createUser($data['user_shipping_information'], $userId);
+                // $userDetailsId = $this->userDetailsService->createUser($data['user_personal_data'], $userId);
+            } else {
+                $user = $this->userService->createUser($data['user_personal_data']);
+                // $userDetailsId = $this->userDetailsService->createUser($data['user_personal_data']);
+                // $userShippingInformationId = $this->userShippingInformationService->createUser($data['user_shipping_information']);
+            }
+            $order = $this->order->create($data);
+            // $this->orderUserDetailsService->createorderUserDetails($order->id, $userDetailsId);
             DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {

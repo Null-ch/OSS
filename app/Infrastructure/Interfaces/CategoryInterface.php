@@ -10,7 +10,8 @@ interface CategoryInterface
      * @param  int $count
      * @return object
      */
-    public function getCategories(int $count): ?object;    
+    public function getCategories(int $count): ?object;
+        
     /**
      * getCategory
      *

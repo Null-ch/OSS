@@ -11,6 +11,7 @@ interface SpecialOfferInterface
      * @return object
      */
     public function getSpecialOfferById(int $id): ?object;    
+
     /**
      * getSpecialOffers
      *
@@ -18,4 +19,5 @@ interface SpecialOfferInterface
      * @return object
      */
     public function getSpecialOffers(int $count): ?object;
+    
 }

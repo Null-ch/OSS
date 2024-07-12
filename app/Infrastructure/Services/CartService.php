@@ -2,11 +2,12 @@
 
 namespace App\Infrastructure\Services;
 
-use App\Infrastructure\Interfaces\CartInterface;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
+use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Interfaces\CartInterface;
 
 class CartService implements CartInterface
 {
@@ -38,22 +39,30 @@ class CartService implements CartInterface
      * @var object
      */
     protected $cartProductService;
+    /**
+     * productService
+     *
+     * @var object
+     */
+    protected $productService;
+
 
     /**
      * __construct
      *
      * @param  mixed $cart
      * @param  mixed $logger
-     * @param  mixed $cartProduct
      * @param  mixed $product
      * @param  mixed $cartProductService
+     * @param  mixed $productService
      */
-    protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService)
+    protected function __construct(Cart $cart, LogInterface $logger, Product $product, CartProductService $cartProductService, ProductService $productService)
     {
         (object) $this->cart = $cart;
         (object) $this->logger = $logger;
         (object) $this->product = $product;
         (object) $this->cartProductService = $cartProductService;
+        (object) $this->productService = $productService;
     }
 
     /**
@@ -64,28 +73,42 @@ class CartService implements CartInterface
      */
     public function getCart(): ?object
     {
+        DB::beginTransaction();
         try {
-            $cart = $this->cart::where(function ($query) {
-                $query->whereNotNull('order_id')
-                    ->whereHas('order', function ($query) {
-                        $query->whereNotIn('status', ['paid', 'cancelled']);
-                    })
-                    ->orWhere('order_id', null);
-            })
-                ->where(function ($query) {
-                    $query->where('user_id', auth()->user()->id)
-                        ->orWhere('session', session()->getId());
-                })
-                ->first();
+            $userId = auth()->check() ? auth()->user()->id : null;
+            $session = session()->has('id') ? session()->getId() : null;
 
+            if ($userId) {
+                $cart = $this->cart::where('user_id', $userId)->first();
+            } elseif ($session) {
+                $cart = $this->cart::where('session', $session)->first();
+            }
+        
+            if ($cart) {
+                $cart = $this->cart::where(function ($query) use ($cart) {
+                    $query->whereNotNull('order_id')
+                        ->whereHas('order', function ($query) {
+                            $query->whereNotIn('status', ['paid', 'cancelled']);
+                        })
+                        ->orWhere('order_id', null);
+                })->where('id', $cart->id)->first();
+            }
+        
             if (!$cart) {
-                $cart = $this->createCart();
+                if ($userId || $session) {
+                    $cart = $this->cart->create(['user_id' => $userId, 'session' => $session]);
+                    DB::commit();
+                } else {
+                    DB::rollBack();
+                    $this->logger->error('Error when creating a shopping cart: No user ID or session ID available');
+                    return null;
+                }
             }
         } catch (\Exception $e) {
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;
         }
-
+        
         return $cart;
     }
 
@@ -118,17 +141,6 @@ class CartService implements CartInterface
         }
 
         return $products;
-    }
-
-    /**
-     * Create new cart
-     *
-     * @return object
-     * 
-     */
-    public function createCart(): object
-    {
-        return $this->cart->create();
     }
 
     /**

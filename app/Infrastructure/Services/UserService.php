@@ -3,10 +3,11 @@
 namespace App\Infrastructure\Services;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
-use App\Jobs\SendRegistrationEmail;
 use Illuminate\Support\Facades\Hash;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Validation\UserValidator;
 
 class UserService
 {
@@ -16,26 +17,42 @@ class UserService
      * @var object
      */
 
-     protected $user;
+    protected $user;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-     protected $logger;
+    protected $logger;
+    /**
+     * userValidator
+     *
+     * @var object
+     */
+    protected $userValidator;
+    /**
+     * messageService
+     *
+     * @var object
+     */
+    protected $messageService;
+
 
     /**
-     * Construct user service
+     * __construct
      *
-     * @param User $user
-     * @param LogInterface $logger
-     * 
+     * @param  mixed $user
+     * @param  mixed $logger
+     * @param  mixed $userValidator
+     * @param  mixed $messageService
      */
-    public function __construct(User $user, LogInterface $logger)
+    public function __construct(User $user, LogInterface $logger, UserValidator $userValidator, MessageService $messageService)
     {
         (object) $this->user = $user;
         (object) $this->logger = $logger;
+        (object) $this->userValidator = $userValidator;
+        (object) $this->messageService = $messageService;
     }
 
     /**
@@ -121,4 +138,20 @@ class UserService
         return $user;
     }
 
+    public function createUser(array $data): ?object
+    {
+        DB::beginTransaction();
+        try {
+            $validatedData = $this->userValidator->validate($data);
+            $randomPassword = Str::random(8);
+            $validatedData['password'] = Hash::make($randomPassword);
+            $user = $this->user->create($validatedData);
+            DB::commit();
+            return $user;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when create user object: ' . $e->getMessage());
+            return null;
+        }
+    }
 }

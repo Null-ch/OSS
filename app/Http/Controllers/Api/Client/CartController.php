@@ -77,4 +77,17 @@ class CartController extends Controller
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
+    
+    /**
+     * createCart
+     *
+     * @param  mixed $request
+     * @return void
+     */
+    public function createCart(\Illuminate\Http\Request $request)
+    {
+        $responseData = $this->cartService->createCart($request);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
 }

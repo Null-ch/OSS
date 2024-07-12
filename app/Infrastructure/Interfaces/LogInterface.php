@@ -9,7 +9,6 @@ interface LogInterface
      *
      * @param string $message
      * 
-     * 
      */
     public function error($message);
 }
