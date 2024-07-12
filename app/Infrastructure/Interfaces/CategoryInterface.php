@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Interfaces;
 
 interface CategoryInterface
-{    
+{
     /**
      * getCategories
      *
@@ -11,7 +11,7 @@ interface CategoryInterface
      * @return object
      */
     public function getCategories(int $count): ?object;
-        
+
     /**
      * getCategory
      *
@@ -19,5 +19,4 @@ interface CategoryInterface
      * @return object
      */
     public function getCategory(int $id): ?object;
-
 }

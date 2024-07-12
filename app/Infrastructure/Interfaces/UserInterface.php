@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Interfaces;
 
 interface UserInterface
-{    
+{
     /**
      * getUsers
      *
@@ -48,5 +48,4 @@ interface UserInterface
      * @return object
      */
     public function createUser(array $data): ?object;
-    
 }

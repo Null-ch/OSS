@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Interfaces;
 
 interface MessageInterface
-{    
+{
     /**
      * getMessage
      *

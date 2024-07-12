@@ -53,7 +53,7 @@ class OrderService implements OrderInterface
      *
      * @var mixed
      */
-    protected $userDetailsService;    
+    protected $userDetailsService;
     /**
      * orderUserDetailsService
      *

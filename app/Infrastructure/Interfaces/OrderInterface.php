@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Interfaces;
 
 interface OrderInterface
-{    
+{
     /**
      * getOrder
      *
@@ -24,5 +24,4 @@ interface OrderInterface
      * @return string|null
      */
     public function deleteOrder(int $id): ?string;
-    
 }

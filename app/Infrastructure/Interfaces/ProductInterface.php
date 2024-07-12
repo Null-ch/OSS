@@ -3,14 +3,14 @@
 namespace App\Infrastructure\Interfaces;
 
 interface ProductInterface
-{    
+{
     /**
      * getProducts
      *
      * @param  int $count
      * @return object
      */
-    public function getProducts(int $count): ?object;   
+    public function getProducts(int $count): ?object;
 
     /**
      * getProduct
@@ -19,5 +19,4 @@ interface ProductInterface
      * @return object
      */
     public function getProduct(int $id): ?object;
-    
 }

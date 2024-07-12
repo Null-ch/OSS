@@ -41,5 +41,4 @@ interface CartInterface
      * @return string
      */
     public function deleteProduct(int $id): ?string;
-    
 }

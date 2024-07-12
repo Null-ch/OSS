@@ -27,7 +27,7 @@ class OrderUserDetailsService
      *
      * @var object
      */
-    protected $messageService;    
+    protected $messageService;
     /**
      * helpers
      *
