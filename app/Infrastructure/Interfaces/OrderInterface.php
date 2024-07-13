@@ -16,7 +16,7 @@ interface OrderInterface
      *
      * @return string|null
      */
-    public function createOrder(array $data): ?string;
+    public function createOrder(array $data): ?object;
 
     /**
      * deleteOrder
@@ -24,4 +24,12 @@ interface OrderInterface
      * @return string|null
      */
     public function deleteOrder(int $id): ?string;
+
+    /**
+     * cancelOrder
+     *
+     * @param  int $id
+     * @return string
+     */
+    public function cancelOrder(int $id): ?string;
 }

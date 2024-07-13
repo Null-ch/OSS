@@ -10,23 +10,25 @@ interface CartProductInterface
      * @param  int $id
      * @return object
      */
-    public function getCartProduct(int $id): ?object;
+    public function getCartProduct(object $cart, object $product): ?object;
 
     /**
      * createCartProduct
      *
-     * @param  int $id
+     * @param  array $data
      * @return string
      */
-    public function createCartProduct(int $id): ?string;
+    public function createCartProduct(array $data): ?string;
 
     /**
      * updateCartProduct
      *
-     * @param  int $id
+     * @param  mixed $cart
+     * @param  mixed $product
+     * @param  array $data
      * @return string
      */
-    public function updateCartProduct(int $id): ?string;
+    public function updateCartProduct(object $cart, object $product, array $data): ?string;
 
     /**
      * deleteCartProduct

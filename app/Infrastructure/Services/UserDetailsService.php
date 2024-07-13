@@ -6,9 +6,10 @@ use App\Models\UserDetails;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
+use App\Infrastructure\Interfaces\UserDetailsInterface;
 use App\Infrastructure\Validation\UserDetailsVelidator;
 
-class UserDetailsService
+class UserDetailsService implements UserDetailsInterface
 {
     /**
      * userDetails
@@ -16,31 +17,35 @@ class UserDetailsService
      * @var object
      */
     protected $userDetails;
+
     /**
      * logger
      *
      * @var object
      */
     protected $logger;
+
     /**
      * messageService
      *
      * @var object
      */
     protected $messageService;
+
     /**
      * userDetailsVelidator
      *
-     * @var mixed
+     * @var object
      */
     protected $userDetailsVelidator;
+
     /**
      * __construct
      *
-     * @param  mixed $userDetails
-     * @param  mixed $logger
-     * @param  mixed $messageService
-     * @param  mixed $userDetailsVelidator
+     * @param UserDetails $userDetails
+     * @param LogInterface $logger
+     * @param MessageService $messageService
+     * @param UserDetailsVelidator $userDetailsVelidator
      */
     public function __construct(
         UserDetails $userDetails,
@@ -54,6 +59,13 @@ class UserDetailsService
         $this->userDetailsVelidator = $userDetailsVelidator;
     }
 
+    /**
+     * createUserDetails
+     *
+     * @param  array $data
+     * @param  int $userId
+     * @return object
+     */
     public function createUserDetails(array $data, int $userId): ?object
     {
         $validatedData = $this->userDetailsVelidator->validate($data);
@@ -70,6 +82,13 @@ class UserDetailsService
 
         return $userDetails;
     }
+
+    /**
+     * deleteUserDetails
+     *
+     * @param  int $id
+     * @return string
+     */
     public function deleteUserDetails(int $id): ?string
     {
         DB::beginTransaction();

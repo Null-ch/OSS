@@ -6,12 +6,39 @@ use Illuminate\Support\Facades\DB;
 use App\Models\UserShippingInformation;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
+use App\Infrastructure\Interfaces\UserShippingInformationInterface;
 
-class UserShippingInformationService
+class UserShippingInformationService implements UserShippingInformationInterface
 {
+    /**
+     * userShippingInformation
+     *
+     * @param  object $messageService
+     */
     protected $userShippingInformation;
+
+    /**
+     * logger
+     *
+     * @var object
+     */
     protected $logger;
+
+    /**
+     * messageService
+     *
+     * @var object
+     */
     protected $messageService;
+
+    /**
+     * __construct
+     *
+     * @param UserShippingInformation $userShippingInformation
+     * @param LogInterface $logger
+     * @param MessageService $messageService
+     * 
+     */
     public function __construct(
         UserShippingInformation $userShippingInformation,
         LogInterface $logger,
@@ -22,6 +49,13 @@ class UserShippingInformationService
         $this->messageService = $messageService;
     }
 
+    /**
+     * createUserShippingInformation
+     *
+     * @param  string $string
+     * @param  int $userId
+     * @return object
+     */
     public function createUserShippingInformation(string $string, int $userId): ?object
     {
         DB::beginTransaction();
@@ -37,6 +71,13 @@ class UserShippingInformationService
 
         return $userShippingInformation;
     }
+  
+    /**
+     * deleteUserShippingInformation
+     *
+     * @param  int $id
+     * @return string
+     */
     public function deleteUserShippingInformation(int $id): ?string
     {
         DB::beginTransaction();

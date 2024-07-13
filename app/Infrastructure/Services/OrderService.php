@@ -10,7 +10,6 @@ use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\OrderInterface;
 use App\Infrastructure\Services\UserDetailsService;
-use App\Infrastructure\Services\OrderUserDetailsService;
 use App\Infrastructure\Services\UserShippingInformationService;
 
 class OrderService implements OrderInterface
@@ -21,6 +20,7 @@ class OrderService implements OrderInterface
      * @var object
      */
     protected $order;
+
     /**
      * LogInterface implementation
      *
@@ -34,6 +34,7 @@ class OrderService implements OrderInterface
      * @var object
      */
     protected $messageService;
+
     /**
      * userService
      *
@@ -51,33 +52,27 @@ class OrderService implements OrderInterface
     /**
      * userDetailsService
      *
-     * @var mixed
+     * @var object
      */
     protected $userDetailsService;
-    /**
-     * orderUserDetailsService
-     *
-     * @var mixed
-     */
-    protected $orderUserDetailsService;
+
     /**
      * helpers
      *
-     * @var mixed
+     * @var object
      */
     protected $helpers;
 
     /**
      * __construct
      *
-     * @param  mixed $order
-     * @param  mixed $logger
-     * @param  mixed $messageService
-     * @param  mixed $userService
-     * @param  mixed $userShippingInformationService
-     * @param  mixed $userDetailsService
-     * @param  mixed $orderUserDetailsService
-     * @param  mixed $helpers
+     * @param Order $order
+     * @param LogInterface $logger
+     * @param MessageService $messageService
+     * @param UserService $userService
+     * @param UserShippingInformationService $userShippingInformationService
+     * @param UserDetailsService $userDetailsService
+     * @param Helpers $helpers
      */
     public function __construct(
         Order $order,
@@ -86,7 +81,6 @@ class OrderService implements OrderInterface
         UserService $userService,
         UserShippingInformationService $userShippingInformationService,
         UserDetailsService $userDetailsService,
-        OrderUserDetailsService $orderUserDetailsService,
         Helpers $helpers
     ) {
         $this->order = $order;
@@ -95,7 +89,6 @@ class OrderService implements OrderInterface
         $this->userService = $userService;
         $this->userShippingInformationService = $userShippingInformationService;
         $this->userDetailsService = $userDetailsService;
-        $this->orderUserDetailsService = $orderUserDetailsService;
         $this->helpers = $helpers;
     }
 
@@ -109,12 +102,19 @@ class OrderService implements OrderInterface
         try {
             $order = $this->order->find($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the order: ' . $e->getMessage());
+            $this->logger->error('Error when get order: ' . $e->getMessage());
             return null;
         }
 
         return $order;
     }
+
+    /**
+     * getUserId
+     *
+     * @param  array $userData
+     * @return int
+     */
     protected function getUserId(array $userData): int
     {
         if (auth()->check()) {
@@ -124,28 +124,51 @@ class OrderService implements OrderInterface
             return $user->id;
         }
     }
+
+    /**
+     * updateOrderWithUserDetails
+     *
+     * @param  object $order
+     * @param  array $data
+     * @param  int $userId
+     * @return string
+     */
+    protected function updateOrderWithUserDetails(Order $order, array $data, int $userId): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $userShippingInformationId = $this->userShippingInformationService->createUserShippingInformation($data['user_shipping_information'], $userId);
+            $userDetailsId = $this->userDetailsService->createUserDetails($data['user_personal_data'], $userId);
+            $order->user_shipping_information_id = $userShippingInformationId;
+            $order->user_details_id = $userDetailsId;
+            $order->save();
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when update order: ' . $e->getMessage());
+            return null;
+        }
+    }
+
     /**
      * createOrder
      *
-     * @return string
+     * @return object
      */
-    public function createOrder(array $data): ?string
+    public function createOrder(array $data): ?object
     {
         DB::beginTransaction();
         try {
             $userId = $this->getUserId($data['user_personal_data']);
-            $userShippingInformationId = $this->userShippingInformationService->createUserShippingInformation($data['user_shipping_information'], $userId);
-            $userDetailsId = $this->userDetailsService->createUserDetails($data['user_personal_data'], $userId);
-            $orderData = $this->helpers::prepareOrderData($data, $userId, $userShippingInformationId->id, $userDetailsId->id);
+            $orderData = $this->helpers->prepareOrderData($data['cart_id'], $userId);
             $order = $this->order->create($orderData);
-            $this->orderUserDetailsService->createOrderUserDetails($order->id, $userDetailsId->id);
             DB::commit();
-            return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
             $this->logger->error('Error when create new order: ' . $e->getMessage());
             return null;
         }
+        return $order;
     }
 
     /**
@@ -164,6 +187,28 @@ class OrderService implements OrderInterface
         } catch (\Exception $e) {
             DB::rollBack();
             $this->logger->error('Error when delete order: ' . $e->getMessage());
+            return null;
+        }
+    }
+    
+    /**
+     * cancelOrder
+     *
+     * @param  int $id
+     * @return string
+     */
+    public function cancelOrder(int $id): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $order = $this->getOrder($id);
+            $order->status = 3;
+            $order->save();
+            DB::commit();
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when cancel order: ' . $e->getMessage());
             return null;
         }
     }

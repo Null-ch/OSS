@@ -48,4 +48,12 @@ interface UserInterface
      * @return object
      */
     public function createUser(array $data): ?object;
+
+    /**
+     * generateUserDetails
+     *
+     * @param  int $id
+     * @return array
+     */
+    public function generateUserDetails(int $id): ?array;
 }

@@ -4,6 +4,7 @@ namespace App\Infrastructure\Services;
 
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Factories\MessageFactory;
+use App\Infrastructure\Interfaces\MessageInterface;
 
 class MessageService
 {
@@ -13,6 +14,7 @@ class MessageService
      * @var object
      */
     protected $logger;
+
     /**
      * messageFactory
      *
@@ -20,7 +22,13 @@ class MessageService
      */
     protected $messageFactory;
 
-
+    /**
+     * __construct
+     *
+     * @param MessageFactory $messageFactory
+     * @param LogInterface $logger
+     * 
+     */
     protected function __construct(
         MessageFactory $messageFactory,
         LogInterface $logger

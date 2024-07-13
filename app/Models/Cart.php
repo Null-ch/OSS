@@ -7,7 +7,9 @@ use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Cart extends Model
 {
@@ -30,11 +32,11 @@ class Cart extends Model
      * RELATIONS
      ***********************************/
 
-    public function products()
+    public function products(): HasManyThrough
     {
         return $this->hasManyThrough(Product::class, CartProduct::class, 'cart_id', 'id', 'id', 'product_id');
     }
-    public function order()
+    public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'order_id');
     }

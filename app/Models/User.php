@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Order;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -60,6 +62,10 @@ class User extends Authenticatable
     /***********************************
      * RELATIONS
      ***********************************/
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
     
     /***********************************
      * MODEL HELPERS FUNCTIONS

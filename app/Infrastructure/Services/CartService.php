@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartInterface;
 
 class CartService implements CartInterface
@@ -39,6 +40,7 @@ class CartService implements CartInterface
      * @var object
      */
     protected $cartProductService;
+
     /**
      * productService
      *
@@ -46,28 +48,36 @@ class CartService implements CartInterface
      */
     protected $productService;
 
+    /**
+     * messageService
+     *
+     * @var mixed
+     */
+    protected $messageService;
 
     /**
      * __construct
      *
-     * @param  mixed $cart
-     * @param  mixed $logger
-     * @param  mixed $product
-     * @param  mixed $cartProductService
-     * @param  mixed $productService
+     * @param Cart $cart
+     * @param LogInterface $logger
+     * @param Product $product
+     * @param CartProductService $cartProductService
+     * @param ProductService $productService
      */
     protected function __construct(
         Cart $cart,
         LogInterface $logger,
         Product $product,
         CartProductService $cartProductService,
-        ProductService $productService
+        ProductService $productService,
+        MessageService $messageService
     ) {
         $this->cart = $cart;
         $this->logger = $logger;
         $this->product = $product;
         $this->cartProductService = $cartProductService;
         $this->productService = $productService;
+        $this->messageService = $messageService;
     }
 
     /**
@@ -233,6 +243,26 @@ class CartService implements CartInterface
             }
         } catch (\Exception $e) {
             $this->logger->error('Ошибка при удалении товара из корзины: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * clearCart
+     *
+     * @param  int $id
+     * @return string
+     */
+    public function clearCart(int $id): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $this->cartProductService->clearingByCartId($id);
+            DB::commit();
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
             return null;
         }
     }

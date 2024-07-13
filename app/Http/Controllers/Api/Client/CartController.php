@@ -9,8 +9,19 @@ use App\Http\Requests\Client\Cart\AddCartProductRequest;
 use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
 
 class CartController extends Controller
-{
+{    
+    /**
+     * cartService
+     *
+     * @var object
+     */
     protected $cartService;
+   
+    /**
+     * responseService
+     *
+     * @var object
+     */
     protected $responseService;
 
     public function __construct(ClientCartService $cartService, ResponseService $responseService)
@@ -63,6 +74,7 @@ class CartController extends Controller
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
+
     /**
      * Removing a product from the shopping cart
      *
@@ -77,7 +89,7 @@ class CartController extends Controller
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
-    
+
     /**
      * createCart
      *
@@ -87,6 +99,20 @@ class CartController extends Controller
     public function createCart(\Illuminate\Http\Request $request)
     {
         $responseData = $this->cartService->createCart($request);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * clearCart
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function clearCart($id)
+    {
+        // $responseData = $this->cartService->clearCart($id);
+        $responseData = ['sps', $id];
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }

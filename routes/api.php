@@ -44,6 +44,7 @@ Route::prefix('public')->group(function () {
         Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
         Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
         Route::post('/create', [App\Http\Controllers\Api\Client\CartController::class, 'createCart'])->name('client.cart.create');
+        Route::post('/clear/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'clearCart'])->name('client.cart.clear');
     });
 
     Route::prefix('products')->group(function () {
@@ -60,6 +61,7 @@ Route::prefix('public')->group(function () {
 
     Route::prefix('order')->group(function () {
         Route::get('/create', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.create');
+        Route::post('/cancel/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'cancelOrder'])->name('client.order.cancel');
     });
 
     Route::prefix('special-offer')->group(function () {

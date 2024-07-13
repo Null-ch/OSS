@@ -29,8 +29,10 @@ class ClientSpecialOfferService extends SpecialOfferService
      * @param LogInterface $logger
      *
      */
-    public function __construct(SpecialOffer $specialOffer, LogInterface $logger)
-    {
+    public function __construct(
+        SpecialOffer $specialOffer,
+        LogInterface $logger
+    ) {
         parent::__construct($specialOffer, $logger);
     }
 }

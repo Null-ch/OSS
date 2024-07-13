@@ -2,14 +2,16 @@
 
 namespace App\Infrastructure\Services;
 
+use App\Helpers\Helpers;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Interfaces\UserInterface;
 use App\Infrastructure\Validation\UserValidator;
 
-class UserService
+class UserService implements UserInterface
 {
     /**
      * Model: User
@@ -38,25 +40,33 @@ class UserService
      */
     protected $messageService;
 
+    /**
+     * helpers
+     *
+     * @var mixed
+     */
+    protected $helpers;
 
     /**
      * __construct
      *
-     * @param  mixed $user
-     * @param  mixed $logger
-     * @param  mixed $userValidator
-     * @param  mixed $messageService
+     * @param User $user
+     * @param LogInterface $logger
+     * @param UserValidator $userValidator
+     * @param MessageService $messageService
      */
     public function __construct(
         User $user,
         LogInterface $logger,
         UserValidator $userValidator,
-        MessageService $messageService
+        MessageService $messageService,
+        Helpers $helpers
     ) {
         $this->user = $user;
         $this->logger = $logger;
         $this->userValidator = $userValidator;
         $this->messageService = $messageService;
+        $this->helpers = $helpers;
     }
 
     /**
@@ -108,6 +118,7 @@ class UserService
             return null;
         }
     }
+
     /**
      * Get user gender
      *
@@ -130,7 +141,7 @@ class UserService
      * @return object
      * 
      */
-    public function getCurrentUser(): ?object
+    public function getAuthUser(): ?object
     {
         try {
             (object) $user = auth()->user();
@@ -142,6 +153,12 @@ class UserService
         return $user;
     }
 
+    /**
+     * createUser
+     *
+     * @param  array $data
+     * @return object
+     */
     public function createUser(array $data): ?object
     {
         DB::beginTransaction();
@@ -157,5 +174,42 @@ class UserService
             $this->logger->error('Error when create user object: ' . $e->getMessage());
             return null;
         }
+    }
+
+    /**
+     * getUser
+     *
+     * @param  int $id
+     * @return object
+     */
+    public function getUser(int $id): object|null
+    {
+        try {
+            $user = $this->user::find($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error get user object: ' . $e->getMessage());
+            return null;
+        }
+
+        return $user;
+    }
+
+    /**
+     * generateUserDetails
+     *
+     * @param  int $id
+     * @return array
+     */
+    public function generateUserDetails(int $id): ?array
+    {
+        try {
+            $user = $this->getUser($id);
+            $userDetails = $this->helpers->prepareUserDetailsData($user);
+        } catch (\Exception $e) {
+            $this->logger->error('Error generateUserDetails: ' . $e->getMessage());
+            return null;
+        }
+
+        return $userDetails;
     }
 }

@@ -2,14 +2,13 @@
 
 namespace App\Infrastructure\Services;
 
-use App\Infrastructure\Factories\MessageFactory;
-use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Interfaces\CartProductInterface;
 
-class CartProductService
+class CartProductService implements CartProductInterface
 {
     /**
      * Model: Cart
@@ -39,6 +38,7 @@ class CartProductService
      * @var object
      */
     protected $product;
+
     /**
      * messageFactory
      *
@@ -46,15 +46,13 @@ class CartProductService
      */
     protected $messageService;
 
-
-
     /**
      * __construct
      *
-     * @param  mixed $cartProduct
-     * @param  mixed $logger
-     * @param  mixed $product
-     * @param  mixed $messageService
+     * @param CartProduct $cartProduct
+     * @param LogInterface $logger
+     * @param Product $product
+     * @param MessageService $messageService
      */
     protected function __construct(
         CartProduct $cartProduct,
@@ -71,8 +69,8 @@ class CartProductService
     /**
      * getCartProduct
      *
-     * @param  mixed $cart
-     * @param  mixed $product
+     * @param object $cart
+     * @param object $product
      * @return object
      */
     public function getCartProduct(object $cart, object $product): ?object
@@ -124,8 +122,8 @@ class CartProductService
     /**
      * updateCartProduct
      *
-     * @param  mixed $cart
-     * @param  mixed $product
+     * @param  object $cart
+     * @param  object $product
      * @param  array $data
      * @return string|null
      */
@@ -150,8 +148,8 @@ class CartProductService
     /**
      * deleteCartProduct
      *
-     * @param  mixed $cart
-     * @param  mixed $product
+     * @param  object $cart
+     * @param  object $product
      * @return string|null
      */
     public function deleteCartProduct(object $cart, object $product): ?string

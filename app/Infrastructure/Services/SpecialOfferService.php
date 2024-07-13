@@ -3,8 +3,6 @@
 namespace App\Infrastructure\Services;
 
 use App\Models\SpecialOffer;
-use Illuminate\Support\Facades\DB;
-use App\Infrastructure\Services\FileService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Interfaces\SpecialOfferInterface;
 
@@ -16,6 +14,7 @@ class SpecialOfferService implements SpecialOfferInterface
      * @var object
      */
     protected $specialOffer;
+
     /**
      * LogInterface implementation
      *

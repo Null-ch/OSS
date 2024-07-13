@@ -7,6 +7,7 @@ interface MessageInterface
     /**
      * getMessage
      *
+     * 
      * @return string
      */
     public function getMessage(): string;

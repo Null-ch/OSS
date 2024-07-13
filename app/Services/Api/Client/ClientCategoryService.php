@@ -30,8 +30,10 @@ class ClientCategoryService extends CategoryService
      * @param Category $category
      * 
      */
-    public function __construct(LogInterface $logger, Category $category)
-    {
+    public function __construct(
+        LogInterface $logger,
+        Category $category
+    ) {
         parent::__construct($logger, $category);
     }
 

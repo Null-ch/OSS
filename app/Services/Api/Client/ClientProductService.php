@@ -30,8 +30,10 @@ class ClientProductService extends ProductService
      * @param Product $product
      * 
      */
-    public function __construct(Product $product, LogInterface $logger)
-    {
+    public function __construct(
+        Product $product,
+        LogInterface $logger
+    ) {
         parent::__construct($product, $logger);
     }
 

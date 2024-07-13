@@ -40,5 +40,13 @@ interface CartInterface
      * @param  int $id
      * @return string
      */
-    public function deleteProduct(int $id): ?string;
+    public function deleteProduct(int $id): ?string;  
+
+    /**
+     * clearCart
+     *
+     * @param  int $id
+     * @return string
+     */
+    public function clearCart(int $id): ?string;
 }

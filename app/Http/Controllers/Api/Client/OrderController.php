@@ -15,7 +15,13 @@ class OrderController extends Controller
      *
      * @var object
      */
-    protected $orderService;
+    protected $orderService;  
+  
+    /**
+     * responseService
+     *
+     * @var mixed
+     */
     protected $responseService;   
 
     /**
@@ -29,15 +35,34 @@ class OrderController extends Controller
         $this->responseService = $responseService;
     }
 
+    /**
+     * createOrder
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function createOrder(StoreOrderRequest $request)
     {
         $data = $request->validated();
         // $responseData = $this->orderService->createOrder($data);
-        $responseData = 'sps';
+        $responseData = ['sps', $data];
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
+    /**
+     * cancelOrder
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function cancelOrder($id)
+    {
+        // $responseData = $this->orderService->cancelOrder($id);
+        $responseData = ['sps', $id];
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
     // /**
     //  * Display the specified resource.
     //  *
