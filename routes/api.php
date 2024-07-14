@@ -43,7 +43,7 @@ Route::prefix('public')->group(function () {
         Route::post('/add', [App\Http\Controllers\Api\Client\CartController::class, 'addProduct'])->name('client.cart.add');
         Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
         Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
-        Route::post('/create', [App\Http\Controllers\Api\Client\CartController::class, 'createCart'])->name('client.cart.create');
+        Route::post('/update', [App\Http\Controllers\Api\Client\CartController::class, 'updateCart'])->name('client.cart.update');
         Route::post('/clear/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'clearCart'])->name('client.cart.clear');
     });
 
