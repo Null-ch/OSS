@@ -5,8 +5,11 @@ let res = window.localStorage.getItem('oss-cart') || '{}';
 var cart = JSON.parse(res) || {};
 
 const cartSlice = createSlice({
-    name: 'category',
-    initialState: { cart },
+    name: 'cart',
+    initialState: {
+        cart,
+        isCartHidden: true,
+    },
     reducers: {
         updateCartProducts(state, action) {
             let data = action.payload;
@@ -26,10 +29,13 @@ const cartSlice = createSlice({
             window.localStorage.setItem('oss-cart', JSON.stringify(cart));
             state.cart = cart;
         },
+        setCartHidden(state, action) {
+            state.isCartHidden = action.payload;
+        }
     }
 });
 
-export const { updateCartProducts } = cartSlice.actions;
+export const { updateCartProducts, setCartHidden } = cartSlice.actions;
 
 export default cartSlice.reducer; // формируется автоматически из набора reducers в срезе
 // эта сущность подключается в store через configureStore

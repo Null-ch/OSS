@@ -3,11 +3,22 @@ import { useSelector } from 'react-redux';
 import './order.css';
 import OrderItems from './OrderItems'
 import Input from '../../components/input/Input';
+import {getAddress} from '../../lib/dadata';
+import {debounce} from 'lodash'
 
 const CreateOrder = () => {
     // console.log('CreateOrder');
     const items = useSelector(state => state.cart.cart);
     
+    function onAddressChange(e) {
+        console.log('onAddressChange')
+        debounce(() => {
+            console.log('debounce')
+            const res = getAddress(e.target.value);
+            console.log(res)
+        }, 2000)
+    }
+
     // console.log(items);
     return (
         <div className = 'order-page'>
@@ -46,6 +57,7 @@ const CreateOrder = () => {
                             // placeholder = '+7'
                             type = 'text'
                             index = {2}
+                            onChange = { onAddressChange }
                         />
                     </div>
                 </div>

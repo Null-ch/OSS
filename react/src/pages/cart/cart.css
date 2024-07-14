@@ -57,7 +57,7 @@ html {
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 .c-p #c-p-title {
   font-family: 'centro-sans-pro-regular', sans-serif;

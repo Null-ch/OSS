@@ -11,18 +11,17 @@ import CartPreview from '../../pages/cart/CartPreview';
 import Cart from '../../pages/cart/Cart';
 import './header.css'
 import {Link} from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { setCartHidden } from './../../store/cartSlice';
 
 const Header = () => {
+    const isCartHidden = useSelector((state) => state.cart.isCartHidden);
 
-    const [isBubbleHidden, hideBubble] = useState(true);
+    const dispatch = useDispatch();
+    const hideCart = (v) => dispatch(setCartHidden(v));
 
-    function onCartClick() {
-        hideBubble(!isBubbleHidden);
-    }
-
-    function onClose() {
-        hideBubble(true);
-    }
+    function onCartClick() { hideCart(!isCartHidden) };
+    function onClose() { hideCart(true) };
 
     return (
         <div id = 'header' className = 'header'>
@@ -41,7 +40,7 @@ const Header = () => {
                         onClick = {onCartClick}
                         bubble = {
                             <Bubble
-                                hidden = {isBubbleHidden}
+                                hidden = {isCartHidden}
                                 content = {<CartPreview onClose = {onClose}/>}
                             />
                         }

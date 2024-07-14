@@ -88,10 +88,14 @@ html {
   border: 1px solid #ccc;
 }
 .order-items .o-i-table td {
+  text-align: center;
   font-size: 24px;
   color: #333333;
   padding: 8px;
   border: 1px solid #ccc;
+}
+.order-items .o-i-table .o-i-t-sum {
+  font-weight: 600;
 }
 .order-subtotal {
   font-family: 'centro-sans-pro-light', sans-serif;
@@ -101,6 +105,7 @@ html {
   flex-direction: row;
   gap: 16px;
   font-weight: 600;
+  justify-content: flex-end;
 }
 .order-subtotal .o-s-total-price #price {
   font-family: 'centro-sans-pro-light', sans-serif;
@@ -112,4 +117,7 @@ html {
   font-family: 'centro-sans-pro-light', sans-serif;
   color: #333333;
   font-size: 18px;
+}
+.order-shipping-price .o-s-p-result {
+  flex: 1;
 }

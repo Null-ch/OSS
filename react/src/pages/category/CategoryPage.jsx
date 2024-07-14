@@ -25,11 +25,7 @@ const CategoryPage = () => {
                     <h1>{category.title}</h1>
                 </div>
             }
-
             <ItemsList items = {products}/>
-            <div className = 'category-page-products'>
-
-            </div>
         </div>
     );
 };
