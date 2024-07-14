@@ -5,6 +5,7 @@ import ItemsList from '../shop/items/ItemsList';
 import './categoryPage.css'
 
 const CategoryPage = () => {
+    console.log('CategoryPage')
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const {data = [], isLoading} = useGetCategoryProductsQuery(id);

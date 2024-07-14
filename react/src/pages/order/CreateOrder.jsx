@@ -11,7 +11,7 @@ const CreateOrder = () => {
     const items = useSelector(state => state.cart.cart);
     
     function onAddressChange(e) {
-        console.log('onAddressChange')
+        // console.log('onAddressChange')
         debounce(() => {
             console.log('debounce')
             const res = getAddress(e.target.value);
