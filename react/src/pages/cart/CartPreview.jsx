@@ -77,13 +77,13 @@ const CartPreview = ({onClose}) => {
     }
 
     async function onCreateOrder() {
-        console.log('onCreateOrder');
+        // console.log('onCreateOrder');
         const data = [];
         for (let item of Object.entries(items)) {
             // console.log(item);
             data.push({ id: item[0], quantity: item[1].count });
         }
-        console.log(data);
+        // console.log(data);
         // let response = await fetch(DOMAIN + 'index');
           // Получаем HTML-код страницы
         // const html = await response.text();
@@ -96,7 +96,7 @@ const CartPreview = ({onClose}) => {
         // const metaTag = doc.querySelector('meta[name="sosi-hui-token"]');
         // console.log(metaTag.content)
 
-        let res = await fetch(DOMAIN + 'api/public/cart/check-availability', {
+        let res = await fetch(DOMAIN + 'api/public/products/check-availability', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8',
@@ -104,9 +104,19 @@ const CartPreview = ({onClose}) => {
             },
             body: JSON.stringify(data)
           });
-        // console.log(res);
         const check = await res.json();
-        console.log(check);
+        // skip check
+        
+        // cart/update - каждый раз когда юзер добавил хуйню в корзину с дебаунсом + резервируем на 1ч +
+        // показываем сообщение об этом (1ч с момента последнего обновления корзины)
+        // если товара нет, мы скажем об этом юзеру и этот товар бронировать не будем
+        // ok или не ок
+
+        // в корзине: Оформить заказ если ок, попали на страницу Заказа, данные вбиваемые юзером храню локально,
+        // тыкает оформить заказ - ...
+
+        // -> Оформить заказ = api/public/cart/create => cart_ID
+        // console.log(check);
     }
 
     return (

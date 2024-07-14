@@ -72,7 +72,7 @@ export const fetchProductsByCat = (catId, type) => {
             const url = `${DOMAIN}api/public/categories/${catId}/products`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data)
+            // console.log(data)
             if (type === 'all'){
                 dispatch(setCatProducts(data.data.slice(0, 100)));
                 dispatch(setCatProductsStatus(STATUS.IDLE));

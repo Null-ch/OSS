@@ -5,17 +5,17 @@ import ItemsList from '../shop/items/ItemsList';
 import './categoryPage.css'
 
 const CategoryPage = () => {
-    console.log('CategoryPage')
+    // console.log('CategoryPage')
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const {data = [], isLoading} = useGetCategoryProductsQuery(id);
-    console.log(data);
-    const category = data.category;
+    // console.log(data);
+    const category = data.data;
     const products = category?.products || []
 
     // todo страница на случай если продуктов в категории нет
 
-    const product = products[0] || {};
+    // const product = products[0] || {};
     // const category = product.category;
 
     return (
