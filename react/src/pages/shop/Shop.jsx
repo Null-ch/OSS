@@ -11,9 +11,12 @@ const Shop = () => {
     if (error) {
       console.log(`error: ${error}`);
     }
+    
+    // todo здесь будет другой роут, типа categories with products
+    // чтобы получить категории с продуктами и в таком же порядке отобразить их а не через жопу
 
     let productsMap = new Map();
-    for (let product of data.products || []) {
+    for (let product of data?.data?.data || []) {
         const category = product.category
         if (!category || !category.id) { continue; }
         let list = productsMap.get(category) || [];
