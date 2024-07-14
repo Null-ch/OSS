@@ -8,6 +8,7 @@ import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
+import { setCartHidden } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
 
@@ -25,12 +26,17 @@ function App() {
   //   setLoggedIn(false);
   // }
 
+  const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
       dispatch(setIsModalVisible(false));
   }, [location]);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+      // execute on location change
+      dispatch(setCartHidden(true));
+  }, [location]);
+
   const {isModalVisible, content} = useSelector((state) => state.modal);
 
   window.onscroll = function() { scrollFunction() };

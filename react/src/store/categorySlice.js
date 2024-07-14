@@ -47,12 +47,14 @@ export const fetchCategories = () => {
         try {
             const url = `${DOMAIN}api/public/categories`;
             // console.log(url)
-            const res = await fetch(url)
+            const res = await fetch(url, {
+                // headers: { 'Authorization': `Basic ${auth}` }
+            })
 
             const data = await res.json();
             // console.log(data)
         
-            dispatch(setCats(data.categories.slice(0, 5)));
+            dispatch(setCats(data.data.data.slice(0, 100)));
             dispatch(setStatus(STATUS.IDLE))
         } catch(err){
             dispatch(setStatus(STATUS.ERROR));
@@ -70,13 +72,14 @@ export const fetchProductsByCat = (catId, type) => {
             const url = `${DOMAIN}api/public/categories/${catId}/products`;
             const res = await fetch(url);
             const data = await res.json();
+            // console.log(data)
             if (type === 'all'){
-                dispatch(setCatProducts(data.slice(0, 10)));
+                dispatch(setCatProducts(data.data.slice(0, 100)));
                 dispatch(setCatProductsStatus(STATUS.IDLE));
             }
 
             if (type === 'single'){
-                dispatch(setCatProduct(data.slice(0, 20))); // ???
+                dispatch(setCatProduct(data.data.slice(0, 20))); // ???
                 dispatch(setCatProductStatus(STATUS.IDLE));
             }
 

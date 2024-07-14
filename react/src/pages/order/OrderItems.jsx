@@ -17,7 +17,7 @@ const OrderItems = ({items}) => {
             <td>{item.product.title}</td>
             <td>{item.product.price}</td>
             <td>{item.count}</td>
-            <td>{total}</td>
+            <td className = 'o-i-t-sum'>{total}</td>
         </tr>
         );
     }
@@ -35,6 +35,10 @@ const OrderItems = ({items}) => {
                 </tr>
                 {rows}
             </table>
+            <div className = 'order-shipping-price'>
+                <span>Доставка:</span>
+                <span className = 'o-s-p-result'>Введите адрес</span>
+            </div>
             <div className = 'order-subtotal'>
                 <span>Итого:</span>
                 <Price className = 'o-s-total-price' price = {totalPrice} title = 'Сумма'/>
