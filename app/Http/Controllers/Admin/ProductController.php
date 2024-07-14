@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Services\Admin\ProductService;
+use App\Services\Admin\AdminProductService;
 use App\Http\Requests\Admin\ProductStoreRequest;
 use App\Http\Requests\Admin\ProductUpdateRequest;
 
@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     protected $productService;
 
-    public function __construct(ProductService $productService)
+    public function __construct(AdminProductService $productService)
     {
         $this->productService = $productService;
     }
@@ -120,7 +120,6 @@ class ProductController extends Controller
     public function toggleActivity($id)
     {
         $response = $this->productService->toggleActivity($id);
-
-        return response()->json($response, 200);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 }

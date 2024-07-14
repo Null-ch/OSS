@@ -3,15 +3,19 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Api\Client\CategoryService;
+use App\Infrastructure\Services\ResponseService;
+use App\Services\Api\Client\ClientCategoryService;
 
 class CategoryController extends Controller
 {
     protected $categoryService;
+    protected $responseService;
 
-    public function __construct(CategoryService $categoryService)
+
+    public function __construct(ClientCategoryService $categoryService, ResponseService $responseService)
     {
         $this->categoryService = $categoryService;
+        $this->responseService = $responseService;
     }
 
     /**
@@ -21,9 +25,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        (object) $response = $this->categoryService->getCategories();
-
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        (object) $data = $this->categoryService->getCategories(10);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -36,15 +40,15 @@ class CategoryController extends Controller
      */
     public function getProducts($id)
     {
-        (object) $response = $this->categoryService->getProducts($id);
-
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        (object) $data = $this->categoryService->getProducts($id);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
     public function show($id)
     {
-        (object) $response = $this->categoryService->getCategory($id);
-
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        (object) $data = $this->categoryService->getCategory($id);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 }

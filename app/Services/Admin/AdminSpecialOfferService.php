@@ -2,12 +2,13 @@
 
 namespace App\Services\Admin;
 
+use App\Infrastructure\Services\SpecialOfferService;
 use App\Models\SpecialOffer;
-use App\Services\FileService;
-use App\Services\LogInterface;
 use Illuminate\Support\Facades\DB;
+use App\Infrastructure\Services\FileService;
+use App\Infrastructure\Interfaces\LogInterface;
 
-class SpecialOfferService
+class AdminSpecialOfferService extends SpecialOfferService
 {
     /**
      * Model: SpecialOffer
@@ -15,21 +16,21 @@ class SpecialOfferService
      * @var object
      */
 
-    private $specialOffer;
+    protected $specialOffer;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-    private $logger;
+    protected $logger;
 
     /**
      * fileService
      *
      * @var object
      */
-    private $fileService;
+    protected $fileService;
 
     /**
      * Construct specialOffer service
@@ -40,49 +41,9 @@ class SpecialOfferService
      */
     public function __construct(SpecialOffer $specialOffer, LogInterface $logger, FileService $fileService)
     {
-        (object) $this->specialOffer = $specialOffer;
-        (object) $this->logger = $logger;
+        parent::__construct($specialOffer, $logger);
+        
         (object) $this->fileService = $fileService;
-    }
-
-    /**
-     * [Description for getSpecialOffer]
-     *
-     * @param int $id
-     * 
-     * @return object
-     * 
-     */
-    public function getSpecialOffer(int $id): ?object
-    {
-        try {
-            $specialOffer = $this->specialOffer::findOrFail($id);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the special offer: ' . $e->getMessage());
-            return null;
-        }
-
-        return $specialOffer;
-    }
-
-    /**
-     * Getting all categories
-     *
-     * @param int $count
-     * 
-     * @return object
-     * 
-     */
-    public function getAllSpecialOffers(int $count): ?object
-    {
-        try {
-            $specialOffers = $this->specialOffer::paginate($count);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the special offers: ' . $e->getMessage());
-            return null;
-        }
-
-        return $specialOffers;
     }
 
     /**
@@ -99,12 +60,12 @@ class SpecialOfferService
 
         if ($data['is_active'] == 'on') {
             $data['is_active'] = 1;
-        } elseif ($data['is_active'] == 'off') {
+        } else {
             $data['is_active'] = 0;
         }
-        
+
         DB::beginTransaction();
-        
+
         try {
             $file = $data['image'];
             $filename = $this->fileService->uploadFile($file, 'img/special-offers/');
@@ -121,27 +82,20 @@ class SpecialOfferService
     /**
      * Update current specialOffer
      *
-     * @param object $data
+     * @param array $data
      * 
      */
     public function updateSpecialOffer(array $data, int $id)
     {
-        $specialOffer = $this->getSpecialOffer($id);
+        $specialOffer = $this->getSpecialOfferById($id);
 
         if (!$specialOffer) {
             $this->logger->error('The special offer with ID ' . $id . ' was not found.');
             return;
         }
-
         DB::beginTransaction();
 
         try {
-            if ($data['is_active'] == 'on') {
-                $data['is_active'] = 1;
-            } elseif ($data['is_active'] == 'off') {
-                $data['is_active'] = 0;
-            }
-
             if ($data['image'] == null) {
                 unset($data['image']);
             } else {
@@ -184,14 +138,19 @@ class SpecialOfferService
      * Func for chenge activity of special offer
      *
      * @param int $id
+     * @return string
      * 
      */
-    public function toggleActivity(int $id)
+    public function toggleActivity(int $id): ?string
     {
-        $specialOffer = $this->getSpecialOffer($id);
+        $specialOffer = $this->getSpecialOfferById($id);
         if ($specialOffer) {
             $specialOffer->is_active == 1 ? $specialOffer->is_active = 0 : $specialOffer->is_active = 1;
             $specialOffer->save();
+
+            return 'Активность изменена';
+        } else {
+            return null;
         }
     }
 }

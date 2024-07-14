@@ -3,12 +3,13 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
-use App\Services\LogInterface;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\SendRegistrationEmail;
 use Illuminate\Support\Facades\Hash;
+use App\Infrastructure\Services\UserService;
+use App\Infrastructure\Interfaces\LogInterface;
 
-class UserService
+class AdminUserService extends UserService
 {
     /**
      * Model: User
@@ -16,14 +17,14 @@ class UserService
      * @var object
      */
 
-    private $user;
+    protected  $user;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-    private $logger;
+    protected  $logger;
 
     /**
      * Construct user service
@@ -34,59 +35,9 @@ class UserService
      */
     public function __construct(User $user, LogInterface $logger)
     {
-        (object) $this->user = $user;
-        (object) $this->logger = $logger;
+        parent::__construct($user, $logger);
     }
 
-    /**
-     * Getting all users
-     *
-     * @return object
-     * 
-     */
-    public function getUsers(int $count): ?object
-    {
-        try {
-            $users = $this->user::paginate($count);
-        } catch (\Exception $e) {
-            $this->logger->error('Error fetching users: ' . $e->getMessage());
-            return null;
-        }
-
-        return $users;
-    }
-
-    /**
-     * Getting roles
-     *
-     * @return array
-     * 
-     */
-    public function getRoles(): array
-    {
-        try {
-            return $this->user::$role;
-        } catch (\Exception $e) {
-            $this->logger->error('Error when getting roles: ' . $e->getMessage());
-            return [];
-        }
-    }
-
-    /**
-     * Getting genders
-     *
-     * @return array
-     * 
-     */
-    public function getGenders(): array
-    {
-        try {
-            return $this->user::$gender;
-        } catch (\Exception $e) {
-            $this->logger->error('Error when getting genders: ' . $e->getMessage());
-            return [];
-        }
-    }
 
     /**
      * Get current user
@@ -96,7 +47,7 @@ class UserService
      * @return object
      * 
      */
-    public function getUser(int $id): ?object
+    public function getUserById(int $id): ?object
     {
         try {
             (object) $user = $this->user::findOrFail($id);
@@ -119,7 +70,7 @@ class UserService
         (string) $password = $data['password'];
         $data['password'] = Hash::make($password);
         DB::beginTransaction();
-        
+
         try {
             (object) $user = $this->user::create($data);
             DB::commit();
@@ -147,7 +98,7 @@ class UserService
      */
     public function updateUser(array $data, int $id)
     {
-        $user = $this->getUser($id);
+        $user = $this->getUserById($id);
 
         if ($user) {
             try {
@@ -179,14 +130,18 @@ class UserService
      * Func for chenge activity of user
      *
      * @param int $id
-     * 
+     * @return string
      */
-    public function toggleActivity(int $id)
+    public function toggleActivity(int $id): ?string
     {
-        $user = $this->getUser($id);
+        $user = $this->getUserById($id);
         if ($user) {
             $user->is_active == 1 ? $user->is_active = 0 : $user->is_active = 1;
             $user->save();
+
+            return 'Активность изменена';
+        } else {
+            return null;
         }
     }
 }

@@ -3,11 +3,12 @@
 namespace App\Services\Admin;
 
 use App\Models\Category;
-use App\Services\FileService;
-use App\Services\LogInterface;
 use Illuminate\Support\Facades\DB;
+use App\Infrastructure\Services\FileService;
+use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\CategoryService;
 
-class CategoryService
+class AdminCategoryService extends CategoryService
 {
     /**
      * Model: Category
@@ -15,21 +16,21 @@ class CategoryService
      * @var object
      */
 
-    private $category;
+    protected $category;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-    private $logger;
+    protected $logger;
 
     /**
      * fileService
      *
      * @var object
      */
-    private $fileService;
+    protected $fileService;
 
     /**
      * Construct category service
@@ -38,51 +39,11 @@ class CategoryService
      * @param LogInterface $logger
      * 
      */
-    public function __construct(Category $category, LogInterface $logger, FileService $fileService)
+    public function __construct(LogInterface $logger, Category $category, FileService $fileService)
     {
-        (object) $this->category = $category;
-        (object) $this->logger = $logger;
+        parent::__construct($logger, $category);
+        
         (object) $this->fileService = $fileService;
-    }
-
-    /**
-     * Get category
-     *
-     * @param int $id
-     * 
-     * @return object
-     * 
-     */
-    public function getCategory(int $id): ?object
-    {
-        try {
-            $category =  $this->category::findOrFail($id);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when getting category: ' . $e->getMessage());
-            return null;
-        }
-
-        return $category;
-    }
-
-    /**
-     * Getting all categories
-     *
-     * @param int $count
-     * 
-     * @return object
-     * 
-     */
-    public function getAllCategories(int $count): ?object
-    {
-        try {
-            $categories =  $this->category::paginate($count);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when getting categories: ' . $e->getMessage());
-            return null;
-        }
-
-        return $categories;
     }
 
     /**

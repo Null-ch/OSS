@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Services\LogService;
-use App\Services\LogInterface;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use App\Infrastructure\Services\LogService;
+use App\Infrastructure\Interfaces\LogInterface;
 
 class AppServiceProvider extends ServiceProvider
 {

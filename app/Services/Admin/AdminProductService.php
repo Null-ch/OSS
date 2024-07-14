@@ -4,12 +4,12 @@ namespace App\Services\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
-use App\Services\FileService;
-use App\Services\LogInterface;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Connection;
+use App\Infrastructure\Services\FileService;
+use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\ProductService;
 
-class ProductService
+class AdminProductService extends ProductService
 {
     /**
      * Model: Product
@@ -17,35 +17,35 @@ class ProductService
      * @var object
      */
 
-    private $product;
+    protected $product;
     /**
      * Category class
      *
      * @var object
      */
 
-    private $category;
+    protected $category;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-    private $logger;
+    protected $logger;
     /**
      * DB connection
      *
      * @var \Illuminate\Database\Connection
      */
 
-    private $database;
+    protected $database;
 
     /**
      * fileService
      *
      * @var object
      */
-    private $fileService;
+    protected $fileService;
 
     /**
      * Construct product service
@@ -56,58 +56,13 @@ class ProductService
      * @param Connection $database
      * 
      */
-    public function __construct(Product $product, Category $category, LogInterface $logger, Connection $database, FileService $fileService)
+    public function __construct(Product $product, LogInterface $logger, Category $category, Connection $database, FileService $fileService)
     {
-        (object) $this->product = $product;
-        (object) $this->category = $category;
-        (object) $this->logger = $logger;
-        (object) $this->database = $database;
-        (object) $this->fileService = $fileService;
-    }
+        parent::__construct($product, $logger);
 
-    /**
-     * Getting products
-     *
-     * @return object
-     * 
-     */
-    public function getProducts(int $count): ?object
-    {
-        if (!$count) {
-            $this->logger->error('The quantity has not been transferred.');
-        }
-
-        try {
-            $products = $this->product::paginate($count);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
-        }
-
-        return $products;
-    }
-
-    /**
-     * Get product
-     *
-     * @param int $id
-     * 
-     * @return object
-     * 
-     */
-    public function getProduct(int $id): ?object
-    {
-        if (!$id) {
-            $this->logger->error('The id has not been transferred.');
-        }
-
-        try {
-            $product = $this->product::findOrFail($id);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the product: ' . $e->getMessage());
-            return null;
-        }
-
-        return $product;
+        $this->category = $category;
+        $this->database = $database;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -128,7 +83,7 @@ class ProductService
         }
 
         try {
-            $product = $this->product->create($data);
+            $product = $this->product::create($data);
 
             $sortOrder = 1;
 
@@ -263,12 +218,15 @@ class ProductService
      * @param int $id
      * 
      */
-    public function toggleActivity(int $id)
+    public function toggleActivity(int $id): ?string
     {
         $product = $this->getProduct($id);
         if ($product) {
             $product->is_active == 1 ? $product->is_active = 0 : $product->is_active = 1;
             $product->save();
+            return 'Активность изменена';
+        } else {
+            return null;
         }
     }
 }

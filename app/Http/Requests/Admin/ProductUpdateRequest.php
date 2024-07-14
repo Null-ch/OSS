@@ -29,7 +29,7 @@ class ProductUpdateRequest extends FormRequest
             'price' => 'required|int',
             'quantity' => 'required|int',
             'hex_code' => 'required',
-            'category_id' => '',
+            'category_id' => 'required',
         ];
     }
 
@@ -47,6 +47,7 @@ class ProductUpdateRequest extends FormRequest
             'price.required' => 'Поле обязательно для заполнения',
             'quantity.required' => 'Поле обязательно для заполнения',
             'hex_code.required' => 'Поле обязательно для заполнения',
+            'category_id.required' => 'Поле обязательно для заполнения',
             'title.string' => 'Содержимое должно быть текстом',
             'description.string' => 'Содержимое должно быть текстом',
             'price.int' => 'Содержиое должно быть числом',

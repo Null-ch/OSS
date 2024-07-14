@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
-use App\Services\Api\Client\ProductService;
+use App\Infrastructure\Services\ResponseService;
+use App\Services\Api\Client\ClientProductService;
 
 class ProductController extends Controller
 {
-    protected $producrService;
+    protected $productService;
+    protected $responseService;
 
-    public function __construct(ProductService $producrService)
+    public function __construct(ClientProductService $productService,  ResponseService $responseService)
     {
-        $this->producrService = $producrService;
+        $this->productService = $productService;
+        $this->responseService = $responseService;
     }
 
     /**
@@ -21,9 +24,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        (object) $response = $this->producrService->getProducts();
-
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+        (object) $data = $this->productService->getProducts(5);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
     /**
      * Getting a product by id (client)
@@ -35,8 +38,22 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        (object) $response = $this->producrService->getProduct($id);
+        (object) $data = $this->productService->getProduct($id);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
 
-        return response()->json($response, 200, [], JSON_UNESCAPED_UNICODE);
+    /**
+     * Method checkAvailability
+     *
+     * @param \Illuminate\Http\Request $request [explicite description]
+     *
+     * @return void
+     */
+    public function checkAvailability(\Illuminate\Http\Request $request)
+    {
+        $data = $this->productService->checkAvailability($request);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 }

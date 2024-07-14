@@ -28,7 +28,7 @@ class SpecialOfferUpdateRequest extends FormRequest
             'description' => 'required|string|max:655',
             'hex_code' => 'required',
             'sort_order' => 'required',
-            'is_active' => 'required',
+            'is_active' => '',
             'image' => '',
         ];
     }

@@ -87,3 +87,20 @@
         }
     }
 </script>
+<script>
+    const fileInput = document.querySelector('.uploadFile');
+
+    fileInput.addEventListener('change', function() {
+        const files = this.files;
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const extension = file.name.split('.').pop().toLowerCase();
+
+            if (extension !== 'png' && extension !== 'jpg') {
+                alert('Файл должен быть в формате PNG или JPG.');
+                this.value = '';
+                return;
+            }
+        }
+    });
+</script>

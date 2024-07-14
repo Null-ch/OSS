@@ -5,7 +5,9 @@ namespace App\Models;
 use App\Models\ProductImage;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -34,16 +36,16 @@ class Product extends Model
      * RELATIONS
      ***********************************/
 
-    public function images()
+    public function images(): HasMany
     {
         return $this->hasMany(ProductImage::class, 'product_id', 'id')->orderBy('sort_order');
     }
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    public function color()
+    public function color(): BelongsTo
     {
         return $this->belongsTo(Color::class, 'color_id');
     }

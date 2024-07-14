@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Services;
+namespace App\Infrastructure\Services;
 
 use Illuminate\Support\Facades\Log;
+use App\Infrastructure\Interfaces\LogInterface;
 
 class LogService implements LogInterface
 {
@@ -11,7 +12,7 @@ class LogService implements LogInterface
      *
      * @var object
      */
-    private $logger;
+    protected $logger;
     /**
      * Construct logger
      *
@@ -20,7 +21,7 @@ class LogService implements LogInterface
      */
     public function __construct(Log $logger)
     {
-        (object) $this->logger = $logger;
+        $this->logger = $logger;
     }
     /**
      * Implementation of a method that allows logging errors
