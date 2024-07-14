@@ -11,6 +11,7 @@ use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Services\Api\Client\ClientProductService;
 use App\Infrastructure\Services\CartProductService;
+use App\Infrastructure\Validation\CartUpdateValidator;
 
 class ClientCartService extends CartService
 {
@@ -49,6 +50,13 @@ class ClientCartService extends CartService
      * @var object
      */
     protected $productService;
+ 
+    /**
+     * cartUpdateValidator
+     *
+     * @var mixed
+     */
+    protected $cartUpdateValidator;
 
     /**
      * __construct
@@ -66,9 +74,11 @@ class ClientCartService extends CartService
         Product $product,
         CartProductService $cartProductService,
         ClientProductService $productService,
-        MessageService $messageService
+        MessageService $messageService,
+        CartUpdateValidator $cartUpdateValidator
     ) {
         parent::__construct($cart, $logger, $product, $cartProductService, $productService, $messageService);
+        $this->cartUpdateValidator = $cartUpdateValidator;
     }
 
     /**
@@ -79,18 +89,23 @@ class ClientCartService extends CartService
      */
     public function updateCart(\Illuminate\Http\Request $request): ?string
     {
+        $data = $this->cartUpdateValidator->validate($request->all());
+        /* Использовать CartUpdateValidator для получения массива данных в которых
+        cart_id и само содержимое корзины
+        */
         DB::beginTransaction();
         try {
-            $data = $request->all();
-            $cartData = $this->productService->checkAvailability($data);
+            $this->cartProductService->clearingByCartId($data['cart_id']);
+            //Реализовать резервирование (уменьшние общего кол-ва товаров и увеличение в зависимости от добавления\удаления из корзины)
+            // event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+            $cartData = $this->productService->checkAvailability($data['cart']);
             if ($cartData && !$cartData['error']) {
                 $cart = $this->getCart();
             } else {
                 return $cartData;
             }
 
-            $this->cartProductService->clearingByCartId($cart->id);
-            // event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+
  
             foreach ($data as $key => $value) {
                 $product = $this->product->find($value['id']);

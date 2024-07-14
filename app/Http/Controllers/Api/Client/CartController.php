@@ -98,9 +98,9 @@ class CartController extends Controller
      */
     public function updateCart(\Illuminate\Http\Request $request)
     {
-        $responseData = $this->cartService->updateCart($request);
-        $response = $this->responseService->getResponse($responseData);
-        return response()->json($response, JSON_UNESCAPED_UNICODE);
+        // $responseData = $this->cartService->updateCart($request);
+        // $response = $this->responseService->getResponse($responseData);
+        return response()->json($request->all(), JSON_UNESCAPED_UNICODE);
     }
 
     /**
