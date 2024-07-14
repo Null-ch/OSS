@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Client;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Infrastructure\Services\ResponseService;
 use App\Services\Api\Client\ClientProductService;
@@ -42,15 +43,14 @@ class ProductController extends Controller
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
-
+    
     /**
-     * Method checkAvailability
+     * checkAvailability
      *
-     * @param \Illuminate\Http\Request $request [explicite description]
-     *
+     * @param  object $request
      * @return void
      */
-    public function checkAvailability(\Illuminate\Http\Request $request)
+    public function checkAvailability(Request $request)
     {
         $data = $this->productService->checkAvailability($request);
         $response = $this->responseService->getResponse($data);
