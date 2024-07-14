@@ -72,12 +72,12 @@ class ClientCartService extends CartService
     }
 
     /**
-     * Create new cart
+     * Update cart
      *
      * @return object
      * 
      */
-    public function createCart(\Illuminate\Http\Request $request): ?string
+    public function updateCart(\Illuminate\Http\Request $request): ?string
     {
         DB::beginTransaction();
         try {
@@ -90,11 +90,13 @@ class ClientCartService extends CartService
             }
 
             $this->cartProductService->clearingByCartId($cart->id);
-
+            // event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+ 
             foreach ($data as $key => $value) {
                 $product = $this->product->find($value['id']);
                 if (isset($product)) {
                     $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id]);
+                    // event(new ProductAddedToCart($cartProduct->product_id, $cartProduct->quantity));
                 }
             }
             DB::commit();
