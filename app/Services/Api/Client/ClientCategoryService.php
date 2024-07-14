@@ -63,5 +63,26 @@ class ClientCategoryService extends CategoryService
         }
 
         return $category;
+    } 
+   
+    /**
+     * getCategoriesWithProducts
+     *
+     * @param  int $count
+     * @return object
+     */
+    public function getCategoriesWithProducts(int $count): ?object
+    {
+        try {
+            $categories = $this->getCategories($count);
+            foreach ($categories as $category) {
+                $category->load('products.images');
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting products: ' . $e->getMessage());
+            return null;
+        }
+
+        return $categories;
     }
 }

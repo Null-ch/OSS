@@ -51,4 +51,10 @@ class CategoryController extends Controller
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
+    public function getCategoriesWithProducts()
+    {
+        (object) $data = $this->categoryService->getCategoriesWithProducts(10);
+        $response = $this->responseService->getResponse($data);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
 }
