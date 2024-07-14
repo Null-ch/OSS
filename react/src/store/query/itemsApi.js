@@ -17,7 +17,15 @@ export const itemsApi = createApi({
                 // }
             })
         }),
+        getCategoriesItems: builder.query({
+            query: () => ({
+                url: `/categories/products`,
+                // params: {
+                    // id: id
+                // }
+            })
+        }),
     })
 })
 
-export const { useGetItemsQuery, useGetItemQuery } = itemsApi;
+export const { useGetItemsQuery, useGetItemQuery, useGetCategoriesItemsQuery } = itemsApi;
