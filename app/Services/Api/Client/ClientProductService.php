@@ -43,8 +43,9 @@ class ClientProductService extends ProductService
      *
      * @return array
      */
-    public function checkAvailability(array $data): ?array
+    public function checkAvailability(\Illuminate\Http\Request $request): ?array
     {
+        $data = $request->all();
         try {
             if (empty($data)) {
                 return null;
