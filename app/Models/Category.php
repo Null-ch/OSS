@@ -43,13 +43,13 @@ class Category extends Model
      * 
      */
     public static function getAllCategories()
-{
-    $categories = collect();
-    Category::where('is_active', true)->chunk(100, function ($results) use ($categories) {
-        foreach ($results as $category) {
-            $categories->push($category);
-        }
-    });
-    return $categories;
-}
+    {
+        $categories = collect();
+        Category::where('deleted_at', null)->chunk(100, function ($results) use ($categories) {
+            foreach ($results as $category) {
+                $categories->push($category);
+            }
+        });
+        return $categories;
+    }
 }
