@@ -8,8 +8,9 @@ import Button from '../../components/buttons/Button';
 import {useParams, Link} from 'react-router-dom'
 import Price from '../../components/util/Price';
 import { BRAND } from '../../utils/constants';
-import { updateCartProducts } from '../../store/cartSlice';
+import { updateCartProducts, updateCartTry } from '../../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import debounce from './../../lib/utils'
 
 // window.localStorage.clear();
 
@@ -18,10 +19,11 @@ const ItemPage = () => {
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const {data = [], isLoading} = useGetItemQuery(id);
-    // console.log(data);
     const product = data.data;
+    console.log(product);
     document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 
+    let quantity = product?.quantity || 0;
     let count = 0;
     const items = useSelector(state => state.cart.cart);
     if (items && product) {
@@ -33,15 +35,28 @@ const ItemPage = () => {
     const updateCart = (v) => dispatch(updateCartProducts(v));
 
     function updateCount(count) {
-        updateCart({ count, product });
+        updateCart({ count, product }); // visual
+        
+        debounce(() => {
+            console.log('debounced')
+            
+            const data = dispatch(updateCartTry({ count, product })); // todo request
+            console.log(data);
+        }, 1000, 'updateCartTry')
+    }
+
+    // todo test
+    if (count > quantity) {
+        updateCount(quantity);
     }
 
     function onIncrement(incr) {
-        updateCount(Math.max(0, Math.min(Number(count) + incr)));
+        updateCount(Math.max(0, Math.min(Number(count) + incr, quantity)));
     }
 
     const isNoneSelected = count < 1;
-
+    const capped = count === quantity;
+    // console.log(capped);
     const category = product?.category;
     const to = category && '/products/category/' + category.id;
 
@@ -77,6 +92,7 @@ const ItemPage = () => {
                                         onIncrement = {onIncrement}
                                         onChangeInput = {updateCount}
                                         disableDecr = {isNoneSelected}
+                                        disableIncr = {capped}
                                         className = 'i-p-counter '
                                         btnClassName = 'i-p-counter-button'
                                         btnDisabledClassName = 'i-p-counter-button-disabled'

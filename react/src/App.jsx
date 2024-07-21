@@ -8,7 +8,7 @@ import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
-import { setCartHidden } from './store/cartSlice';
+import { setCartHidden, getCart } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
 
@@ -26,6 +26,7 @@ function App() {
   //   setLoggedIn(false);
   // }
 
+
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => {
@@ -36,6 +37,10 @@ function App() {
       // execute on location change
       dispatch(setCartHidden(true));
   }, [location]);
+
+  // todo test:
+  const data = dispatch(getCart());
+  console.log(data);
 
   const {isModalVisible, content} = useSelector((state) => state.modal);
 

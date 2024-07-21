@@ -30,6 +30,7 @@ const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement, 
                 onClick = {() => {onIncrement(1)}}
                 className = {disableIncr ? btnDisabledClassName : btnClassName}
                 text = '+'
+                disabled = {disableIncr}
             />
         </div>
     );
