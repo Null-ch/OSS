@@ -63,8 +63,7 @@ class CartController extends Controller
      */
     public function clearCart($id)
     {
-        // $responseData = $this->cartService->clearCart($id);
-        $responseData = ['sps', $id];
+        $responseData = $this->cartService->clearCart($id);
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
