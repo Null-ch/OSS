@@ -24,6 +24,7 @@ const Nav = () => {
                         var dropdownList = list.slice();
 
                         categories.map((cat) => {
+                            if (!cat.is_active) return;
                             dropdownList.push({
                                 path: `/products/category/${cat.id}`,
                                 title: cat.title,
