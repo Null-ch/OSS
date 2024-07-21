@@ -52,7 +52,7 @@ class CartController extends Controller
     {
         $responseData = $this->cartService->updateCart($request);
         $response = $this->responseService->getResponse($responseData);
-        return response()->json($request->all(), JSON_UNESCAPED_UNICODE);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
     /**
