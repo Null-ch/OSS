@@ -49,7 +49,7 @@ class CategoryService implements CategoryInterface
     {
         try {
             $categories = $this->category::where('deleted_at', null)
-                ->where('is_active', true)
+                // ->where('is_active', true)
                 ->paginate($count);
 
             if ($categories->isNotEmpty()) {
@@ -73,7 +73,7 @@ class CategoryService implements CategoryInterface
     {
         try {
             $category = $this->category::where('deleted_at', null)
-                ->where('is_active', true)
+                // ->where('is_active', true)
                 ->findOrFail($id);
         } catch (\Exception $e) {
             $this->logger->error('Error when getting category: ' . $e->getMessage());

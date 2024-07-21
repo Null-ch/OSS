@@ -6,7 +6,15 @@ use App\Infrastructure\Validation\BaseValidator;
 
 class OrderValidator extends BaseValidator
 {
-    protected $rules = [
-        'cart_id' => 'required',
-    ];
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'cart_id' => 'required',
+        ];
+    }
 }

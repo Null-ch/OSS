@@ -68,7 +68,7 @@ class ClientCartService extends CartService
      * @param  ClientProductService $productService
      * @param  MessageService $messageService
      */
-    protected function __construct(
+    public function __construct(
         Cart $cart,
         LogInterface $logger,
         Product $product,
