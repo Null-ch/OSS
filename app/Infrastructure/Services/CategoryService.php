@@ -82,4 +82,19 @@ class CategoryService implements CategoryInterface
 
         return $category;
     }
+    public function getAllCategories(): ?object
+    {
+        try {
+            $categories = $this->category::where('deleted_at', null)->get();
+
+            if ($categories->isNotEmpty()) {
+                return $categories;
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting categories: ' . $e->getMessage());
+            return null;
+        }
+
+        return null;
+    }
 }
