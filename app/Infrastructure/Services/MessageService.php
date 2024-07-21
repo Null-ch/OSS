@@ -29,7 +29,7 @@ class MessageService
      * @param LogInterface $logger
      * 
      */
-    protected function __construct(
+    public function __construct(
         MessageFactory $messageFactory,
         LogInterface $logger
     ) {
