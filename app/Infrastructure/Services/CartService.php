@@ -91,7 +91,7 @@ class CartService implements CartInterface
         DB::beginTransaction();
         try {
             $userId = auth()->check() ? auth()->user()->id : null;
-            $session = session()->has('id') ? session()->getId() : null;
+            $session = session()->has('sessionID') ? session('sessionID') : null;
 
             if ($userId) {
                 $cart = $this->cart::where('user_id', $userId)->first();

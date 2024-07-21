@@ -62,7 +62,7 @@ class ClientProductService extends ProductService
                             'id' => $value['id'],
                             'availability' => false,
                             'quantity' => 0,
-                            'message' => 'Товара не существует',
+                            'exists' => false,
                         ];
                         $error = true;
                     } else {
@@ -76,7 +76,8 @@ class ClientProductService extends ProductService
                         $output[] = [
                             'id' => $product->id,
                             'availability' => $availability,
-                            'quantity' => $product->quantity
+                            'quantity' => $product->quantity,
+                            'exists' => false,
                         ];
                         $output['error'] = $error;
                     }

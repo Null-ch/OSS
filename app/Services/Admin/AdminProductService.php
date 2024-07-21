@@ -2,11 +2,13 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Database\Connection;
 use App\Infrastructure\Services\FileService;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\CategoryService;
 use App\Infrastructure\Services\ProductService;
 
 class AdminProductService extends ProductService
@@ -46,6 +48,7 @@ class AdminProductService extends ProductService
      * @var object
      */
     protected $fileService;
+    protected $categoryService;
 
     /**
      * Construct product service
@@ -56,13 +59,14 @@ class AdminProductService extends ProductService
      * @param Connection $database
      * 
      */
-    public function __construct(Product $product, LogInterface $logger, Category $category, Connection $database, FileService $fileService)
+    public function __construct(Product $product, LogInterface $logger, Category $category, Connection $database, FileService $fileService, CategoryService $categoryService)
     {
         parent::__construct($product, $logger);
 
         $this->category = $category;
         $this->database = $database;
         $this->fileService = $fileService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -188,7 +192,7 @@ class AdminProductService extends ProductService
     public function getAllCategories(): ?object
     {
         try {
-            $allCategories = $this->category->getAllCategories();
+            $allCategories = $this->categoryService->getAllCategories();
         } catch (\Exception $e) {
             $this->logger->error('Error when getting categories: ' . $e->getMessage());
         }

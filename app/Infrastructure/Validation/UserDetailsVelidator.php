@@ -6,9 +6,17 @@ use App\Infrastructure\Validation\BaseValidator;
 
 class UserDetailsVelidator extends BaseValidator
 {
-    protected $rules = [
-        'name' => 'required',
-        'email' => 'required',
-        'phone_number' => 'required',
-    ];
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+        ];
+    }
 }

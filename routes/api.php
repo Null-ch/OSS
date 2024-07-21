@@ -40,9 +40,6 @@ Route::middleware('auth:api')->group(function () {
 Route::prefix('public')->group(function () {
     Route::prefix('cart')->group(function () {
         Route::get('/', [App\Http\Controllers\Api\Client\CartController::class, 'index'])->name('client.cart.index');
-        Route::post('/add', [App\Http\Controllers\Api\Client\CartController::class, 'addProduct'])->name('client.cart.add');
-        Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update');
-        Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
         Route::post('/update', [App\Http\Controllers\Api\Client\CartController::class, 'updateCart'])->name('client.cart.update');
         Route::post('/clear/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'clearCart'])->name('client.cart.clear');
     });
@@ -66,8 +63,8 @@ Route::prefix('public')->group(function () {
     });
 
     Route::prefix('special-offer')->group(function () {
-        Route::get('/', [App\Http\Controllers\Api\Client\CategoryController::class, 'index'])->name('client.categories.index');
-        Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.categories.show');
-        Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.category.product.show');
+        Route::get('/', [App\Http\Controllers\Api\Client\CategoryController::class, 'index'])->name('client.special.offer.index');
+        Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.special.offer.show');
+        Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.special.offer.show.all');
     });
 });

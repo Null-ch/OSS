@@ -3,11 +3,14 @@
 namespace App\Services\Admin;
 
 use App\Models\User;
+use App\Helpers\Helpers;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\SendRegistrationEmail;
 use Illuminate\Support\Facades\Hash;
 use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\MessageService;
+use App\Infrastructure\Validation\UserValidator;
 
 class AdminUserService extends UserService
 {
@@ -17,76 +20,54 @@ class AdminUserService extends UserService
      * @var object
      */
 
-    protected  $user;
+    protected $user;
     /**
      * LogInterface implementation
      *
      * @var object
      */
 
-    protected  $logger;
+    protected $logger;
+    /**
+     * userValidator
+     *
+     * @var object
+     */
+    protected $userValidator;
+    /**
+     * messageService
+     *
+     * @var object
+     */
+    protected $messageService;
 
     /**
-     * Construct user service
+     * helpers
+     *
+     * @var mixed
+     */
+    protected $helpers;
+
+    /**
+     * __construct
      *
      * @param User $user
      * @param LogInterface $logger
-     * 
+     * @param UserValidator $userValidator
+     * @param MessageService $messageService
      */
-    public function __construct(User $user, LogInterface $logger)
-    {
-        parent::__construct($user, $logger);
-    }
-
-
-    /**
-     * Get current user
-     *
-     * @param int $id
-     * 
-     * @return object
-     * 
-     */
-    public function getUserById(int $id): ?object
-    {
-        try {
-            (object) $user = $this->user::findOrFail($id);
-        } catch (\Exception $e) {
-            $this->logger->error('The user was not found: ' . $e->getMessage());
-            return null;
-        }
-
-        return $user;
-    }
-
-    /**
-     * Create new user
-     *
-     * @param array $data
-     * 
-     */
-    public function createUser(array $data)
-    {
-        (string) $password = $data['password'];
-        $data['password'] = Hash::make($password);
-        DB::beginTransaction();
-
-        try {
-            (object) $user = $this->user::create($data);
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->logger->error('Error when creating a user: ' . $e->getMessage());
-            return;
-        }
-
-        try {
-            dispatch(new SendRegistrationEmail($user, $password));
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->logger->error('Error when sending an email after registration: ' . $e->getMessage());
-        }
+    public function __construct(
+        User $user,
+        LogInterface $logger,
+        UserValidator $userValidator,
+        MessageService $messageService,
+        Helpers $helpers
+    ) {
+        $this->user = $user;
+        $this->logger = $logger;
+        $this->userValidator = $userValidator;
+        $this->messageService = $messageService;
+        $this->helpers = $helpers;
     }
 
     /**
@@ -98,7 +79,7 @@ class AdminUserService extends UserService
      */
     public function updateUser(array $data, int $id)
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUser($id);
 
         if ($user) {
             try {
@@ -134,7 +115,7 @@ class AdminUserService extends UserService
      */
     public function toggleActivity(int $id): ?string
     {
-        $user = $this->getUserById($id);
+        $user = $this->getUser($id);
         if ($user) {
             $user->is_active == 1 ? $user->is_active = 0 : $user->is_active = 1;
             $user->save();
