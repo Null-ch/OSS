@@ -5,6 +5,7 @@ namespace App\Infrastructure\Services;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
+use App\Events\ProductRemovedFromCart;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Interfaces\CartProductInterface;
 
@@ -179,6 +180,7 @@ class CartProductService implements CartProductInterface
         try {
             $cartProduct = $this->getCartProductsByCartId($id);
             foreach ($cartProduct as $item) {
+                event(new ProductRemovedFromCart($item->product_id, $item->quantity));
                 $item->delete();
             }
             DB::commit();

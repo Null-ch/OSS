@@ -11,6 +11,11 @@ class ResponseService
                 'result' => true,
                 'data' => $data,
             ];
+        } elseif (isset($data['error'])) {
+            return [
+                'result' => false,
+                'data' => $data,
+            ];
         } else {
             return [
                 'result' => false,

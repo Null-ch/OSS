@@ -40,9 +40,6 @@ Route::middleware('auth:api')->group(function () {
 Route::prefix('public')->group(function () {
     Route::prefix('cart')->group(function () {
         Route::get('/', [App\Http\Controllers\Api\Client\CartController::class, 'index'])->name('client.cart.index');
-        Route::post('/add', [App\Http\Controllers\Api\Client\CartController::class, 'addProduct'])->name('client.cart.add');
-        Route::put('/update/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'updateProduct'])->name('client.cart.update.by.id');
-        Route::delete('/delete/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'deleteProduct'])->name('client.cart.product.delete');
         Route::post('/update', [App\Http\Controllers\Api\Client\CartController::class, 'updateCart'])->name('client.cart.update');
         Route::post('/clear/{id}', [App\Http\Controllers\Api\Client\CartController::class, 'clearCart'])->name('client.cart.clear');
     });

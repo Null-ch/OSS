@@ -4,7 +4,7 @@ namespace App\Services\Api\Client;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Models\CartProduct;
+use App\Events\ProductAddedToCart;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Services\CartService;
 use App\Infrastructure\Interfaces\LogInterface;
@@ -90,28 +90,22 @@ class ClientCartService extends CartService
     public function updateCart(\Illuminate\Http\Request $request): ?string
     {
         $data = $this->cartUpdateValidator->validate($request->all());
-        /* Использовать CartUpdateValidator для получения массива данных в которых
-        cart_id и само содержимое корзины
-        */
         DB::beginTransaction();
         try {
-            $this->cartProductService->clearingByCartId($data['cart_id']);
-            //Реализовать резервирование (уменьшние общего кол-ва товаров и увеличение в зависимости от добавления\удаления из корзины)
-            // event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+            $cart = $this->getCart();
+            $this->cartProductService->clearingByCartId($cart->id);
             $cartData = $this->productService->checkAvailability($data['cart']);
             if ($cartData && !$cartData['error']) {
                 $cart = $this->getCart();
             } else {
                 return $cartData;
             }
-
-
  
             foreach ($data as $key => $value) {
                 $product = $this->product->find($value['id']);
                 if (isset($product)) {
                     $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id]);
-                    // event(new ProductAddedToCart($cartProduct->product_id, $cartProduct->quantity));
+                    event(new ProductAddedToCart($product->id, $value['quantity']));
                 }
             }
             DB::commit();
