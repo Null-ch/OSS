@@ -77,7 +77,7 @@ class ClientProductService extends ProductService
                             'id' => $product->id,
                             'availability' => $availability,
                             'quantity' => $product->quantity,
-                            'exists' => false,
+                            'exists' => true,
                         ];
                         $output['error'] = $error;
                     }
