@@ -17,7 +17,7 @@ const Nav = () => {
     return (
         <div className = 'nav'>
             {
-                nav.map(({path, title, listEntities, list}, key) => {
+                nav.map(({path, title, listEntities, list, mobileHidden}, key) => {
                     var dropdownList = null;
                     //! todo дропдаун не закрыватся в прочих кейсах, н-р в истории <- -> на странице
                     if (list && listEntities && listEntities === 'categories') {
@@ -31,8 +31,12 @@ const Nav = () => {
                             })
                         });
                     }
+                    const active = path === '/' ? path === p : p.startsWith(path);
+                    let className = active ? 'tab-active' : 'tab-inactive';
+                    className = mobileHidden ? className + ' tab-hidden' : className;
+            
                     return <Tab
-                        className = { (path === '/' ? path === p : p.startsWith(path)) ? 'tab-active' : 'tab-inactive'}
+                        className = { className }
                         key = {key}
                         path = {path}
                         title = {title}

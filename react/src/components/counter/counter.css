@@ -1,27 +1,3 @@
-@font-face {
-  font-family: 'bree-light';
-  src: url('/src/fonts/BreeCYR-Light.woff2') format('woff2'), url('/src/fonts/BreeCYR-Light.woff') format('woff');
-}
-@font-face {
-  font-family: 'bree-regular';
-  src: url('/src/fonts/BreeCYR-Regular.woff2') format('woff2'), url('/src/fonts/BreeCYR-Regular.woff') format('woff');
-}
-@font-face {
-  font-family: 'bree-thin';
-  src: url('/src/fonts/BreeCYR-Thin.woff2') format('woff2'), url('/src/fonts/BreeCYR-Thin.woff') format('woff');
-}
-@font-face {
-  font-family: 'centro-sans-pro-thin';
-  src: url('/src/fonts/PFCentroSansPro-Thin.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'centro-sans-pro-light';
-  src: url('/src/fonts/PFCentroSansPro-Light.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'centro-sans-pro-regular';
-  src: url('/src/fonts/PFCentroSansPro-Regular.woff2') format('woff2');
-}
 body {
   background: #f7f7f7;
 }
@@ -33,6 +9,11 @@ body {
 }
 html {
   scrollbar-width: none !important;
+}
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -34,6 +34,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .modal {
   background-color: #33333344;
   width: 100vw;

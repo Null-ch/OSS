@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
+import Cookies from 'js-cookie'
 
 // window.localStorage.clear();
 let res = window.localStorage.getItem('oss-cart') || '{}';
@@ -11,17 +12,25 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
         const url = `${DOMAIN}api/public/cart/update`;
         // console.log(data)
         // console.log(url)
-        const res = await fetch(url, {
+        const _res = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                id: data.product.id,
-                quantity: data.count,
+                sessionID: Cookies.get('sessionID'),
+                cart: [
+                    {
+                        id: data.product.id,
+                        quantity: data.count,
+                    },
+                ]
             })
         })
-        console.log(res)
+
+        const res = await _res.json();
+        console.log(url);
+        console.log(res);
       },
 )
 
@@ -29,9 +38,21 @@ export const getCart = createAsyncThunk('cart/getCart',
     async(data, thunkAPI) => {
         const url = `${DOMAIN}api/public/cart`;
         // console.log(data)
-        // console.log(url)
-        const res = await fetch(url)
-        console.log(res)
+        console.log(url);
+        const session = Cookies.get('sessionID');
+        // document.cookie = cookie;
+        console.log(session);
+        const _res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                // 'cookie': cookie,
+                // 'credentials': 'include',
+                'Session-Id' : session,
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+        });
+        const res = await _res.json();
+        console.log(res);
       },
 )
 
@@ -70,19 +91,19 @@ const cartSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(updateCartTry.pending, (state, action) => {
-                console.log('updateCartTry.pending');
+                // console.log('updateCartTry.pending');
 
             })
             .addCase(updateCartTry.fulfilled, (state, action) => {
-                console.log('updateCartTry.fulfilled');
+                // console.log('updateCartTry.fulfilled');
                 // state.cart = cart;
             })
             .addCase(getCart.pending, (state, action) => {
-                console.log('getCart.pending');
+                // console.log('getCart.pending');
 
             })
             .addCase(getCart.fulfilled, (state, action) => {
-                console.log('getCart.fulfilled');
+                // console.log('getCart.fulfilled');
                 // state.cart = cart;
             })
     },

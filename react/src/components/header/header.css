@@ -35,6 +35,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .header {
   top: 0px;
   left: 0px;
@@ -223,4 +228,14 @@ html {
 }
 .h-cart-button:hover {
   opacity: 100%;
+}
+@media (max-width: 750px) {
+  .tab-hidden {
+    display: none;
+    visibility: hidden;
+  }
+  .header {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }

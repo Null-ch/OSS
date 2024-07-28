@@ -10,6 +10,7 @@
     justify-content: center;
     gap: 32px;
     padding: 24px;
+    box-sizing: border-box;
     // position: fixed;
     // width: 100%;
     bottom: 0px;
@@ -76,3 +77,23 @@
     }
 }
 
+@media (max-width: 750px) {
+    .footer {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .f-brand-container {
+        display: none;
+    }
+
+    .f-section-left, .f-section-right {
+        flex-direction: column;
+    }
+
+    .f-section-right {
+        .f-link {
+            text-align: right;
+        }
+    }
+}

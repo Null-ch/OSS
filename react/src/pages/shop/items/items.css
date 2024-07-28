@@ -34,6 +34,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .items {
   padding: 24px;
   background-color: white;
@@ -184,4 +189,10 @@ html {
 }
 .item-quick-buy-button:hover {
   opacity: 100%;
+}
+@media (max-width: 750px) {
+  .items {
+    gap: 8px;
+    padding: 8px;
+  }
 }

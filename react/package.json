@@ -7,6 +7,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "js-cookie": "^3.0.5",
+    "js-guid": "^1.0.2",
     "less-loader": "^5.0.0",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
@@ -16,11 +18,11 @@
     "react-scripts": "^5.0.1",
     "react-transition-group": "^4.4.5",
     "redux-thunk": "^3.1.0",
-    "typescript": "^5.3.3",
+    "uuid": "^10.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"react-scripts start\"",
+    "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"react-scripts start --openssl-legacy-provider\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

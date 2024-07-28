@@ -34,6 +34,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .footer {
   border-top: 1px solid #ccc;
   background-color: #f7f7f7;
@@ -43,6 +48,7 @@ html {
   justify-content: center;
   gap: 32px;
   padding: 24px;
+  box-sizing: border-box;
   bottom: 0px;
 }
 .footer span {
@@ -97,4 +103,20 @@ html {
 }
 .f-brand-link:hover {
   opacity: 100%;
+}
+@media (max-width: 750px) {
+  .footer {
+    gap: 8px;
+    padding: 8px;
+  }
+  .f-brand-container {
+    display: none;
+  }
+  .f-section-left,
+  .f-section-right {
+    flex-direction: column;
+  }
+  .f-section-right .f-link {
+    text-align: right;
+  }
 }
