@@ -91,12 +91,12 @@ class CartService implements CartInterface
         DB::beginTransaction();
         try {
             $userId = auth()->check() ? auth()->user()->id : null;
-            $session = session()->has('sessionID') ? session('sessionID') : null;
+            $sessionId = request()->header('session-id') ? request()->header('session-id') : null;
 
             if ($userId) {
                 $cart = $this->cart::where('user_id', $userId)->first();
-            } elseif ($session) {
-                $cart = $this->cart::where('session', $session)->first();
+            } elseif ($sessionId) {
+                $cart = $this->cart::where('session', $sessionId)->first();
             }
 
             if ($cart) {
@@ -110,8 +110,8 @@ class CartService implements CartInterface
             }
 
             if (!$cart) {
-                if ($userId || $session) {
-                    $cart = $this->cart->create(['user_id' => $userId, 'session' => $session]);
+                if ($userId || $sessionId) {
+                    $cart = $this->cart->create(['user_id' => $userId, 'session' => $sessionId]);
                     DB::commit();
                 } else {
                     DB::rollBack();
@@ -155,7 +155,7 @@ class CartService implements CartInterface
             return null;
         }
 
-        return $products;
+        return $cart;
     }
 
     /**
