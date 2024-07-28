@@ -40,8 +40,7 @@ const ItemPage = () => {
         debounce(() => {
             console.log('debounced')
             
-            const data = dispatch(updateCartTry({ count, product })); // todo request
-            console.log(data);
+            dispatch(updateCartTry({ count, product })); // todo request
         }, 1000, 'updateCartTry')
     }
 

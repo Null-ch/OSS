@@ -11,7 +11,7 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
         const url = `${DOMAIN}api/public/cart/update`;
         // console.log(data)
         // console.log(url)
-        const res = await fetch(url, {
+        const _res = await fetch(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
@@ -21,7 +21,10 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
                 quantity: data.count,
             })
         })
-        console.log(res)
+
+        const res = await _res.json();
+        console.log(url);
+        console.log(res);
       },
 )
 
@@ -29,9 +32,10 @@ export const getCart = createAsyncThunk('cart/getCart',
     async(data, thunkAPI) => {
         const url = `${DOMAIN}api/public/cart`;
         // console.log(data)
-        // console.log(url)
-        const res = await fetch(url)
-        console.log(res)
+        console.log(url)
+        const _res = await fetch(url);
+        const res = await _res.json();
+        console.log(res);
       },
 )
 

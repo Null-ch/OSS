@@ -11,6 +11,12 @@ import { setIsModalVisible, setModalData, setContent } from './store/modalSlice'
 import { setCartHidden, getCart } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
+import { Guid } from "js-guid";
+import Cookies from 'js-cookie'
+
+// import { randomUUID } from "crypto";
+
+// todo Guid.newGuid()
 
 function App() {
   // const isLogged = localStorage.getItem('isLoggedIn');
@@ -26,6 +32,11 @@ function App() {
   //   setLoggedIn(false);
   // }
 
+  // todo cookies
+  // Cookies.set("user_token", "abc123", { expires: 7, path: "/" });
+
+  console.log('Cookies.get()')
+  console.log(Cookies.get('user_token'))
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -40,7 +51,8 @@ function App() {
 
   // todo test:
   const data = dispatch(getCart());
-  console.log(data);
+  // console.log('getCart');
+  // console.log(data);
 
   const {isModalVisible, content} = useSelector((state) => state.modal);
 
