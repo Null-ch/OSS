@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
+import Cookies from 'js-cookie'
 
 // window.localStorage.clear();
 let res = window.localStorage.getItem('oss-cart') || '{}';
@@ -17,8 +18,13 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
               'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                id: data.product.id,
-                quantity: data.count,
+                sessionID: Cookies.get('sessionID'),
+                cart: [
+                    {
+                        id: data.product.id,
+                        quantity: data.count,
+                    },
+                ]
             })
         })
 
@@ -32,8 +38,18 @@ export const getCart = createAsyncThunk('cart/getCart',
     async(data, thunkAPI) => {
         const url = `${DOMAIN}api/public/cart`;
         // console.log(data)
-        console.log(url)
-        const _res = await fetch(url);
+        console.log(url);
+        const cookie = 'laravel_session=' + (Cookies.get('sessionID') || '')
+        document.cookie = cookie;
+        console.log(cookie);
+        const _res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                // 'cookie': cookie,
+                'credentials': 'include',
+                'Content-Type': 'application/json;charset=utf-8'
+              },
+        });
         const res = await _res.json();
         console.log(res);
       },

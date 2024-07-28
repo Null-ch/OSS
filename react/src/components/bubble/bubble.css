@@ -10,3 +10,8 @@
   visibility: hidden;
   display: none;
 }
+@media (max-width: 750px) {
+  .bubble {
+    width: 100%;
+  }
+}

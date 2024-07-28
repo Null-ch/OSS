@@ -34,6 +34,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .category-page {
   background-color: white;
   padding: 24px;
@@ -44,5 +49,9 @@ html {
   font-family: 'centro-sans-pro-regular', sans-serif;
   font-size: 40px;
   color: #333333;
-  height: 48px;
+}
+@media (max-width: 750px) {
+  .category-page {
+    padding: 8px;
+  }
 }

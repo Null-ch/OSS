@@ -33,10 +33,7 @@ function App() {
   // }
 
   // todo cookies
-  // Cookies.set("user_token", "abc123", { expires: 7, path: "/" });
-
-  console.log('Cookies.get()')
-  console.log(Cookies.get('user_token'))
+  Cookies.set("sessionID", Guid.newGuid()) //, { secure: true, SameSite: 'Strict' }); // todo expires, path
 
   const dispatch = useDispatch();
   const location = useLocation();

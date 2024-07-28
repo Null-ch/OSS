@@ -34,6 +34,11 @@ body {
 html {
   scrollbar-width: none !important;
 }
+@media (max-width: 750px) {
+  html {
+    width: 100vw !important;
+  }
+}
 .item-page {
   background-color: white;
   display: flex;
@@ -278,4 +283,24 @@ html {
   color: #fff;
   font-weight: 400;
   font-size: 24px;
+}
+@media (max-width: 750px) {
+  .item-page {
+    gap: 8px;
+    padding: 8px;
+    flex-direction: column;
+  }
+  .i-p-preview {
+    padding: 8px;
+  }
+  .i-p-info {
+    padding: 8px;
+  }
+  .item-page-title {
+    text-align: center;
+  }
+  .item-page-shipment-link,
+  .item-page-shipment-info {
+    font-size: 24px;
+  }
 }

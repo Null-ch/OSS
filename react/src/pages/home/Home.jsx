@@ -1,7 +1,7 @@
 import Categories from './categories/Categories';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchCategories} from '../../store/categorySlice';
+import { fetchCategories } from '../../store/categorySlice';
 import Category from './categories/Category';
 
 import './home.css'

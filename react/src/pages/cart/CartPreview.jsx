@@ -48,9 +48,9 @@ const CartPreview = ({onClose}) => {
 
         // console.log(src)
         const _product = 
-        <li key = {id} id = 'c-p-product'>
-            <img id = 'c-p-product-preview-image' src = { `${DOMAIN}${preview_image}`}></img>
-            <h1 id = 'c-p-product-title'>{title}</h1>
+        <li key = {id} className = 'c-p-product'>
+            <img className = 'c-p-product-preview-image' src = { `${DOMAIN}${preview_image}`}></img>
+            <h1 className = 'c-p-product-title'>{title}</h1>
             <Counter
                 disableDecr = {false}
                 disableIncr = {false}
@@ -61,8 +61,8 @@ const CartPreview = ({onClose}) => {
                 btnClassName = 'c-p-counter-button'
                 btnDisabledClassName = 'c-p-counter-button-disabled'
             />
-            <Price id = 'c-p-product-price' price = {_price}/>
-            <div id = 'c-p-delete'>
+            <Price className = 'c-p-product-price' price = {_price}/>
+            <div className = 'c-p-delete'>
                 <XIcon
                     title = 'Убрать'
                     onClick = { () => { onItemDelete(product); } }
@@ -121,19 +121,19 @@ const CartPreview = ({onClose}) => {
 
     return (
         <div className = 'c-p'>
-            <XIcon id = 'c-p-close' onClick = {onClose} width = '16' height = '16' fillColor = '#333'/>
-            <h1 id = 'c-p-title'>В корзине:</h1>
+            <XIcon className = 'c-p-close' onClick = {onClose} width = '16' height = '16' fillColor = '#333'/>
+            <h1 className = 'c-p-title'>В корзине:</h1>
             {
                 itemsList.length == 0 ? 
                 <span className = 'c-p-empty'>Пока что пусто!</span>
                 :
                 <>
-                    <ul id = 'c-p-products'>
+                    <ul className = 'c-p-products'>
                         {itemsList}
                     </ul>
-                    <div id = 'c-p-total'>
-                        <h1 id = 'c-p-total-title'>Сумма:</h1>
-                        <Price id = 'c-p-total-price' price = {totalPrice} title = 'Всего'/>
+                    <div className = 'c-p-total'>
+                        <h1 className = 'c-p-total-title'>Сумма:</h1>
+                        <Price className = 'c-p-total-price' price = {totalPrice} title = 'Всего'/>
                     </div>
                     <Button
                         disabled = {false}

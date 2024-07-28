@@ -18,7 +18,8 @@ const CreateOrder = lazy(() => import('./pages/order/CreateOrder'))
 const home = {
     path: HOME,
     component: <Home/>,
-    title: 'Главная'
+    title: 'Главная',
+    mobileHidden: true,
 }
 
 const cart = {
@@ -52,7 +53,8 @@ const itemPage = {
 const about = {
     path: ABOUT,
     component: <About/>,
-    title: 'О нас'
+    title: 'О нас',
+    mobileHidden: true,
 }
 
 const createOrder = {

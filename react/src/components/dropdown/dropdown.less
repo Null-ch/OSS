@@ -21,13 +21,10 @@
 
 .dropdown {
     width: 200px;
-    // display: none;
     position: absolute;
-    // visibility: hidden;
-    // opacity: 0;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
     border: 1px solid @black;
     background-color: white;
+    box-sizing: border-box;
 }
 
 .dropdown-active {
@@ -57,5 +54,21 @@
 
     &:hover {
         text-decoration: underline !important;
+    }
+}
+
+@media (max-width: 750px) {
+    .dropdown {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 100vw;
+        position: fixed;
+        left: 0;
+        border-right: none;
+        border-left: none;
+    }
+
+    .dropdown-item-link {
+        font-size: 28px;
     }
 }

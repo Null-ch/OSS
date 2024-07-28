@@ -118,6 +118,10 @@
     }
 }
 
+.tab-hidden {
+}
+
+
 .brand {
     font-family: @mainlight, @fontdefault;
     // cursor: default;
@@ -161,4 +165,16 @@
 
     opacity: 75%;
     &:hover { opacity: 100%; }
+}
+
+@media (max-width: 750px) {
+    .tab-hidden {
+        display: none;
+        visibility: hidden;
+    }
+
+    .header {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
 }

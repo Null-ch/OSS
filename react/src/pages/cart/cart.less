@@ -27,41 +27,42 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
     gap: 8px;
 
-    #c-p-title {
+    .c-p-title {
         font-family: @mainregular, @fontdefault;
         color: @black;
         text-align: center;
         font-size: 24px;
     }
 
-    #c-p-products {
+    .c-p-products {
         display: flex;
         flex-direction: column;
         gap: 4px;
     }
     
-    #c-p-product {
+    .c-p-product {
         display: flex;
         flex-direction: row;
         gap: 16px;
         align-items: center;
     }
     
-    #c-p-product-preview-image {
+    .c-p-product-preview-image {
         width: 40px;
         height: 40px;
         border: 1px solid @black;
     }
 
-    #c-p-product-title {
+    .c-p-product-title {
         font-family: @mainregular, @fontdefault;
         color: @black;
         font-size: 18px;
     }
     
-    #c-p-product-price {
+    .c-p-product-price {
         #price {
             font-family: @mainregular, @fontdefault;
             color: @black;
@@ -98,19 +99,19 @@
         }
     }
 
-    #c-p-total {
+    .c-p-total {
         display: flex;
         flex-direction: row;
         gap: 16px;
 
         align-items: center;
-        #c-p-total-title {
+        .c-p-total-title {
             font-family: @mainlight, @fontdefault;
             color: @black;
             font-size: 18px;
         }
 
-        #c-p-total-price {
+        .c-p-total-price {
             #price {
                 font-family: @mainlight, @fontdefault;
                 color: @black;
@@ -126,7 +127,7 @@
         }
     }
 
-    #c-p-close {
+    .c-p-close {
         position: absolute;
         top: 8px;
         right: 8px;
@@ -136,7 +137,7 @@
         &:hover { opacity: 100%; }
     }
 
-    #c-p-delete {
+    .c-p-delete {
         width: 24px;
         height: 24px;
         display: flex;
@@ -206,4 +207,47 @@
     cursor: no-drop;
 }
 
+@media (max-width: 750px) {
+    .c-p {
+        width: 100%;
+        padding: 8px;
+    }
 
+    .c-p-close {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .c-p-title {
+        font-size: 32px !important;
+    }
+
+    .c-p-product-preview-image {
+        display: none;
+    }
+
+    .c-p-product-title {
+        font-size: 24px !important;
+        // max-width: 100px;
+    }
+
+    .c-p-product {
+        gap: 8px !important;
+    }
+
+    .c-p-counter {
+        height: 32px;
+    }
+
+    .c-p-counter-button {
+        height: 32px;
+        width: 32px;
+    }
+
+    .c-p-delete {
+        svg {
+            width: 18px !important;
+            height: 18px !important;
+        }
+    }
+}

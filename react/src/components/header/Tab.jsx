@@ -44,12 +44,12 @@ const Tab = ({path, title, list, onClick, className }) => {
             {
                 list ?
                 <details
-                    ref={dropdownMenuRef}
-                    className = {className}
-                    open = {isOpened}
-                    onToggle = {(e)=>{setIsOpened(e.currentTarget.open)}}>
-                    <summary ref={dropdownButtonRef} className = 'tab-title'>
-                        <span>{title}</span>
+                    ref={ dropdownMenuRef }
+                    className = { className }
+                    open = { isOpened }
+                    onToggle = {(e)=>{ setIsOpened(e.currentTarget.open)} }>
+                    <summary ref = { dropdownButtonRef } className = 'tab-title'>
+                        <span>{ title }</span>
                         <ArrowIcon
                             className = 'arrow-hover'
                             rotate = '0'
@@ -58,12 +58,12 @@ const Tab = ({path, title, list, onClick, className }) => {
                             fillColor = '#f7f7f7'
                         />
                     </summary>
-                    <DropdownMenu list = {list}/>
+                    <DropdownMenu list = { list }/>
                 </details>
                 :
-                <Link className = {className} to = {path} onClick = { list ? null : onClick}>
+                <Link className = { className } to = { path } onClick = { list ? null : onClick }>
                     <div className = 'tab-title'>
-                        <span>{title}</span>
+                        <span>{ title }</span>
                     </div>
                 </Link>
             }
