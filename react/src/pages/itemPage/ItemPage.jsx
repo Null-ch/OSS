@@ -20,7 +20,7 @@ const ItemPage = () => {
 
     const {data = [], isLoading} = useGetItemQuery(id);
     const product = data.data;
-    console.log(product);
+    // console.log(product);
     document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 
     let quantity = product?.quantity || 0;
@@ -38,7 +38,7 @@ const ItemPage = () => {
         updateCart({ count, product }); // visual
         
         debounce(() => {
-            console.log('debounced')
+            // console.log('debounced')
             
             dispatch(updateCartTry({ count, product })); // todo request
         }, 1000, 'updateCartTry')

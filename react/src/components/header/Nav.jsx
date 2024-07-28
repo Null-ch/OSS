@@ -34,7 +34,6 @@ const Nav = () => {
                     const active = path === '/' ? path === p : p.startsWith(path);
                     let className = active ? 'tab-active' : 'tab-inactive';
                     className = mobileHidden ? className + ' tab-hidden' : className;
-                    console.log(className)
             
                     return <Tab
                         className = { className }

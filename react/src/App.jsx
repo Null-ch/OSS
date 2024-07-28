@@ -33,7 +33,8 @@ function App() {
   // }
 
   // todo cookies
-  Cookies.set("sessionID", Guid.newGuid()) //, { secure: true, SameSite: 'Strict' }); // todo expires, path
+  Cookies.get('sessionID') || Cookies.set("sessionID", Guid.newGuid())
+   //, { secure: true, SameSite: 'Strict' }); // todo expires, path
 
   const dispatch = useDispatch();
   const location = useLocation();

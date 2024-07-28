@@ -39,14 +39,15 @@ export const getCart = createAsyncThunk('cart/getCart',
         const url = `${DOMAIN}api/public/cart`;
         // console.log(data)
         console.log(url);
-        const cookie = 'laravel_session=' + (Cookies.get('sessionID') || '')
-        document.cookie = cookie;
-        console.log(cookie);
+        const session = Cookies.get('sessionID');
+        // document.cookie = cookie;
+        console.log(session);
         const _res = await fetch(url, {
             method: 'GET',
             headers: {
                 // 'cookie': cookie,
-                'credentials': 'include',
+                // 'credentials': 'include',
+                'Session-Id' : session,
                 'Content-Type': 'application/json;charset=utf-8'
               },
         });
@@ -90,19 +91,19 @@ const cartSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(updateCartTry.pending, (state, action) => {
-                console.log('updateCartTry.pending');
+                // console.log('updateCartTry.pending');
 
             })
             .addCase(updateCartTry.fulfilled, (state, action) => {
-                console.log('updateCartTry.fulfilled');
+                // console.log('updateCartTry.fulfilled');
                 // state.cart = cart;
             })
             .addCase(getCart.pending, (state, action) => {
-                console.log('getCart.pending');
+                // console.log('getCart.pending');
 
             })
             .addCase(getCart.fulfilled, (state, action) => {
-                console.log('getCart.fulfilled');
+                // console.log('getCart.fulfilled');
                 // state.cart = cart;
             })
     },
