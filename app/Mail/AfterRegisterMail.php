@@ -33,7 +33,7 @@ class AfterRegisterMail extends Mailable
     {
         $subject = 'Вы успешно зарегистрировались!';
 
-        return $this->from('info@inamr.ru')
+        return $this->from('info@oss.ru')
             ->subject($subject)
             ->view('email.afterRegister', [
                 'user' => $this->user,
