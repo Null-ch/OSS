@@ -5,8 +5,9 @@ import Price from '../../components/util/Price';
 import XIcon from '../../components/icons/XIcon';
 import { DOMAIN } from '../../utils/url';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCartProducts } from '../../store/cartSlice';
+import { updateCartProducts, updateCartTry } from '../../store/cartSlice';
 import Button from '../../components/buttons/Button';
+import debounce from '../../lib/utils';
 
 // превью корзины в правом верхнем углу
 // клик на корзину - появляется баббл с этой страницей
@@ -23,7 +24,13 @@ const CartPreview = ({onClose}) => {
     const items = useSelector(state => state.cart.cart); // dict
 
     const dispatch = useDispatch();
-    const updateCart = (v) => dispatch(updateCartProducts(v));
+    function updateCart(v) {
+        dispatch(updateCartProducts(v)); // visual
+
+        debounce(() => {
+            dispatch(updateCartTry({ count: v.count, product: v.product })); // request
+        }, 1000, 'updateCartTry')
+    }
 
     function onIncrement(item, incr) {
         var count = Math.max(0, Math.min(Number(item.count) + incr));

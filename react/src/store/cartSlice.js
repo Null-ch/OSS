@@ -7,11 +7,9 @@ let res = window.localStorage.getItem('oss-cart') || '{}';
 var cart = JSON.parse(res) || {};
 
 export const updateCartTry = createAsyncThunk('cart/updateCartTry',
-    async(data, thunkAPI) => {
+    async(data, _) => {
         
         const url = `${DOMAIN}api/public/cart/update`;
-        // console.log(data)
-        // console.log(url)
         const _res = await fetch(url, {
             method: 'POST',
             headers: {
