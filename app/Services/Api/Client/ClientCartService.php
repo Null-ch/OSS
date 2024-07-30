@@ -84,12 +84,19 @@ class ClientCartService extends CartService
     /**
      * Update cart
      *
-     * @return object
+     * @return string | null
      * 
      */
-    public function updateCart(\Illuminate\Http\Request $request): ?string
+    public function updateCart(\Illuminate\Http\Request $request)
     {
-        $data = $this->cartUpdateValidator->validate($request->all());
+        $data = $request->all();
+        try {
+            isset($data['cart']);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
+            return null;
+        }
+
         DB::beginTransaction();
         try {
             $cart = $this->getCart();

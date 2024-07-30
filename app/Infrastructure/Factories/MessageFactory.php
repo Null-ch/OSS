@@ -4,8 +4,8 @@ namespace App\Infrastructure\Factories;
 
 
 use App\Infrastructure\Interfaces\MessageInterface;
-use App\Infrastructure\Factories\Resources\SuccessMessage;
 use App\Infrastructure\Factories\Resources\Messages\FailureMessage;
+use App\Infrastructure\Factories\Resources\Messages\SuccessMessage;
 use App\Infrastructure\Factories\Resources\Messages\WarningMessage;
 
 class MessageFactory

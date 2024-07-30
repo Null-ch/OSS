@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Factories\Resources;
+namespace App\Infrastructure\Factories\Resources\Messages;
 
 use App\Infrastructure\Interfaces\MessageInterface;
 
