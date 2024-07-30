@@ -93,7 +93,7 @@ class ClientCartService extends CartService
         try {
             isset($data['cart']);
         } catch (\Exception $e) {
-            $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
+            $this->logger->error('Error when update cart by client API: ' . $e->getMessage());
             return null;
         }
 
@@ -119,7 +119,7 @@ class ClientCartService extends CartService
             return $cart->id;
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
+            $this->logger->error('Error when update cart by client API: ' . $e->getMessage());
             return null;
         }
     }
