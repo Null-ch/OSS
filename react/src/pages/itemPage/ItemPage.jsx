@@ -32,15 +32,14 @@ const ItemPage = () => {
     }
 
     const dispatch = useDispatch();
+
     const updateCart = (v) => dispatch(updateCartProducts(v));
 
     function updateCount(count) {
         updateCart({ count, product }); // visual
         
         debounce(() => {
-            // console.log('debounced')
-            
-            dispatch(updateCartTry({ count, product })); // todo request
+            dispatch(updateCartTry({ count, product })); // request
         }, 1000, 'updateCartTry')
     }
 
@@ -55,7 +54,7 @@ const ItemPage = () => {
 
     const isNoneSelected = count < 1;
     const capped = count === quantity;
-    // console.log(capped);
+
     const category = product?.category;
     const to = category && '/products/category/' + category.id;
 

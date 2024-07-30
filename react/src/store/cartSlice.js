@@ -15,10 +15,10 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
         const _res = await fetch(url, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json;charset=utf-8'
+                'Session-Id' : Cookies.get('sessionID'),
+                'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify({
-                sessionID: Cookies.get('sessionID'),
                 cart: [
                     {
                         id: data.product.id,
@@ -35,25 +35,20 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
 )
 
 export const getCart = createAsyncThunk('cart/getCart', 
-    async(data, thunkAPI) => {
+    async(_, thunkAPI) => {
         const url = `${DOMAIN}api/public/cart`;
-        // console.log(data)
-        console.log(url);
-        const session = Cookies.get('sessionID');
-        // document.cookie = cookie;
-        console.log(session);
         const _res = await fetch(url, {
             method: 'GET',
             headers: {
-                // 'cookie': cookie,
-                // 'credentials': 'include',
-                'Session-Id' : session,
+                'Session-Id' : Cookies.get('sessionID'),
                 'Content-Type': 'application/json;charset=utf-8'
               },
         });
         const res = await _res.json();
-        console.log(res);
-      },
+        const data = res.data;
+        const products = data.products;
+        console.log(products);
+    },
 )
 
 const cartSlice = createSlice({

@@ -85,7 +85,7 @@ const CartPreview = ({onClose}) => {
         }
         // console.log(data);
         // let response = await fetch(DOMAIN + 'index');
-          // Получаем HTML-код страницы
+        // Получаем HTML-код страницы
         // const html = await response.text();
 
         // Создаем экземпляр DOMParser
