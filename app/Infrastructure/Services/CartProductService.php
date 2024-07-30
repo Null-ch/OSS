@@ -7,6 +7,7 @@ use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
 use App\Events\ProductRemovedFromCart;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartProductInterface;
 
 class CartProductService implements CartProductInterface
@@ -178,12 +179,14 @@ class CartProductService implements CartProductInterface
     {
         DB::beginTransaction();
         try {
-            $cartProduct = $this->getCartProductsByCartId($id);
-            foreach ($cartProduct as $item) {
-                event(new ProductRemovedFromCart($item->product_id, $item->quantity));
-                $item->delete();
+            $cartProducts = $this->getCartProductsByCartId($id);
+            if (!is_null($cartProducts)){
+                foreach ($cartProducts as $item) {
+                    event(new ProductRemovedFromCart($item->product_id, $item->quantity));
+                    $item->delete();
+                }
+                DB::commit();
             }
-            DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();

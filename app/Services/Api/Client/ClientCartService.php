@@ -5,7 +5,6 @@ namespace App\Services\Api\Client;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Events\ProductAddedToCart;
-use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Services\CartService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
@@ -50,7 +49,7 @@ class ClientCartService extends CartService
      * @var object
      */
     protected $productService;
- 
+
     /**
      * cartUpdateValidator
      *
@@ -90,37 +89,36 @@ class ClientCartService extends CartService
     public function updateCart(\Illuminate\Http\Request $request)
     {
         $data = $request->all();
-        try {
-            isset($data['cart']);
-        } catch (\Exception $e) {
-            $this->logger->error('Error when update cart by client API: ' . $e->getMessage());
+
+        if (!isset($data['cart'])) {
+            $this->logger->error('Cart data not found in request.');
             return null;
         }
-
-        DB::beginTransaction();
+        
         try {
             $cart = $this->getCart();
+            $cartRequestData = $data['cart'];
             $this->cartProductService->clearingByCartId($cart->id);
-            $cartData = $this->productService->checkAvailability($data['cart']);
+            $cartData = $this->productService->checkAvailability($cartRequestData);
+
             if ($cartData && !$cartData['error']) {
                 $cart = $this->getCart();
             } else {
                 return $cartData;
             }
- 
-            foreach ($data as $key => $value) {
-                $product = $this->product->find($value['id']);
-                if (isset($product)) {
-                    $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id]);
-                    event(new ProductAddedToCart($product->id, $value['quantity']));
+
+            foreach ($cartRequestData as $key => $value) {
+                $productId = $value['id'];
+                $product = $this->product->find($productId);
+                if ($product) {
+                    $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id, 'quantity' => $value['quantity']]);
+                    event(new ProductAddedToCart($productId, $value['quantity']));
                 }
             }
-            DB::commit();
-            return $cart->id;
         } catch (\Exception $e) {
-            DB::rollBack();
-            $this->logger->error('Error when update cart by client API: ' . $e->getMessage());
+            $this->logger->error('Error when updating cart by client API: ' . $e->getMessage(), $e->getTrace());
             return null;
         }
+        return $cart->id;
     }
 }

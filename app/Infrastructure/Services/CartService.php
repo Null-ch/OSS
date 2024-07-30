@@ -4,11 +4,11 @@ namespace App\Infrastructure\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartInterface;
+use App\Infrastructure\Services\CartProductService;
 
 class CartService implements CartInterface
 {
@@ -185,6 +185,7 @@ class CartService implements CartInterface
                 'product_id' => $data['id'],
                 'quantity' => $data['quantity'],
             ]);
+            return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             $this->logger->error('Error when creating an entry in the cart_products table: ' . $e->getMessage());
             return null;
