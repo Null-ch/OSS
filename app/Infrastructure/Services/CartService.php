@@ -88,7 +88,6 @@ class CartService implements CartInterface
      */
     public function getCart(): ?object
     {
-        DB::beginTransaction();
         try {
             $userId = auth()->check() ? auth()->user()->id : null;
             $sessionId = request()->header('session-id') ? request()->header('session-id') : null;
@@ -103,22 +102,28 @@ class CartService implements CartInterface
                 $cart = $this->cart::where(function ($query) use ($cart) {
                     $query->whereNotNull('order_id')
                         ->whereHas('order', function ($query) {
-                            $query->whereNotIn('status', ['paid', 'cancelled']);
+                            $query->whereNotIn('status', ['2', '3']);
                         })
                         ->orWhere('order_id', null);
                 })->where('id', $cart->id)->first();
             }
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting cart: ' . $e->getMessage());
+            return null;
+        }
 
+        DB::beginTransaction();
+        try {
             if (!$cart) {
                 if ($userId || $sessionId) {
                     $cart = $this->cart->create(['user_id' => $userId, 'session' => $sessionId]);
-                    DB::commit();
                 } else {
                     DB::rollBack();
                     $this->logger->error('Error when creating a shopping cart: No user ID or session ID available');
                     return null;
                 }
             }
+            DB::commit();
         } catch (\Exception $e) {
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;

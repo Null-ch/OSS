@@ -92,7 +92,7 @@ class CartProductService implements CartProductInterface
     public function getCartProductsByCartId(int $id): ?object
     {
         try {
-            $cartProducts = $this->cartProduct::where('cart_id', $id);
+            $cartProducts = $this->cartProduct::where('cart_id', $id)->get();
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the products: ' . $e->getMessage());
             return null;
@@ -177,19 +177,14 @@ class CartProductService implements CartProductInterface
      */
     public function clearingByCartId(int $id): ?string
     {
-        DB::beginTransaction();
         try {
             $cartProducts = $this->getCartProductsByCartId($id);
-            if (!is_null($cartProducts)){
-                foreach ($cartProducts as $item) {
-                    event(new ProductRemovedFromCart($item->product_id, $item->quantity));
-                    $item->delete();
-                }
-                DB::commit();
+            foreach ($cartProducts as $item) {
+                event(new ProductRemovedFromCart($item->product_id, $item->quantity));
+                $item->delete();
             }
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
-            DB::rollBack();
             $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
             return null;
         }

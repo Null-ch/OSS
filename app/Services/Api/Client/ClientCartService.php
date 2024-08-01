@@ -86,7 +86,7 @@ class ClientCartService extends CartService
      * @return string | null
      * 
      */
-    public function updateCart(\Illuminate\Http\Request $request)
+    public function updateCart(\Illuminate\Http\Request $request): ?string
     {
         $data = $request->all();
 
