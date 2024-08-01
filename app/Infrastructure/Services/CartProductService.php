@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Services;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
@@ -67,15 +68,16 @@ class CartProductService implements CartProductInterface
         $this->product = $product;
         $this->messageService = $messageService;
     }
-
+    
     /**
-     * getCartProduct
+     * Method getCartProduct
      *
-     * @param object $cart
-     * @param object $product
-     * @return object
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
+     * @return CartProduct
      */
-    public function getCartProduct(object $cart, object $product): ?object
+    public function getCartProduct(Cart $cart, Product $product): ?CartProduct
     {
         try {
             $cartProduct = $this->cartProduct::where('cart_id', $cart->id)
@@ -120,16 +122,17 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-
+    
     /**
-     * updateCartProduct
+     * Method updateCartProduct
      *
-     * @param  object $cart
-     * @param  object $product
-     * @param  array $data
-     * @return string|null
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     * @param array $data [explicite description]
+     *
+     * @return string
      */
-    public function updateCartProduct(object $cart, object $product, array $data): ?string
+    public function updateCartProduct(Cart $cart, Product $product, array $data): ?string
     {
         DB::beginTransaction();
         try {
@@ -146,15 +149,16 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-
+    
     /**
-     * deleteCartProduct
+     * Method deleteCartProduct
      *
-     * @param  object $cart
-     * @param  object $product
-     * @return string|null
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
+     * @return string
      */
-    public function deleteCartProduct(object $cart, object $product): ?string
+    public function deleteCartProduct(Cart $cart, Product $product): ?string
     {
         DB::beginTransaction();
         try {

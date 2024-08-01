@@ -83,10 +83,10 @@ class ClientCartService extends CartService
     /**
      * Update cart
      *
-     * @return string | null
+     * @return Cart | null
      * 
      */
-    public function updateCart(\Illuminate\Http\Request $request): ?string
+    public function updateCart(\Illuminate\Http\Request $request): ?Cart
     {
         $data = $request->all();
 
@@ -96,14 +96,12 @@ class ClientCartService extends CartService
         }
         
         try {
-            $cart = $this->getCart();
             $cartRequestData = $data['cart'];
+            $cart = $this->getCart();
             $this->cartProductService->clearingByCartId($cart->id);
             $cartData = $this->productService->checkAvailability($cartRequestData);
-
-            if ($cartData && !$cartData['error']) {
-                $cart = $this->getCart();
-            } else {
+            
+            if (!$cartData && $cartData['error']) {
                 return $cartData;
             }
 
@@ -119,6 +117,7 @@ class ClientCartService extends CartService
             $this->logger->error('Error when updating cart by client API: ' . $e->getMessage(), $e->getTrace());
             return null;
         }
-        return $cart->id;
+        $cart->products;
+        return $cart;
     }
 }

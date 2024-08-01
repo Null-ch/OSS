@@ -2,15 +2,21 @@
 
 namespace App\Infrastructure\Interfaces;
 
+use App\Models\Cart;
+use App\Models\Product;
+use App\Models\CartProduct;
+
 interface CartProductInterface
-{
+{    
     /**
-     * getCartProduct
+     * Method getCartProduct
      *
-     * @param  int $id
-     * @return object
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
+     * @return CartProduct
      */
-    public function getCartProduct(object $cart, object $product): ?object;
+    public function getCartProduct(Cart $cart, Product $product): ?CartProduct;
 
     /**
      * createCartProduct
@@ -20,24 +26,27 @@ interface CartProductInterface
      */
     public function createCartProduct(array $data): ?string;
 
+    
     /**
-     * updateCartProduct
+     * Method updateCartProduct
      *
-     * @param  mixed $cart
-     * @param  mixed $product
-     * @param  array $data
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     * @param array $data [explicite description]
+     *
      * @return string
      */
-    public function updateCartProduct(object $cart, object $product, array $data): ?string;
-
+    public function updateCartProduct(Cart $cart, Product $product, array $data): ?string;
+    
     /**
-     * deleteCartProduct
+     * Method deleteCartProduct
      *
-     * @param  object $cart
-     * @param  object $product
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
      * @return string
      */
-    public function deleteCartProduct(object $cart, object $product): ?string;
+    public function deleteCartProduct(Cart $cart, Product $product): ?string;
 
     /**
      * clearingByCartId
