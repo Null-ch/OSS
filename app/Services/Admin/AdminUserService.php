@@ -4,9 +4,6 @@ namespace App\Services\Admin;
 
 use App\Models\User;
 use App\Helpers\Helpers;
-use Illuminate\Support\Facades\DB;
-use App\Jobs\SendRegistrationEmail;
-use Illuminate\Support\Facades\Hash;
 use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;

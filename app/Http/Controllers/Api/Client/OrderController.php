@@ -44,8 +44,7 @@ class OrderController extends Controller
     public function createOrder(StoreOrderRequest $request)
     {
         $data = $request->validated();
-        // $responseData = $this->orderService->createOrder($data);
-        $responseData = ['sps', $data];
+        $responseData = $this->orderService->createOrder($data);
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
@@ -58,8 +57,7 @@ class OrderController extends Controller
      */
     public function cancelOrder($id)
     {
-        // $responseData = $this->orderService->cancelOrder($id);
-        $responseData = ['sps', $id];
+        $responseData = $this->orderService->cancelOrder($id);
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }

@@ -56,7 +56,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        (object) $user =  $this->userService->getUserById($id);
+        (object) $user =  $this->userService->getUser($id);
         return view('admin.main.user.show', compact('user'));
     }
 
@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        (object) $user = $this->userService->getUserById($id);
+        (object) $user = $this->userService->getUser($id);
         (array) $roles = $this->userService->getRoles();
         return view('admin.main.user.edit', compact('user', 'roles'));
     }

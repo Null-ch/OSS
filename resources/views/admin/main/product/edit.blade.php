@@ -71,9 +71,7 @@
                                 <div class="form-group text-center p-1 col-md-6">
                                     <label>Категория</label>
                                     <select name="category_id" class="form-control text-center">
-                                        @if ($product->category_id)
-                                            <option value="{{ $product->category_id }}" {{ 'selected' }}> {{ $product->category->title }}</option>
-                                        @else
+                                        @if (!$product->category_id)
                                             <option value="" {{ 'selected' }}>Без категории</option>
                                         @endif
                                         @foreach ($categories as $category)

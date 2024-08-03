@@ -73,8 +73,7 @@
                                     <select name="category_id" class="form-control text-center">
                                         <option value="">Без категории</option>
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->id }}">
-                                                {{ $category->title }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->title }}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')
