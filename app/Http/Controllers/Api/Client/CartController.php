@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Controller;
 use App\Services\Api\Client\ClientCartService;
 use App\Infrastructure\Services\ResponseService;
-use App\Http\Requests\Client\Cart\AddCartProductRequest;
-use App\Http\Requests\Client\Cart\UpdateCartProductRequest;
 
 class CartController extends Controller
 {    

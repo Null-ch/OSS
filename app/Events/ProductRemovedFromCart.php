@@ -2,25 +2,17 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
+use App\Events\ProductEvent;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 
-class ProductRemovedFromCart
+class ProductRemovedFromCart extends ProductEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
     public $productId;
     public $quantity;
 
     public function __construct($productId, $quantity)
     {
-        $this->productId = $productId;
-        $this->quantity = $quantity;
+        parent::__construct($productId, $quantity);
     }
 
     /**

@@ -3,10 +3,9 @@
 namespace App\Listeners;
 
 use App\Models\Product;
+use App\Events\ProductEvent;
 use App\Events\ProductAddedToCart;
 use App\Events\ProductRemovedFromCart;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class UpdateProductQuantity
 {
@@ -26,12 +25,14 @@ class UpdateProductQuantity
      * @param  object  $event
      * @return void
      */
-    public function handle(ProductAddedToCart $event)
+    public function handle(ProductEvent $event)
     {
         $product = Product::find($event->productId);
         if ($product) {
             if ($event instanceof ProductAddedToCart) {
-                $product->quantity -= $event->quantity;
+                if ($product->quantity >= $event->quantity) {
+                    $product->quantity -= $event->quantity;
+                }
             } elseif ($event instanceof ProductRemovedFromCart) {
                 $product->quantity += $event->quantity;
             }

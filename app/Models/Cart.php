@@ -36,6 +36,10 @@ class Cart extends Model
     {
         return $this->hasManyThrough(Product::class, CartProduct::class, 'cart_id', 'id', 'id', 'product_id');
     }
+    public function cart_products()
+    {
+        return $this->hasMany(CartProduct::class, 'cart_id');
+    }
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class, 'order_id');

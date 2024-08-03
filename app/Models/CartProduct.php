@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Cart;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CartProduct extends Model
 {
@@ -25,7 +26,10 @@ class CartProduct extends Model
     /***********************************
      * RELATIONS
      ***********************************/
-
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class, 'cart_id');
+    }
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/

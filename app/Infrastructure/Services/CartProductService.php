@@ -2,11 +2,13 @@
 
 namespace App\Infrastructure\Services;
 
+use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
 use App\Events\ProductRemovedFromCart;
 use App\Infrastructure\Interfaces\LogInterface;
+use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartProductInterface;
 
 class CartProductService implements CartProductInterface
@@ -66,15 +68,16 @@ class CartProductService implements CartProductInterface
         $this->product = $product;
         $this->messageService = $messageService;
     }
-
+    
     /**
-     * getCartProduct
+     * Method getCartProduct
      *
-     * @param object $cart
-     * @param object $product
-     * @return object
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
+     * @return CartProduct
      */
-    public function getCartProduct(object $cart, object $product): ?object
+    public function getCartProduct(Cart $cart, Product $product): ?CartProduct
     {
         try {
             $cartProduct = $this->cartProduct::where('cart_id', $cart->id)
@@ -91,7 +94,7 @@ class CartProductService implements CartProductInterface
     public function getCartProductsByCartId(int $id): ?object
     {
         try {
-            $cartProducts = $this->cartProduct::where('cart_id', $id);
+            $cartProducts = $this->cartProduct::where('cart_id', $id)->get();
         } catch (\Exception $e) {
             $this->logger->error('Error when receiving the products: ' . $e->getMessage());
             return null;
@@ -119,16 +122,17 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-
+    
     /**
-     * updateCartProduct
+     * Method updateCartProduct
      *
-     * @param  object $cart
-     * @param  object $product
-     * @param  array $data
-     * @return string|null
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     * @param array $data [explicite description]
+     *
+     * @return string
      */
-    public function updateCartProduct(object $cart, object $product, array $data): ?string
+    public function updateCartProduct(Cart $cart, Product $product, array $data): ?string
     {
         DB::beginTransaction();
         try {
@@ -145,15 +149,16 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-
+    
     /**
-     * deleteCartProduct
+     * Method deleteCartProduct
      *
-     * @param  object $cart
-     * @param  object $product
-     * @return string|null
+     * @param Cart $cart [explicite description]
+     * @param Product $product [explicite description]
+     *
+     * @return string
      */
-    public function deleteCartProduct(object $cart, object $product): ?string
+    public function deleteCartProduct(Cart $cart, Product $product): ?string
     {
         DB::beginTransaction();
         try {
@@ -176,17 +181,14 @@ class CartProductService implements CartProductInterface
      */
     public function clearingByCartId(int $id): ?string
     {
-        DB::beginTransaction();
         try {
-            $cartProduct = $this->getCartProductsByCartId($id);
-            foreach ($cartProduct as $item) {
+            $cartProducts = $this->getCartProductsByCartId($id);
+            foreach ($cartProducts as $item) {
                 event(new ProductRemovedFromCart($item->product_id, $item->quantity));
                 $item->delete();
             }
-            DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
-            DB::rollBack();
             $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
             return null;
         }
