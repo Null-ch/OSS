@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2024 OSS.</strong>
+    <strong>Copyright &copy; 2023 - {{ date('Y') }} {{env('APP_NAME')}}.</strong>
 </footer>
 
 <!-- Control Sidebar -->
