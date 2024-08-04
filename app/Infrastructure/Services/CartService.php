@@ -130,6 +130,7 @@ class CartService implements CartInterface
             return null;
         }
 
+        $cart->cart_products;
         return $cart;
     }
 
@@ -146,7 +147,7 @@ class CartService implements CartInterface
             $cart = $this->getCart();
 
             if ($cart) {
-                $products = $cart->products;
+                $products = $cart->cart_products;
             }
 
             if ($products) {
@@ -279,9 +280,9 @@ class CartService implements CartInterface
      *
      * @param \Illuminate\Http\Request $request [explicite description]
      *
-     * @return Cart
+     * @return Cart | array
      */
-    public function updateCart(\Illuminate\Http\Request $request): ?Cart
+    public function updateCart(\Illuminate\Http\Request $request): Cart | array | null
     {
         $data = $request->all();
 
@@ -309,10 +310,10 @@ class CartService implements CartInterface
                 }
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when updating cart by client API: ' . $e->getMessage(), $e->getTrace());
+            $this->logger->error('Error when updating cart by client API: ' . $e->getMessage());
             return null;
         }
-        $cart->products;
-        return $cart;
+        $response = $this->getCartProducts();
+        return $response;
     }
 }
