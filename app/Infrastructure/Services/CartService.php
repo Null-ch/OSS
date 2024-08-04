@@ -129,7 +129,8 @@ class CartService implements CartInterface
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;
         }
-
+        
+        $cart->cart_products;
         return $cart;
     }
 
@@ -312,7 +313,7 @@ class CartService implements CartInterface
             $this->logger->error('Error when updating cart by client API: ' . $e->getMessage(), $e->getTrace());
             return null;
         }
-        $cart->products;
+        $cart->cart_products;
         return $cart;
     }
 }
