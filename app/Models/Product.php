@@ -45,10 +45,6 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    public function color(): BelongsTo
-    {
-        return $this->belongsTo(Color::class, 'color_id');
-    }
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/

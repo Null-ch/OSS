@@ -37,6 +37,10 @@ class Order extends Model
         '2' => 'Оплачен',
         '3' => 'Отменен',
     ];
+    private $deliveryService = [
+        '0' => 'Почта России',
+        '1' => 'CDEK',
+    ];
 
     public static function getStatuses()
     {
@@ -63,10 +67,23 @@ class Order extends Model
     }
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /***********************************
      * MODEL HELPERS FUNCTIONS
      ***********************************/
+    public function getStatus()
+    {
+        return $this->statuses[$this->status];
+    }
+    public function getTotalCost()
+    {
+        $totalCost = 0;
+        $productCarts = $this->cart->cart_products;
+        foreach ($productCarts as $item) {
+            $totalCost += $item->quantity * $item->product->price;
+        }
+        return $totalCost;
+    }
 }

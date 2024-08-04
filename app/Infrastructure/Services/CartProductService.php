@@ -163,6 +163,7 @@ class CartProductService implements CartProductInterface
         DB::beginTransaction();
         try {
             $cartProduct = $this->getCartProduct($cart, $product);
+            event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
             $cartProduct->delete();
             DB::commit();
             return $this->messageService->getMessage('success');

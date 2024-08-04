@@ -4,8 +4,8 @@ namespace App\Services\Admin;
 
 use App\Models\Order;
 use App\Helpers\Helpers;
-use App\Services\Admin\OrderService;
 use App\Infrastructure\Services\UserService;
+use App\Infrastructure\Services\OrderService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Services\UserDetailsService;
@@ -82,12 +82,83 @@ class AdminOrderService extends OrderService
         UserDetailsService $userDetailsService,
         Helpers $helpers
     ) {
-        $this->order = $order;
-        $this->logger = $logger;
-        $this->messageService = $messageService;
-        $this->userService = $userService;
-        $this->userShippingInformationService = $userShippingInformationService;
-        $this->userDetailsService = $userDetailsService;
-        $this->helpers = $helpers;
+        parent::__construct(
+            $order,
+            $logger,
+            $messageService,
+            $userService,
+            $userShippingInformationService,
+            $userDetailsService,
+            $helpers
+        );
+        // $this->order = $order;
+    }
+
+   public function getOrders(int $count): ?object
+   {
+       if (!$count) {
+           $this->logger->error('The quantity has not been transferred.');
+           return null;
+       }
+
+       try {
+           $orders = $this->order::paginate($count);
+       } catch (\Exception $e) {
+           $this->logger->error('Error when receiving the orders: ' . $e->getMessage());
+           return null;
+       }
+
+       return $orders;
+   }
+
+   /**
+    * Get order
+    *
+    * @param int $id
+    * 
+    * @return object
+    * 
+    */
+   public function getOrder(int $id): ?object
+   {
+       if (!$id) {
+           $this->logger->error('The id has not been transferred.');
+           return null;
+       }
+
+       try {
+           $order = $this->order::findOrFail($id);
+       } catch (\Exception $e) {
+           $this->logger->error('Error when receiving the order: ' . $e->getMessage());
+           return null;
+       }
+
+       return $order;
+   }
+
+    /**
+    * Get order
+    *
+    * @param int $id
+    * 
+    * @return object
+    * 
+    */
+    public function getOrderProducts(int $id): ?object
+    {
+        if (!$id) {
+            $this->logger->error('The id has not been transferred.');
+            return null;
+        }
+ 
+        try {
+            $order = $this->order::findOrFail($id);
+            $products = $order->cart->cart_products;
+        } catch (\Exception $e) {
+            $this->logger->error('Error when receiving the order products: ' . $e->getMessage());
+            return null;
+        }
+ 
+        return $products;
     }
 }

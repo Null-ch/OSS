@@ -39,10 +39,12 @@ class AdminCategoryService extends CategoryService
      * @param LogInterface $logger
      * 
      */
-    public function __construct(LogInterface $logger, Category $category, FileService $fileService)
-    {
+    public function __construct(
+        LogInterface $logger,
+        Category $category,
+        FileService $fileService
+    ) {
         parent::__construct($logger, $category);
-        
         (object) $this->fileService = $fileService;
     }
 

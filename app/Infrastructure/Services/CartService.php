@@ -4,6 +4,7 @@ namespace App\Infrastructure\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
+use App\Events\ProductAddedToCart;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
@@ -271,5 +272,47 @@ class CartService implements CartInterface
             $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
             return null;
         }
+    }
+
+    /**
+     * Method updateCart
+     *
+     * @param \Illuminate\Http\Request $request [explicite description]
+     *
+     * @return Cart
+     */
+    public function updateCart(\Illuminate\Http\Request $request): ?Cart
+    {
+        $data = $request->all();
+
+        if (!isset($data['cart'])) {
+            $this->logger->error('Cart data not found in request.');
+            return null;
+        }
+
+        try {
+            $cartRequestData = $data['cart'];
+            $cart = $this->getCart();
+            $this->cartProductService->clearingByCartId($cart->id);
+            $cartData = $this->productService->checkAvailability($cartRequestData);
+
+            if (!$cartData && $cartData['error']) {
+                return $cartData;
+            }
+
+            foreach ($cartRequestData as $key => $value) {
+                $productId = $value['id'];
+                $product = $this->product->find($productId);
+                if ($product) {
+                    $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id, 'quantity' => $value['quantity']]);
+                    event(new ProductAddedToCart($productId, $value['quantity']));
+                }
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('Error when updating cart by client API: ' . $e->getMessage(), $e->getTrace());
+            return null;
+        }
+        $cart->products;
+        return $cart;
     }
 }
