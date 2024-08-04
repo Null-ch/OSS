@@ -236,6 +236,11 @@ html {
   font-weight: 400;
   font-size: 24px;
 }
+.c-p-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
 @media (max-width: 750px) {
   .c-p {
     width: 100%;

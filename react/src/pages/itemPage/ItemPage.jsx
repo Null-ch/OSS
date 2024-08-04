@@ -20,10 +20,9 @@ const ItemPage = () => {
 
     const {data = [], isLoading} = useGetItemQuery(id);
     const product = data.data;
-    // console.log(product);
+    console.log(product);
     document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 
-    let quantity = product?.quantity || 0;
     let count = 0;
     const items = useSelector(state => state.cart.cart);
     if (items && product) {
@@ -31,29 +30,33 @@ const ItemPage = () => {
         count = p.count || count;
     }
 
-    const dispatch = useDispatch();
+    const total = (product?.quantity || 0) + count;
+    // console.log(product?.quantity)
+    // console.log(count)
+    // console.log(total)
 
+    const dispatch = useDispatch();
     const updateCart = (v) => dispatch(updateCartProducts(v));
 
     function updateCount(count) {
         updateCart({ count, product }); // visual
         
         debounce(() => {
-            dispatch(updateCartTry({ count, product })); // request
+            dispatch(updateCartTry({ id: product.id, quantity: count })); // request
         }, 1000, 'updateCartTry')
     }
 
     // todo test
-    if (count > quantity) {
-        updateCount(quantity);
+    if (count > total) {
+        updateCount(total);
     }
 
     function onIncrement(incr) {
-        updateCount(Math.max(0, Math.min(Number(count) + incr, quantity)));
+        updateCount(Math.max(0, Math.min(Number(count) + incr, total)));
     }
 
     const isNoneSelected = count < 1;
-    const capped = count === quantity;
+    const capped = count === total;
 
     const category = product?.category;
     const to = category && '/products/category/' + category.id;

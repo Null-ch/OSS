@@ -7,32 +7,15 @@ import {Route, Routes, useLocation} from 'react-router-dom'
 import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
-import { setIsModalVisible, setModalData, setContent } from './store/modalSlice';
-import { setCartHidden, getCart } from './store/cartSlice';
+import { setIsModalVisible } from './store/modalSlice';
+import { setCartHidden, getCart, updateCartProducts } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
 import { Guid } from "js-guid";
 import Cookies from 'js-cookie'
 
-// import { randomUUID } from "crypto";
-
-// todo Guid.newGuid()
-
 function App() {
-  // const isLogged = localStorage.getItem('isLoggedIn');
-  // const [loggedIn, setLoggedIn] = useState(isLogged);
 
-  // const logIn = () => {
-  //   localStorage.setItem('isLoggedIn', JSON.stringify(true));
-  //   setLoggedIn(true);
-  // }
-
-  // const logOut = () => {
-  //   localStorage.setItem('isLoggedIn', JSON.stringify(false));
-  //   setLoggedIn(false);
-  // }
-
-  // todo cookies
   Cookies.get('sessionID') || Cookies.set("sessionID", Guid.newGuid())
    //, { secure: true, SameSite: 'Strict' }); // todo expires, path
 
@@ -47,24 +30,9 @@ function App() {
       dispatch(setCartHidden(true));
   }, [location]);
 
-  // todo test:
-  const data = dispatch(getCart());
-  // console.log('getCart');
-  // console.log(data);
+  dispatch(getCart());
 
   const {isModalVisible, content} = useSelector((state) => state.modal);
-
-  window.onscroll = function() { scrollFunction() };
-
-  function scrollFunction() {
-    // if (document.body.scrollTop > 24 || document.documentElement.scrollTop > 24) {
-    //   document.getElementById("header").className = 'header-fixed';
-    // } else {
-    //   document.getElementById("header").className = 'header';
-    // }
-  }
-  
-  // window.localStorage.clear();
 
   return (
     <>

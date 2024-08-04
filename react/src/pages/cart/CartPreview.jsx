@@ -5,7 +5,7 @@ import Price from '../../components/util/Price';
 import XIcon from '../../components/icons/XIcon';
 import { DOMAIN } from '../../utils/url';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCartProducts, updateCartTry } from '../../store/cartSlice';
+import { updateCartProducts, updateCartTry, clearCart } from '../../store/cartSlice';
 import Button from '../../components/buttons/Button';
 import debounce from '../../lib/utils';
 
@@ -22,13 +22,14 @@ const CartPreview = ({onClose}) => {
     var totalPrice = 0;
 
     const items = useSelector(state => state.cart.cart); // dict
-
+    console.log('CartPreview')
+    console.log(items);
     const dispatch = useDispatch();
     function updateCart(v) {
         dispatch(updateCartProducts(v)); // visual
 
         debounce(() => {
-            dispatch(updateCartTry({ count: v.count, product: v.product })); // request
+            dispatch(updateCartTry({ quantity: v.count, id: v.product.id })); // request
         }, 1000, 'updateCartTry')
     }
 
@@ -81,6 +82,10 @@ const CartPreview = ({onClose}) => {
         </li>
 
         itemsList.push(_product)
+    }
+
+    async function onClearCart() {
+        dispatch(clearCart());
     }
 
     async function onCreateOrder() {
@@ -142,13 +147,23 @@ const CartPreview = ({onClose}) => {
                         <h1 className = 'c-p-total-title'>Сумма:</h1>
                         <Price className = 'c-p-total-price' price = {totalPrice} title = 'Всего'/>
                     </div>
-                    <Button
-                        disabled = {false}
-                        className = 'c-p-checkout'
-                        title = 'Заказать'
-                        text = 'Заказать'
-                        onClick = {onCreateOrder}
-                    />
+                    <div className = 'c-p-buttons'>
+                        <Button
+                            disabled = {false}
+                            className = 'c-p-checkout'
+                            title = 'Заказать'
+                            text = 'Заказать'
+                            onClick = {onCreateOrder}
+                        />
+                        <Button
+                            disabled = {false}
+                            className = 'c-p-checkout'
+                            title = 'Очистить'
+                            text = 'Очистить'
+                            onClick = {onClearCart}
+                        />
+                    </div>
+
                     {/* <a id = 'c-p-checkout' href = '/order'>Заказать</a> */}
                 </>
             }
