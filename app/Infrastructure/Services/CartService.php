@@ -280,9 +280,9 @@ class CartService implements CartInterface
      *
      * @param \Illuminate\Http\Request $request [explicite description]
      *
-     * @return Cart | array
+     * @return null | array
      */
-    public function updateCart(\Illuminate\Http\Request $request): Cart | array | null
+    public function updateCart(\Illuminate\Http\Request $request)
     {
         $data = $request->all();
 
