@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\UserDetailsInterface;
+use App\Infrastructure\Validation\UserDetailsValidator;
 use App\Infrastructure\Validation\UserDetailsVelidator;
 
 class UserDetailsService implements UserDetailsInterface
@@ -37,7 +38,7 @@ class UserDetailsService implements UserDetailsInterface
      *
      * @var object
      */
-    protected $userDetailsVelidator;
+    protected $userDetailsValidator;
 
     /**
      * __construct
@@ -45,18 +46,18 @@ class UserDetailsService implements UserDetailsInterface
      * @param UserDetails $userDetails
      * @param LogInterface $logger
      * @param MessageService $messageService
-     * @param UserDetailsVelidator $userDetailsVelidator
+     * @param UserDetailsValidator $userDetailsValidator
      */
     public function __construct(
         UserDetails $userDetails,
         LogInterface $logger,
         MessageService $messageService,
-        UserDetailsVelidator $userDetailsVelidator
+        UserDetailsValidator $userDetailsValidator
     ) {
         $this->userDetails = $userDetails;
         $this->logger = $logger;
         $this->messageService = $messageService;
-        $this->userDetailsVelidator = $userDetailsVelidator;
+        $this->userDetailsValidator = $userDetailsValidator;
     }
 
     /**
@@ -68,11 +69,11 @@ class UserDetailsService implements UserDetailsInterface
      */
     public function createUserDetails(array $data, int $userId): ?object
     {
-        $validatedData = $this->userDetailsVelidator->validate($data);
+        $validatedData = $this->userDetailsValidator->validate($data);
         DB::beginTransaction();
         try {
             $validatedData['user_id'] = $userId;
-            $userDetails = $this->userDetails->create($validatedData);
+            $userDetails = $this->userDetails::create($validatedData);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

@@ -11,4 +11,5 @@ interface ValidatorInterface
      * @return array
      */
     public function validate(array $data): array;
+    public function rules();
 }

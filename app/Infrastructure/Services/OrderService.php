@@ -137,11 +137,12 @@ class OrderService implements OrderInterface
     {
         DB::beginTransaction();
         try {
-            $userShippingInformationId = $this->userShippingInformationService->createUserShippingInformation($data['user_shipping_information'], $userId);
-            $userDetailsId = $this->userDetailsService->createUserDetails($data['user_personal_data'], $userId);
-            $order->user_shipping_information_id = $userShippingInformationId;
-            $order->user_details_id = $userDetailsId;
+            $userShippingInformation = $this->userShippingInformationService->createUserShippingInformation($data['shipping'], $userId);
+            $userDetails = $this->userDetailsService->createUserDetails($data['personal_data'], $userId);
+            $order->user_shipping_information_id = $userShippingInformation->id;
+            $order->user_details_id = $userDetails->id;
             $order->save();
+            DB::commit();
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -159,7 +160,7 @@ class OrderService implements OrderInterface
     {
         DB::beginTransaction();
         try {
-            $userId = $this->getUserId($data['user_personal_data']);
+            $userId = $this->getUserId($data['personal_data']);
             $orderData = $this->helpers->prepareOrderData($data['cart_id'], $userId);
             $order = $this->order->create($orderData);
             DB::commit();

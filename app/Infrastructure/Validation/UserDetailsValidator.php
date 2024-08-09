@@ -4,7 +4,7 @@ namespace App\Infrastructure\Validation;
 
 use App\Infrastructure\Validation\BaseValidator;
 
-class UserDetailsVelidator extends BaseValidator
+class UserDetailsValidator extends BaseValidator
 {
     /**
      * Get the validation rules that apply to the request.

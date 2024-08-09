@@ -7,11 +7,11 @@ interface UserShippingInformationInterface
     /**
      * createUserShippingInformation
      *
-     * @param  string $string
+     * @param  array $data
      * @param  int $userId
      * @return object
      */
-    public function createUserShippingInformation(string $string, int $userId): ?object;
+    public function createUserShippingInformation(array $data, int $userId): ?object;
 
     /**
      * deleteUserShippingInformation
