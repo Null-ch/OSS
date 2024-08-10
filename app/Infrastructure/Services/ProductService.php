@@ -87,4 +87,58 @@ class ProductService implements ProductInterface
 
         return $product;
     }
+
+    
+    /**
+     * Method checkAvailability
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function checkAvailability(array $data): ?array
+    {
+        try {
+            if (empty($data)) {
+                return null;
+            }
+
+            $output = [];
+            $error = false;
+
+            if (isset($data)) {
+                foreach ($data as $key => $value) {
+                    $product = $this->product->find($value['id']);
+                    if (!isset($product)) {
+                        $output[] = [
+                            'id' => $value['id'],
+                            'availability' => false,
+                            'quantity' => 0,
+                            'exists' => false,
+                        ];
+                        $error = true;
+                    } else {
+                        if ($product->quantity < $value['quantity']) {
+                            $availability = false;
+                            $error = true;
+                        } else {
+                            $availability = true;
+                        }
+
+                        $output[] = [
+                            'id' => $product->id,
+                            'availability' => $availability,
+                            'quantity' => $product->quantity,
+                            'exists' => true,
+                        ];
+                    }
+                }
+                $output['error'] = $error;
+            }
+        } catch (\Exception $e) {
+            $this->logger->error('' . $e->getMessage());
+            return null;
+        }
+        return $output;
+    }
 }

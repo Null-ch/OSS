@@ -55,7 +55,7 @@ class CartService implements CartInterface
      *
      * @var object
      */
-    protected $messageService;    
+    protected $messageService;
     /**
      * cartValidator
      *
@@ -307,7 +307,7 @@ class CartService implements CartInterface
             $this->cartProductService->clearingByCartId($cart->id);
             $cartData = $this->productService->checkAvailability($cartRequestData);
 
-            if (!$cartData && $cartData['error']) {
+            if ($cartData['error']) {
                 return $cartData;
             }
 
@@ -323,7 +323,5 @@ class CartService implements CartInterface
             $this->logger->error('Error when updating cart by client API: ' . $e->getMessage());
             return null;
         }
-        $response = $this->getCartProducts();
-        return $response;
     }
 }

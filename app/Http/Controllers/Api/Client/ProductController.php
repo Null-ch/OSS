@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        (object) $data = $this->productService->getProducts(5);
+        (object) $data = $this->productService->getProducts(10);
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
@@ -52,7 +52,8 @@ class ProductController extends Controller
      */
     public function checkAvailability(Request $request)
     {
-        $data = $this->productService->checkAvailability($request);
+        $requestData = $request->all();
+        $data = $this->productService->checkAvailability($requestData);
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }

@@ -77,7 +77,5 @@ class ClientCartService extends CartService
         CartUpdateValidator $cartUpdateValidator
     ) {
         parent::__construct($cart, $logger, $product, $cartProductService, $productService, $messageService, $cartUpdateValidator);
-        $this->cartUpdateValidator = $cartUpdateValidator;
     }
-
 }

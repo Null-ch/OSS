@@ -68,7 +68,7 @@ class CartProductService implements CartProductInterface
         $this->product = $product;
         $this->messageService = $messageService;
     }
-    
+
     /**
      * Method getCartProduct
      *
@@ -122,7 +122,7 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-    
+
     /**
      * Method updateCartProduct
      *
@@ -149,7 +149,7 @@ class CartProductService implements CartProductInterface
             return null;
         }
     }
-    
+
     /**
      * Method deleteCartProduct
      *

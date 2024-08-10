@@ -67,4 +67,9 @@ Route::prefix('public')->group(function () {
         Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.special.offer.show');
         Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.special.offer.show.all');
     });
+
+    Route::prefix('delivery')->group(function () {
+        Route::get('/', [App\Http\Controllers\Api\Client\DeliveryController::class, 'index'])->name('client.delivery.index');
+        Route::get('/show/{id}', [App\Http\Controllers\Api\Client\DeliveryController::class, 'show'])->name('client.delivery.show');
+    });
 });
