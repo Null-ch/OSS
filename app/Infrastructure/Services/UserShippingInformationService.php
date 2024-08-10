@@ -52,16 +52,21 @@ class UserShippingInformationService implements UserShippingInformationInterface
     /**
      * createUserShippingInformation
      *
-     * @param  string $string
+     * @param  array $shipping
      * @param  int $userId
      * @return object
      */
-    public function createUserShippingInformation(string $string, int $userId): ?object
+    public function createUserShippingInformation(array $shipping, int $userId): ?object
     {
         DB::beginTransaction();
         try {
-            $data = ['type' => 0, 'user_id' => $userId, 'value' => $string];
-            $userShippingInformation = $this->userShippingInformation->create($data);
+            if (is_null($shipping['id'])) {
+                $data = ['type' => 0, 'user_id' => $userId, 'value' => $shipping['addres']];
+            } else {
+                $shippingInformation = $this->userShippingInformation::findOrFail($shipping['id']);
+                $data = ['type' => 0, 'user_id' => $userId, 'value' => $shippingInformation->value];
+            }
+            $userShippingInformation = $this->userShippingInformation::create($data);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

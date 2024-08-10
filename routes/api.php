@@ -58,7 +58,7 @@ Route::prefix('public')->group(function () {
     });
 
     Route::prefix('order')->group(function () {
-        Route::get('/create', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.create');
+        Route::post('/create', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.create');
         Route::post('/cancel/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'cancelOrder'])->name('client.order.cancel');
     });
 

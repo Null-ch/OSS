@@ -25,10 +25,11 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'cart_id' => 'required|integer',
-            'user_shipping_information' => 'required',
-            'user_personal_data' => 'required',
+            'shipping' => 'required',
+            'personal_data' => 'required',
         ];
     }
+
     /**
      * Receiving messages in case of validation error
      *
@@ -39,8 +40,8 @@ class StoreOrderRequest extends FormRequest
     {
         return [
             'cart_id.required' => 'Это поле должно быть заполнено',
-            'user_shipping_information.required' => 'Это поле должно быть заполнено',
-            'user_personal_data.required' => 'Это поле должно быть заполнено',
+            'shipping.required' => 'Это поле должно быть заполнено',
+            'personal_data.required' => 'Это поле должно быть заполнено',
         ];
     }
 }

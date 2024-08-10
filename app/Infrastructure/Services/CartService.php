@@ -10,6 +10,7 @@ use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartInterface;
 use App\Infrastructure\Services\CartProductService;
+use App\Infrastructure\Validation\CartUpdateValidator;
 
 class CartService implements CartInterface
 {
@@ -52,9 +53,15 @@ class CartService implements CartInterface
     /**
      * messageService
      *
-     * @var mixed
+     * @var object
      */
-    protected $messageService;
+    protected $messageService;    
+    /**
+     * cartValidator
+     *
+     * @var object
+     */
+    protected $cartValidator;
 
     /**
      * __construct
@@ -64,6 +71,7 @@ class CartService implements CartInterface
      * @param Product $product
      * @param CartProductService $cartProductService
      * @param ProductService $productService
+     * @param CartUpdateValidator $cartValidator
      */
     protected function __construct(
         Cart $cart,
@@ -71,7 +79,8 @@ class CartService implements CartInterface
         Product $product,
         CartProductService $cartProductService,
         ProductService $productService,
-        MessageService $messageService
+        MessageService $messageService,
+        CartUpdateValidator $cartValidator
     ) {
         $this->cart = $cart;
         $this->logger = $logger;
@@ -79,6 +88,7 @@ class CartService implements CartInterface
         $this->cartProductService = $cartProductService;
         $this->productService = $productService;
         $this->messageService = $messageService;
+        $this->cartValidator = $cartValidator;
     }
 
     /**
@@ -284,7 +294,7 @@ class CartService implements CartInterface
      */
     public function updateCart(\Illuminate\Http\Request $request)
     {
-        $data = $request->all();
+        $data = $this->cartValidator->validate($request->all());
 
         if (!isset($data['cart'])) {
             $this->logger->error('Cart data not found in request.');

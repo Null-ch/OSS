@@ -112,7 +112,7 @@ class CreateAndModifyTables extends Migration
                 $table->timestamps();
             });
         }
-        if (!Schema::hasTable('cart_products')) {
+        if (!Schema::hasTable('user_details')) {
             Schema::create('user_details', function (Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('user_id')->nullable();
@@ -140,6 +140,6 @@ class CreateAndModifyTables extends Migration
         Schema::dropIfExists('user_shipping_informations');
         Schema::dropIfExists('special_offers');
         Schema::dropIfExists('cart_products');
-        Schema::dropIfExists('cart_products');
+        Schema::dropIfExists('user_details');
     }
 }

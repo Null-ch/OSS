@@ -101,7 +101,7 @@ class ClientOrderService extends OrderService
             if ($updatedOrder === null) {
                 throw new \Exception('Failed to update order with user details');
             }
-            return $this->messageService->getMessage('success');
+            return $order;
         } catch (\Exception $e) {
             DB::rollBack();
             $this->logger->error('Error when create new order: ' . $e->getMessage());

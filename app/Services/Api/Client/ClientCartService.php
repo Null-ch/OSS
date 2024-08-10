@@ -65,6 +65,7 @@ class ClientCartService extends CartService
      * @param  CartProductService $cartProductService
      * @param  ClientProductService $productService
      * @param  MessageService $messageService
+     * @param  CartUpdateValidator $cartValidator
      */
     public function __construct(
         Cart $cart,
@@ -75,7 +76,7 @@ class ClientCartService extends CartService
         MessageService $messageService,
         CartUpdateValidator $cartUpdateValidator
     ) {
-        parent::__construct($cart, $logger, $product, $cartProductService, $productService, $messageService);
+        parent::__construct($cart, $logger, $product, $cartProductService, $productService, $messageService, $cartUpdateValidator);
         $this->cartUpdateValidator = $cartUpdateValidator;
     }
 
