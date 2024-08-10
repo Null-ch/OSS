@@ -140,7 +140,7 @@ class CartService implements CartInterface
             return null;
         }
 
-        $cart->cart_products;
+        $cart->products;
         return $cart;
     }
 
