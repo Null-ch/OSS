@@ -21,9 +21,9 @@ function onChangeCounter(e) {
 const CartPreview = ({onClose}) => {
     var totalPrice = 0;
 
-    const items = useSelector(state => state.cart.cart); // dict
-    console.log('CartPreview')
-    console.log(items);
+    const cartProducts = useSelector(state => state.cart.cart); // dict
+    // console.log('CartPreview')
+    // console.log(cartProducts);
     const dispatch = useDispatch();
     function updateCart(v) {
         dispatch(updateCartProducts(v)); // visual
@@ -43,12 +43,12 @@ const CartPreview = ({onClose}) => {
     }
 
     let itemsList = [];
-    for (let id in items) {
-        let item = items[id];
-        let product = item?.product;
+    for (let id in cartProducts) {
+        let cartProduct = cartProducts[id];
+        let product = cartProduct?.product;
         if (!product) continue;
 
-        const count = item.count;
+        const count = cartProduct.count;
         const {title, price, preview_image} = product;
 
         const _price = count * price;
@@ -64,7 +64,7 @@ const CartPreview = ({onClose}) => {
                 disableIncr = {false}
                 value = {count}
                 onChangeInput = { onChangeCounter }
-                onIncrement = { (incr) => { onIncrement(item, incr); } }
+                onIncrement = { (incr) => { onIncrement(cartProduct, incr); } }
                 className = 'c-p-counter'
                 btnClassName = 'c-p-counter-button'
                 btnDisabledClassName = 'c-p-counter-button-disabled'
@@ -91,7 +91,7 @@ const CartPreview = ({onClose}) => {
     async function onCreateOrder() {
         // console.log('onCreateOrder');
         const data = [];
-        for (let item of Object.entries(items)) {
+        for (let item of Object.entries(cartProducts)) {
             // console.log(item);
             data.push({ id: item[0], quantity: item[1].count });
         }

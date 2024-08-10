@@ -2,22 +2,27 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
 import Cookies from 'js-cookie'
 
-// window.localStorage.clear();
-// let res = window.localStorage.getItem('oss-cart') || '{}';
-// var cart = {};
-
 export const updateCartTry = createAsyncThunk('cart/updateCartTry',
-    async({id, quantity}, _) => {
-        console.log('updateCartTry')
+    async({ id, quantity }, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const cart = state.cart.cart
+        // console.log('updateCartTry')
+        // console.log(cart)
         const url = `${DOMAIN}api/public/cart/update`;
+
+        let products = [];
+        for (let key in cart) {
+           const item = cart[key];
+           products.push({
+                id: item.product.id,
+                quantity: item.count,
+           })
+        }
+
+        // console.log(products)
+
         const body = JSON.stringify({
-            cart: [
-                {
-                    id,
-                    quantity,
-                    // id: data.product.id.toString(),
-                },
-            ]
+            cart: products,
         })
 
         const _res = await fetch(url, {
@@ -47,23 +52,26 @@ export const getCart = createAsyncThunk('cart/getCart',
         });
         const res = await _res.json();
         const data = res.data || {};
-
         Cookies.set('cartID', data.id)
-        const products = data.products || [];
+
+        let productsDict = {};
+        for (let product of data.products || []) {
+            productsDict[product.id] = product;
+        }
 
         let _cart = {};
-        for (let product of products) {
-            const quantity = product.quantity;
+        for (let cart_product of data.cart_products || []) {
+            const quantity = cart_product.quantity;
+            const id = cart_product.product_id;
             if (quantity && quantity > 0)  {
-                _cart[product.id] = {
-                    product: product,
+                _cart[id] = {
+                    product: productsDict[id],
                     count: quantity,
                 };
             } else {
-                delete _cart[product.id]; // remove useless property
+                delete _cart[id]; // remove useless property
             }
         }
-
         return _cart;
     },
 )
@@ -79,10 +87,8 @@ const cartSlice = createSlice({
             console.log('[UI] updateCartProducts')
             // just UI
             let data = action.payload;
-            // console.log(data);
-            var cart = JSON.parse(window.localStorage.getItem('oss-cart') || '{}') || {};
-
-            const {product, count} = data;
+            let cart = state.cart;
+            const { product, count } = data;
             if (count && count > 0)  {
                 cart[product.id] = {
                     product: data.product,

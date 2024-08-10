@@ -19,9 +19,7 @@ const Tab = ({path, title, list, onClick, className }) => {
         if ( dropdownMenuRef.current && !dropdownMenuRef.current.contains(e.target)
             && e.target !== dropdownButtonRef.current
         ) {
-            // console.log('close');
             if (!isOpened) {
-                // console.log(isOpened);
                 setIsOpened(false);
             }
 
@@ -31,7 +29,6 @@ const Tab = ({path, title, list, onClick, className }) => {
     }
 
     useEffect(() => {
-        // console.log(isOpened);
         }, [isOpened])
 
     useEffect(() => {

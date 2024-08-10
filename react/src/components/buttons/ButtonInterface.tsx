@@ -16,9 +16,6 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button = (props: IButtonProps) => {
-    // const {logIn, logOut} = useContext(Context)
-    // console.log(props)
-
     const {
         variant, icon, iconPosition, iconColor, text, textColor, route, className, onClick, disabled, bubble,
         ...restProps

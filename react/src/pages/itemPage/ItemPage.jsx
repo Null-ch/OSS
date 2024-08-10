@@ -18,22 +18,19 @@ const ItemPage = () => {
     // общее хранилище со всеми продуктами, либо сбор всех и кеширование
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
-    const {data = [], isLoading} = useGetItemQuery(id);
+    const { data = [], isLoading } = useGetItemQuery(id);
     const product = data.data;
-    console.log(product);
+    // console.log(product);
     document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
 
-    let count = 0;
-    const items = useSelector(state => state.cart.cart);
-    if (items && product) {
-        let p = items[product.id] || {};
-        count = p.count || count;
+    let selected = 0;
+    const cart_products = useSelector(state => state.cart.cart);
+    if (cart_products && product) {
+        let p = cart_products[product.id] || {};
+        selected = p.count || selected;
     }
 
-    const total = (product?.quantity || 0) + count;
-    // console.log(product?.quantity)
-    // console.log(count)
-    // console.log(total)
+    const total = (product?.quantity || 0) + selected;
 
     const dispatch = useDispatch();
     const updateCart = (v) => dispatch(updateCartProducts(v));
@@ -47,16 +44,16 @@ const ItemPage = () => {
     }
 
     // todo test
-    if (count > total) {
+    if (selected > total) {
         updateCount(total);
     }
 
     function onIncrement(incr) {
-        updateCount(Math.max(0, Math.min(Number(count) + incr, total)));
+        updateCount(Math.max(0, Math.min(Number(selected) + incr, total)));
     }
 
-    const isNoneSelected = count < 1;
-    const capped = count === total;
+    const isNoneSelected = selected < 1;
+    const capped = selected === total;
 
     const category = product?.category;
     const to = category && '/products/category/' + category.id;
@@ -89,7 +86,7 @@ const ItemPage = () => {
                                 <span className = 'i-p-counter-info'>В корзине:</span>
                                 <div className = 'item-page-counter-container'>
                                     <Counter
-                                        value = {count}
+                                        value = {selected}
                                         onIncrement = {onIncrement}
                                         onChangeInput = {updateCount}
                                         disableDecr = {isNoneSelected}
@@ -103,7 +100,7 @@ const ItemPage = () => {
                                         <Price
                                             className = 'i-p-price-total'
                                             title = 'Сумма'
-                                            price = { '= ' + String(count * product.price)}
+                                            price = { '= ' + String(selected * product.price)}
                                         />
                                     }
                                 </div>

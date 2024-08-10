@@ -15,24 +15,19 @@ import { Guid } from "js-guid";
 import Cookies from 'js-cookie'
 
 function App() {
-
   Cookies.get('sessionID') || Cookies.set("sessionID", Guid.newGuid())
-   //, { secure: true, SameSite: 'Strict' }); // todo expires, path
+  //, { secure: true, SameSite: 'Strict' }); // todo expires, path
 
   const dispatch = useDispatch();
   const location = useLocation();
+ 
   useEffect(() => {
       dispatch(setIsModalVisible(false));
-  }, [location]);
-
-  useEffect(() => {
-      // execute on location change
       dispatch(setCartHidden(true));
-  }, [location]);
+      dispatch(getCart());
+    }, [location]);
 
-  dispatch(getCart());
-
-  const {isModalVisible, content} = useSelector((state) => state.modal);
+  const { isModalVisible, content } = useSelector((state) => state.modal);
 
   return (
     <>
@@ -60,7 +55,7 @@ function App() {
             isActive = {isModalVisible}
             content = {content}
             onClose={() => {
-              dispatch(setIsModalVisible(false));
+              // dispatch(setIsModalVisible(false));
             }}
         />
     </>

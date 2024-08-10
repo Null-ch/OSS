@@ -7,15 +7,11 @@ import {getAddress} from '../../lib/dadata';
 import {debounce} from 'lodash'
 
 const CreateOrder = () => {
-    // console.log('CreateOrder');
     const items = useSelector(state => state.cart.cart);
     
     function onAddressChange(e) {
-        // console.log('onAddressChange')
         debounce(() => {
-            // console.log('debounce')
             const res = getAddress(e.target.value);
-            console.log(res)
         }, 2000)
     }
 
