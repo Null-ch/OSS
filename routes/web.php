@@ -17,17 +17,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 
-        Route::group(['prefix' => 'user'], function () {
-            Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
-            Route::get('/create/id', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
-            Route::get('/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
-            Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.user.store');
-            Route::get('/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
-            Route::patch('/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
-            Route::delete('/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.destroy');
-            Route::get('/activity/{id}', [App\Http\Controllers\Admin\UserController::class, 'toggleActivity'])->name('admin.user.activity');
-        });
-
         Route::group(['prefix' => 'category'], function () {
             Route::get('/', [App\Http\Controllers\Admin\CategoryController::class, 'index'])->name('admin.categories.index');
             Route::get('/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('admin.category.create');
@@ -71,15 +60,37 @@ Route::middleware('auth')->group(function () {
             Route::delete('/delete/{order}', [App\Http\Controllers\Admin\OrderController::class, 'destroy'])->name('admin.order.destroy');
         });
 
-        Route::group(['prefix' => 'review'], function () {
-            Route::get('/', [App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('admin.reviews.index');
-            Route::get('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'show'])->name('admin.review.show');
-            Route::get('/create/review', [App\Http\Controllers\Admin\ReviewController::class, 'create'])->name('admin.review.create');
-            Route::post('/', [App\Http\Controllers\Admin\ReviewController::class, 'store'])->name('admin.review.store');
-            Route::get('/{review}/edit', [App\Http\Controllers\Admin\ReviewController::class, 'edit'])->name('admin.review.edit');
-            Route::patch('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'update'])->name('admin.review.update');
-            Route::delete('/delete/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('admin.review.destroy');
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+            Route::get('/create/id', [App\Http\Controllers\Admin\UserController::class, 'create'])->name('admin.user.create');
+            Route::get('/{id}', [App\Http\Controllers\Admin\UserController::class, 'show'])->name('admin.user.show');
+            Route::post('/store', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('admin.user.store');
+            Route::get('/edit/{id}', [App\Http\Controllers\Admin\UserController::class, 'edit'])->name('admin.user.edit');
+            Route::patch('/update/{id}', [App\Http\Controllers\Admin\UserController::class, 'update'])->name('admin.user.update');
+            Route::delete('/delete/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('admin.user.destroy');
+            Route::get('/activity/{id}', [App\Http\Controllers\Admin\UserController::class, 'toggleActivity'])->name('admin.user.activity');
         });
+
+        Route::group(['prefix' => 'delivery'], function () {
+            Route::get('/', [App\Http\Controllers\Admin\DeliveryController::class, 'index'])->name('admin.deliveries.index');
+            Route::get('/create/id', [App\Http\Controllers\Admin\DeliveryController::class, 'create'])->name('admin.delivery.create');
+            Route::get('/{id}', [App\Http\Controllers\Admin\DeliveryController::class, 'show'])->name('admin.delivery.show');
+            Route::post('/store', [App\Http\Controllers\Admin\DeliveryController::class, 'store'])->name('admin.delivery.store');
+            Route::get('/edit/{id}', [App\Http\Controllers\Admin\DeliveryController::class, 'edit'])->name('admin.delivery.edit');
+            Route::patch('/update/{id}', [App\Http\Controllers\Admin\DeliveryController::class, 'update'])->name('admin.delivery.update');
+            Route::delete('/delete/{id}', [App\Http\Controllers\Admin\DeliveryController::class, 'destroy'])->name('admin.delivery.destroy');
+            Route::get('/activity/{id}', [App\Http\Controllers\Admin\DeliveryController::class, 'toggleActivity'])->name('admin.delivery.activity');
+        });
+
+        // Route::group(['prefix' => 'review'], function () {
+        //     Route::get('/', [App\Http\Controllers\Admin\ReviewController::class, 'index'])->name('admin.reviews.index');
+        //     Route::get('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'show'])->name('admin.review.show');
+        //     Route::get('/create/review', [App\Http\Controllers\Admin\ReviewController::class, 'create'])->name('admin.review.create');
+        //     Route::post('/', [App\Http\Controllers\Admin\ReviewController::class, 'store'])->name('admin.review.store');
+        //     Route::get('/{review}/edit', [App\Http\Controllers\Admin\ReviewController::class, 'edit'])->name('admin.review.edit');
+        //     Route::patch('/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'update'])->name('admin.review.update');
+        //     Route::delete('/delete/{review}', [App\Http\Controllers\Admin\ReviewController::class, 'destroy'])->name('admin.review.destroy');
+        // });
     });
 });
 

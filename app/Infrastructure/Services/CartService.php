@@ -73,7 +73,7 @@ class CartService implements CartInterface
      * @param ProductService $productService
      * @param CartUpdateValidator $cartValidator
      */
-    protected function __construct(
+    public function __construct(
         Cart $cart,
         LogInterface $logger,
         Product $product,

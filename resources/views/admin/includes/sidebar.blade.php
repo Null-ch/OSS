@@ -22,7 +22,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                <li class="nav-header">Основное</li>
+                <li class="nav-header text-white"><h5><b>Основное</b></h5></li>
                 <li class="nav-item {{ Request::is('admin/cart*') || Request::is('admin/category*') || Request::is('admin/color*') || Request::is('admin/order*') || Request::is('admin/product*') || Request::is('admin/special-offer*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <p>
@@ -75,6 +75,23 @@
                             <a href="{{route('admin.users.index')}}" class="nav-link {{Request::is('admin/user*') ? 'active' : ''}}">
                                 <i class="fa fa-user-circle"></i>
                                 <p class="p-2">Пользователи</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-header text-white"><h5><b>Разное</b></h5></li>
+                <li class="nav-item {{ Request::is('admin/delivery*') ? 'menu-is-opening menu-open' : '' }}">
+                    <a href="#" class="nav-link">
+                        <p>
+                            Доставки
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('admin.deliveries.index')}}" class="nav-link {{Request::is('admin/delivery*') ? 'active' : ''}}">
+                                <i class="fa fa-truck"><b></b></i>
+                                <p class="p-2">Доставки</p>
                             </a>
                         </li>
                     </ul>
