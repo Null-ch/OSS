@@ -21,7 +21,7 @@ class CreateAndModifyTables extends Migration
                 $table->integer('status');
                 $table->unsignedBigInteger('user_shipping_information_id')->nullable();
                 $table->unsignedBigInteger('user_details_id')->nullable();
-                $table->unsignedBigInteger('delivery_service')->default(0);
+                $table->unsignedBigInteger('delivery_service_id')->default(0);
                 $table->softDeletes();
                 $table->timestamps();
             });

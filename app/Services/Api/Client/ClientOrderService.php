@@ -5,6 +5,7 @@ namespace App\Services\Api\Client;
 use App\Models\Order;
 use App\Helpers\Helpers;
 use Illuminate\Support\Facades\DB;
+use App\Infrastructure\Services\CartService;
 use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Services\OrderService;
 use App\Infrastructure\Interfaces\LogInterface;
@@ -73,6 +74,7 @@ class ClientOrderService extends OrderService
      * @param UserShippingInformationService $userShippingInformationService
      * @param UserDetailsService $userDetailsService
      * @param Helpers $helpers
+     * @param CartService $cartService
      */
     public function __construct(
         Order $order,
@@ -81,7 +83,8 @@ class ClientOrderService extends OrderService
         UserService $userService,
         UserShippingInformationService $userShippingInformationService,
         UserDetailsService $userDetailsService,
-        Helpers $helpers
+        Helpers $helpers,
+        CartService $cartService
     ) {
         parent::__construct(
             $order,
@@ -90,7 +93,8 @@ class ClientOrderService extends OrderService
             $userService,
             $userShippingInformationService,
             $userDetailsService,
-            $helpers
+            $helpers,
+            $cartService
         );
     }
     public function createOrder(array $data): ?object

@@ -27,6 +27,7 @@ class StoreOrderRequest extends FormRequest
             'cart_id' => 'required|integer',
             'shipping' => 'required',
             'personal_data' => 'required',
+            'delivery_service_id' => 'required',
         ];
     }
 
@@ -42,6 +43,7 @@ class StoreOrderRequest extends FormRequest
             'cart_id.required' => 'Это поле должно быть заполнено',
             'shipping.required' => 'Это поле должно быть заполнено',
             'personal_data.required' => 'Это поле должно быть заполнено',
+            'delivery_service_id.required' => 'Это поле должно быть заполнено',
         ];
     }
 }

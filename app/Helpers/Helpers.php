@@ -6,7 +6,7 @@ use App\Models\User;
 
 final class Helpers
 {
-    public function prepareOrderData(int $cartId, int $userId, ?int $userShippingInformationId = null, ?int $userDetailsId = null): array
+    public function prepareOrderData(int $cartId, int $userId, int $delivery_service_id, ?int $userShippingInformationId = null, ?int $userDetailsId = null): array
     {
         return [
             'user_id' => $userId,
@@ -14,6 +14,7 @@ final class Helpers
             'status' => 0,
             'user_shipping_information_id' => $userShippingInformationId,
             'user_details_id' => $userDetailsId,
+            'delivery_service_id' => $delivery_service_id,
         ];
     }
 

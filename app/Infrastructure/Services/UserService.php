@@ -163,6 +163,11 @@ class UserService implements UserInterface
     {
         DB::beginTransaction();
         try {
+            $existingUser = $this->user::where('email', $data['email'])->first();
+            if ($existingUser) {
+                DB::commit();
+                return $existingUser;
+            }
             $validatedData = $this->userValidator->validate($data);
             $randomPassword = Str::random(8);
             $validatedData['password'] = Hash::make($randomPassword);

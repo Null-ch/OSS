@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\Order;
 use App\Helpers\Helpers;
+use App\Infrastructure\Services\CartService;
 use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Services\OrderService;
 use App\Infrastructure\Interfaces\LogInterface;
@@ -61,6 +62,7 @@ class AdminOrderService extends OrderService
      * @var object
      */
     protected $helpers;
+    protected $cartService;
 
     /**
      * __construct
@@ -72,6 +74,7 @@ class AdminOrderService extends OrderService
      * @param UserShippingInformationService $userShippingInformationService
      * @param UserDetailsService $userDetailsService
      * @param Helpers $helpers
+     * @param CartService $cartService
      */
     public function __construct(
         Order $order,
@@ -80,7 +83,8 @@ class AdminOrderService extends OrderService
         UserService $userService,
         UserShippingInformationService $userShippingInformationService,
         UserDetailsService $userDetailsService,
-        Helpers $helpers
+        Helpers $helpers,
+        CartService $cartService
     ) {
         parent::__construct(
             $order,
@@ -89,9 +93,9 @@ class AdminOrderService extends OrderService
             $userService,
             $userShippingInformationService,
             $userDetailsService,
-            $helpers
+            $helpers,
+            $cartService
         );
-        // $this->order = $order;
     }
 
    public function getOrders(int $count): ?object

@@ -23,6 +23,7 @@ class Order extends Model
         'status',
         'user_shipping_information_id',
         'user_details_id',
+        'delivery_service_id'
     ];
 
     protected $table = 'orders';
@@ -64,6 +65,10 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+    public function delivery(): BelongsTo
+    {
+        return $this->belongsTo(Delivery::class, 'delivery_service_id');
     }
 
     /***********************************

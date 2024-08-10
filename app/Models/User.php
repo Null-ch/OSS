@@ -66,6 +66,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class);
+    }
+    public function shipping_informations(): HasMany
+    {
+        return $this->hasMany(UserShippingInformation::class);
+    }
     
     /***********************************
      * MODEL HELPERS FUNCTIONS

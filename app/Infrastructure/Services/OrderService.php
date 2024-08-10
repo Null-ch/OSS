@@ -17,7 +17,7 @@ class OrderService implements OrderInterface
     /**
      * Model: Order
      *
-     * @var object
+     * @var Order
      */
     protected $order;
 
@@ -31,37 +31,44 @@ class OrderService implements OrderInterface
     /**
      * messageFactory
      *
-     * @var object
+     * @var MessageService
      */
     protected $messageService;
 
     /**
      * userService
      *
-     * @var object
+     * @var UserService
      */
     protected $userService;
 
     /**
      * userShippingInformationService
      *
-     * @var object
+     * @var UserShippingInformationService
      */
     protected $userShippingInformationService;
 
     /**
      * userDetailsService
      *
-     * @var object
+     * @var UserDetailsService
      */
     protected $userDetailsService;
 
     /**
      * helpers
      *
-     * @var object
+     * @var Helpers
      */
     protected $helpers;
+
+    /**
+     * cartService
+     *
+     * @var CartService
+     */
+    protected $cartService;
 
     /**
      * __construct
@@ -73,6 +80,7 @@ class OrderService implements OrderInterface
      * @param UserShippingInformationService $userShippingInformationService
      * @param UserDetailsService $userDetailsService
      * @param Helpers $helpers
+     * @param CartService $cartService
      */
     public function __construct(
         Order $order,
@@ -81,7 +89,8 @@ class OrderService implements OrderInterface
         UserService $userService,
         UserShippingInformationService $userShippingInformationService,
         UserDetailsService $userDetailsService,
-        Helpers $helpers
+        Helpers $helpers,
+        CartService $cartService
     ) {
         $this->order = $order;
         $this->logger = $logger;
@@ -90,6 +99,7 @@ class OrderService implements OrderInterface
         $this->userShippingInformationService = $userShippingInformationService;
         $this->userDetailsService = $userDetailsService;
         $this->helpers = $helpers;
+        $this->cartService = $cartService;
     }
 
     /**
@@ -161,8 +171,12 @@ class OrderService implements OrderInterface
         DB::beginTransaction();
         try {
             $userId = $this->getUserId($data['personal_data']);
-            $orderData = $this->helpers->prepareOrderData($data['cart_id'], $userId);
+            $orderData = $this->helpers->prepareOrderData($data['cart_id'], $userId, $data['delivery_service_id']);
             $order = $this->order->create($orderData);
+            $cart = $this->cartService->findCartById($order->cart_id);
+            $cart->order_id = $order->id;
+            $cart->user_id = $userId;
+            $cart->save();
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

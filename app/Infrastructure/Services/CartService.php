@@ -236,4 +236,21 @@ class CartService implements CartInterface
         $cart->products;
         return $cart;
     }
+
+    /**
+     * Method findCartById
+     *
+     * @param int $id
+     *
+     * @return null | Cart
+     */
+    public function findCartById(int $id): ?Cart
+    {
+        try {
+            return $this->cart::findOrFail($id);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when getting cart by ID (client API): ' . $e->getMessage());
+            return null;
+        }
+    }
 }
