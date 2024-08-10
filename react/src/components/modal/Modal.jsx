@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Modal = ({isActive, onClose, content}) => {
-    // console.log(isActive)
     return (
         <>
             {isActive && (

@@ -5,8 +5,9 @@ import Price from '../../components/util/Price';
 import XIcon from '../../components/icons/XIcon';
 import { DOMAIN } from '../../utils/url';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateCartProducts } from '../../store/cartSlice';
+import { updateCartProducts, updateCartTry, clearCart } from '../../store/cartSlice';
 import Button from '../../components/buttons/Button';
+import debounce from '../../lib/utils';
 
 // превью корзины в правом верхнем углу
 // клик на корзину - появляется баббл с этой страницей
@@ -20,10 +21,17 @@ function onChangeCounter(e) {
 const CartPreview = ({onClose}) => {
     var totalPrice = 0;
 
-    const items = useSelector(state => state.cart.cart); // dict
-
+    const cartProducts = useSelector(state => state.cart.cart); // dict
+    // console.log('CartPreview')
+    // console.log(cartProducts);
     const dispatch = useDispatch();
-    const updateCart = (v) => dispatch(updateCartProducts(v));
+    function updateCart(v) {
+        dispatch(updateCartProducts(v)); // visual
+
+        debounce(() => {
+            dispatch(updateCartTry({ quantity: v.count, id: v.product.id })); // request
+        }, 1000, 'updateCartTry')
+    }
 
     function onIncrement(item, incr) {
         var count = Math.max(0, Math.min(Number(item.count) + incr));
@@ -35,12 +43,12 @@ const CartPreview = ({onClose}) => {
     }
 
     let itemsList = [];
-    for (let id in items) {
-        let item = items[id];
-        let product = item?.product;
+    for (let id in cartProducts) {
+        let cartProduct = cartProducts[id];
+        let product = cartProduct?.product;
         if (!product) continue;
 
-        const count = item.count;
+        const count = cartProduct.count;
         const {title, price, preview_image} = product;
 
         const _price = count * price;
@@ -56,7 +64,7 @@ const CartPreview = ({onClose}) => {
                 disableIncr = {false}
                 value = {count}
                 onChangeInput = { onChangeCounter }
-                onIncrement = { (incr) => { onIncrement(item, incr); } }
+                onIncrement = { (incr) => { onIncrement(cartProduct, incr); } }
                 className = 'c-p-counter'
                 btnClassName = 'c-p-counter-button'
                 btnDisabledClassName = 'c-p-counter-button-disabled'
@@ -76,16 +84,20 @@ const CartPreview = ({onClose}) => {
         itemsList.push(_product)
     }
 
+    async function onClearCart() {
+        dispatch(clearCart());
+    }
+
     async function onCreateOrder() {
         // console.log('onCreateOrder');
         const data = [];
-        for (let item of Object.entries(items)) {
+        for (let item of Object.entries(cartProducts)) {
             // console.log(item);
             data.push({ id: item[0], quantity: item[1].count });
         }
         // console.log(data);
         // let response = await fetch(DOMAIN + 'index');
-          // Получаем HTML-код страницы
+        // Получаем HTML-код страницы
         // const html = await response.text();
 
         // Создаем экземпляр DOMParser
@@ -135,13 +147,23 @@ const CartPreview = ({onClose}) => {
                         <h1 className = 'c-p-total-title'>Сумма:</h1>
                         <Price className = 'c-p-total-price' price = {totalPrice} title = 'Всего'/>
                     </div>
-                    <Button
-                        disabled = {false}
-                        className = 'c-p-checkout'
-                        title = 'Заказать'
-                        text = 'Заказать'
-                        onClick = {onCreateOrder}
-                    />
+                    <div className = 'c-p-buttons'>
+                        <Button
+                            disabled = {false}
+                            className = 'c-p-checkout'
+                            title = 'Заказать'
+                            text = 'Заказать'
+                            onClick = {onCreateOrder}
+                        />
+                        <Button
+                            disabled = {false}
+                            className = 'c-p-checkout'
+                            title = 'Очистить'
+                            text = 'Очистить'
+                            onClick = {onClearCart}
+                        />
+                    </div>
+
                     {/* <a id = 'c-p-checkout' href = '/order'>Заказать</a> */}
                 </>
             }

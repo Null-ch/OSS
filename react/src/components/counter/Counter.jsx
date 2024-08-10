@@ -3,7 +3,6 @@ import Button from '../buttons/Button';
 import './counter.css'
 
 const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement, className, btnClassName, btnDisabledClassName }) => {
-    // console.log(onChangeInput);
     return (
         <div className = {className}>
             <Button
@@ -17,7 +16,6 @@ const Counter = ({ disableDecr, disableIncr, value, onChangeInput, onIncrement, 
                 type = 'number'
                 min = '0'
                 // className = 'counter-input'
-                // onChange = { (e) => {console.log(e)} }
                 inputMode = 'numeric'
                 onInput = { (e) => {
                     let value = e.target.value || '0';

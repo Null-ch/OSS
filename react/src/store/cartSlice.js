@@ -2,30 +2,36 @@ import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
 import Cookies from 'js-cookie'
 
-// window.localStorage.clear();
-let res = window.localStorage.getItem('oss-cart') || '{}';
-var cart = JSON.parse(res) || {};
-
 export const updateCartTry = createAsyncThunk('cart/updateCartTry',
-    async(data, thunkAPI) => {
-        
+    async({ id, quantity }, thunkAPI) => {
+        const state = thunkAPI.getState();
+        const cart = state.cart.cart
+        // console.log('updateCartTry')
+        // console.log(cart)
         const url = `${DOMAIN}api/public/cart/update`;
-        // console.log(data)
-        // console.log(url)
+
+        let products = [];
+        for (let key in cart) {
+           const item = cart[key];
+           products.push({
+                id: item.product.id,
+                quantity: item.count,
+           })
+        }
+
+        // console.log(products)
+
+        const body = JSON.stringify({
+            cart: products,
+        })
+
         const _res = await fetch(url, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json;charset=utf-8'
+                'Session-Id' : Cookies.get('sessionID'),
+                'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify({
-                sessionID: Cookies.get('sessionID'),
-                cart: [
-                    {
-                        id: data.product.id,
-                        quantity: data.count,
-                    },
-                ]
-            })
+            body: body,
         })
 
         const res = await _res.json();
@@ -35,41 +41,54 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
 )
 
 export const getCart = createAsyncThunk('cart/getCart', 
-    async(data, thunkAPI) => {
+    async(_, thunkAPI) => {
         const url = `${DOMAIN}api/public/cart`;
-        // console.log(data)
-        console.log(url);
-        const session = Cookies.get('sessionID');
-        // document.cookie = cookie;
-        console.log(session);
         const _res = await fetch(url, {
             method: 'GET',
             headers: {
-                // 'cookie': cookie,
-                // 'credentials': 'include',
-                'Session-Id' : session,
+                'Session-Id' : Cookies.get('sessionID'),
                 'Content-Type': 'application/json;charset=utf-8'
               },
         });
         const res = await _res.json();
-        console.log(res);
-      },
+        const data = res.data || {};
+        Cookies.set('cartID', data.id)
+
+        let productsDict = {};
+        for (let product of data.products || []) {
+            productsDict[product.id] = product;
+        }
+
+        let _cart = {};
+        for (let cart_product of data.cart_products || []) {
+            const quantity = cart_product.quantity;
+            const id = cart_product.product_id;
+            if (quantity && quantity > 0)  {
+                _cart[id] = {
+                    product: productsDict[id],
+                    count: quantity,
+                };
+            } else {
+                delete _cart[id]; // remove useless property
+            }
+        }
+        return _cart;
+    },
 )
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart,
+        cart: {},
         isCartHidden: true,
     },
     reducers: {
         updateCartProducts(state, action) {
-            // just UIX
+            console.log('[UI] updateCartProducts')
+            // just UI
             let data = action.payload;
-            // console.log(data);
-            var cart = JSON.parse(window.localStorage.getItem('oss-cart') || '{}') || {};
-
-            const {product, count} = data;
+            let cart = state.cart;
+            const { product, count } = data;
             if (count && count > 0)  {
                 cart[product.id] = {
                     product: data.product,
@@ -79,10 +98,26 @@ const cartSlice = createSlice({
                 delete cart[product.id]; // remove useless property
             }
             
-            window.localStorage.setItem('oss-cart', JSON.stringify(cart));
             state.cart = cart;
-            // console.log('ok')
             // todo loader
+        },
+        clearCart(state, action) {
+            const id = Cookies.get('cartID')
+            console.log('clearCart, id: ' + (id || '[no id found, abort]'));
+            if (!id) return;
+
+            const url = `${DOMAIN}api/public/cart/clear/${id}`;
+            console.log(url);
+
+            const _res = fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Session-Id' : Cookies.get('sessionID'),
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+            })
+
+            state.cart = {};
         },
         setCartHidden(state, action) {
             state.isCartHidden = action.payload;
@@ -92,7 +127,6 @@ const cartSlice = createSlice({
         builder
             .addCase(updateCartTry.pending, (state, action) => {
                 // console.log('updateCartTry.pending');
-
             })
             .addCase(updateCartTry.fulfilled, (state, action) => {
                 // console.log('updateCartTry.fulfilled');
@@ -100,16 +134,14 @@ const cartSlice = createSlice({
             })
             .addCase(getCart.pending, (state, action) => {
                 // console.log('getCart.pending');
-
             })
             .addCase(getCart.fulfilled, (state, action) => {
-                // console.log('getCart.fulfilled');
-                // state.cart = cart;
+                state.cart = action.payload;
             })
     },
 });
 
-export const { updateCartProducts, setCartHidden } = cartSlice.actions;
+export const { updateCartProducts, setCartHidden, clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer; // формируется автоматически из набора reducers в срезе
 // эта сущность подключается в store через configureStore

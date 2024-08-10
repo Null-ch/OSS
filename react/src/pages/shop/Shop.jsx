@@ -7,7 +7,6 @@ const Shop = () => {
     document.title = 'Продукты'
 
     const {data = [], isLoading, error} = useGetCategoriesItemsQuery();
-    // console.log(data);
     if (error) {
       console.log(`error: ${error}`);
     }

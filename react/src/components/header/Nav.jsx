@@ -12,7 +12,6 @@ const Nav = () => {
 
     const dispatch = useDispatch()
     const {data: categories} = useSelector((state) => state.category)
-    useEffect(() => { dispatch(fetchCategories()); }, []);
 
     return (
         <div className = 'nav'>
