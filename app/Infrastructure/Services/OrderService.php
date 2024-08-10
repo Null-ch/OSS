@@ -213,4 +213,21 @@ class OrderService implements OrderInterface
             return null;
         }
     }
+
+    /**
+     * getOrder
+     *
+     * @return object
+     */
+    public function getUserOrders(int $userId): ?object
+    {
+        try {
+            $orders = $this->order::where('user_id', $userId);
+        } catch (\Exception $e) {
+            $this->logger->error('Error when get orders: ' . $e->getMessage());
+            return null;
+        }
+
+        return $orders;
+    }
 }
