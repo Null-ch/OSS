@@ -323,5 +323,7 @@ class CartService implements CartInterface
             $this->logger->error('Error when updating cart by client API: ' . $e->getMessage());
             return null;
         }
+        $cart->products;
+        return $cart;
     }
 }
