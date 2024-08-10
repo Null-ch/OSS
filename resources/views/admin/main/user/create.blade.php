@@ -32,8 +32,8 @@
                             @csrf
                             <div class="form-group">
                                 <label>Фамилия пользователя</label>
-                                <input type="text" class="form-control" name="first_name" placeholder="Олегов">
-                                @error('first_name')
+                                <input type="text" class="form-control" name="middle_name" placeholder="Олегов">
+                                @error('middle_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>

@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'string|max:255',
+            'middle_name' => 'string|max:255',
             'name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
             'email' => 'required|string|email|unique:users|max:255',
@@ -44,7 +44,7 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.string' => 'Поле должно быть строкой',
+            'middle_name.string' => 'Поле должно быть строкой',
             'name.string' => 'Поле должно быть строкой',
             'name.required' => 'Поле обязательно для заполнения',
             'last_name.string' => 'Поле должно быть строкой',

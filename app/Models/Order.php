@@ -37,10 +37,6 @@ class Order extends Model
         '2' => 'Оплачен',
         '3' => 'Отменен',
     ];
-    private $deliveryService = [
-        '0' => 'Почта России',
-        '1' => 'CDEK',
-    ];
 
     public static function getStatuses()
     {

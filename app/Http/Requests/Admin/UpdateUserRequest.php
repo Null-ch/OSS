@@ -27,7 +27,7 @@ class UpdateUserRequest extends FormRequest
         (int) $userId = request('user_id');
 
         return [
-            'first_name' => 'string|max:255',
+            'middle_name' => 'string|max:255',
             'name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
             'email' => [
@@ -51,7 +51,7 @@ class UpdateUserRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.string' => 'Поле должно быть строкой',
+            'middle_name.string' => 'Поле должно быть строкой',
             'name.string' => 'Поле должно быть строкой',
             'name.required' => 'Поле обязательно для заполнения',
             'last_name.string' => 'Поле должно быть строкой',

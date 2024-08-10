@@ -15,7 +15,7 @@ class UserValidator extends BaseValidator
     public function rules()
     {
         return [
-            'first_name' => 'string|max:255',
+            'middle_name' => 'string|max:255',
             'name' => 'required|string|max:255',
             'last_name' => 'string|max:255',
             'email' => [

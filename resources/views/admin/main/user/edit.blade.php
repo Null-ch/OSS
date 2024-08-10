@@ -33,8 +33,8 @@
                             <div class="row p-1">
                                 <div class="form-group p-1 text-center col-md-6">
                                     <label>Фамилия</label>
-                                    <input type="text" class="form-control text-center" name="first_name" placeholder="Олег" value="{{ $user->first_name }}">
-                                    @error('first_name')
+                                    <input type="text" class="form-control text-center" name="middle_name" placeholder="Олег" value="{{ $user->middle_name }}">
+                                    @error('middle_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DeliveryUpdateRequest extends FormRequest
@@ -23,8 +24,14 @@ class DeliveryUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        (int) $deliveryTitle = request('title');
         return [
-            'title' => 'required|string|max:255',
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('deliveries')->ignore($deliveryTitle),
+            ],
         ];
     }
 
