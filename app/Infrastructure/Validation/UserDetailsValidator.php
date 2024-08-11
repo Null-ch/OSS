@@ -16,7 +16,7 @@ class UserDetailsValidator extends BaseValidator
         return [
             'name' => 'required',
             'email' => 'required',
-            'phone_number' => 'required',
+            'phone' => 'required',
         ];
     }
 }

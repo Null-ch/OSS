@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeliveriesTable extends Migration
+class RenamePhoneNumberFromUserShippingInformationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateDeliveriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->boolean('is_active')->default(true);
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('user_shipping_informations', function (Blueprint $table) {
+            $table->renameColumn('phone_number', 'phone');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateDeliveriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliveries');
+        Schema::table('user_shipping_informations', function (Blueprint $table) {
+            $table->renameColumn('phone', 'phone_number');
+        });
     }
 }

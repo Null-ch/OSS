@@ -84,7 +84,6 @@ class CreateAndModifyTables extends Migration
         if (!Schema::hasTable('user_shipping_informations')) {
             Schema::create('user_shipping_informations', function (Blueprint $table) {
                 $table->id();
-                $table->text('type');
                 $table->unsignedBigInteger('user_id');
                 $table->text('value');
                 $table->timestamps();
@@ -118,7 +117,16 @@ class CreateAndModifyTables extends Migration
                 $table->unsignedBigInteger('user_id')->nullable();
                 $table->string('name');
                 $table->string('email');
-                $table->string('phone_number')->nullable();
+                $table->string('phone')->nullable();
+                $table->timestamps();
+            });
+        }
+        if (!Schema::hasTable('deliveries')) {
+            Schema::create('deliveries', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->boolean('is_active')->default(true);
+                $table->softDeletes();
                 $table->timestamps();
             });
         }
