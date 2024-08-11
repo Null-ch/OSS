@@ -40,9 +40,9 @@ const CreateOrder = () => {
 
     // USER DATA
     function onLastnameChange(e) {
+        const lastname = e.target.value || '';
+        setLastname(lastname);
         debounce(() => {
-            const lastname = e.target.value || '';
-            setLastname(lastname);
             localSet('oss-user-lastname', lastname);
         }, delay, 'lastname');
     }
