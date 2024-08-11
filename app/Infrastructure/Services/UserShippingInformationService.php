@@ -61,7 +61,7 @@ class UserShippingInformationService implements UserShippingInformationInterface
         DB::beginTransaction();
         try {
             if (is_null($shipping['id'])) {
-                $data = ['user_id' => $userId, 'value' => $shipping['addres']];
+                $data = ['user_id' => $userId, 'value' => $shipping['address']];
             } else {
                 $shippingInformation = $this->userShippingInformation::findOrFail($shipping['id']);
                 $data = ['user_id' => $userId, 'value' => $shippingInformation->value];
