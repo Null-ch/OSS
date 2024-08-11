@@ -1,7 +1,6 @@
 import Categories from './categories/Categories';
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories } from '../../store/categorySlice';
 import Category from './categories/Category';
 
 import './home.css'
@@ -10,11 +9,7 @@ import './home.css'
 // todo передавать категории извне
 
 const Home = () => {
-    const dispatch = useDispatch()
     const {data: categories} = useSelector((state) => state.category)
-    useEffect(() => {
-        dispatch(fetchCategories());
-      }, []);
 
     return (
         <main className = 'main-page'>

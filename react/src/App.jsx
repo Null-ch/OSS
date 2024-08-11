@@ -8,11 +8,12 @@ import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible } from './store/modalSlice';
-import { setCartHidden, getCart, updateCartProducts } from './store/cartSlice';
+import { setCartHidden, getCart } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
 import { Guid } from "js-guid";
 import Cookies from 'js-cookie'
+import { getCategories } from './store/categorySlice';
 
 function App() {
   Cookies.get('sessionID') || Cookies.set("sessionID", Guid.newGuid())
@@ -21,11 +22,17 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation();
  
+  // always:
   useEffect(() => {
       dispatch(setIsModalVisible(false));
       dispatch(setCartHidden(true));
-      dispatch(getCart());
     }, [location]);
+
+  // once:
+  useEffect(() => {
+    dispatch(getCart());
+    dispatch(getCategories());
+  }, []);
 
   const { isModalVisible, content } = useSelector((state) => state.modal);
 

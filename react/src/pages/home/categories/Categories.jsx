@@ -1,15 +1,10 @@
 import React, { useEffect } from 'react';
 import './categories.css';
 import { useSelector, useDispatch } from 'react-redux';
-import {fetchCategories} from '../../../store/categorySlice';
 import Category from './Category';
 
 const Categories = () => {
-    const dispatch = useDispatch()
     const {data: categories} = useSelector((state) => state.category)
-    useEffect(() => {
-        dispatch(fetchCategories());
-      }, []);
 
     // console.log(categories)
     return (

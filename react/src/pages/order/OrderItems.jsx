@@ -13,12 +13,12 @@ const OrderItems = ({items}) => {
         totalPrice += total;
 
         rows.push(
-        <tr>
-            <td>{item.product.title}</td>
-            <td>{item.product.price}</td>
-            <td>{item.count}</td>
-            <td className = 'o-i-t-sum'>{total}</td>
-        </tr>
+            <tr key = {id}>
+                <td>{item.product.title}</td>
+                <td>{item.product.price}</td>
+                <td>{item.count}</td>
+                <td className = 'o-i-t-sum'>{total}</td>
+            </tr>
         );
     }
 
@@ -27,16 +27,18 @@ const OrderItems = ({items}) => {
     return (
         <div className = 'order-items'>
             <table className = 'o-i-table'>
-                <tr>
-                    <th>Название</th>
-                    <th>Цена</th>
-                    <th>Количество</th>
-                    <th>Сумма</th>
-                </tr>
-                {rows}
+                <tbody>
+                    <tr>
+                        <th>Название</th>
+                        <th>Цена</th>
+                        <th>Количество</th>
+                        <th>Сумма</th>
+                    </tr>
+                    {rows}
+                </tbody>
             </table>
             <div className = 'order-shipping-price'>
-                <span>Доставка:</span>
+                <span>Доставка: </span>
                 <span className = 'o-s-p-result'>Введите адрес</span>
             </div>
             <div className = 'order-subtotal'>

@@ -8,7 +8,6 @@ import { lazy } from 'react'
 
 // lazy точно нужен?
 const Home = lazy(() => import('./pages/home/Home'))
-const Cart = lazy(() => import('./pages/Cart'))
 const Shop = lazy(() => import('./pages/shop/Shop'))
 const ItemPage = lazy(() => import('./pages/itemPage/ItemPage'))
 const About = lazy(() => import('./pages/about/About'))
@@ -20,11 +19,6 @@ const home = {
     component: <Home/>,
     title: 'Главная',
     mobileHidden: true,
-}
-
-const cart = {
-    path: CART,
-    component: <Cart/>,
 }
 
 const products = {
@@ -65,7 +59,6 @@ const createOrder = {
 
 export const publicRoutes = [
     home,
-    cart,
     products,
     // item,
     itemPage,

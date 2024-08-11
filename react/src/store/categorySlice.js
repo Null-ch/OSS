@@ -40,8 +40,8 @@ export const {setCats, setStatus, setCatProducts, setCatProductsStatus,
 export default catSlice.reducer; // формируется автоматически из набора reducers в срезе
 // эта сущность подключается в store через configureStore
 
-export const fetchCategories = () => {
-    return async function fetchCatThunk(dispatch) {
+export const getCategories = () => {
+    return async function getCatThunk(dispatch) {
         dispatch(setStatus(STATUS.LOADING));
 
         try {
@@ -62,8 +62,8 @@ export const fetchCategories = () => {
     }
 }
 
-export const fetchProductsByCat = (catId, type) => {
-    return async function fetchCatProductThunk(dispatch){ // thunk - либа для создания асинхр. action
+export const getProductsByCat = (catId, type) => {
+    return async function getCatProductThunk(dispatch){ // thunk - либа для создания асинхр. action
         // (которые синхр. по умолчанию)
         if (type === 'all') dispatch(setCatProducts(STATUS.LOADING));
         if (type === 'single') dispatch(setCatProductStatus(STATUS.LOADDING));

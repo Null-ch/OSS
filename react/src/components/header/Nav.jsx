@@ -4,13 +4,12 @@ import { nav } from '../../routes';
 import { React, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import {fetchCategories} from '../../store/categorySlice';
+// import {getCategories} from '../../store/categorySlice';
 
 const Nav = () => {
     const location = useLocation();
     const p = location.pathname;
 
-    const dispatch = useDispatch()
     const {data: categories} = useSelector((state) => state.category)
 
     return (

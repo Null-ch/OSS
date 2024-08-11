@@ -88,35 +88,11 @@ const CartPreview = ({onClose}) => {
         dispatch(clearCart());
     }
 
-    async function onCreateOrder() {
-        // console.log('onCreateOrder');
-        const data = [];
-        for (let item of Object.entries(cartProducts)) {
-            // console.log(item);
-            data.push({ id: item[0], quantity: item[1].count });
-        }
+    async function onCheckout() {
+        console.log('onCheckout');
+
         // console.log(data);
-        // let response = await fetch(DOMAIN + 'index');
-        // Получаем HTML-код страницы
-        // const html = await response.text();
 
-        // Создаем экземпляр DOMParser
-        // const parser = new DOMParser();
-
-        // Преобразуем строку HTML в объект Document
-        // const doc = parser.parseFromString(html, "text/html");
-        // const metaTag = doc.querySelector('meta[name="sosi-hui-token"]');
-        // console.log(metaTag.content)
-
-        let res = await fetch(DOMAIN + 'api/public/products/check-availability', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json;charset=utf-8',
-            //   'X-CSRF-TOKEN': metaTag.content,
-            },
-            body: JSON.stringify(data)
-          });
-        const check = await res.json();
         // skip check
         
         // cart/update - каждый раз когда юзер добавил хуйню в корзину с дебаунсом + резервируем на 1ч +
@@ -149,11 +125,12 @@ const CartPreview = ({onClose}) => {
                     </div>
                     <div className = 'c-p-buttons'>
                         <Button
+                            route = '/order'
                             disabled = {false}
                             className = 'c-p-checkout'
                             title = 'Заказать'
                             text = 'Заказать'
-                            onClick = {onCreateOrder}
+                            onClick = {onCheckout}
                         />
                         <Button
                             disabled = {false}
@@ -163,8 +140,6 @@ const CartPreview = ({onClose}) => {
                             onClick = {onClearCart}
                         />
                     </div>
-
-                    {/* <a id = 'c-p-checkout' href = '/order'>Заказать</a> */}
                 </>
             }
         </div>

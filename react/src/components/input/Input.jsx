@@ -1,17 +1,18 @@
 import React from 'react';
 import './input.css';
 
-const Input = ({ type, index, placeholder, inputList, onChange }) => {
+const Input = ({ value, type, index, placeholder, inputList, onChange }) => {
     // console.log(inputList)
     return (
         <div>
             <input
+                value = {value}
                 tabIndex = {index}
                 className = 'input'
                 type={type}
                 placeholder = {placeholder}
                 list = { inputList && 'input-list' }
-                onChange={ onChange }
+                onChange = { onChange }
             />
             
             {

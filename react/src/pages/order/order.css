@@ -42,16 +42,22 @@ html {
 .order-page {
   justify-content: center;
   background-color: white;
-  height: 1000px;
+  align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   font-family: 'centro-sans-pro-light', sans-serif;
   padding: 24px;
 }
+.order-page .o-p-title {
+  font-size: 40px;
+  font-weight: 600;
+  padding: 16px;
+}
 .order-page .o-p-container {
-  width: 50%;
+  width: 75%;
   display: flex;
   flex-direction: row;
+  min-height: 700px;
 }
 .order-page .o-p-items {
   padding-right: 24px;
@@ -66,15 +72,41 @@ html {
   flex: 1;
 }
 .order-page .o-p-contacts,
-.order-page .o-p-shipment {
+.order-page .o-p-shipment,
+.order-page .o-p-user-data {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 .order-page .o-p-contacts-title,
-.order-page .o-p-shipment-title {
+.order-page .o-p-shipment-title,
+.order-page .o-p-user-data-title {
   font-size: 24px;
   font-weight: 600;
+}
+.order-page .o-p-checkout-container {
+  flex: 1;
+  align-content: flex-end;
+}
+.order-page .o-p-checkout {
+  cursor: pointer;
+  padding: 4px 24px;
+  width: min-content;
+  align-self: center;
+  color: #f7f7f7;
+  background-color: #333333;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  outline: 1px solid #ccc;
+  opacity: 75%;
+}
+.order-page .o-p-checkout:hover {
+  text-decoration: none;
+  opacity: 100%;
 }
 .order-items {
   display: flex;

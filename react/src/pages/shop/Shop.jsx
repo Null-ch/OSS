@@ -6,6 +6,7 @@ import './shop.css';
 const Shop = () => {
     document.title = 'Продукты'
 
+    // todo getCategories
     const {data = [], isLoading, error} = useGetCategoriesItemsQuery();
     if (error) {
       console.log(`error: ${error}`);
