@@ -185,9 +185,9 @@ class UserService implements UserInterface
      * getUser
      *
      * @param  int $id
-     * @return object
+     * @return object | null
      */
-    public function getUser(int $id): object|null
+    public function getUser(int $id): ?object
     {
         try {
             $user = $this->user::find($id);
