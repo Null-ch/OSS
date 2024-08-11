@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
 import Cookies from 'js-cookie'
 
@@ -72,13 +72,17 @@ export const getCart = createAsyncThunk('cart/getCart',
                 delete _cart[id]; // remove useless property
             }
         }
-        return _cart;
+        return {
+            cart: _cart,
+            id: data.id
+        };
     },
 )
 
 const cartSlice = createSlice({
     name: 'cart',
     initialState: {
+        id: undefined,
         cart: {},
         isCartHidden: true,
     },
@@ -136,7 +140,9 @@ const cartSlice = createSlice({
                 // console.log('getCart.pending');
             })
             .addCase(getCart.fulfilled, (state, action) => {
-                state.cart = action.payload;
+                const data = action.payload;
+                state.cart = data.cart;
+                state.id = data.id;
             })
     },
 });

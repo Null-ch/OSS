@@ -1,11 +1,13 @@
 import { React, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './order.css';
 import OrderItems from './OrderItems'
 import Input from '../../components/input/Input';
 import { getAddress } from '../../lib/dadata';
 import debounce from '../../lib/utils';
 import Button from '../../components/buttons/Button';
+import { createOrder } from '../../store/orderSlice';
+// import { useGetDeliveriesQuery } from '../../store/query/deliveryApi';
 
 function localGet(key) {
     return localStorage.getItem(key);
@@ -22,19 +24,19 @@ function isEmpty(str) {
 }
 
 const CreateOrder = () => {
+    const dispatch = useDispatch();
+
     const items = useSelector(state => state.cart.cart);
+    const deliveryList = useSelector(state => state.delivery.list);
+    const cart = useSelector(state => state.cart); // dict
 
     const [name, setName] = useState(localGet('oss-user-name') || '');
     const [lastname, setLastname] = useState(localGet('oss-user-lastname') || '');
     const [middlename, setMiddlename] = useState(localGet('oss-user-middlename') || '');
     const [email, setEmail] = useState(localGet('oss-user-email') || '');
     const [phone, setPhone] = useState(localGet('oss-user-phone') || '');
-
-    function onAddressChange(e) {
-        debounce(() => {
-            const res = getAddress(e.target.value);
-        }, 750, 'address');
-    }
+    const [delivery, setDelivery] = useState(localGet('oss-order-delivery') || '');
+    const [address, setAddress] = useState(localGet('oss-order-address') || '');
 
     // USER DATA
     function onLastnameChange(e) {
@@ -78,14 +80,49 @@ const CreateOrder = () => {
         }, delay, 'phone');
     }
 
-    function onCreateOrder() {
-        console.log({
-            name, lastname, middlename, phone, email
-        });
+    function onAddressChange(e) {
+        const address = e.target.value || '';
+        setAddress(address);
+        debounce(() => {
+            localSet('oss-order-address', address);
+        }, delay, 'address');
+    }
 
-        if (!isEmpty(name) && !isEmpty(lastname) && !isEmpty(middlename) && !isEmpty(phone) && !isEmpty(email)) {
-            console.log('OK? ok.')
+    function onDeliveryChange(e) {
+        setDelivery(e.target.value || '');
+    }
+
+    function onCreateOrder() {
+        const delivery_id = deliveryDict[delivery];
+        if (delivery_id && !isEmpty(name) && !isEmpty(lastname) && !isEmpty(middlename) && !isEmpty(phone) && !isEmpty(email) && !isEmpty(address)) {
+            console.log('OK? ok.');
+            console.log(cart)
+            dispatch(createOrder({
+                cart_id: cart.id,
+                delivery_service_id: delivery_id,
+                shipping: {
+                    id: null,
+                    address: address,
+                },
+                personal_data: {
+                    name,
+                    last_name: lastname,
+                    middle_name: middlename,
+                    email,
+                    phone,
+                }
+            }))
         }
+
+
+    }
+
+    const deliveryInputList = [];
+    const deliveryDict = {};
+    for (let delivery of deliveryList) {
+        if (!delivery.is_active) continue;
+        deliveryInputList.push(delivery.title);
+        deliveryDict[delivery.title] = delivery.id;
     }
 
     // console.log(items);
@@ -133,7 +170,7 @@ const CreateOrder = () => {
                             index = {1}
                         />
                         <Input
-                            value = {phone}
+                            value = { phone }
                             placeholder = '+7'
                             type = 'phone'
                             onChange = {onPhoneChange}
@@ -144,13 +181,15 @@ const CreateOrder = () => {
                     <span className = 'o-p-shipment-title'>Доставка</span>
                     <div className = 'o-p-shipment'>
                         <Input 
-                            placeholder = 'Страна'
+                            placeholder = 'Способ доставки'
                             type = 'text'
                             index = {1}
-                            inputList = {['Россия']}
+                            onChange = { onDeliveryChange }
+                            inputList = { deliveryInputList }
                         />
                         <Input
-                            // placeholder = '+7'
+                            value = { address }
+                            placeholder = 'Адрес'
                             type = 'text'
                             index = {2}
                             onChange = { onAddressChange }

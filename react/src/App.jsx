@@ -14,6 +14,7 @@ import NotFound from "./pages/util/NotFound.jsx";
 import { Guid } from "js-guid";
 import Cookies from 'js-cookie'
 import { getCategories } from './store/categorySlice';
+import { getDeliveries } from './store/deliverySlice';
 
 function App() {
   Cookies.get('sessionID') || Cookies.set("sessionID", Guid.newGuid())
@@ -32,6 +33,7 @@ function App() {
   useEffect(() => {
     dispatch(getCart());
     dispatch(getCategories());
+    dispatch(getDeliveries());
   }, []);
 
   const { isModalVisible, content } = useSelector((state) => state.modal);
