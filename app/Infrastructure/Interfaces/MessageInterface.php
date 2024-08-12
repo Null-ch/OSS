@@ -5,10 +5,11 @@ namespace App\Infrastructure\Interfaces;
 interface MessageInterface
 {
     /**
-     * getMessage
+     * Method getMessage
      *
-     * 
+     * @param string $message
+     *
      * @return string
      */
-    public function getMessage(): string;
+    public function getMessage(string $message): string;
 }

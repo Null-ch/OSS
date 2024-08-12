@@ -29,6 +29,7 @@ class DeliveryController extends Controller
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
+
     /**
      * Getting a delivery by id (client)
      *

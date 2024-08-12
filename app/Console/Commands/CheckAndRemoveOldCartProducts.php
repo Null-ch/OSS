@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\CartProduct;
 use Illuminate\Support\Carbon;
 use Illuminate\Console\Command;
-use App\Events\ProductRemovedFromCart;
+use App\Events\ProductRemovedFromCartEvent;
 
 class CheckAndRemoveOldCartProducts extends Command
 {
@@ -45,7 +45,7 @@ class CheckAndRemoveOldCartProducts extends Command
 
         CartProduct::where('updated_at', '>', $threshold)->each(function ($cartProduct) use ($bar) {
             $cartProduct->delete();
-            event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+            event(new ProductRemovedFromCartEvent($cartProduct->product_id, $cartProduct->quantity));
             $bar->advance();
         });
 

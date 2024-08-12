@@ -229,7 +229,9 @@ class OrderService implements OrderInterface
     }
 
     /**
-     * getOrder
+     * Method getUserOrders
+     *
+     * @param int $userId
      *
      * @return object
      */
@@ -243,5 +245,28 @@ class OrderService implements OrderInterface
         }
 
         return $orders;
+    }
+  
+    /**
+     * Method orderComplete
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function orderComplete(int $id): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $order = $this->getOrder($id);
+            $order->status = 2;
+            $order->save();
+            DB::commit();
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when cancel order: ' . $e->getMessage());
+            return null;
+        }
     }
 }

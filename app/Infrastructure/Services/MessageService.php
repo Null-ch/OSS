@@ -42,11 +42,11 @@ class MessageService
      * @param  string $type Тип сообщения ("success", "failure", "warning")
      * @return string|null
      */
-    public function getMessage(string $type): ?string
+    public function getMessage(string $type, string $text = null): ?string
     {
         try {
             $message = $this->messageFactory::create($type);
-            return $message->getMessage();
+            return $message->getMessage($text);
         } catch (\Exception $e) {
             $this->logger->error('Error when generate message: ' . $e->getMessage());
             return null;

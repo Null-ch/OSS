@@ -4,7 +4,7 @@ namespace App\Infrastructure\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Events\ProductAddedToCart;
+use App\Events\ProductAddedToCartEvent;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
@@ -226,7 +226,7 @@ class CartService implements CartInterface
                 $product = $this->product->find($productId);
                 if ($product) {
                     $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id, 'quantity' => $value['quantity']]);
-                    event(new ProductAddedToCart($productId, $value['quantity']));
+                    event(new ProductAddedToCartEvent($productId, $value['quantity']));
                 }
             }
         } catch (\Exception $e) {

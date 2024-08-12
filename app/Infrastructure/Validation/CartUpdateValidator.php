@@ -14,7 +14,7 @@ class CartUpdateValidator extends BaseValidator
     public function rules()
     {
         return [
-            'cart' => 'required',
+            'cart' => 'array',
         ];
     }
 }

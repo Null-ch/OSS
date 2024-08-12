@@ -39,7 +39,7 @@ class OrderController extends Controller
      * createOrder
      *
      * @param  mixed $request
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function createOrder(StoreOrderRequest $request)
     {
@@ -52,35 +52,27 @@ class OrderController extends Controller
     /**
      * cancelOrder
      *
-     * @param  mixed $id
-     * @return void
+     * @param  int $id
+     * @return \Illuminate\Http\Response
      */
-    public function cancelOrder($id)
+    public function cancelOrder(int $id)
     {
         $responseData = $this->orderService->cancelOrder($id);
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
 
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
+    /**
+     * Method orderComplete
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function orderComplete(int $id)
+    {
+        $responseData = $this->orderService->orderComplete($id);
+        $response = $this->responseService->getResponse($responseData);
+        return response()->json($response, JSON_UNESCAPED_UNICODE);
+    }
 }

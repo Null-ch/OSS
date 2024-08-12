@@ -14,9 +14,8 @@ interface OrderInterface
     /**
      * createOrder
      *
-     * @return string|null
      */
-    public function createOrder(array $data): ?object;
+    public function createOrder(array $data);
 
     /**
      * deleteOrder

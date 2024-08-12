@@ -37,7 +37,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    public function show($id)
+    public function show(int $id)
     {
         (object) $data = $this->productService->getProduct($id);
         $response = $this->responseService->getResponse($data);
@@ -48,7 +48,7 @@ class ProductController extends Controller
      * checkAvailability
      *
      * @param  object $request
-     * @return void
+     * @return \Illuminate\Http\Response
      */
     public function checkAvailability(Request $request)
     {

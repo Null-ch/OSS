@@ -11,8 +11,8 @@ class SuccessMessage implements MessageInterface
      *
      * @return string
      */
-    public function getMessage(): string
+    public function getMessage($message = null): string
     {
-        return 'Операция выполнена успешно!';
+        return $message ? $message : 'Операция выполнена успешно!';
     }
 }

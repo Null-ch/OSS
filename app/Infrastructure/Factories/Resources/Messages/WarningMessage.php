@@ -11,8 +11,8 @@ class WarningMessage implements MessageInterface
      *
      * @return string
      */
-    public function getMessage(): string
+    public function getMessage($message = null): string
     {
-        return 'Что-то пошло не так!';
+        return $message ? $message : 'Что-то пошло не так!';
     }
 }
