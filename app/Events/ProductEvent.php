@@ -9,8 +9,19 @@ use Illuminate\Queue\SerializesModels;
 class ProductEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
+    
+    /**
+     * productId
+     *
+     * @var int
+     */
     public $productId;
+
+    /**
+     * quantity
+     *
+     * @var int
+     */
     public $quantity;
 
     public function __construct($productId, $quantity)

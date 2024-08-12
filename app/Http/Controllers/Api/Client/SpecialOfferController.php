@@ -39,7 +39,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      * 
      */
-    public function show($id)
+    public function show(int $id)
     {
         (object) $data = $this->specialOffer->getSpecialOfferById($id);
         $response = $this->responseService->getResponse($data);

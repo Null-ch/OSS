@@ -4,7 +4,7 @@ namespace App\Infrastructure\Services;
 
 use App\Models\Cart;
 use App\Models\Product;
-use App\Events\ProductAddedToCart;
+use App\Events\ProductAddedToCartEvent;
 use Illuminate\Support\Facades\DB;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
@@ -102,22 +102,22 @@ class CartService implements CartInterface
         try {
             $userId = auth()->check() ? auth()->user()->id : null;
             $sessionId = request()->header('session-id') ? request()->header('session-id') : null;
-
-            if ($userId) {
-                $cart = $this->cart::where('user_id', $userId)->first();
-            } elseif ($sessionId) {
-                $cart = $this->cart::where('session', $sessionId)->first();
-            }
-
-            if ($cart) {
-                $cart = $this->cart::where(function ($query) use ($cart) {
+            $cartsQuery = $this->cart::where(function ($query) use ($userId, $sessionId) {
+                $query->where(function ($query) use ($userId, $sessionId) {
                     $query->whereNotNull('order_id')
-                        ->whereHas('order', function ($query) {
-                            $query->whereNotIn('status', ['2', '3']);
-                        })
-                        ->orWhere('order_id', null);
-                })->where('id', $cart->id)->first();
-            }
+                          ->whereHas('order', function ($query) {
+                              $query->whereNotIn('status', ['2', '3']);
+                          })
+                          ->orWhere('order_id', null);
+                })
+                ->when($userId, function ($query, $userId) {
+                    return $query->where('user_id', $userId);
+                })
+                ->when($sessionId, function ($query, $sessionId) {
+                    return $query->where('session', $sessionId);
+                });
+            });
+            $cart = $cartsQuery->get()->first();
         } catch (\Exception $e) {
             $this->logger->error('Error when getting cart: ' . $e->getMessage());
             return null;
@@ -226,7 +226,7 @@ class CartService implements CartInterface
                 $product = $this->product->find($productId);
                 if ($product) {
                     $this->cartProductService->createCartProduct(['cart_id' => $cart->id, 'product_id' => $product->id, 'quantity' => $value['quantity']]);
-                    event(new ProductAddedToCart($productId, $value['quantity']));
+                    event(new ProductAddedToCartEvent($productId, $value['quantity']));
                 }
             }
         } catch (\Exception $e) {

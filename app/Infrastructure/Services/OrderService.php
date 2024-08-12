@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Services;
 
+use App\Events\OrderCompleteEvent;
 use App\Models\Order;
 use App\Helpers\Helpers;
 use Illuminate\Support\Facades\DB;
@@ -173,10 +174,6 @@ class OrderService implements OrderInterface
             $userId = $this->getUserId($data['personal_data']);
             $orderData = $this->helpers->prepareOrderData($data['cart_id'], $userId, $data['delivery_service_id']);
             $order = $this->order->create($orderData);
-            $cart = $this->cartService->findCartById($order->cart_id);
-            $cart->order_id = $order->id;
-            $cart->user_id = $userId;
-            $cart->save();
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
@@ -229,7 +226,9 @@ class OrderService implements OrderInterface
     }
 
     /**
-     * getOrder
+     * Method getUserOrders
+     *
+     * @param int $userId
      *
      * @return object
      */
@@ -243,5 +242,30 @@ class OrderService implements OrderInterface
         }
 
         return $orders;
+    }
+  
+    /**
+     * Method orderComplete
+     *
+     * @param int $id
+     *
+     * @return string
+     */
+    public function orderComplete(int $id): ?string
+    {
+        DB::beginTransaction();
+        try {
+            $order = $this->getOrder($id);
+            $order->status = 2;
+            $order->save();
+            DB::commit();
+            $cart = $this->cartService->findCartById($order->cart_id);
+            event(new OrderCompleteEvent($cart, $order->id, $order->user_id));
+            return $this->messageService->getMessage('success');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->logger->error('Error when cancel order: ' . $e->getMessage());
+            return null;
+        }
     }
 }

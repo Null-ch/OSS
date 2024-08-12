@@ -45,12 +45,25 @@ class CategoryController extends Controller
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
 
-    public function show($id)
+    /**
+     * Method show
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(int $id)
     {
         (object) $data = $this->categoryService->getCategory($id);
         $response = $this->responseService->getResponse($data);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
+
+    /**
+     * Method getCategoriesWithProducts
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getCategoriesWithProducts()
     {
         (object) $data = $this->categoryService->getCategoriesWithProducts(10);

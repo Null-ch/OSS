@@ -81,7 +81,14 @@ class Order extends Model
     public function getTotalCost()
     {
         $totalCost = 0;
+        $cart = $this->cart;
+        if (!$cart) {
+            return 0;
+        }
         $productCarts = $this->cart->cart_products;
+        if (!$productCarts) {
+            return 0;
+        }
         foreach ($productCarts as $item) {
             $totalCost += $item->quantity * $item->product->price;
         }

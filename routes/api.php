@@ -60,6 +60,7 @@ Route::prefix('public')->group(function () {
     Route::prefix('order')->group(function () {
         Route::post('/create', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.create');
         Route::post('/cancel/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'cancelOrder'])->name('client.order.cancel');
+        Route::post('/complete/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'orderComplete'])->name('client.order.complete');
     });
 
     Route::prefix('special-offer')->group(function () {

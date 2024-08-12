@@ -4,6 +4,7 @@ namespace App\Services\Admin;
 
 use App\Models\Delivery;
 use Illuminate\Support\Facades\DB;
+use App\Infrastructure\Services\FileService;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Services\DeliveryService;
@@ -33,6 +34,13 @@ class AdminDeliveryService extends DeliveryService
     protected $messageService;
 
     /**
+     * fileService
+     *
+     * @var object
+     */
+    protected $fileService;
+
+    /**
      * __construct
      *
      * @param Delivery $delivery
@@ -42,10 +50,12 @@ class AdminDeliveryService extends DeliveryService
     public function __construct(
         Delivery $delivery,
         LogInterface $logger,
-        MessageService $messageService
+        MessageService $messageService,
+        FileService $fileService
     ) {
         parent::__construct($delivery, $logger);
         $this->messageService = $messageService;
+        $this->fileService = $fileService;
     }
 
     /**
@@ -59,6 +69,9 @@ class AdminDeliveryService extends DeliveryService
     {
         DB::beginTransaction();
         try {
+            $filename = $this->fileService->uploadFile($data['preview_image'], '/img/deliveries/');
+            $path = 'img/deliveries/' . $filename;
+            $data['preview_image'] = $path;
             $delivery = $this->delivery::create($data);
             DB::commit();
             return $delivery;
@@ -84,6 +97,9 @@ class AdminDeliveryService extends DeliveryService
 
         if ($delivery) {
             try {
+                $filename = $this->fileService->uploadFile($data['preview_image'], '/img/deliveries/');
+                $path = 'img/deliveries/' . $filename;
+                $data['preview_image'] = $path;
                 $delivery->update($data);
                 DB::commit();
                 return $delivery;

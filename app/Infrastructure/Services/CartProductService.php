@@ -6,7 +6,7 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\CartProduct;
 use Illuminate\Support\Facades\DB;
-use App\Events\ProductRemovedFromCart;
+use App\Events\ProductRemovedFromCartEvent;
 use App\Infrastructure\Interfaces\LogInterface;
 use App\Infrastructure\Services\MessageService;
 use App\Infrastructure\Interfaces\CartProductInterface;
@@ -163,7 +163,7 @@ class CartProductService implements CartProductInterface
         DB::beginTransaction();
         try {
             $cartProduct = $this->getCartProduct($cart, $product);
-            event(new ProductRemovedFromCart($cartProduct->product_id, $cartProduct->quantity));
+            event(new ProductRemovedFromCartEvent($cartProduct->product_id, $cartProduct->quantity));
             $cartProduct->delete();
             DB::commit();
             return $this->messageService->getMessage('success');
@@ -185,7 +185,7 @@ class CartProductService implements CartProductInterface
         try {
             $cartProducts = $this->getCartProductsByCartId($id);
             foreach ($cartProducts as $item) {
-                event(new ProductRemovedFromCart($item->product_id, $item->quantity));
+                event(new ProductRemovedFromCartEvent($item->product_id, $item->quantity));
                 $item->delete();
             }
             return $this->messageService->getMessage('success');

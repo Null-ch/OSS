@@ -4,16 +4,15 @@ namespace App\Infrastructure\Factories\Resources\Messages;
 
 use App\Infrastructure\Interfaces\MessageInterface;
 
-
-class FailureMessage implements MessageInterface
+class ErrorMessage implements MessageInterface
 {    
     /**
      * getMessage
      *
      * @return string
      */
-    public function getMessage($message = null): string
+    public function getMessage(string $message): string
     {
-        return $message ? $message : 'Операция не удалась!';
+        return $message;
     }
 }

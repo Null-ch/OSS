@@ -25,7 +25,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
@@ -42,7 +42,7 @@
                                     <tbody>
                                         @if (isset($specialOffers))
                                             @foreach ($specialOffers as $specialOffer)
-                                                <tr data-id="{{ $specialOffer->id }}">
+                                                <tr class="edit-page" data-id="{{ $specialOffer->id }}">
                                                     <td class="p-2 text-center pt-3">{{ $specialOffer->header }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $specialOffer->description }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $specialOffer->hex_code }}</td>
@@ -55,7 +55,6 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.special-offer.show', $specialOffer->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $specialOffer->id }})">Удалить</button>
                                                     </td>

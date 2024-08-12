@@ -25,7 +25,7 @@
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
                                 <table class="table table-hover text-nowrap">
@@ -39,7 +39,7 @@
                                     <tbody>
                                         @if (isset($categories))
                                             @foreach ($categories as $category)
-                                                <tr data-id="{{ $category->id }}">
+                                                <tr class="edit-page" data-id="{{ $category->id }}">
                                                     <td class="p-2 text-center  pt-3">{{ $category->title }}</td>
                                                     <td class="p-2 text-center">
                                                         <div class="p-2">
@@ -49,7 +49,6 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.category.show', $category->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $category->id }})">Удалить</button>
                                                     </td>
