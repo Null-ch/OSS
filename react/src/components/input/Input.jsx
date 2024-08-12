@@ -1,16 +1,16 @@
 import React from 'react';
 import './input.css';
 
-const Input = ({ value, type, index, placeholder, inputList, onChange }) => {
+const Input = ({ value, type = 'text', index, placeholder, inputList, onChange, error }) => {
     // console.log(inputList)
     return (
-        <div>
+        <div className = { error ? 'input-container-error' : 'input-container' }>
             <input
-                value = {value}
-                tabIndex = {index}
-                className = 'input'
-                type={type}
-                placeholder = {placeholder}
+                value = { value }
+                tabIndex = { index }
+                className = { error ? 'input-error' : 'input' }
+                type = { type }
+                placeholder = { placeholder }
                 list = { inputList && 'input-list' }
                 onChange = { onChange }
             />
@@ -27,6 +27,11 @@ const Input = ({ value, type, index, placeholder, inputList, onChange }) => {
                 </datalist>
             }
 
+            {
+                error
+                &&
+                <span className = 'input-abs-text'>{error}</span>
+            }
         </div>
     );
 };

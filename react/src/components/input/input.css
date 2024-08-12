@@ -39,16 +39,62 @@ html {
     width: 100vw !important;
   }
 }
+.input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  gap: 2px;
+}
+.input-container input {
+  padding: 8px 16px;
+  border: 1px solid #333333;
+  background-color: #f7f7f7;
+  font-size: 18px;
+  background-color: white !important;
+  opacity: 85%;
+}
+.input-container input:hover {
+  opacity: 100%;
+}
+.input-container-error {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  gap: 2px;
+}
+.input-container-error input {
+  padding: 8px 16px;
+  border: 1px solid #333333;
+  background-color: #f7f7f7;
+  font-size: 18px;
+  background-color: white !important;
+  opacity: 85%;
+}
+.input-container-error input:hover {
+  opacity: 100%;
+}
+.input-container-error input {
+  border: 1px solid red !important;
+}
+.input-container-error .input-abs-text {
+  color: red !important;
+}
+.input-abs-text {
+  position: absolute;
+  bottom: -18px;
+  font-family: 'centro-sans-pro-regular', sans-serif;
+  font-size: 16px;
+  color: #333333;
+}
 .input {
   padding: 8px 16px;
   border: 1px solid #333333;
   background-color: #f7f7f7;
   font-size: 18px;
+  background-color: white !important;
   opacity: 85%;
-}
-.input:focus {
-  border: 1px solid red;
-  background-color: white;
 }
 .input:hover {
   opacity: 100%;
