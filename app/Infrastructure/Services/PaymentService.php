@@ -3,9 +3,10 @@
 namespace App\Infrastructure\Services;
 
 use App\Infrastructure\Interfaces\LogInterface;
-use App\Infrastructure\Factories\MessageFactory;
+use App\Infrastructure\Factories\PaymentFactory;
 
-class MessageService
+
+class PaymentService
 {
     /**
      * LogInterface implementation
@@ -15,37 +16,38 @@ class MessageService
     protected $logger;
 
     /**
-     * messageFactory
+     * paymentFactory
      *
      * @var object
      */
-    protected $messageFactory;
+    protected $paymentFactory;
 
     /**
      * __construct
      *
-     * @param MessageFactory $messageFactory
+     * @param PaymentFactory $paymentFactory
      * @param LogInterface $logger
      * 
      */
     public function __construct(
-        MessageFactory $messageFactory,
+        PaymentFactory $paymentFactory,
         LogInterface $logger
     ) {
         $this->logger = $logger;
-        $this->messageFactory = $messageFactory;
+        $this->paymentFactory = $paymentFactory;
     }
+
     /**
-     * getMessage
+     * Pay
      *
-     * @param  string $type Тип сообщения ("success", "failure", "warning")
+     * @param  string $type Платежная система
      * @return string|null
      */
-    public function getMessage(string $type, string $text = null): ?string
+    public function Pay(array $data, string $type = 'yoo_kassa'): ?string
     {
         try {
-            $message = $this->messageFactory::create($type);
-            return $message->getMessage($text);
+            $paymentService = $this->paymentFactory::create($type);
+            return $paymentService->pay($data);
         } catch (\Exception $e) {
             $this->logger->error('Error when generate message: ' . $e->getMessage());
             return null;

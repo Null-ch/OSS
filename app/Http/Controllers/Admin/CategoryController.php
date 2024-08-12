@@ -79,13 +79,14 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function update(CategoryUpdateRequest $request, $id)
     {
         $data = $request->validated();
         $this->categoryService->updateCategory($data, $id);
-        return redirect()->route('admin.category.edit', $id);
+        $category = $this->categoryService->getCategory($id);
+        return view('admin.main.category.show', compact('category'));
     }
 
     /**

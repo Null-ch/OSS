@@ -68,17 +68,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-2 p-1">
-                        <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary mt-2">Назад</a>
-                    </div>
                     @if (isset($specialOffers))
-                        <div class="col-8 d-flex p-1 mt-2 justify-content-end ">
+                        <div class="col-12 d-flex p-1 mt-2 justify-content-end ">
                             {!! $specialOffers->links()->render() !!}
                         </div>
                     @endif
-                </div>
-                <div class="scroll-to-top" onclick="scrollToTop()">
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
                 </div>
             </div>
         </section>

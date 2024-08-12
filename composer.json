@@ -15,8 +15,10 @@
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.4",
         "predis/predis": "^2.2",
+        "promphp/prometheus_client_php": "^2.11",
         "realrashid/sweet-alert": "^7.1",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "yoomoney/yookassa-sdk-php": "^3.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

@@ -79,15 +79,21 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header text-white"><h5><b>Разное</b></h5></li>
+                <li class="nav-header text-white"><h5><b>Администрирование</b></h5></li>
                 <li class="nav-item {{ Request::is('admin/delivery*') ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
                         <p>
-                            Доставки
+                            Настройка сайта
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        {{-- <li class="nav-item">
+                            <a href="{{route('admin.abouts.index')}}" class="nav-link {{Request::is('admin/adout*') ? 'active' : ''}}">
+                                <i class="fa fa-address-card"><b></b></i>
+                                <p class="p-2">О нас</p>
+                            </a>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="{{route('admin.deliveries.index')}}" class="nav-link {{Request::is('admin/delivery*') ? 'active' : ''}}">
                                 <i class="fa fa-truck"><b></b></i>

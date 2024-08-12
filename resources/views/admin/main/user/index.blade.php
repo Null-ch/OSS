@@ -71,14 +71,11 @@
                 </div>
                 @if (isset($users))
                     <div class="row">
-                        <div class="col-2 p-1">
-                            <a href="{{ url()->previous() }}" class="btn btn-block bg-gradient-secondary mt-2">Назад</a>
+                        <div class="col-12 d-flex p-1 mt-2 justify-content-end ">
+                            {!! $users->links()->render() !!}
                         </div>
                     </div>
                 @endif
-                <div class="scroll-to-top" onclick="scrollToTop()">
-                    <i class="fa fa-angle-up" aria-hidden="true"></i>
-                </div>
             </div>
         </section>
     </div>

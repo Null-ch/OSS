@@ -123,6 +123,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'yoo_kassa_shop_id' => env('YOO_KASSA_SHOP_ID'),
+    'yoo_kassa_token' => env('YOO_KASSA_TOKEN'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -175,7 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        L5Swagger\L5SwaggerServiceProvider::class,
     ],
 
     /*
