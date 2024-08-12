@@ -21,3 +21,5 @@ yarn-error.log
 /public/img/categories/*.jpg
 /public/img/special-offers/*.jpg
 /public/img/special-offers/*.png
+/public/img/deliveries/*.png
+/public/img/deliveries/*.jpg

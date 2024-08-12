@@ -42,7 +42,7 @@
                                     <tbody>
                                         @if (isset($products))
                                             @foreach ($products as $product)
-                                                <tr data-id="{{ $product->id }}">
+                                                <tr class="edit-page" data-id="{{ $product->id }}">
                                                     <td class="p-2 text-center pt-3">{{ $product->title }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $product->price }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $product->quantity }}</td>
@@ -62,7 +62,6 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.product.show', $product->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $product->id }})">Удалить</button>
                                                     </td>

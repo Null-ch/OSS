@@ -24,14 +24,15 @@ class DeliveryStoreRequest extends FormRequest
      */
     public function rules()
     {
-        (int) $deliveryTitle = request('title');
         return [
             'title' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('deliveries')->ignore($deliveryTitle),
+                Rule::unique('deliveries'),
             ],
+            'preview_image' => 'file',
+            'description' => '',
         ];
     }
 

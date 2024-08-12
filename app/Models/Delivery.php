@@ -16,7 +16,9 @@ class Delivery extends Model
      */
     protected $fillable = [
         'title',
-        'is_active'
+        'is_active',
+        'preview_image',
+        'description',
     ];
 
     protected $table = 'deliveries';

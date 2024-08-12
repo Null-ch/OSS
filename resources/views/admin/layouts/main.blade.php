@@ -104,3 +104,20 @@
         }
     });
 </script>
+<script>
+    function getLastPartOfUrl() {
+        const pathParts = window.location.pathname.split('/');
+        const lastPart = pathParts[pathParts.length - 1];
+        return lastPart;
+    }
+    let currentPage = getLastPartOfUrl();
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.edit-page').forEach(function(row) {
+            row.addEventListener('click', function(event) {
+                event.preventDefault();
+                let itemId = this.getAttribute('data-id');
+                window.location.href = '/admin/' + currentPage + '/' + itemId;
+            });
+        });
+    });
+</script>

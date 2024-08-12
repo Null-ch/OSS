@@ -37,6 +37,34 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                            <div class="form-group">
+                                <label>Описание</label>
+                                <textarea rows="5" cols="30" class="form-control" name="description" placeholder="Описание категории...">{{ $delivery->description ? $delivery->description : old('description') }}</textarea>
+                                @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="text-center p-1 col-md-12">
+                                <div class="row justify-content-center">
+                                    <div>
+                                        <label>Измените обложку доставки</label>
+                                        <div class="file-upload">
+                                            <div class="imgUp">
+                                                <div class="imagePreview" id="preview_image">
+                                                </div>
+                                                <label class="btn btn-block bg-gradient-secondary">
+                                                    Выбрать
+                                                    <input type="file" class="uploadFile img" name="preview_image" style="width: 0px;height: 0px;overflow: hidden;">
+                                                </label>
+                                            </div>
+                                            @error('preview_image')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="delivery_id" value="{{ $delivery->id }}">
                             <input type="submit" class="btn btn-block bg-gradient-secondary" value="Обновить">
                         </form>
                     </div>
@@ -46,4 +74,50 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function setImageBackground(elementId, imagePath) {
+            var imagePreview = document.getElementById(elementId);
+            if (!imagePreview) return;
+
+            var img = new Image();
+            img.src = imagePath;
+            img.alt = "Preview Image";
+
+            img.addEventListener('load', function() {
+                imagePreview.style.backgroundImage = "url(" + img.src + ")";
+                imagePreview.style.backgroundSize = "contain";
+                imagePreview.style.backgroundPosition = "center";
+                imagePreview.style.backgroundRepeat = "no-repeat";
+                imagePreview.style.width = "100%";
+                imagePreview.style.height = "230px";
+            });
+        }
+
+        $(function() {
+            $(document).on("change", ".uploadFile", function() {
+                var uploadFile = $(this);
+                var files = !!this.files ? this.files : [];
+                if (!files.length || !window.FileReader) return;
+                if (/^image/.test(files[0].type)) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(files[0]);
+                    reader.onloadend = function() {
+                        uploadFile.closest(".imgUp").find('.imagePreview').css({
+                            "background-image": "url(" + this.result + ")",
+                            "background-size": "contain",
+                            "background-position": "center",
+                            "backgroundRepeat": "no-repeat",
+                            "width": "100%",
+                            "height": "230px"
+                        });
+                    }
+                }
+            });
+
+            var previewImageElementId = 'preview_image';
+            var previewImagePath = "{{ asset($delivery->preview_image) }}";
+            setImageBackground(previewImageElementId, previewImagePath);
+        });
+    </script>
 @endsection

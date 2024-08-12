@@ -39,10 +39,9 @@
                                     <tbody>
                                         @if (isset($orders))
                                             @foreach ($orders as $order)
-                                                <tr data-id="{{ $order->id }}">
+                                                <tr class="edit-page" data-id="{{ $order->id }}">
                                                     <td class="p-2 text-center pt-3">{{ $order->user?->getFullName() }}</td>
                                                     <td class="p-2 text-center pt-3">{{ $order?->getStatus() }}</td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.order.show', $order->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $order->id }})">Удалить</button>
                                                     </td>

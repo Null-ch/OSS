@@ -66,20 +66,23 @@
                                             <th class="p-2 text-center pt-3">Стоимость</th>
                                             <th class="p-2 text-center pt-3">Количество</th>
                                         </tr>
-                                        @foreach ($products as $item)
-                                        <tr>
-                                            <td class="p-2 text-center pt-3">{{$item->product_id}}</td>
-                                            <td class="p-2 text-center pt-3">{{$item->product->title}}</td>
-                                            <td class="p-2 text-center pt-3">{{$item->product->category->title}}</td>
-                                            <td class="p-2 text-center pt-3">{{$item->product->price}} P</td>
-                                            <td class="p-2 text-center pt-3">{{$item->quantity}}</td>
-                                        </tr>
-                                        @endforeach
+                                        @if (isset($products))
+                                            @foreach ($products as $item)
+                                                <tr>
+                                                    <td class="p-2 text-center pt-3">{{ $item->product_id }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $item->product->title }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $item->product->category->title }}</td>
+                                                    <td class="p-2 text-center pt-3">{{ $item->product->price }} P</td>
+                                                    <td class="p-2 text-center pt-3">{{ $item->quantity }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row justify-content-end mt-1 pr-5">
-                                <label>Общая стоимость: {{$order->getTotalCost()}} Р</label>
+                                <label>Общая стоимость: {{ $order->getTotalCost() }} Р</label>
                             </div>
                         </div>
                         <div class="card">

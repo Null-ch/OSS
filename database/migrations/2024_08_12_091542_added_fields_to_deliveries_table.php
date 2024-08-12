@@ -15,7 +15,7 @@ class AddedFieldsToDeliveriesTable extends Migration
     {
         Schema::table('deliveries', function (Blueprint $table) {
             $table->string('name')->after('title')->nullable();
-            $table->text('preview')->after('title')->nullable();
+            $table->text('preview_image')->after('title')->nullable();
             $table->text('description')->after('title')->nullable();
         });
     }
@@ -29,7 +29,7 @@ class AddedFieldsToDeliveriesTable extends Migration
     {
         Schema::table('deliveries', function (Blueprint $table) {
             $table->dropColumn('name');
-            $table->dropColumn('preview');
+            $table->dropColumn('preview_image');
             $table->dropColumn('description');
         });
     }

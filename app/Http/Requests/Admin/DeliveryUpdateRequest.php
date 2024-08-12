@@ -24,14 +24,16 @@ class DeliveryUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        (int) $deliveryTitle = request('title');
+        (int) $delivery = request('delivery_id');
         return [
             'title' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('deliveries')->ignore($deliveryTitle),
+                Rule::unique('deliveries')->ignore($delivery),
             ],
+            'preview_image' => 'file',
+            'description' => '',
         ];
     }
 

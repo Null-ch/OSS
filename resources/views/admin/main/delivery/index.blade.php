@@ -33,13 +33,13 @@
                                         <tr>
                                             <th class="p-2 text-center">Название</th>
                                             <th class="p-2 text-center">Активность</th>
-                                            <th class="p-2 text-center" colspan="3">Действия</th>
+                                            <th class="p-2 text-center" colspan="2">Действия</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if (isset($deliveries))
                                             @foreach ($deliveries as $delivery)
-                                                <tr data-id="{{ $delivery->id }}">
+                                                <tr class="edit-page" data-id="{{ $delivery->id }}">
                                                     <td class="p-2 text-center  pt-3">{{ $delivery->title }}</td>
                                                     <td class="p-2 text-center">
                                                         <div class="p-2">
@@ -49,7 +49,6 @@
                                                             </label>
                                                         </div>
                                                     </td>
-                                                    <td class="text-center" class="p-2"><a href="{{ route('admin.delivery.show', $delivery->id) }}"><img src="{{ asset('adminlte/dist/img/basic_eye.png') }}" alt="preview_image" class="action-icon"></a></td>
                                                     <td class="text-center p-1 pt-3">
                                                         <button class="btn btn-danger" onclick="deleteConfirmation({{ $delivery->id }})">Удалить</button>
                                                     </td>
