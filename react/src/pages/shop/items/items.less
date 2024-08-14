@@ -14,7 +14,9 @@
     gap: 24px;
     // padding: 24px;
     // width: 100%;
+    max-width: 1400px;
     height: max-content;
+    align-content: start;
 }
 
 .item {
@@ -23,6 +25,7 @@
     height: min-content;
     box-sizing: border-box;
     &:hover {
+        z-index: 11;
         .i-info {
             border: 1px solid @black;
             border-bottom: 1px solid #ffffff00;
@@ -36,7 +39,7 @@
 }
 
 .i-info {
-    // cursor: pointer;
+    cursor: pointer;
     padding: 8px;
     z-index: 10;
     height: min-content;

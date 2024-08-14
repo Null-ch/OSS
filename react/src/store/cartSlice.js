@@ -93,6 +93,7 @@ const cartSlice = createSlice({
             let data = action.payload;
             let cart = state.cart;
             const { product, count } = data;
+            console.log(data)
             if (count && count > 0)  {
                 cart[product.id] = {
                     product: data.product,
