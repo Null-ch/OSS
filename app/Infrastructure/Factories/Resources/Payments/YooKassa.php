@@ -22,9 +22,7 @@ class YooKassa implements PaymentInterface
             $client = $this->getClient();
             $idempotenceKey = uniqid('', true);
             $paymentData = $this->preparePaymentData($order);
-
             $response = $client->createPayment($paymentData, $idempotenceKey);
-            dd($response);
             $confirmationUrl = $response->getConfirmation()->getConfirmationUrl();
             return $confirmationUrl;
         } catch (\Exception $e) {
@@ -42,20 +40,21 @@ class YooKassa implements PaymentInterface
      */
     public function preparePaymentData(Order $order): array
     {
-        return [
-            'amount' => array(
-                'value' => 150.0,
-                'currency' => 'RUB',
-            ),
-            'confirmation' => array(
+        return 
+        [
+            'amount' => [
+                'value' => 10000,
+                'currency' => 'RUB'
+            ],
+            'confirmation' => [
                 'type' => 'redirect',
-                'return_url' => 'https://example.com/',
-            ),
-            'capture' => true,
+                'return_url' => env("APP_URL") . '/order/sucsess',
+            ],
             'description' => $order->id,
+            'test' => true,
             // 'receipt' => [
             //     'customer' => [
-            //         'email' => 'zuxobot@yandex.ru'
+            //         'email' => $order->user->email,
             //     ],
             //     'items' => [
             //         [
@@ -69,7 +68,6 @@ class YooKassa implements PaymentInterface
             //         ]
             //     ]
             // ],
-            'test' => true
         ];
     }
 

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\Api\Client;
 
-use App\Models\Order;
 use App\Http\Controllers\Controller;
-use App\Infrastructure\Services\UserService;
 use App\Infrastructure\Services\OrderService;
 use App\Infrastructure\Services\PaymentService;
 use App\Services\Api\Client\ClientOrderService;
