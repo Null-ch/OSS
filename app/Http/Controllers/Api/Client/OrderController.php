@@ -53,11 +53,9 @@ class OrderController extends Controller
      */
     public function createOrder(StoreOrderRequest $request)
     {
-        $order = Order::find(75);
-        // $data = $request->validated();
-        // $order = $this->orderService->createOrder($data);
+        $data = $request->validated();
+        $order = $this->orderService->createOrder($data);
         $responseData = $this->paymentService->Pay($order);
-        dd($responseData);
         $response = $this->responseService->getResponse($responseData);
         return response()->json($response, JSON_UNESCAPED_UNICODE);
     }
