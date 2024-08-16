@@ -4,6 +4,7 @@ namespace App\Infrastructure\Factories\Resources\Payments;
 
 use YooKassa\Client;
 use App\Infrastructure\Interfaces\PaymentInterface;
+use App\Models\Order;
 use Illuminate\Support\Facades\Log;
 
 class YooKassa implements PaymentInterface
@@ -11,17 +12,19 @@ class YooKassa implements PaymentInterface
     /**
      * Method pay
      *
-     * @param array $data
+     * @param Order $order
      *
      * @return string
      */
-    public function pay(array $data): string
+    public function pay(Order $order): ?string
     {
         try {
             $client = $this->getClient();
             $idempotenceKey = uniqid('', true);
-            $paymentData = $this->preparePaymentData($data);
+            $paymentData = $this->preparePaymentData($order);
+
             $response = $client->createPayment($paymentData, $idempotenceKey);
+            dd($response);
             $confirmationUrl = $response->getConfirmation()->getConfirmationUrl();
             return $confirmationUrl;
         } catch (\Exception $e) {
@@ -33,57 +36,40 @@ class YooKassa implements PaymentInterface
     /**
      * Method preparePaymentData
      *
-     * @param array $data
+     * @param Order $order
      *
      * @return array
      */
-    public function preparePaymentData(array $data): array
+    public function preparePaymentData(Order $order): array
     {
         return [
-            'amount' => [
-                'value' => '1000.00',
+            'amount' => array(
+                'value' => 150.0,
                 'currency' => 'RUB',
-            ],
-            'confirmation' => [
+            ),
+            'confirmation' => array(
                 'type' => 'redirect',
-                'locale' => 'ru_RU',
-                'return_url' => 'https://merchant-site.ru/return_url',
-            ],
+                'return_url' => 'https://example.com/',
+            ),
             'capture' => true,
-            'description' => 'Заказ №72',
-            'metadata' => [
-                'orderNumber' => 1001
-            ],
-            'receipt' => [
-                'customer' => [
-                    'full_name' => 'Ivanov Ivan Ivanovich',
-                    'email' => 'email@email.ru',
-                    'phone' => '79211234567',
-                    'inn' => '6321341814'
-                ],
-                'items' => [
-                    [
-                        'description' => 'Переносное зарядное устройство Хувей',
-                        'quantity' => '1.00',
-                        'amount' => [
-                            'value' => 1000,
-                            'currency' => 'RUB'
-                        ],
-                        'vat_code' => '2',
-                        'payment_mode' => 'full_payment',
-                        'payment_subject' => 'commodity',
-                        'country_of_origin_code' => 'CN',
-                        'product_code' => '44 4D 01 00 21 FA 41 00 23 05 41 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 12 00 AB 00',
-                        'customs_declaration_number' => '10714040/140917/0090376',
-                        'excise' => '20.00',
-                        'supplier' => [
-                            'name' => 'string',
-                            'phone' => 'string',
-                            'inn' => 'string'
-                        ]
-                    ],
-                ]
-            ]
+            'description' => $order->id,
+            // 'receipt' => [
+            //     'customer' => [
+            //         'email' => 'zuxobot@yandex.ru'
+            //     ],
+            //     'items' => [
+            //         [
+            //             'description' => 'Подписка',
+            //             'amount' => [
+            //                 'value' => '150.0',
+            //                 'currency' => 'RUB'
+            //             ],
+            //             'vat_code' => '6',
+            //             'quantity' => '1',
+            //         ]
+            //     ]
+            // ],
+            'test' => true
         ];
     }
 
@@ -95,12 +81,12 @@ class YooKassa implements PaymentInterface
     public function getClient(): ?Client
     {
         $client = new Client();
-        $shopId = config('yoo_kassa_shop_id');
-        $token = config('yoo_kassa_token');
+        $shopId = config('app.yoo_kassa_shop_id');
+        $token = config('app.yoo_kassa_token');
         $client->setAuth($shopId, $token);
         return $client;
     }
- 
+
     /**
      * Method getPaymentInfo
      *
