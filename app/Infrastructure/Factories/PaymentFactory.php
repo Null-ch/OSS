@@ -11,9 +11,9 @@ class PaymentFactory
      * create
      *
      * @param  string $type
-     * @return PaymentInterface
+     * @return object
      */
-    public static function create(string $type): PaymentInterface
+    public static function create(string $type): object
     {
         switch ($type) {
             case 'yoo_kassa':

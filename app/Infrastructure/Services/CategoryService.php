@@ -56,7 +56,7 @@ class CategoryService implements CategoryInterface
                 return $categories;
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting categories: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -76,7 +76,7 @@ class CategoryService implements CategoryInterface
                 // ->where('is_active', true)
                 ->findOrFail($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting category: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -91,7 +91,7 @@ class CategoryService implements CategoryInterface
                 return $categories;
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting categories: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 

@@ -77,7 +77,7 @@ class AdminDeliveryService extends DeliveryService
             return $delivery;
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when creating a delivery: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -105,7 +105,7 @@ class AdminDeliveryService extends DeliveryService
                 return $delivery;
             } catch (\Exception $e) {
                 DB::rollBack();
-                $this->logger->error('Error updating the delivery: ' . $e->getMessage());
+                $this->logger->error("{$e->getMessage()}" . $e->getTrace());
                 return null;
             }
         }
@@ -124,7 +124,7 @@ class AdminDeliveryService extends DeliveryService
             $this->delivery::destroy($id);
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
-            $this->logger->error('Error when deleting a delivery: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return $this->messageService->getMessage('failure');
         }
     }
@@ -149,7 +149,7 @@ class AdminDeliveryService extends DeliveryService
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error updating the delivery: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return $this->messageService->getMessage('failure');
         }
     }

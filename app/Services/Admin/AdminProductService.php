@@ -108,7 +108,7 @@ class AdminProductService extends ProductService
             $this->database->commit();
         } catch (\Exception $e) {
             $this->database->rollBack();
-            $this->logger->error('Error when creating a product and loading images: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -138,7 +138,7 @@ class AdminProductService extends ProductService
             try {
                 $product->update($data);
             } catch (\Exception $e) {
-                $this->logger->error('Error when update the product: ' . $e->getMessage());
+                $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             }
         } else {
             $this->logger->error('The product with ID ' . $id . ' was not found.');
@@ -194,7 +194,7 @@ class AdminProductService extends ProductService
         try {
             $allCategories = $this->categoryService->getAllCategories();
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting categories: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
 
         return $allCategories;
@@ -212,7 +212,7 @@ class AdminProductService extends ProductService
         try {
             $this->product::destroy($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when deleting a product: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 

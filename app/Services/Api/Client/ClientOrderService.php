@@ -108,7 +108,7 @@ class ClientOrderService extends OrderService
             return $order;
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when create new order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }

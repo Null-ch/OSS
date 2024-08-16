@@ -48,7 +48,7 @@ class DeliveryService implements DeliveryInterface
             $delivery = $this->delivery::where('deleted_at', null)
                 ->findOrFail($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting delivery: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -68,7 +68,7 @@ class DeliveryService implements DeliveryInterface
                 return $deliveries;
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting deliveries: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -86,7 +86,7 @@ class DeliveryService implements DeliveryInterface
         try {
             $deliveries = $this->delivery::paginate($count);
         } catch (\Exception $e) {
-            $this->logger->error('Error fetching deliveries: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 

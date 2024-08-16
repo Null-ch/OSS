@@ -113,7 +113,7 @@ class OrderService implements OrderInterface
         try {
             $order = $this->order->find($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when get order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -157,7 +157,7 @@ class OrderService implements OrderInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when update order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -177,7 +177,7 @@ class OrderService implements OrderInterface
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when create new order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
         return $order;
@@ -198,7 +198,7 @@ class OrderService implements OrderInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -220,7 +220,7 @@ class OrderService implements OrderInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when cancel order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -237,7 +237,7 @@ class OrderService implements OrderInterface
         try {
             $orders = $this->order::where('user_id', $userId);
         } catch (\Exception $e) {
-            $this->logger->error('Error when get orders: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -264,7 +264,7 @@ class OrderService implements OrderInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when cancel order: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }

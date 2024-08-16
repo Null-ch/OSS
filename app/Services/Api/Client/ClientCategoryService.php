@@ -58,7 +58,7 @@ class ClientCategoryService extends CategoryService
                 return null;
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -79,7 +79,7 @@ class ClientCategoryService extends CategoryService
                 $category->load('products.images');
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 

@@ -47,7 +47,7 @@ class MessageService
             $message = $this->messageFactory::create($type);
             return $message->getMessage($text);
         } catch (\Exception $e) {
-            $this->logger->error('Error when generate message: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }

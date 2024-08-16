@@ -56,7 +56,7 @@ class ProductService implements ProductInterface
         try {
             $products = $this->product::paginate($count);
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -81,7 +81,7 @@ class ProductService implements ProductInterface
         try {
             $product = $this->product::findOrFail($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the product: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -136,7 +136,7 @@ class ProductService implements ProductInterface
                 $output['error'] = $error;
             }
         } catch (\Exception $e) {
-            $this->logger->error('' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
         return $output;

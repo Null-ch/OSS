@@ -75,7 +75,7 @@ class AdminSpecialOfferService extends SpecialOfferService
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error loading images: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 
@@ -105,7 +105,7 @@ class AdminSpecialOfferService extends SpecialOfferService
                     $path = 'img/special-offers/' . $filename;
                     $data['image'] = $path;
                 } catch (\Exception $e) {
-                    $this->logger->error('Error loading images: ' . $e->getMessage());
+                    $this->logger->error("{$e->getMessage()}" . $e->getTrace());
                     return;
                 }
             }
@@ -114,7 +114,7 @@ class AdminSpecialOfferService extends SpecialOfferService
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error updating the special offer: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return;
         }
     }
@@ -130,7 +130,7 @@ class AdminSpecialOfferService extends SpecialOfferService
         try {
             $this->specialOffer::destroy($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when deleting a special offer: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 

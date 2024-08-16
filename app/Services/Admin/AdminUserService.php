@@ -82,7 +82,7 @@ class AdminUserService extends UserService
             try {
                 $user->update($data);
             } catch (\Exception $e) {
-                $this->logger->error('User update was failed: ' . $e->getMessage());
+                $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             }
         } else {
             $this->logger->error('The user with ID ' . $id . ' was not found.');
@@ -100,7 +100,7 @@ class AdminUserService extends UserService
         try {
             $this->user::destroy($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when deleting a user: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 

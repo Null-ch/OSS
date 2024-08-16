@@ -51,7 +51,26 @@ class PaymentService
             $paymentService = $this->paymentFactory::create($type);
             return $paymentService->pay($data);
         } catch (\Exception $e) {
-            $this->logger->error('Error when generate message: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
+            return null;
+        }
+    }
+
+    /**
+     * Method getPaymentInfo
+     *
+     * @param string $id
+     * @param string $type
+     *
+     * @return void
+     */
+    public function getPaymentInfo(string $id, string $type = 'yoo_kassa')
+    {
+        try {
+            $paymentService = $this->paymentFactory::create($type);
+            return $paymentService->getPaymentInfo($id);
+        } catch (\Exception $e) {
+            $this->logger->error("Error when get payment info: {$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }

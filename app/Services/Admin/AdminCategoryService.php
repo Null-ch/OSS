@@ -65,7 +65,7 @@ class AdminCategoryService extends CategoryService
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when creating a category: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 
@@ -93,7 +93,7 @@ class AdminCategoryService extends CategoryService
                 DB::commit();
             } catch (\Exception $e) {
                 DB::rollBack();
-                $this->logger->error('Error updating the category: ' . $e->getMessage());
+                $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             }
         }
     }
@@ -109,7 +109,7 @@ class AdminCategoryService extends CategoryService
         try {
             $this->category::destroy($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when deleting a category: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 

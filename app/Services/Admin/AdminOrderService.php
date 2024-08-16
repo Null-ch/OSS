@@ -108,7 +108,7 @@ class AdminOrderService extends OrderService
        try {
            $orders = $this->order::paginate($count);
        } catch (\Exception $e) {
-           $this->logger->error('Error when receiving the orders: ' . $e->getMessage());
+           $this->logger->error("{$e->getMessage()}" . $e->getTrace());
            return null;
        }
 

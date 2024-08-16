@@ -77,7 +77,7 @@ class UserDetailsService implements UserDetailsInterface
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when create userDetails object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -99,7 +99,7 @@ class UserDetailsService implements UserDetailsInterface
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete userDetails object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
         return $this->messageService->getMessage('success');

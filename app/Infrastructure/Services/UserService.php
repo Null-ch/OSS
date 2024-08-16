@@ -80,7 +80,7 @@ class UserService implements UserInterface
         try {
             $users = $this->user::paginate($count);
         } catch (\Exception $e) {
-            $this->logger->error('Error fetching users: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -98,7 +98,7 @@ class UserService implements UserInterface
         try {
             return $this->user::$role;
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting roles: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -114,7 +114,7 @@ class UserService implements UserInterface
         try {
             return $this->user::$gender;
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting genders: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -130,7 +130,7 @@ class UserService implements UserInterface
         try {
             return $this->user->gender;
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting genders: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -146,7 +146,7 @@ class UserService implements UserInterface
         try {
             (object) $user = auth()->user();
         } catch (\Exception $e) {
-            $this->logger->error('The user was not found: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -176,7 +176,7 @@ class UserService implements UserInterface
             return $user;
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when create user object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -192,7 +192,7 @@ class UserService implements UserInterface
         try {
             $user = $this->user::find($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error get user object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -211,7 +211,7 @@ class UserService implements UserInterface
             $user = $this->getUser($id);
             $userDetails = $this->helpers->prepareUserDetailsData($user);
         } catch (\Exception $e) {
-            $this->logger->error('Error generateUserDetails: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 

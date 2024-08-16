@@ -72,8 +72,8 @@ class CartProductService implements CartProductInterface
     /**
      * Method getCartProduct
      *
-     * @param Cart $cart [explicite description]
-     * @param Product $product [explicite description]
+     * @param Cart $cart
+     * @param Product $product
      *
      * @return CartProduct
      */
@@ -84,7 +84,7 @@ class CartProductService implements CartProductInterface
                 ->where('product_id', $product->id)
                 ->first();
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -96,7 +96,7 @@ class CartProductService implements CartProductInterface
         try {
             $cartProducts = $this->cartProduct::where('cart_id', $id)->get();
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -118,7 +118,7 @@ class CartProductService implements CartProductInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when  creating an entry in the cart_products table: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -126,9 +126,9 @@ class CartProductService implements CartProductInterface
     /**
      * Method updateCartProduct
      *
-     * @param Cart $cart [explicite description]
-     * @param Product $product [explicite description]
-     * @param array $data [explicite description]
+     * @param Cart $cart
+     * @param Product $product
+     * @param array $data
      *
      * @return string
      */
@@ -145,7 +145,7 @@ class CartProductService implements CartProductInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when update cartProduct object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -153,8 +153,8 @@ class CartProductService implements CartProductInterface
     /**
      * Method deleteCartProduct
      *
-     * @param Cart $cart [explicite description]
-     * @param Product $product [explicite description]
+     * @param Cart $cart
+     * @param Product $product
      *
      * @return string
      */
@@ -169,7 +169,7 @@ class CartProductService implements CartProductInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -190,7 +190,7 @@ class CartProductService implements CartProductInterface
             }
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
-            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }

@@ -70,7 +70,7 @@ class UserShippingInformationService implements UserShippingInformationInterface
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when create userShippingInformation object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -92,7 +92,7 @@ class UserShippingInformationService implements UserShippingInformationInterface
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete userShippingInformation object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
         return $this->messageService->getMessage('success');

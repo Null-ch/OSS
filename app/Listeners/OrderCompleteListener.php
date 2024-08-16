@@ -42,7 +42,7 @@ class OrderCompleteListener
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
         }
     }
 }

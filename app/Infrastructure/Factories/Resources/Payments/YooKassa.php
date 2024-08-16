@@ -26,7 +26,7 @@ class YooKassa implements PaymentInterface
             $confirmationUrl = $response->getConfirmation()->getConfirmationUrl();
             return $confirmationUrl;
         } catch (\Exception $e) {
-            Log::error('Error when create payment: ' . $e->getMessage());
+            Log::error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -48,7 +48,7 @@ class YooKassa implements PaymentInterface
             ],
             'confirmation' => [
                 'type' => 'redirect',
-                'return_url' => env("APP_URL") . '/order/sucsess',
+                'return_url' => env("APP_URL") . '/order/success',
             ],
             'description' => $order->id,
             'test' => true,

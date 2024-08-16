@@ -51,7 +51,7 @@ class SpecialOfferService implements SpecialOfferInterface
         try {
             $specialOffer = $this->specialOffer::findOrFail($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the special offer: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -71,7 +71,7 @@ class SpecialOfferService implements SpecialOfferInterface
         try {
             $specialOffers = $this->specialOffer::paginate($count);
         } catch (\Exception $e) {
-            $this->logger->error('Error when receiving the special offers: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 

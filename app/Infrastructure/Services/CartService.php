@@ -119,7 +119,7 @@ class CartService implements CartInterface
             });
             $cart = $cartsQuery->get()->first();
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting cart: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -136,7 +136,7 @@ class CartService implements CartInterface
             }
             DB::commit();
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting cart: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -168,7 +168,7 @@ class CartService implements CartInterface
                 return null;
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting cart products: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
 
@@ -190,7 +190,7 @@ class CartService implements CartInterface
             return $this->messageService->getMessage('success');
         } catch (\Exception $e) {
             DB::rollBack();
-            $this->logger->error('Error when delete the cartProduct object: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
@@ -230,7 +230,7 @@ class CartService implements CartInterface
                 }
             }
         } catch (\Exception $e) {
-            $this->logger->error('Error when updating cart by client API: ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
         $cart->products;
@@ -249,7 +249,7 @@ class CartService implements CartInterface
         try {
             return $this->cart::findOrFail($id);
         } catch (\Exception $e) {
-            $this->logger->error('Error when getting cart by ID (client API): ' . $e->getMessage());
+            $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
     }
