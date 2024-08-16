@@ -8,28 +8,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { updateCartProducts, updateCartTry, clearCart } from '../../store/cartSlice';
 import Button from '../../components/buttons/Button';
 import debounce from '../../lib/utils';
+import { Confirm } from '../../components/confirm/Confirm';
+import { setIsModalVisible, setContent } from '../../store/modalSlice';
 
 // превью корзины в правом верхнем углу
 // клик на корзину - появляется баббл с этой страницей
 // в ней список товаров, +\- есть подпись Оформить
 // по сути отдельная страница корзины не так нужна
 
-function onChangeCounter(e) {
-    // console.log(e);
-}
-
 const CartPreview = ({onClose}) => {
-    var totalPrice = 0;
-
     const cartProducts = useSelector(state => state.cart.cart); // dict
-    // console.log('CartPreview')
-    // console.log(cartProducts);
-    const dispatch = useDispatch();
-    function updateCart(v) {
-        dispatch(updateCartProducts(v)); // visual
 
+    const dispatch = useDispatch();
+    const updateCart = (v) => dispatch(updateCartProducts(v));
+
+    function updateCount(product, count) {
+        console.log(product);
+        console.log(count);
+
+        updateCart({ count, product }); // visual
         debounce(() => {
-            dispatch(updateCartTry({ quantity: v.count, id: v.product.id })); // request
+            dispatch(updateCartTry({ id: product.id, quantity: count })); // request
         }, 1000, 'updateCartTry')
     }
 
@@ -42,6 +41,8 @@ const CartPreview = ({onClose}) => {
         updateCart({ product });
     }
 
+    let selected = 0;
+    let totalPrice = 0;
     let itemsList = [];
     for (let id in cartProducts) {
         let cartProduct = cartProducts[id];
@@ -49,7 +50,9 @@ const CartPreview = ({onClose}) => {
         if (!product) continue;
 
         const count = cartProduct.count;
-        const {title, price, preview_image} = product;
+        selected += count;
+
+        const { title, price, preview_image } = product;
 
         const _price = count * price;
         totalPrice += _price;
@@ -63,7 +66,7 @@ const CartPreview = ({onClose}) => {
                 disableDecr = {false}
                 disableIncr = {false}
                 value = {count}
-                onChangeInput = { onChangeCounter }
+                onChangeInput = { (v) => { updateCount(cartProduct.product, v) } }
                 onIncrement = { (incr) => { onIncrement(cartProduct, incr); } }
                 className = 'c-p-counter'
                 btnClassName = 'c-p-counter-button'
@@ -84,27 +87,21 @@ const CartPreview = ({onClose}) => {
         itemsList.push(_product)
     }
 
+    const isButtonDisabled = selected === 0;
+
     async function onClearCart() {
-        dispatch(clearCart());
-    }
-
-    async function onCheckout() {
-        console.log('onCheckout');
-
-        // console.log(data);
-
-        // skip check
-        
-        // cart/update - каждый раз когда юзер добавил хуйню в корзину с дебаунсом + резервируем на 1ч +
-        // показываем сообщение об этом (1ч с момента последнего обновления корзины)
-        // если товара нет, мы скажем об этом юзеру и этот товар бронировать не будем
-        // ok или не ок
-
-        // в корзине: Оформить заказ если ок, попали на страницу Заказа, данные вбиваемые юзером храню локально,
-        // тыкает оформить заказ - ...
-
-        // -> Оформить заказ = api/public/cart/create => cart_ID
-        // console.log(check);
+        dispatch(setIsModalVisible(true));
+        dispatch(setContent(<Confirm
+            header = 'Очистить корзину?'
+            okText = 'Очистить'
+            onOk = {() => {
+                dispatch(clearCart());
+                dispatch(setIsModalVisible(false));
+            }}
+            onClose = {() => {
+                dispatch(setIsModalVisible(false));
+            }}
+        />));
     }
 
     return (
@@ -126,15 +123,14 @@ const CartPreview = ({onClose}) => {
                     <div className = 'c-p-buttons'>
                         <Button
                             route = '/order'
-                            disabled = {false}
-                            className = 'c-p-checkout'
+                            disabled = {isButtonDisabled}
+                            className = 'button-default-hover'
                             title = 'Заказать'
                             text = 'Заказать'
-                            onClick = {onCheckout}
                         />
                         <Button
-                            disabled = {false}
-                            className = 'c-p-checkout'
+                            disabled = {isButtonDisabled}
+                            className = 'button-default-hover'
                             title = 'Очистить'
                             text = 'Очистить'
                             onClick = {onClearCart}

@@ -1,11 +1,12 @@
 import React from 'react';
 
-const Modal = ({isActive, onClose, content}) => {
+const Modal = ({ isActive, onBackgroundClick, content }) => {
     return (
         <>
-            {isActive && (
-                <div className = 'modal' onClick = {onClose}>
-                    {content}
+            {
+                isActive && (
+                <div className = 'modal-default' onClick = { onBackgroundClick }>
+                    { content }
                 </div>)
             }
         </>

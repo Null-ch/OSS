@@ -100,8 +100,8 @@ const ItemPage = () => {
                                         disableDecr = {isNoneSelected}
                                         disableIncr = {capped}
                                         className = 'i-p-counter '
-                                        btnClassName = 'i-p-counter-button'
-                                        btnDisabledClassName = 'i-p-counter-button-disabled'
+                                        btnClassName = 'button-counter-default'
+                                        btnDisabledClassName = 'button-counter-default-disabled'
                                     />
                                     {
                                         !isNoneSelected &&

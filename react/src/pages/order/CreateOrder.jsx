@@ -8,6 +8,8 @@ import debounce from '../../lib/utils';
 import Button from '../../components/buttons/Button';
 import { createOrder } from '../../store/orderSlice';
 // import { useGetDeliveriesQuery } from '../../store/query/deliveryApi';
+import { setIsModalVisible, setContent } from '../../store/modalSlice';
+import Confirm from '../../components/confirm/Confirm';
 
 function localGet(key) {
     return localStorage.getItem(key);
@@ -142,7 +144,18 @@ const CreateOrder = () => {
         const data = validate();
         if (!data) return;
         console.log('OK? ok.');
-        dispatch(createOrder(data));
+        dispatch(setIsModalVisible(true));
+        dispatch(setContent(<Confirm
+            header = 'Оформить заказ?'
+            okText = 'Оформить'
+            onOk = {() => {
+                dispatch(createOrder(data));
+                dispatch(setIsModalVisible(false));
+            }}
+            onClose = {() => {
+                dispatch(setIsModalVisible(false));
+            }}
+        />));
     }
 
     const deliveryInputList = [];
@@ -230,10 +243,19 @@ const CreateOrder = () => {
                         <Button
                             // route = '/order'
                             disabled = {false}
-                            className = 'o-p-checkout'
+                            className = 'button-default-hover'
                             title = 'Оформить'
                             text = 'Оформить'
                             onClick = {onCreateOrder}
+                        />
+
+                        <Button
+                            // route = '/order'
+                            disabled = {false}
+                            className = 'button-default-hover'
+                            title = 'Отмена'
+                            text = 'Отмена'
+                            // onClick = {onCreateOrder}
                         />
                     </div>
                 </div>
