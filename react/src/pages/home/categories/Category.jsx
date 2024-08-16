@@ -5,7 +5,7 @@ import Button from '../../../components/buttons/Button';
 import { Link } from 'react-router-dom';
 
 const Category = ({ category, index }) => {
-    const testDescription = 'Покупайте наше охуенное мыло'
+    const testDescription = 'Покупайте наше мыло'
     const descr = category.description || testDescription
     const to = '/products/category/' + category.id
 
@@ -18,7 +18,7 @@ const Category = ({ category, index }) => {
                 <span className = 'c-description'>{descr}</span>
                 <Button
                     route = {to}
-                    className = 'c-button'
+                    className = 'button-default-hover'
                     title = 'К продуктам'
                     text = 'Продукты'
                 />

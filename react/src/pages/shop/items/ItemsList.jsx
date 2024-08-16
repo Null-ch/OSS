@@ -2,7 +2,6 @@ import React from 'react';
 import Item from './ItemPreview';
 import './items.css';
 import { useEffect } from 'react';
-import '../../../components/modal/modal.css'
 import ItemQuickBuy from './ItemQuickBuy';
 import { setIsModalVisible, setModalData, setContent } from '../../../store/modalSlice';
 import { useDispatch, useSelector } from 'react-redux';

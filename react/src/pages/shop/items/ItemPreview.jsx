@@ -51,7 +51,7 @@ const Item = ({item, onClick, onQuickBuyClick}) => {
                     <span>{`В наличии: ${item.quantity} шт.`}</span>
                 </div>
                 <Button
-                    className = 'i-c-button'
+                    className = 'button-default-hover'
                     text = 'В корзину'
                 />                            
             </div>

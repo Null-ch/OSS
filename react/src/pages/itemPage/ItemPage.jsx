@@ -19,27 +19,35 @@ const ItemPage = () => {
     const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
 
     const { data = [], isLoading } = useGetItemQuery(id);
-    const product = data.data;
-    // console.log(product);
-    document.title = product?.title ? BRAND + ' ' + product.title : BRAND;
+    const thisProduct = data.data || {};
 
+    document.title = thisProduct?.title ? BRAND + ' ' + thisProduct.title : BRAND;
+
+    let otherProductsCount = 0;
     let selected = 0;
     const cart_products = useSelector(state => state.cart.cart);
-    if (cart_products && product) {
-        let p = cart_products[product.id] || {};
+
+    for (let key in cart_products) {
+        const cart_product = cart_products[key];
+        const product = cart_product.product;
+        if (product.id == thisProduct.id) continue;
+        otherProductsCount += cart_product.count;
+    }
+    if (cart_products && thisProduct) {
+        let p = cart_products[thisProduct.id] || {};
         selected = p.count || selected;
     }
 
-    const total = (product?.quantity || 0) + selected;
+    const total = (thisProduct?.quantity || 0) + selected;
 
     const dispatch = useDispatch();
     const updateCart = (v) => dispatch(updateCartProducts(v));
 
     function updateCount(count) {
-        updateCart({ count, product }); // visual
+        updateCart({ count, product: thisProduct }); // visual
         
         debounce(() => {
-            dispatch(updateCartTry({ id: product.id, quantity: count })); // request
+            dispatch(updateCartTry({ id: thisProduct.id, quantity: count })); // request
         }, 1000, 'updateCartTry')
     }
 
@@ -55,29 +63,29 @@ const ItemPage = () => {
     const isNoneSelected = selected < 1;
     const capped = selected === total;
 
-    const category = product?.category;
+    const category = thisProduct?.category;
     const to = category && '/products/category/' + category.id;
 
     return (
         <div>
             {/* {isLoading ? <h1>Loading...</h1> : ''} */}
-            {product &&
+            {thisProduct &&
                 <article className = 'item-page'>
                     <div className = 'i-p-preview-container'> 
-                        <img className = 'i-p-preview' src = {`${DOMAIN}${product?.preview_image}`}/>
+                        <img className = 'i-p-preview' src = {`${DOMAIN}${thisProduct?.preview_image}`}/>
                     </div>
                 
                     <div className = 'i-p-info-container'>
                         <div className = 'i-p-info'>
                             <div className = 'item-page-title-container'>
                                 <span className = 'item-page-brand'>SAMPLE-TEXT</span>
-                                <h1 className = 'item-page-title' title = 'Название продукта'>{product.title}</h1>
+                                <h1 className = 'item-page-title' title = 'Название продукта'>{thisProduct.title}</h1>
                                 {
                                     category &&
                                     <Link to = {to} title = 'Категория продукта' className = 'i-p-category-link'>{category.title}</Link>
                                 }
                             </div>
-                            <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { product.price }/>
+                            <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { thisProduct.price }/>
                             <div className = 'item-page-shipment-container'>
                                 <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
                                 <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
@@ -92,18 +100,22 @@ const ItemPage = () => {
                                         disableDecr = {isNoneSelected}
                                         disableIncr = {capped}
                                         className = 'i-p-counter '
-                                        btnClassName = 'i-p-counter-button'
-                                        btnDisabledClassName = 'i-p-counter-button-disabled'
+                                        btnClassName = 'button-counter-default'
+                                        btnDisabledClassName = 'button-counter-default-disabled'
                                     />
                                     {
                                         !isNoneSelected &&
                                         <Price
                                             className = 'i-p-price-total'
                                             title = 'Сумма'
-                                            price = { '= ' + String(selected * product.price)}
+                                            price = { '= ' + String(selected * thisProduct.price)}
                                         />
                                     }
                                 </div>
+                                {
+                                    otherProductsCount > 0 && <span className = 'i-p-counter-info'>{`+ ${otherProductsCount} других продуктов`}</span>
+                                }
+                                
                             </div>
                             {/* <div className = 'item-page-action-buttons-container'>
                                 <Button
@@ -120,7 +132,7 @@ const ItemPage = () => {
                                     text = 'Заказать'
                                 />
                             </div> */}
-                            <p className = 'item-page-description'>{product.description}</p>
+                            <p className = 'item-page-description'>{thisProduct.description}</p>
                         </div>
                     </div>
                 </article>

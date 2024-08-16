@@ -61,10 +61,10 @@ function App() {
       <Footer/>
 
       <Modal
-            isActive = {isModalVisible}
-            content = {content}
-            onClose={() => {
-              // dispatch(setIsModalVisible(false));
+            isActive = { isModalVisible }
+            content = { content }
+            onBackgroundClick = {() => {
+              dispatch(setIsModalVisible(false));
             }}
         />
     </>

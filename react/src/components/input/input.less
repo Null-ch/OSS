@@ -1,17 +1,50 @@
 @import (less) './src/styles/common.less';
 
+.input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    gap: 2px;
+
+    input {
+        .input;
+    }
+}
+
+.input-container-error {
+    .input-container;
+
+    input {
+        border: 1px solid @red !important;
+    }
+
+    .input-abs-text {
+        color: @red !important;
+    }
+}
+
+.input-abs-text {
+    position: absolute;
+    bottom: -18px;
+    font-family: @mainregular, @fontdefault;
+    font-size: 16px;
+    color: @black;
+}
+
 .input {
     padding: 8px 16px;
     // width: 240px;
     border: 1px solid @black;
     background-color: @white;
     font-size: 18px;
+    background-color: white !important;
 
     &:focus {
-        border: 1px solid red;
-        background-color: white;
+
     }
 
     opacity: 85%;
     &:hover { opacity: 100%; }
 }
+

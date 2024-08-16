@@ -8,6 +8,8 @@ import debounce from '../../lib/utils';
 import Button from '../../components/buttons/Button';
 import { createOrder } from '../../store/orderSlice';
 // import { useGetDeliveriesQuery } from '../../store/query/deliveryApi';
+import { setIsModalVisible, setContent } from '../../store/modalSlice';
+import Confirm from '../../components/confirm/Confirm';
 
 function localGet(key) {
     return localStorage.getItem(key);
@@ -19,8 +21,8 @@ function localSet(key, value) {
 
 const delay = 300;
 
-function isEmpty(str) {
-    return str == '';
+function isEmpty(str = '') {
+    return str === '';
 }
 
 const CreateOrder = () => {
@@ -30,18 +32,28 @@ const CreateOrder = () => {
     const deliveryList = useSelector(state => state.delivery.list);
     const cart = useSelector(state => state.cart); // dict
 
-    const [name, setName] = useState(localGet('oss-user-name') || '');
-    const [lastname, setLastname] = useState(localGet('oss-user-lastname') || '');
-    const [middlename, setMiddlename] = useState(localGet('oss-user-middlename') || '');
-    const [email, setEmail] = useState(localGet('oss-user-email') || '');
-    const [phone, setPhone] = useState(localGet('oss-user-phone') || '');
-    const [delivery, setDelivery] = useState(localGet('oss-order-delivery') || '');
-    const [address, setAddress] = useState(localGet('oss-order-address') || '');
+    const defaultError = 'Заполните поле';
 
+    const [lastname, setLastname] = useState(localGet('oss-user-lastname') || '');
+    const [isLastnameError, setIsLastnameError] = useState(false);
+    const [name, setName] = useState(localGet('oss-user-name') || '');
+    const [isNameError, setIsNameError] = useState(false);
+    const [middlename, setMiddlename] = useState(localGet('oss-user-middlename') || '');
+    const [isMiddlenameError, setIsMiddlenameError] = useState(false);
+    const [email, setEmail] = useState(localGet('oss-user-email') || '');
+    const [isEmailError, setIsEmailError] = useState(false);
+    const [phone, setPhone] = useState(localGet('oss-user-phone') || '');
+    const [isPhoneError, setIsPhoneError] = useState(false);
+    const [delivery, setDelivery] = useState(localGet('oss-order-delivery') || '');
+    const [isDeliveryError, setIsDeliveryError] = useState(false);
+    const [address, setAddress] = useState(localGet('oss-order-address') || '');
+    const [isAddressError, setIsAddressError] = useState(false);
+    
     // USER DATA
     function onLastnameChange(e) {
         const lastname = e.target.value || '';
         setLastname(lastname);
+        setIsLastnameError(false);
         debounce(() => {
             localSet('oss-user-lastname', lastname);
         }, delay, 'lastname');
@@ -50,6 +62,7 @@ const CreateOrder = () => {
     function onNameChange(e) {
         const name = e.target.value || '';
         setName(name);
+        setIsNameError(false);
         debounce(() => {
             localSet('oss-user-name', name);
         }, delay, 'name');
@@ -58,6 +71,7 @@ const CreateOrder = () => {
     function onMiddlenameChange(e) {
         const middlename = e.target.value || '';
         setMiddlename(middlename);
+        setIsMiddlenameError(false);
         debounce(() => {
             localSet('oss-user-middlename', middlename);
         }, delay, 'middlename');
@@ -67,6 +81,7 @@ const CreateOrder = () => {
     function onEmailChange(e) {
         const email = e.target.value || '';
         setEmail(email);
+        setIsEmailError(false);
         debounce(() => {
             localSet('oss-user-email', email);
         }, delay, 'email');
@@ -75,6 +90,7 @@ const CreateOrder = () => {
     function onPhoneChange(e) {
         const phone = e.target.value || '';
         setPhone(phone);
+        setIsPhoneError(false);
         debounce(() => {
             localSet('oss-user-phone', phone);
         }, delay, 'phone');
@@ -83,6 +99,7 @@ const CreateOrder = () => {
     function onAddressChange(e) {
         const address = e.target.value || '';
         setAddress(address);
+        setIsAddressError(false);
         debounce(() => {
             localSet('oss-order-address', address);
         }, delay, 'address');
@@ -90,14 +107,22 @@ const CreateOrder = () => {
 
     function onDeliveryChange(e) {
         setDelivery(e.target.value || '');
+        setIsDeliveryError(false);
     }
 
-    function onCreateOrder() {
+    function validate() {
         const delivery_id = deliveryDict[delivery];
+
+        setIsLastnameError(isEmpty(lastname));
+        setIsNameError(isEmpty(name));
+        setIsMiddlenameError(isEmpty(middlename));
+        setIsEmailError(isEmpty(email));
+        setIsPhoneError(isEmpty(phone));
+        setIsDeliveryError(!delivery_id);
+        setIsAddressError(isEmpty(address));
+
         if (delivery_id && !isEmpty(name) && !isEmpty(lastname) && !isEmpty(middlename) && !isEmpty(phone) && !isEmpty(email) && !isEmpty(address)) {
-            console.log('OK? ok.');
-            console.log(cart)
-            dispatch(createOrder({
+            return {
                 cart_id: cart.id,
                 delivery_service_id: delivery_id,
                 shipping: {
@@ -111,10 +136,26 @@ const CreateOrder = () => {
                     email,
                     phone,
                 }
-            }))
+            }
         }
+    }
 
-
+    function onCreateOrder() {
+        const data = validate();
+        if (!data) return;
+        console.log('OK? ok.');
+        dispatch(setIsModalVisible(true));
+        dispatch(setContent(<Confirm
+            header = 'Оформить заказ?'
+            okText = 'Оформить'
+            onOk = {() => {
+                dispatch(createOrder(data));
+                dispatch(setIsModalVisible(false));
+            }}
+            onClose = {() => {
+                dispatch(setIsModalVisible(false));
+            }}
+        />));
     }
 
     const deliveryInputList = [];
@@ -139,22 +180,22 @@ const CreateOrder = () => {
                     <div className = 'o-p-user-data'>
                         <Input
                             value = {lastname}
+                            error = { isLastnameError && defaultError }
                             placeholder = 'Фамилия'
-                            type = 'text'
                             onChange = {onLastnameChange}
                             index = {1}
                         />
                         <Input
                             value = {name}
+                            error = { isNameError && defaultError }
                             placeholder = 'Имя'
-                            type = 'text'
                             onChange = {onNameChange}
                             index = {2}
                         />
                         <Input
                             value = {middlename}
+                            error = { isMiddlenameError && defaultError }
                             placeholder = 'Отчество'
-                            type = 'text'
                             onChange = {onMiddlenameChange}
                             index = {3}
                         />
@@ -164,17 +205,19 @@ const CreateOrder = () => {
                     <div className = 'o-p-contacts'>
                         <Input 
                             value = {email}
+                            error = { isEmailError && defaultError }
                             placeholder = 'example@email.ru'
                             type = 'email'
                             onChange = {onEmailChange}
-                            index = {1}
+                            index = {4}
                         />
                         <Input
                             value = { phone }
+                            error = { isPhoneError && defaultError }
                             placeholder = '+7'
                             type = 'phone'
                             onChange = {onPhoneChange}
-                            index = {2}
+                            index = {5}
                         />
                     </div>
 
@@ -182,16 +225,16 @@ const CreateOrder = () => {
                     <div className = 'o-p-shipment'>
                         <Input 
                             placeholder = 'Способ доставки'
-                            type = 'text'
-                            index = {1}
+                            error = { isDeliveryError && defaultError }
+                            index = {6}
                             onChange = { onDeliveryChange }
                             inputList = { deliveryInputList }
                         />
                         <Input
                             value = { address }
+                            error = { isAddressError && defaultError }
                             placeholder = 'Адрес'
-                            type = 'text'
-                            index = {2}
+                            index = {7}
                             onChange = { onAddressChange }
                         />
                     </div>
@@ -200,10 +243,19 @@ const CreateOrder = () => {
                         <Button
                             // route = '/order'
                             disabled = {false}
-                            className = 'o-p-checkout'
+                            className = 'button-default-hover'
                             title = 'Оформить'
                             text = 'Оформить'
                             onClick = {onCreateOrder}
+                        />
+
+                        <Button
+                            // route = '/order'
+                            disabled = {false}
+                            className = 'button-default-hover'
+                            title = 'Отмена'
+                            text = 'Отмена'
+                            // onClick = {onCreateOrder}
                         />
                     </div>
                 </div>

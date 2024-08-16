@@ -7,6 +7,7 @@
 @white: #f7f7f7;
 @black: #333333;
 @grey: #c8c8c8;
+@red: red;
 
 @mainlight: 'centro-sans-pro-light';
 @mainthin: 'centro-sans-pro-thin';
@@ -29,6 +30,126 @@ body {
 
 html {
     scrollbar-width: none !important;
+}
+
+.button-default {
+    .pointer();
+    padding: 4px 24px;
+    // width: 144px;
+    align-self: center;
+    color: @white;
+    background-color: @black;
+    font-family: @mainlight, @fontdefault;
+    text-align: center;
+    font-size: 18px;
+    outline: 1px solid #ccc;
+    border: none;
+    opacity: 75%;
+}
+
+.button-default-hover {
+    .button-default;
+    &:hover {
+        opacity: 100%;
+    }
+}
+
+.button-default-underline-hover {
+    .button-default-hover;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    font-family: @mainlight, @fontdefault;
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.button-default-underline {
+    .button-default;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    font-family: @mainlight, @fontdefault;
+}
+
+.counter-button {
+    flex: 1;
+    border: none;
+    background-color: #333;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    span {
+        color: #fff;
+        font-weight: 400;
+        font-size: 24px;
+    }
+}
+
+.button-counter-default {
+    .counter-button;
+    cursor: pointer;
+    opacity: 75%;
+    &:hover {
+        opacity: 100%;
+    }
+}
+
+.button-counter-default-disabled {
+    .counter-button;
+    opacity: 50%;
+    cursor: no-drop;
+}
+
+.popup-default-x {
+    top: 8px;
+    right: 8px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.popup-container-default {
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    width: 300px;
+    // height: 100px;
+    background-color: @white;
+    border: 1px solid @black;
+    padding: 16px;
+    gap: 16px;
+}
+
+.popup-header-default {
+    font-family: @mainregular, @fontdefault;
+    font-size: 18px;
+}
+
+.popup-text-default {
+    font-family: @mainregular, @fontdefault;
+    font-size: 18px;
+}
+
+.popup-buttons-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.modal-default {
+    background-color: #33333366;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 @media (max-width: 750px) {
