@@ -105,17 +105,17 @@ class CartService implements CartInterface
             $cartsQuery = $this->cart::where(function ($query) use ($userId, $sessionId) {
                 $query->where(function ($query) use ($userId, $sessionId) {
                     $query->whereNotNull('order_id')
-                          ->whereHas('order', function ($query) {
-                              $query->whereNotIn('status', ['2', '3']);
-                          })
-                          ->orWhere('order_id', null);
+                        ->whereHas('order', function ($query) {
+                            $query->whereNotIn('status', ['2', '3']);
+                        })
+                        ->orWhere('order_id', null);
                 })
-                ->when($userId, function ($query, $userId) {
-                    return $query->where('user_id', $userId);
-                })
-                ->when($sessionId, function ($query, $sessionId) {
-                    return $query->where('session', $sessionId);
-                });
+                    ->when($userId, function ($query, $userId) {
+                        return $query->where('user_id', $userId);
+                    })
+                    ->when($sessionId, function ($query, $sessionId) {
+                        return $query->where('session', $sessionId);
+                    });
             });
             $cart = $cartsQuery->get()->first();
         } catch (\Exception $e) {
@@ -210,17 +210,17 @@ class CartService implements CartInterface
             $this->logger->error('Cart data not found in request.');
             return null;
         }
-
         try {
             $cartRequestData = $data['cart'];
             $cart = $this->getCart();
+            DB::beginTransaction();
             $this->cartProductService->clearingByCartId($cart->id);
             $cartData = $this->productService->checkAvailability($cartRequestData);
-
             if ($cartData['error']) {
+                DB::rollBack();
                 return $cartData;
             }
-
+            DB::commit();
             foreach ($cartRequestData as $key => $value) {
                 $productId = $value['id'];
                 $product = $this->product->find($productId);
@@ -233,8 +233,8 @@ class CartService implements CartInterface
             $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
         }
-        $cart->products;
-        return $cart;
+        $cartWithProducts = $this->getCartProducts();
+        return $cartWithProducts;
     }
 
     /**

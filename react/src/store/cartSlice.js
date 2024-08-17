@@ -1,13 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import {DOMAIN} from '../utils/url'
 import Cookies from 'js-cookie'
+import { getProduct } from "../lib/product"
 
 export const updateCartTry = createAsyncThunk('cart/updateCartTry',
     async({ id, quantity }, thunkAPI) => {
         const state = thunkAPI.getState();
         const cart = state.cart.cart
-        // console.log('updateCartTry')
-        // console.log(cart)
+        console.log('updateCartTry')
+        console.log(cart)
         const url = `${DOMAIN}api/public/cart/update`;
 
         let products = [];
@@ -18,8 +19,7 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
                 quantity: item.count,
            })
         }
-
-        // console.log(products)
+        console.log(id)
 
         const body = JSON.stringify({
             cart: products,
@@ -37,6 +37,23 @@ export const updateCartTry = createAsyncThunk('cart/updateCartTry',
         const res = await _res.json();
         console.log(url);
         console.log(res);
+
+        console.log(1)
+        // if (currentProduct) {
+        const product = getProduct(res?.data?.products, id);
+        console.log(2)
+
+        //     if (product) {
+        //         console.log('current product changed')
+        //         console.log(product)
+        //         state.currentProduct = product;
+        //     }
+        // }
+
+        // todo update currentProduct on ItemPage.jsx
+
+        console.log('updateCurrentProduct')
+        return product;
       },
 )
 
@@ -84,20 +101,23 @@ const cartSlice = createSlice({
     initialState: {
         id: undefined,
         cart: {},
+        currentProduct: undefined,
         isCartHidden: true,
     },
     reducers: {
+        setCurrentProduct(state, action) {
+            state.cart.currentProduct = action.payload;
+        },
         updateCartProducts(state, action) {
             console.log('[UI] updateCartProducts')
             // just UI
             let data = action.payload;
             let cart = state.cart;
             const { product, count } = data;
-            console.log(data)
+
             if (count || count === 0)  {
                 cart[product.id] = { product, count };
             } else {
-                console.log('delete')
                 delete cart[product.id]; // remove useless property
             }
             
@@ -132,8 +152,11 @@ const cartSlice = createSlice({
                 // console.log('updateCartTry.pending');
             })
             .addCase(updateCartTry.fulfilled, (state, action) => {
-                // console.log('updateCartTry.fulfilled');
-                // state.cart = cart;
+                console.log('updateCartTry.fulfilled');
+                console.log(action)
+                if (action.payload) {
+                    state.currentProduct = action.payload;
+                }
             })
             .addCase(getCart.pending, (state, action) => {
                 // console.log('getCart.pending');
@@ -146,7 +169,7 @@ const cartSlice = createSlice({
     },
 });
 
-export const { updateCartProducts, setCartHidden, clearCart } = cartSlice.actions;
+export const { updateCartProducts, setCartHidden, clearCart, setCurrentProduct } = cartSlice.actions;
 
 export default cartSlice.reducer; // формируется автоматически из набора reducers в срезе
 // эта сущность подключается в store через configureStore
