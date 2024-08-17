@@ -24,6 +24,7 @@
 }
 body {
   background: #f7f7f7;
+  background-color: red !important;
 }
 .semibold span {
   font-weight: 600;

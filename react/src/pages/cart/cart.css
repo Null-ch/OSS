@@ -34,6 +34,180 @@ body {
 html {
   scrollbar-width: none !important;
 }
+.button-default {
+  cursor: pointer;
+  padding: 4px 24px;
+  align-self: center;
+  color: #f7f7f7;
+  background-color: #333333;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  outline: 1px solid #ccc;
+  border: none;
+  opacity: 75%;
+}
+.button-default-hover {
+  cursor: pointer;
+  padding: 4px 24px;
+  align-self: center;
+  color: #f7f7f7;
+  background-color: #333333;
+  font-family: 'centro-sans-pro-light', sans-serif;
+  text-align: center;
+  font-size: 18px;
+  outline: 1px solid #ccc;
+  border: none;
+  opacity: 75%;
+}
+.button-default-hover:hover {
+  opacity: 100%;
+}
+.button-default-underline-hover {
+  cursor: pointer;
+  padding: 4px 24px;
+  align-self: center;
+  color: #f7f7f7;
+  background-color: #333333;
+  text-align: center;
+  font-size: 18px;
+  outline: 1px solid #ccc;
+  border: none;
+  opacity: 75%;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-family: 'centro-sans-pro-light', sans-serif;
+}
+.button-default-underline-hover:hover {
+  opacity: 100%;
+}
+.button-default-underline-hover:hover {
+  text-decoration: none;
+}
+.button-default-underline {
+  cursor: pointer;
+  padding: 4px 24px;
+  align-self: center;
+  color: #f7f7f7;
+  background-color: #333333;
+  text-align: center;
+  font-size: 18px;
+  outline: 1px solid #ccc;
+  border: none;
+  opacity: 75%;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  font-family: 'centro-sans-pro-light', sans-serif;
+}
+.counter-button {
+  flex: 1;
+  border: none;
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+}
+.counter-button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.button-counter-default {
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  flex: 1;
+  border: none;
+  background-color: #ffff;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 75%;
+}
+.button-counter-default span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.button-counter-default span {
+  color: #333333;
+  font-weight: 400;
+  font-size: 24px;
+}
+.button-counter-default:hover {
+  opacity: 100%;
+}
+.button-counter-default-disabled {
+  background-color: #333;
+  width: 40px;
+  height: 40px;
+  flex: 1;
+  border: none;
+  background-color: #ffff;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  opacity: 50%;
+  cursor: no-drop;
+}
+.button-counter-default-disabled span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.button-counter-default-disabled span {
+  color: #333333;
+  font-weight: 400;
+  font-size: 24px;
+}
+.popup-default-x {
+  top: 8px;
+  right: 8px;
+  position: absolute;
+  cursor: pointer;
+}
+.popup-container-default {
+  display: flex;
+  flex-direction: column;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: fixed;
+  width: 300px;
+  background-color: #f7f7f7;
+  border: 1px solid #333333;
+  padding: 16px;
+  gap: 16px;
+}
+.popup-header-default {
+  font-family: 'centro-sans-pro-regular', sans-serif;
+  font-size: 18px;
+}
+.popup-text-default {
+  font-family: 'centro-sans-pro-regular', sans-serif;
+  font-size: 18px;
+}
+.popup-buttons-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.modal-default {
+  background-color: #33333366;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 @media (max-width: 750px) {
   html {
     width: 100vw !important;
@@ -202,6 +376,9 @@ html {
   font-size: 24px;
 }
 .c-p-counter-button {
+  background-color: #333;
+  width: 40px;
+  height: 40px;
   flex: 1;
   border: none;
   background-color: #ffff;
@@ -213,6 +390,11 @@ html {
   opacity: 75%;
 }
 .c-p-counter-button span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
+}
+.c-p-counter-button span {
   color: #333333;
   font-weight: 400;
   font-size: 24px;
@@ -221,6 +403,9 @@ html {
   opacity: 100%;
 }
 .c-p-counter-button-disabled {
+  background-color: #333;
+  width: 40px;
+  height: 40px;
   flex: 1;
   border: none;
   background-color: #ffff;
@@ -230,6 +415,11 @@ html {
   justify-content: center;
   opacity: 50%;
   cursor: no-drop;
+}
+.c-p-counter-button-disabled span {
+  color: #fff;
+  font-weight: 400;
+  font-size: 24px;
 }
 .c-p-counter-button-disabled span {
   color: #333333;
