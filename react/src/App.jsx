@@ -8,7 +8,7 @@ import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer';
 import Modal from "./components/modal/Modal";
 import { setIsModalVisible } from './store/modalSlice';
-import { setCartHidden, getCart } from './store/cartSlice';
+import { setCartHidden, getCart, setCurrentProduct } from './store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import NotFound from "./pages/util/NotFound.jsx";
 import { Guid } from "js-guid";

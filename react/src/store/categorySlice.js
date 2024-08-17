@@ -13,29 +13,32 @@ const catSlice = createSlice({
         catProductStatus: STATUS.IDLE,
     },
     reducers: {
-        setCats(state, action){
+        setCats(state, action) {
             state.data = action.payload;
         },
-        setStatus(state, action){
+        setStatus(state, action) {
             state.status = action.payload;
         },
-        setCatProducts(state, action){
+        setCatProducts(state, action) {
             state.catProducts.push(action.payload);
         },
-        setCatProductsStatus(state, action){
+        setCatProductsStatus(state, action) {
             state.catProductsStatus = action.payload;
         },
-        setCatProduct(state, action){
+        setCatProduct(state, action) {
             state.catProduct = action.payload;
         },
-        setCatProductStatus(state, action){
+        setCatProductStatus(state, action) {
             state.catProductStatus = action.payload;
+        },
+        getCats(state, action) {
+            return state.data;
         }
     }
 })
 
-export const {setCats, setStatus, setCatProducts, setCatProductsStatus,
-    setCatProduct, setCatProductStatus} = catSlice.actions;
+export const { setCats, setStatus, setCatProducts, setCatProductsStatus,
+    setCatProduct, setCatProductStatus, getCats } = catSlice.actions;
 
 export default catSlice.reducer; // формируется автоматически из набора reducers в срезе
 // эта сущность подключается в store через configureStore
@@ -89,8 +92,3 @@ export const getProductsByCat = (catId, type) => {
         }
     }
 }
-
-
-
-
-

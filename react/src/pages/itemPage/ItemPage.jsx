@@ -1,54 +1,62 @@
-import {React, useState} from 'react';
+import { React, useState, useEffect } from 'react';
 import { useGetItemQuery } from '../../store/query/itemsApi';
 import './itemPage.css'
-import {DOMAIN} from '../../utils/url'
 import Counter from '../../components/counter/Counter';
 import Button from '../../components/buttons/Button';
-// import NotFound from '../util/NotFound';
-import {useParams, Link} from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import Price from '../../components/util/Price';
-import { BRAND } from '../../utils/constants';
 import { updateCartProducts, updateCartTry } from '../../store/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import debounce from './../../lib/utils'
+import { updateTabTitle } from '../../lib/tab';
+import { getCategory } from '../../lib/category';
+import { path } from '../../lib/path';
 
 // window.localStorage.clear();
 
 const ItemPage = () => {
-    // общее хранилище со всеми продуктами, либо сбор всех и кеширование
-    const { id } = useParams(); // Object с полями перечисленными в этом эндпоинте
+    console.log('ItemPage')
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const categories = useSelector(state => state.category.data);
+    const cart_products = useSelector(state => state.cart.cart);
+    const { data = {}, isLoading } = useGetItemQuery(id);
 
-    const { data = [], isLoading } = useGetItemQuery(id);
-    const thisProduct = data.data || {};
+    let currentProduct = useSelector(state => state.cart.currentProduct) || {};
+    if (currentProduct && currentProduct.id != id) {
+        currentProduct = data.data || {}
+    }
 
-    document.title = thisProduct?.title ? BRAND + ' ' + thisProduct.title : BRAND;
+    const { price, description, quantity: left, title, preview_image } = currentProduct;
+
+    updateTabTitle(title);
+
+    let category = getCategory(categories, currentProduct?.category_id);
 
     let otherProductsCount = 0;
     let selected = 0;
-    const cart_products = useSelector(state => state.cart.cart);
 
     for (let key in cart_products) {
         const cart_product = cart_products[key];
         const product = cart_product.product;
-        if (product.id == thisProduct.id) continue;
+        if (product.id == id) continue;
         otherProductsCount += cart_product.count;
     }
-    if (cart_products && thisProduct) {
-        let p = cart_products[thisProduct.id] || {};
+
+    if (cart_products && currentProduct) {
+        let p = cart_products[id] || {};
         selected = p.count || selected;
     }
 
-    const total = (thisProduct?.quantity || 0) + selected;
-
-    const dispatch = useDispatch();
-    const updateCart = (v) => dispatch(updateCartProducts(v));
+    const total = (left || 0) + selected;
+    const isNoneSelected = selected < 1;
+    const capped = left < 1;
 
     function updateCount(count) {
-        updateCart({ count, product: thisProduct }); // visual
-        
+        dispatch(updateCartProducts({ count, product: currentProduct })) // visual
         debounce(() => {
-            dispatch(updateCartTry({ id: thisProduct.id, quantity: count })); // request
-        }, 1000, 'updateCartTry')
+            dispatch(updateCartTry({ id, quantity: count })); // request
+        }, 500, 'updateCartTry');
     }
 
     // todo test
@@ -60,32 +68,26 @@ const ItemPage = () => {
         updateCount(Math.max(0, Math.min(Number(selected) + incr, total)));
     }
 
-    const isNoneSelected = selected < 1;
-    const capped = selected === total;
-
-    const category = thisProduct?.category;
-    const to = category && '/products/category/' + category.id;
-
     return (
         <div>
             {/* {isLoading ? <h1>Loading...</h1> : ''} */}
-            {thisProduct &&
+            {currentProduct &&
                 <article className = 'item-page'>
                     <div className = 'i-p-preview-container'> 
-                        <img className = 'i-p-preview' src = {`${DOMAIN}${thisProduct?.preview_image}`}/>
+                        <img className = 'i-p-preview' src = { path(preview_image) }/>
                     </div>
                 
                     <div className = 'i-p-info-container'>
                         <div className = 'i-p-info'>
                             <div className = 'item-page-title-container'>
                                 <span className = 'item-page-brand'>SAMPLE-TEXT</span>
-                                <h1 className = 'item-page-title' title = 'Название продукта'>{thisProduct.title}</h1>
+                                <h1 className = 'item-page-title' title = 'Название продукта'>{title}</h1>
                                 {
                                     category &&
-                                    <Link to = {to} title = 'Категория продукта' className = 'i-p-category-link'>{category.title}</Link>
+                                    <Link to = { category && '/products/category/' + category.id } title = 'Категория продукта' className = 'i-p-category-link'>{ category.title }</Link>
                                 }
                             </div>
-                            <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { thisProduct.price }/>
+                            <Price className = 'i-p-price' title = 'Цена за 1шт.' price = { price }/>
                             <div className = 'item-page-shipment-container'>
                                 <a className = 'item-page-shipment-link' href = '#'>Доставка</a>
                                 <span className = 'item-page-shipment-info'>рассчитывается отдельно</span>
@@ -94,27 +96,30 @@ const ItemPage = () => {
                                 <span className = 'i-p-counter-info'>В корзине:</span>
                                 <div className = 'item-page-counter-container'>
                                     <Counter
-                                        value = {selected}
-                                        onIncrement = {onIncrement}
-                                        onChangeInput = {updateCount}
-                                        disableDecr = {isNoneSelected}
-                                        disableIncr = {capped}
+                                        value = { selected }
+                                        onIncrement = { onIncrement }
+                                        onChangeInput = { updateCount }
+                                        disableDecr = { isNoneSelected }
+                                        disableIncr = { capped }
                                         className = 'i-p-counter '
                                         btnClassName = 'button-counter-default'
                                         btnDisabledClassName = 'button-counter-default-disabled'
                                     />
-                                    {
-                                        !isNoneSelected &&
-                                        <Price
-                                            className = 'i-p-price-total'
-                                            title = 'Сумма'
-                                            price = { '= ' + String(selected * thisProduct.price)}
-                                        />
-                                    }
+                                    <div>
+                                        {
+                                            !isNoneSelected &&
+                                            <Price
+                                                className = 'i-p-price-total'
+                                                title = 'Сумма'
+                                                price = { '= ' + String(selected * price)}
+                                            />
+                                        }
+                                        {
+                                            otherProductsCount > 0 && <span className = 'i-p-counter-info'>{`+ ${otherProductsCount} других продуктов`}</span>
+                                        }
+                                    </div>
                                 </div>
-                                {
-                                    otherProductsCount > 0 && <span className = 'i-p-counter-info'>{`+ ${otherProductsCount} других продуктов`}</span>
-                                }
+                                <span className = 'i-p-counter-info'>{`осталось ${left} шт.`}</span>
                                 
                             </div>
                             {/* <div className = 'item-page-action-buttons-container'>
@@ -132,7 +137,7 @@ const ItemPage = () => {
                                     text = 'Заказать'
                                 />
                             </div> */}
-                            <p className = 'item-page-description'>{thisProduct.description}</p>
+                            <p className = 'item-page-description'>{description}</p>
                         </div>
                     </div>
                 </article>
