@@ -48,7 +48,7 @@ class YooKassa implements PaymentInterface
             ],
             'confirmation' => [
                 'type' => 'redirect',
-                'return_url' => env("APP_URL") . 'api/public/order/success',
+                'return_url' => env("APP_URL") . 'api/public/order/complete',
             ],
             'description' => $order->id,
             'test' => true,
