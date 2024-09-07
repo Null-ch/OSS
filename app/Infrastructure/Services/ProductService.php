@@ -80,6 +80,7 @@ class ProductService implements ProductInterface
 
         try {
             $product = $this->product::findOrFail($id);
+            $product->images;
         } catch (\Exception $e) {
             $this->logger->error("{$e->getMessage()}" . $e->getTrace());
             return null;
