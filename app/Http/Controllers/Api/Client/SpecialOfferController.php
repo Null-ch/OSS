@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
 use App\Infrastructure\Services\ResponseService;
-use App\Services\Api\Client\ClientCategoryService;
 use App\Services\Api\Client\ClientSpecialOfferService;
 
-class CategoryController extends Controller
+class SpecialOfferController extends Controller
 {
     protected $specialOffer;
     protected $responseService;

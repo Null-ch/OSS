@@ -60,13 +60,12 @@ Route::prefix('public')->group(function () {
     Route::prefix('order')->group(function () {
         Route::post('/create', [App\Http\Controllers\Api\Client\OrderController::class, 'createOrder'])->name('client.order.create');
         Route::post('/cancel/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'cancelOrder'])->name('client.order.cancel');
-        Route::post('/complete/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'orderComplete'])->name('client.order.complete');
+        Route::post('/success/{id}', [App\Http\Controllers\Api\Client\OrderController::class, 'setPaid'])->name('client.order.paid');
     });
 
     Route::prefix('special-offer')->group(function () {
-        Route::get('/', [App\Http\Controllers\Api\Client\CategoryController::class, 'index'])->name('client.special.offer.index');
-        Route::get('/show/{id}', [App\Http\Controllers\Api\Client\CategoryController::class, 'show'])->name('client.special.offer.show');
-        Route::get('/{id}/products', [App\Http\Controllers\Api\Client\CategoryController::class, 'getProducts'])->name('client.special.offer.show.all');
+        Route::get('/', [App\Http\Controllers\Api\Client\SpecialOfferController::class, 'index'])->name('client.special.offer.index');
+        Route::get('/show/{id}', [App\Http\Controllers\Api\Client\SpecialOfferController::class, 'show'])->name('client.special.offer.show');
     });
 
     Route::prefix('delivery')->group(function () {

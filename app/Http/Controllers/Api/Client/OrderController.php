@@ -72,13 +72,13 @@ class OrderController extends Controller
     }
 
     /**
-     * Method orderComplete
+     * Method setPaid
      *
      * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function orderComplete(int $id)
+    public function setPaid(int $id)
     {
         $responseData = $this->orderService->orderComplete($id);
         $response = $this->responseService->getResponse($responseData);
